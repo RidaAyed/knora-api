@@ -63,7 +63,7 @@
 <dt>In the following sections, the available V2 API operations are described:</dt>
 <dd><ul class="first last simple">
 <li><a class="reference internal" href="knora-iris.html#knora-iris-v2"><span class="std std-ref">Knora IRIs</span></a>: Information about conventions applied to create Knora IRIs.</li>
-<li><a class="reference internal" href="ontology-information.html#querying-and-creating-ontologies-v2"><span class="std std-ref">Querying, creating, and updating Ontologies</span></a>: Information about how to query, create, or modify ontologies.</li>
+<li><a class="reference internal" href="ontology-information.html#querying-and-creating-ontologies-v2"><span class="std std-ref">Querying, Creating, and Updating Ontologies</span></a>: Information about how to query, create, or modify ontologies.</li>
 <li><a class="reference internal" href="reading-and-searching-resources.html#reading-and-searching-resources-v2"><span class="std std-ref">Reading and Searching Resources</span></a>: Get a resource by its IRI or search for resources by providing search criteria.</li>
 <li><a class="reference internal" href="knarql-syntax.html#knarql-syntax-v2"><span class="std std-ref">KnarQL: Knora Query Language</span></a>: Information about using the Knora Query Language KnarQL to perform an extended search.</li>
 </ul>
@@ -86,7 +86,7 @@
 <div class="section" id="api-schema">
 <h2>API Schema<a class="headerlink" href="#api-schema" title="Permalink to this headline">¶</a></h2>
 <p>Knora API V2 offers the query and response format in a complex schema and a simple one. The main difference is that the complex schema exposes the complexity of value objects, while the simple version does not. A client that needs to edit values must use the complex schema in order to obtain the IRI of each value. A client that reads but does not update data can use the simplified schema.</p>
-<p>In either case, the client deals only with data whose structure and semantics are defined by Knora API ontologies, which are distinct from the ontologies that are used to store date in the triplestore. The Knora API server automatically converts back and forth between these internal and external representations. This approach encapsulates the internals and adds a layer of abstraction to them. The client will be able to use content negotiation to specify its preferred exchange format. For more information, see <a class="reference internal" href="ontology-information.html#querying-and-creating-ontologies-v2"><span class="std std-ref">Querying, creating, and updating Ontologies</span></a>.</p>
+<p>In either case, the client deals only with data whose structure and semantics are defined by Knora API ontologies, which are distinct from the ontologies that are used to store date in the triplestore. The Knora API server automatically converts back and forth between these internal and external representations. This approach encapsulates the internals and adds a layer of abstraction to them. The client will be able to use content negotiation to specify its preferred exchange format. For more information, see <a class="reference internal" href="ontology-information.html#querying-and-creating-ontologies-v2"><span class="std std-ref">Querying, Creating, and Updating Ontologies</span></a>.</p>
 </div>
 <div class="section" id="knora-iris">
 <h2>Knora IRIs<a class="headerlink" href="#knora-iris" title="Permalink to this headline">¶</a></h2>
@@ -110,7 +110,7 @@ Accordingly, requests using any other version of the API will require another pa
 <li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../knora-ontologies/index.html">The Knora Ontologies</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">The Knora API Server</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../deployment/index.html">Deploying the Knora API Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/index.html">Getting started</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../design-documentation/index.html">Knora API Server Design Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../development/index.html">Developing the Knora API Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_v1/index.html">Using API V1</a></li>
@@ -157,7 +157,7 @@ Accordingly, requests using any other version of the API will require another pa
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
     </div>
         </div>
         <div class="clearer"></div>

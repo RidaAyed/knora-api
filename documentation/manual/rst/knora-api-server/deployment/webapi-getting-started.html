@@ -27,7 +27,7 @@
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Using HTTPS in the Knora API Server" href="webapi-https.html" />
-    <link rel="prev" title="Deploying the Knora API Server" href="index.html" /> 
+    <link rel="prev" title="Getting started" href="index.html" /> 
   </head>
   <body role="document">
     <div class="header-wrapper" role="banner">
@@ -35,7 +35,7 @@
         <div class="headertitle"><a
           href="../../index.html">Knora 0.1 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
-          <a href="index.html" title="Deploying the Knora API Server"
+          <a href="index.html" title="Getting started"
              accesskey="P">previous</a> |
           <a href="webapi-https.html" title="Using HTTPS in the Knora API Server"
              accesskey="N">next</a> |
@@ -114,12 +114,25 @@ GraphDB installation, and restart GraphDB.</p>
 </div>
 <div class="section" id="creating-a-test-installation">
 <h2>Creating a Test Installation<a class="headerlink" href="#creating-a-test-installation" title="Permalink to this headline">¶</a></h2>
-<p>TODO: write subsections like this:</p>
-<ul class="simple">
-<li>Download the Knora API Server and Sipi from GitHub</li>
-<li>Configure</li>
-<li>Run</li>
-</ul>
+<div class="section" id="run-a-supported-triplestore">
+<h3>Run a supported triplestore<a class="headerlink" href="#run-a-supported-triplestore" title="Permalink to this headline">¶</a></h3>
+<p>See the chapters on <a class="reference internal" href="../development/graphdb.html#starting-graphdb"><span class="std std-ref">Starting GraphDB</span></a> and <a class="reference internal" href="../development/fuseki.html#starting-fuseki"><span class="std std-ref">Starting Fuseki 3</span></a> on how to start a supported triplestore.</p>
+</div>
+<div class="section" id="creating-and-running-the-webapi-server-distribution-package">
+<h3>Creating and running the WEBAPI Server distribution package<a class="headerlink" href="#creating-and-running-the-webapi-server-distribution-package" title="Permalink to this headline">¶</a></h3>
+<p>To create a deployment package for the WEBAPI Server, please run
+from inside the <code class="docutils literal"><span class="pre">knora/webapi</span></code> folder the following commands:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ sbt stage
+$ cd target/universal/stage
+$ ./bin/webapi
+</pre></div>
+</div>
+</div>
+<div class="section" id="downloading-and-running-sipi">
+<h3>Downloading and running SIPI<a class="headerlink" href="#downloading-and-running-sipi" title="Permalink to this headline">¶</a></h3>
+<p>Download SIPI from <a class="reference external" href="https://github.com/dhlab-basel/Sipi">SIPI</a> and install from source by following the <a class="reference external" href="https://dhlab-basel.github.io/Sipi/documentation/index.html">SIPI_Manual</a>. For running and setting up SIPI
+for Knora, please refer to <a class="reference internal" href="../../sipi/index.html#sipi"><span class="std std-ref">Sipi</span></a>.</p>
+</div>
 </div>
 <div class="section" id="transforming-data-when-ontologies-change">
 <h2>Transforming Data When Ontologies Change<a class="headerlink" href="#transforming-data-when-ontologies-change" title="Permalink to this headline">¶</a></h2>
@@ -179,6 +192,12 @@ Use with care as it will add permissions that where not there before.</dd>
 <p>The program uses the Turtle parsing and formatting library from <a class="reference external" href="http://rdf4j.org/">RDF4J</a>. Additional transformations can
 be implemented as subclasses of <code class="docutils literal"><span class="pre">org.eclipse.rdf4j.rio.RDFHandler</span></code>.</p>
 </div>
+<div class="section" id="selectively-disabling-routes">
+<h2>Selectively Disabling Routes<a class="headerlink" href="#selectively-disabling-routes" title="Permalink to this headline">¶</a></h2>
+<p>In <code class="docutils literal"><span class="pre">application.conf</span></code> the setting <code class="docutils literal"><span class="pre">app.routes-to-reject</span></code> contains a list of strings, representing
+routes which should be rejected.</p>
+<p>For Example, the string <code class="docutils literal"><span class="pre">&quot;v1/users&quot;</span></code> would lead to rejection of any route which contains this string.</p>
+</div>
 </div>
 
 
@@ -192,7 +211,7 @@ be implemented as subclasses of <code class="docutils literal"><span class="pre"
 <li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../knora-ontologies/index.html">The Knora Ontologies</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">The Knora API Server</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Deploying the Knora API Server</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Getting started</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../design-documentation/index.html">Knora API Server Design Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../development/index.html">Developing the Knora API Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_v1/index.html">Using API V1</a></li>
@@ -221,7 +240,7 @@ be implemented as subclasses of <code class="docutils literal"><span class="pre"
       <div class="footer">
         <div class="left">
           <div role="navigation" aria-label="related navigaton">
-            <a href="index.html" title="Deploying the Knora API Server"
+            <a href="index.html" title="Getting started"
               >previous</a> |
             <a href="webapi-https.html" title="Using HTTPS in the Knora API Server"
               >next</a> |
@@ -239,7 +258,7 @@ be implemented as subclasses of <code class="docutils literal"><span class="pre"
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
     </div>
         </div>
         <div class="clearer"></div>
