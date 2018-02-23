@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Testing &#8212; Knora 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Docker Cheat Sheet" href="docker-cheat-sheet.html" />
+    <link rel="prev" title="Documentation Guidelines" href="documentation.html" /> 
+  </head>
+  <body role="document">
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../../index.html">Knora 0.1 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="documentation.html" title="Documentation Guidelines"
+             accesskey="P">previous</a> |
+          <a href="docker-cheat-sheet.html" title="Docker Cheat Sheet"
+             accesskey="N">next</a> |
+          <a href="../../../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="testing">
+<h1>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
+<p>Prerequisite: Before running any tests, a supported triplestore needs to be started and initialized through
+a script inside the &#8220;scripts&#8221; folder. For example, when using &#8220;GraphDB Free&#8221;, the nedded script is
+&#8220;graphdb-free-init-knora-test-unit.sh&#8221;. Please note the occurrence of &#8220;test-unit&#8221; in the name of the script.</p>
+<div class="section" id="how-to-write-unit-tests">
+<h2>How to Write Unit Tests<a class="headerlink" href="#how-to-write-unit-tests" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Inside a test, at the beginning, add the following (change the paths
+to the test data as needed):</li>
+</ol>
+<div class="highlight-default"><div class="highlight"><pre><span></span>val rdfDataObjects = List (
+       RdfDataObject(path = &quot;_test_data/responders.v1.ValuesResponderV1Spec/incunabula-data.ttl&quot;, name = &quot;http://www.knora.org/data/incunabula&quot;)
+)
+
+&quot;Load test data&quot; in {
+    storeManager ! ResetTriplestoreContent(rdfDataObjects)
+    expectMsg(300.seconds, ResetTriplestoreContentACK())
+
+    responderManager ! LoadOntologiesRequest(SharedTestDataV1.rootUser)
+    expectMsg(10.seconds, LoadOntologiesResponse())
+}
+</pre></div>
+</div>
+<p>These tests should be stored inside the <code class="docutils literal"><span class="pre">src/test</span></code> folder hierarchy.</p>
+<ol class="arabic simple" start="2">
+<li>Call the test from SBT:</li>
+</ol>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sbt</span><span class="p">:</span><span class="n">webapi</span><span class="o">&gt;</span> <span class="n">test</span> <span class="o">//</span> <span class="n">when</span> <span class="n">using</span> <span class="n">a</span> <span class="n">GraphDB</span><span class="o">-</span><span class="n">SE</span> <span class="ow">or</span> <span class="n">GraphDB</span><span class="o">-</span><span class="n">Free</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-to-write-integration-tests">
+<h2>How to Write Integration Tests<a class="headerlink" href="#how-to-write-integration-tests" title="Permalink to this headline">¶</a></h2>
+<p>The only difference between Integration and Unit tests is the location where they are stored and the way how
+they are called:</p>
+<ol class="arabic simple">
+<li>Store tests inside the <code class="docutils literal"><span class="pre">src/it</span></code> folder hierarchy.</li>
+<li>Call the tests from SBT: <code class="docutils literal"><span class="pre">sbt:webapi&gt;</span> <span class="pre">it:test</span></code></li>
+</ol>
+</div>
+<div class="section" id="how-to-write-performance-simulation-tests">
+<h2>How to Write Performance / Simulation Tests<a class="headerlink" href="#how-to-write-performance-simulation-tests" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Store the performance and simulation tests inside the <code class="docutils literal"><span class="pre">src/test</span></code> and the <code class="docutils literal"><span class="pre">src/it</span></code> folder hierarchy.</li>
+<li>To call them, execute either <code class="docutils literal"><span class="pre">gatling:test</span></code> or <code class="docutils literal"><span class="pre">gatling-it:test</span></code> from inside SBT.</li>
+</ol>
+<p>Bellow is an example of an simulation calling the <code class="docutils literal"><span class="pre">/admin/users</span></code> endpoint. The simulation ramps up 1000 users
+over 5 seconds, all accessing the <code class="docutils literal"><span class="pre">/admin/users</span></code> endpoint.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>/*
+ * Copyright © 2015-2018 Lukas Rosenthaler, Benjamin Geer, Ivan Subotic,
+ * Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
+ * This file is part of Knora.
+ * Knora is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * Knora is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ * You should have received a copy of the GNU Affero General Public
+ * License along with Knora.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
+ */
+
+package org.knora.webapi.e2e
+
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
+import org.knora.webapi.E2ESimSpec
+import org.knora.webapi.messages.store.triplestoremessages.RdfDataObject
+
+import scala.concurrent.duration._
+
+/**
+  * Example Simulation Scenario:
+  *
+  * This simulation scenario accesses the users endpoint with
+  * 1000 users concurrently.
+  * */
+class ExampleE2ESimSpec extends E2ESimSpec {
+
+    override val rdfDataObjects: Seq[RdfDataObject] = Seq.empty[RdfDataObject]
+
+    val protobolBuilder = http
+            .baseURL(&quot;http://localhost:3333&quot;)
+
+    val users = scenario(&quot;Users&quot;)
+            .exec(
+                http(&quot;Get all users&quot;)
+                .get(&quot;/admin/users&quot;)
+                .check(status.is(200))
+            )
+
+    val injections = Seq(rampUsers(1000) over 5.seconds)
+
+    val assertions = Seq(
+        global.responseTime.mean.lt(800)
+        , forAll.failedRequests.count.lt(1)
+    )
+
+    setUp(
+        users.inject(injections).protocols(protobolBuilder)
+    ).assertions(assertions)
+
+}
+
+
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../00-release-notes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../01-introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../02-knora-ontologies/index.html">The Knora Ontologies</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">The Knora API Server</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../deployment/index.html">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../design-documentation/index.html">Knora API Server Design Documentation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Developing the Knora API Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_v1/index.html">Using API V1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_v2/index.html">Using API V2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../04-salsah/index.html">SALSAH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../05-sipi/index.html">Sipi</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../../../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+            </form>
+          </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="documentation.html" title="Documentation Guidelines"
+              >previous</a> |
+            <a href="docker-cheat-sheet.html" title="Docker Cheat Sheet"
+              >next</a> |
+            <a href="../../../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="../../../_sources/rst/03-knora-api-server/development/testing.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2015, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

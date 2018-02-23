@@ -120,7 +120,10 @@ $ sbt
 <div class="section" id="sbt-build-configuration">
 <h2>SBT Build Configuration<a class="headerlink" href="#sbt-build-configuration" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span>import sbt._
-import NativePackagerHelper._
+import sbt.Keys.{licenses, mainClass, mappings, _}
+import spray.revolver.RevolverPlugin._
+import com.typesafe.sbt.SbtNativePackager.autoImport._
+import com.typesafe.sbt.packager.MappingsHelper.{contentOf, directory}
 
 lazy val salsah = (project in file(&quot;.&quot;)).
         configs(
@@ -150,8 +153,6 @@ lazy val salsah = (project in file(&quot;.&quot;)).
             mappings in Universal ++= {
                 // copy the public folder
                 directory(&quot;src/public&quot;) ++
-                // copy the configuration files to config directory
-                contentOf(&quot;configs&quot;).toMap.mapValues(&quot;config/&quot; + _) ++
                 // copy configuration files to config directory
                 contentOf(&quot;src/main/resources&quot;).toMap.mapValues(&quot;config/&quot; + _)
             },
@@ -168,7 +169,7 @@ lazy val salsahCommonSettings = Seq(
     organization := &quot;org.knora&quot;,
     name := &quot;salsah&quot;,
     version := &quot;0.1.0&quot;,
-    scalaVersion := &quot;2.12.4&quot;
+    scalaVersion := &quot;2.11.7&quot;
 )
 
 lazy val javaRunOptions = Seq(
@@ -196,8 +197,8 @@ lazy val javaHeadlessTestOptions = Seq(
     &quot;-Dconfig.resource=headless-testing.conf&quot;
 ) ++ javaTestOptions
 
-lazy val akkaVersion = &quot;2.5.9&quot;
-lazy val akkaHttpVersion = &quot;10.0.11&quot;
+lazy val akkaVersion = &quot;2.4.19&quot;
+lazy val akkaHttpVersion = &quot;10.0.7&quot;
 
 lazy val salsahLibs = Seq(
     // akka
@@ -275,7 +276,7 @@ lazy val salsahLibs = Seq(
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
     </div>
         </div>
         <div class="clearer"></div>

@@ -192,12 +192,6 @@ Use with care as it will add permissions that where not there before.</dd>
 <p>The program uses the Turtle parsing and formatting library from <a class="reference external" href="http://rdf4j.org/">RDF4J</a>. Additional transformations can
 be implemented as subclasses of <code class="docutils literal"><span class="pre">org.eclipse.rdf4j.rio.RDFHandler</span></code>.</p>
 </div>
-<div class="section" id="selectively-disabling-routes">
-<h2>Selectively Disabling Routes<a class="headerlink" href="#selectively-disabling-routes" title="Permalink to this headline">¶</a></h2>
-<p>In <code class="docutils literal"><span class="pre">application.conf</span></code> the setting <code class="docutils literal"><span class="pre">app.routes-to-reject</span></code> contains a list of strings, representing
-routes which should be rejected.</p>
-<p>For Example, the string <code class="docutils literal"><span class="pre">&quot;v1/users&quot;</span></code> would lead to rejection of any route which contains this string.</p>
-</div>
 </div>
 
 
@@ -215,7 +209,6 @@ routes which should be rejected.</p>
 <li class="toctree-l2"><a class="reference internal" href="../design-documentation/index.html">Knora API Server Design Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../development/index.html">Developing the Knora API Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_v1/index.html">Using API V1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_v2/index.html">Using API V2</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../salsah/index.html">SALSAH</a></li>
@@ -258,7 +251,7 @@ routes which should be rejected.</p>
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
     </div>
         </div>
         <div class="clearer"></div>

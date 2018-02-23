@@ -289,13 +289,7 @@ looks like this:</p>
 108
 109
 110
-111
-112
-113
-114
-115
-116
-117</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">trusty</span>
+111</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">trusty</span>
 <span class="l l-Scalar l-Scalar-Plain">sudo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">required</span>
 
 <span class="l l-Scalar l-Scalar-Plain">addons</span><span class="p p-Indicator">:</span>
@@ -324,7 +318,7 @@ looks like this:</p>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">SIPI_REPO=dhlabbasel/sipi</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">DOCKERHOST=$(ip route get 8.8.8.8 | awk &#39;{print $NF; exit}&#39;)</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">CHROME_BIN=google-chrome-stable</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">GDB_HEAP_SIZE=&quot;4G&quot;</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">GDB_HEAP_SIZE=&quot;4g&quot;</span>
 
 <span class="l l-Scalar l-Scalar-Plain">cache</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">directories</span><span class="p p-Indicator">:</span>
@@ -333,8 +327,6 @@ looks like this:</p>
 
 <span class="l l-Scalar l-Scalar-Plain">before_install</span><span class="p p-Indicator">:</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">openssl aes-256-cbc -K $encrypted_6254b38dc8d5_key -iv $encrypted_6254b38dc8d5_iv -in $TRAVIS_BUILD_DIR/private/graphdb.license.enc -out $TRAVIS_BUILD_DIR/private/graphdb.license -d</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sudo apt-get -qq update</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">sudo apt-get install -y expect</span>
 
 <span class="l l-Scalar l-Scalar-Plain">stages</span><span class="p p-Indicator">:</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">test</span>
@@ -373,19 +365,15 @@ looks like this:</p>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt it:test</span>
     <span class="c1">#- stage: test</span>
     <span class="c1">#  script:</span>
-    <span class="c1">#    # prepare needed graphdb-se files</span>
-    <span class="c1">#    - mkdir -p $TRAVIS_BUILD_DIR/data/conf</span>
-    <span class="c1">#    - cp $TRAVIS_BUILD_DIR/private/graphdb.license $TRAVIS_BUILD_DIR/data/conf/graphdb.license</span>
-    <span class="c1">#    - mkdir -p $TRAVIS_BUILD_DIR/graphdb</span>
-    <span class="c1">#    - cp $TRAVIS_BUILD_DIR/webapi/scripts/KnoraRules.pie $TRAVIS_BUILD_DIR/graphdb</span>
-    <span class="c1">#    # start and initialize graphdb-se</span>
-    <span class="c1">#    - docker run -d -p 127.0.0.1:7200:7200 -v $TRAVIS_BUILD_DIR/data:/opt/graphdb/home -v $TRAVIS_BUILD_DIR/graphdb:/graphdb ontotext/graphdb:8.2.0-se</span>
-    <span class="c1">#    - sleep 15</span>
-    <span class="c1">#    - cd $TRAVIS_BUILD_DIR/webapi/scripts &amp;&amp; ./graphdb-se-docker-init-knora-test.sh</span>
+    <span class="c1">#    #- &quot;export DISPLAY=:99.0&quot;</span>
+    <span class="c1">#    #- &quot;sh -e /etc/init.d/xvfb start&quot;</span>
+    <span class="c1">#    #- sleep 3 # give xvfb some time to start</span>
+    <span class="c1">#    # start fuseki</span>
+    <span class="c1">#    - cd $TRAVIS_BUILD_DIR/triplestores/fuseki/ &amp;&amp; ./fuseki-server &amp;</span>
     <span class="c1">#    # start the sipi container (with test config)</span>
     <span class="c1">#    - docker run -d --add-host webapihost:$DOCKERHOST -v /tmp:/tmp -v $HOME:$HOME -p 1024:1024 $SIPI_REPO:develop /sipi/local/bin/sipi --config=/sipi/config/sipi.knora-test-docker-config.lua</span>
     <span class="c1">#    # start the webapi and salsah server</span>
-    <span class="c1">#    - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt &quot;run allowReloadOverHTTP&quot; &amp;</span>
+    <span class="c1">#    - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt &quot;run allowResetTriplestoreContentOperationOverHTTP&quot; &amp;</span>
     <span class="c1">#    - cd $TRAVIS_BUILD_DIR/salsah/ &amp;&amp; sbt run &amp;</span>
     <span class="c1">#    # wait for the webapi server to start before we proceed with running the salsah tests</span>
     <span class="c1">#    - until netstat -an 2&gt;/dev/null | grep &#39;3333.*LISTEN&#39;; do true; done</span>
@@ -430,6 +418,8 @@ looks like this:</p>
 <div class="section" id="sbt-build-configuration">
 <h2><a class="toc-backref" href="#id10">SBT Build Configuration</a><a class="headerlink" href="#sbt-build-configuration" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span>import sbt._
+import sbt.Keys._
+import spray.revolver.RevolverPlugin._
 import NativePackagerHelper._
 
 connectInput in run := true
@@ -442,13 +432,12 @@ lazy val webapi = (project in file(&quot;.&quot;)).
             FusekiTest,
             FusekiIntegrationTest,
             GraphDBTest,
+            GraphDBFreeTest,
+            GraphDBFreeIntegrationTest,
             EmbeddedJenaTDBTest,
             IntegrationTest
         ).
         settings(webApiCommonSettings:  _*).
-        settings(inConfig(Test)(
-            Defaults.testTasks ++ baseAssemblySettings
-        ): _*).
         settings(inConfig(FusekiTest)(
             Defaults.testTasks ++ Seq(
                 fork := true,
@@ -470,6 +459,20 @@ lazy val webapi = (project in file(&quot;.&quot;)).
                 testOptions += Tests.Argument(&quot;-oDF&quot;) // show full stack traces and test case durations
             )
         ): _*).
+        settings(inConfig(GraphDBFreeTest)(
+            Defaults.testTasks ++ Seq(
+                fork := true,
+                javaOptions ++= javaGraphDBFreeTestOptions,
+                testOptions += Tests.Argument(&quot;-oDF&quot;) // show full stack traces and test case durations
+            )
+        ): _*).
+        settings(inConfig(GraphDBFreeIntegrationTest)(
+            Defaults.testTasks ++ Seq(
+                fork := true,
+                javaOptions ++= javaGraphDBFreeIntegrationTestOptions,
+                testOptions += Tests.Argument(&quot;-oDF&quot;) // show full stack traces and test case durations
+            )
+        ): _*).
         settings(inConfig(EmbeddedJenaTDBTest)(
             Defaults.testTasks ++ Seq(
                 fork := true,
@@ -482,7 +485,7 @@ lazy val webapi = (project in file(&quot;.&quot;)).
                 fork := true,
                 javaOptions ++= javaIntegrationTestOptions,
                 testOptions += Tests.Argument(&quot;-oDF&quot;) // show full stack traces and test case durations
-            ) ++ baseAssemblySettings
+            )
         ): _*).
         settings(
             libraryDependencies ++= webApiLibs,
@@ -496,190 +499,102 @@ lazy val webapi = (project in file(&quot;.&quot;)).
             fork in Test := true,
             javaOptions in Test ++= javaTestOptions,
             parallelExecution in Test := false,
-            // enable publishing the jar produced by `sbt test:package` and `sbt it:package`
-            publishArtifact in (Test, packageBin) := true,
+            // enable publishing the jar produced by `sbt it:package`
             publishArtifact in (IntegrationTest, packageBin) := true
         ).
-        settings( // enable deployment staging with `sbt stage`. uses fat jar assembly.
-            // we specify the name for our fat jars (main, test, it)
-            assemblyJarName in assembly := s&quot;assembly-${name.value}-main-${version.value}.jar&quot;,
-            assemblyJarName in (Test, assembly) := s&quot;assembly-${name.value}-test-${version.value}.jar&quot;,
-            assemblyJarName in (IntegrationTest, assembly) := s&quot;assembly-${name.value}-it-${version.value}.jar&quot;,
-            // disable running of tests before fat jar assembly!
-            test in assembly := {},
-            test in (Test, assembly) := {},
-            test in (IntegrationTest, assembly) := {},
-            // Skip packageDoc task on stage
-            mappings in (Compile, packageDoc) := Seq(),
-            mappings in Universal := {
-                // removes all jar mappings in universal and appends the fat jar
-                // universalMappings: Seq[(File,String)]
-                val universalMappings = (mappings in Universal).value
-                val fatJar = (assembly in Compile).value
-                // removing means filtering
-                val filtered = universalMappings filter {
-                    case (file, name) =&gt;  ! name.endsWith(&quot;.jar&quot;)
-                }
-                // add the fat jar
-                filtered :+ (fatJar -&gt; (&quot;lib/&quot; + fatJar.getName))
-            },
-            mappings in Universal ++= {
-                // copy the scripts folder
-                directory(&quot;scripts&quot;) ++
-                // copy the configuration files to config directory
-                contentOf(&quot;configs&quot;).toMap.mapValues(&quot;config/&quot; + _) ++
-                // copy configuration files to config directory
-                contentOf(&quot;src/main/resources&quot;).toMap.mapValues(&quot;config/&quot; + _)
-            },
-            // the bash scripts classpath only needs the fat jar
-            scriptClasspath := Seq( (assemblyJarName in assembly).value ),
-            // add &#39;config&#39; directory first in the classpath of the start script,
-            scriptClasspath := Seq(&quot;../config/&quot;) ++ scriptClasspath.value,
-            // add license
-            licenses := Seq((&quot;GNU AGPL&quot;, url(&quot;https://www.gnu.org/licenses/agpl-3.0&quot;))),
-            // need this here, so that the Manifest inside the jars has the correct main class set.
-            mainClass in Compile := Some(&quot;org.knora.webapi.Main&quot;),
-            mainClass in Test := Some(&quot;org.scalatest.tools.Runner&quot;),
-            mainClass in IntegrationTest := Some(&quot;org.scalatest.tools.Runner&quot;)
+        settings( // enable deployment staging with `sbt stage`
+          mappings in Universal ++= {
+            // copy the scripts folder
+            directory(&quot;scripts&quot;) ++
+            // copy configuration files to config directory
+            contentOf(&quot;src/main/resources&quot;).toMap.mapValues(&quot;config/&quot; + _)
+          },
+          // add &#39;config&#39; directory first in the classpath of the start script,
+          scriptClasspath := Seq(&quot;../config/&quot;) ++ scriptClasspath.value,
+          // add license
+          licenses := Seq((&quot;GNU AGPL&quot;, url(&quot;https://www.gnu.org/licenses/agpl-3.0&quot;))),
+          // need this here, but why?
+          mainClass in Compile := Some(&quot;org.knora.webapi.Main&quot;)
         ).
-        enablePlugins(SbtTwirl). // Enable the sbt-twirl plugin
+        settings(Revolver.settings: _*).
+        enablePlugins(SbtTwirl). // Enable the SbtTwirl plugin
         enablePlugins(JavaAppPackaging) // Enable the sbt-native-packager plugin
 
 lazy val webApiCommonSettings = Seq(
     organization := &quot;org.knora&quot;,
     name := &quot;webapi&quot;,
     version := &quot;0.1.0-beta&quot;,
-    scalaVersion := &quot;2.12.4&quot;
+    ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) },
+    scalaVersion := &quot;2.12.1&quot;
 )
+
+lazy val akkaVersion = &quot;2.4.19&quot;
+lazy val akkaHttpVersion = &quot;10.0.7&quot;
 
 lazy val webApiLibs = Seq(
-    library.akkaActor,
-    library.akkaAgent,
-    library.akkaHttp,
-    library.akkaHttpCirce,
-    library.akkaHttpCors,
-    library.akkaHttpSprayJson,
-    library.akkaHttpJacksonJava,
-    library.akkaHttpTestkit,
-    library.akkaHttpXml,
-    library.akkaSlf4j,
-    library.akkaStream,
-    library.akkaStreamTestkit,
-    library.akkaTestkit,
-    library.bcprov,
-    library.commonsBeanUtil,
-    library.commonsIo,
-    library.commonsLang3,
-    library.commonsValidator,
-    library.diff,
-    library.ehcache,
-    library.gwtServlet,
-    library.jacksonScala,
-    library.jsonldJava,
-    library.jodd,
-    library.jodaTime,
-    library.jodaConvert,
-    library.jenaLibs,
-    library.jenaTest,
-    library.jwt,
-    library.logbackClassic,
-    library.rdf4jRioTurtle,
-    library.rdf4jQueryParserSparql,
-    library.sayonHE,
-    library.scalaArm,
-    library.scalaJava8Compat,
-    library.scalaLogging,
-    library.scalaTest,
-    library.scalaXml,
-    library.scallop,
-    library.springSecurityCore,
-    library.xmlunitCore
+    // akka
+    &quot;com.typesafe.akka&quot; %% &quot;akka-actor&quot; % akkaVersion,
+    &quot;com.typesafe.akka&quot; %% &quot;akka-agent&quot; % akkaVersion,
+    &quot;com.typesafe.akka&quot; %% &quot;akka-stream&quot; % akkaVersion,
+    &quot;com.typesafe.akka&quot; %% &quot;akka-slf4j&quot; % akkaVersion,
+    &quot;com.typesafe.akka&quot; %% &quot;akka-http&quot; % akkaHttpVersion,
+    &quot;com.typesafe.akka&quot; %% &quot;akka-http-xml&quot; % akkaHttpVersion,
+    &quot;com.typesafe.akka&quot; %% &quot;akka-http-spray-json&quot; % akkaHttpVersion,
+
+    &quot;org.scala-lang.modules&quot; %% &quot;scala-xml&quot; % &quot;1.0.6&quot;,
+
+    // testing
+    &quot;org.scalatest&quot; %% &quot;scalatest&quot; % &quot;3.0.0&quot; % &quot;test&quot;,
+    //CORS support
+    &quot;ch.megard&quot; %% &quot;akka-http-cors&quot; % &quot;0.1.10&quot;,
+    // jena
+    &quot;org.apache.jena&quot; % &quot;apache-jena-libs&quot; % &quot;3.0.0&quot; exclude(&quot;org.slf4j&quot;, &quot;slf4j-log4j12&quot;),
+    &quot;org.apache.jena&quot; % &quot;jena-text&quot; % &quot;3.0.0&quot; exclude(&quot;org.slf4j&quot;, &quot;slf4j-log4j12&quot;),
+    // http client
+    // &quot;net.databinder.dispatch&quot; %% &quot;dispatch-core&quot; % &quot;0.11.2&quot;,
+    // logging
+    &quot;com.typesafe.scala-logging&quot; %% &quot;scala-logging&quot; % &quot;3.5.0&quot;,
+    &quot;ch.qos.logback&quot; % &quot;logback-classic&quot; % &quot;1.1.7&quot;,
+    // input validation
+    &quot;commons-validator&quot; % &quot;commons-validator&quot; % &quot;1.6&quot;,
+    // authentication
+    &quot;org.bouncycastle&quot; % &quot;bcprov-jdk15on&quot; % &quot;1.56&quot;,
+    &quot;org.springframework.security&quot; % &quot;spring-security-core&quot; % &quot;4.2.1.RELEASE&quot;,
+    // caching
+    &quot;net.sf.ehcache&quot; % &quot;ehcache&quot; % &quot;2.10.0&quot;,
+    // monitoring - disabled for now
+    //&quot;org.aspectj&quot; % &quot;aspectjweaver&quot; % &quot;1.8.7&quot;,
+    //&quot;org.aspectj&quot; % &quot;aspectjrt&quot; % &quot;1.8.7&quot;,
+    //&quot;io.kamon&quot; %% &quot;kamon-core&quot; % &quot;0.5.2&quot;,
+    //&quot;io.kamon&quot; %% &quot;kamon-spray&quot; % &quot;0.5.2&quot;,
+    //&quot;io.kamon&quot; %% &quot;kamon-statsd&quot; % &quot;0.5.2&quot;,
+    //&quot;io.kamon&quot; %% &quot;kamon-log-reporter&quot; % &quot;0.5.2&quot;,
+    //&quot;io.kamon&quot; %% &quot;kamon-system-metrics&quot; % &quot;0.5.2&quot;,
+    //&quot;io.kamon&quot; %% &quot;kamon-newrelic&quot; % &quot;0.5.2&quot;,
+    // other
+    //&quot;javax.transaction&quot; % &quot;transaction-api&quot; % &quot;1.1-rev-1&quot;,
+    &quot;org.apache.commons&quot; % &quot;commons-lang3&quot; % &quot;3.4&quot;,
+    &quot;commons-io&quot; % &quot;commons-io&quot; % &quot;2.4&quot;,
+    &quot;commons-beanutils&quot; % &quot;commons-beanutils&quot; % &quot;1.9.2&quot;, // not used by us, but need newest version to prevent this problem: http://stackoverflow.com/questions/14402745/duplicate-classes-in-commons-collections-and-commons-beanutils
+    &quot;org.jodd&quot; % &quot;jodd&quot; % &quot;3.2.6&quot;,
+    &quot;joda-time&quot; % &quot;joda-time&quot; % &quot;2.9.1&quot;,
+    &quot;org.joda&quot; % &quot;joda-convert&quot; % &quot;1.8&quot;,
+    &quot;com.sksamuel.diff&quot; % &quot;diff&quot; % &quot;1.1.11&quot;,
+    &quot;org.xmlunit&quot; % &quot;xmlunit-core&quot; % &quot;2.1.1&quot;,
+    &quot;io.igl&quot; %% &quot;jwt&quot; % &quot;1.2.2&quot;,
+    // testing
+    &quot;com.typesafe.akka&quot; %% &quot;akka-testkit&quot; % akkaVersion % &quot;test, fuseki, graphdb, tdb, it, fuseki-it, graphdb-free-it&quot;,
+    &quot;com.typesafe.akka&quot; %% &quot;akka-http-testkit&quot; % akkaHttpVersion % &quot;test, fuseki, graphdb, tdb, it, fuseki-it, graphdb-free-it&quot;,
+    &quot;com.typesafe.akka&quot; %% &quot;akka-stream-testkit&quot; % akkaVersion % &quot;test, fuseki, graphdb, tdb, it, fuseki-it, graphdb-free-it&quot;,
+    &quot;org.scalatest&quot; %% &quot;scalatest&quot; % &quot;3.0.0&quot; % &quot;test, fuseki, graphdb, tdb, it, fuseki-it, graphdb-free-it&quot;,
+    &quot;org.eclipse.rdf4j&quot; % &quot;rdf4j-rio-turtle&quot; % &quot;2.2.1&quot;,
+    &quot;org.eclipse.rdf4j&quot; % &quot;rdf4j-queryparser-sparql&quot; % &quot;2.2.1&quot;,
+    &quot;org.rogach&quot; %% &quot;scallop&quot; % &quot;2.0.5&quot;,
+    &quot;com.google.gwt&quot; % &quot;gwt-servlet&quot; % &quot;2.8.0&quot;,
+    &quot;net.sf.saxon&quot; % &quot;Saxon-HE&quot; % &quot;9.7.0-14&quot;,
+    &quot;com.github.jsonld-java&quot; % &quot;jsonld-java&quot; % &quot;0.10.0&quot;,
+    &quot;com.jsuereth&quot; % &quot;scala-arm_2.12&quot; % &quot;2.0&quot;
 )
-
-lazy val library =
-    new {
-        object Version {
-            val akkaBase = &quot;2.5.9&quot;
-            val akkaHttp = &quot;10.0.11&quot;
-            val jena = &quot;3.4.0&quot;
-            val aspectj = &quot;1.8.7&quot;
-            val kamon = &quot;0.5.2&quot;
-        }
-
-        // akka
-        val akkaActor              = &quot;com.typesafe.akka&quot;            %% &quot;akka-actor&quot;               % Version.akkaBase
-        val akkaAgent              = &quot;com.typesafe.akka&quot;            %% &quot;akka-agent&quot;               % Version.akkaBase
-        val akkaStream             = &quot;com.typesafe.akka&quot;            %% &quot;akka-stream&quot;              % Version.akkaBase
-        val akkaSlf4j              = &quot;com.typesafe.akka&quot;            %% &quot;akka-slf4j&quot;               % Version.akkaBase
-        val akkaHttp               = &quot;com.typesafe.akka&quot;            %% &quot;akka-http&quot;                % Version.akkaHttp
-        val akkaHttpXml            = &quot;com.typesafe.akka&quot;            %% &quot;akka-http-xml&quot;            % Version.akkaHttp
-        val akkaHttpSprayJson      = &quot;com.typesafe.akka&quot;            %% &quot;akka-http-spray-json&quot;     % Version.akkaHttp
-        val akkaHttpJacksonJava    = &quot;com.typesafe.akka&quot;            %% &quot;akka-http-jackson&quot;        % Version.akkaHttp
-        val akkaTestkit            = &quot;com.typesafe.akka&quot;            %% &quot;akka-testkit&quot;             % Version.akkaBase    % &quot;test, fuseki, graphdb, tdb, it, fuseki-it&quot;
-        val akkaHttpTestkit        = &quot;com.typesafe.akka&quot;            %% &quot;akka-http-testkit&quot;        % Version.akkaHttp    % &quot;test, fuseki, graphdb, tdb, it, fuseki-it&quot;
-        val akkaStreamTestkit      = &quot;com.typesafe.akka&quot;            %% &quot;akka-stream-testkit&quot;      % Version.akkaBase    % &quot;test, fuseki, graphdb, tdb, it, fuseki-it&quot;
-        val scalaTest              = &quot;org.scalatest&quot;                %% &quot;scalatest&quot;                % &quot;3.0.4&quot;             % &quot;test, fuseki, graphdb, tdb, it, fuseki-it&quot;
-
-        //CORS support
-        val akkaHttpCors           = &quot;ch.megard&quot;                    %% &quot;akka-http-cors&quot;           % &quot;0.1.10&quot;
-
-        // jena
-        val jenaLibs               = &quot;org.apache.jena&quot;               % &quot;apache-jena-libs&quot;         % Version.jena exclude(&quot;org.slf4j&quot;, &quot;slf4j-log4j12&quot;) exclude(&quot;commons-codec&quot;, &quot;commons-codec&quot;)
-        val jenaTest               = &quot;org.apache.jena&quot;               % &quot;jena-text&quot;                % Version.jena exclude(&quot;org.slf4j&quot;, &quot;slf4j-log4j12&quot;) exclude(&quot;commons-codec&quot;, &quot;commons-codec&quot;)
-
-        // logging
-        val scalaLogging           = &quot;com.typesafe.scala-logging&quot;   %% &quot;scala-logging&quot;            % &quot;3.5.0&quot;
-        val logbackClassic         = &quot;ch.qos.logback&quot;                % &quot;logback-classic&quot;          % &quot;1.1.7&quot;
-
-        // input validation
-        val commonsValidator       = &quot;commons-validator&quot;             % &quot;commons-validator&quot;        % &quot;1.6&quot; exclude(&quot;commons-logging&quot;, &quot;commons-logging&quot;)
-
-        // authentication
-        val bcprov                 = &quot;org.bouncycastle&quot;              % &quot;bcprov-jdk15on&quot;           % &quot;1.56&quot;
-        val springSecurityCore     = &quot;org.springframework.security&quot;  % &quot;spring-security-core&quot;     % &quot;4.2.3.RELEASE&quot; exclude(&quot;commons-logging&quot;, &quot;commons-logging&quot;) exclude(&quot;org.springframework&quot;, &quot;spring-aop&quot;)
-        val jwt                    = &quot;io.igl&quot;                       %% &quot;jwt&quot;                      % &quot;1.2.2&quot; exclude(&quot;commons-codec&quot;, &quot;commons-codec&quot;)
-
-        // caching
-        val ehcache                = &quot;net.sf.ehcache&quot;                % &quot;ehcache&quot;                  % &quot;2.10.0&quot;
-
-        // monitoring - disabled for now
-        val aspectjWeaver          = &quot;org.aspectj&quot;                   % &quot;aspectjweaver&quot;            % Version.aspectj
-        val aspectjRt              = &quot;org.aspectj&quot;                   % &quot;aspectjrt&quot;                % Version.aspectj
-        val kamonCore              = &quot;io.kamon&quot;                     %% &quot;kamon-core&quot;               % Version.kamon
-        val kamonSpray             = &quot;io.kamon&quot;                     %% &quot;kamon-spray&quot;              % Version.kamon
-        val kamonStatsD            = &quot;io.kamon&quot;                     %% &quot;kamon-statsd&quot;             % Version.kamon
-        val kamonLogReporter       = &quot;io.kamon&quot;                     %% &quot;kamon-log-reporter&quot;       % Version.kamon
-        val kamonSystemMetrics     = &quot;io.kamon&quot;                     %% &quot;kamon-system-metrics&quot;     % Version.kamon
-        val kamonNewRelic          = &quot;io.kamon&quot;                     %% &quot;kamon-newrelic&quot;           % Version.kamon
-
-        // other
-        //&quot;javax.transaction&quot; % &quot;transaction-api&quot; % &quot;1.1-rev-1&quot;,
-        val commonsLang3           = &quot;org.apache.commons&quot;            % &quot;commons-lang3&quot;            % &quot;3.4&quot;
-        val commonsIo              = &quot;commons-io&quot;                    % &quot;commons-io&quot;               % &quot;2.4&quot;
-        val commonsBeanUtil        = &quot;commons-beanutils&quot;             % &quot;commons-beanutils&quot;        % &quot;1.9.2&quot; exclude(&quot;commons-logging&quot;, &quot;commons-logging&quot;) // not used by us, but need newest version to prevent this problem: http://stackoverflow.com/questions/14402745/duplicate-classes-in-commons-collections-and-commons-beanutils
-        val jodd                   = &quot;org.jodd&quot;                      % &quot;jodd&quot;                     % &quot;3.2.6&quot;
-        val jodaTime               = &quot;joda-time&quot;                     % &quot;joda-time&quot;                % &quot;2.9.1&quot;
-        val jodaConvert            = &quot;org.joda&quot;                      % &quot;joda-convert&quot;             % &quot;1.8&quot;
-        val diff                   = &quot;com.sksamuel.diff&quot;             % &quot;diff&quot;                     % &quot;1.1.11&quot;
-        val xmlunitCore            = &quot;org.xmlunit&quot;                   % &quot;xmlunit-core&quot;             % &quot;2.1.1&quot;
-
-        // other
-        val rdf4jRioTurtle         = &quot;org.eclipse.rdf4j&quot;             % &quot;rdf4j-rio-turtle&quot;         % &quot;2.2.1&quot;
-        val rdf4jQueryParserSparql = &quot;org.eclipse.rdf4j&quot;             % &quot;rdf4j-queryparser-sparql&quot; % &quot;2.2.1&quot;
-        val scallop                = &quot;org.rogach&quot;                   %% &quot;scallop&quot;                  % &quot;2.0.5&quot;
-        val gwtServlet             = &quot;com.google.gwt&quot;                % &quot;gwt-servlet&quot;              % &quot;2.8.0&quot;
-        val sayonHE                = &quot;net.sf.saxon&quot;                  % &quot;Saxon-HE&quot;                 % &quot;9.7.0-14&quot;
-
-        val scalaXml               = &quot;org.scala-lang.modules&quot;       %% &quot;scala-xml&quot;                % &quot;1.0.6&quot;
-        val scalaArm               = &quot;com.jsuereth&quot;                  % &quot;scala-arm_2.12&quot;           % &quot;2.0&quot;
-        val scalaJava8Compat       = &quot;org.scala-lang.modules&quot;        % &quot;scala-java8-compat_2.12&quot;  % &quot;0.8.0&quot;
-
-        // provides akka jackson (json) support
-        val akkaHttpCirce          = &quot;de.heikoseeberger&quot;            %% &quot;akka-http-circe&quot;          % &quot;1.18.0&quot;
-        val jacksonScala           = &quot;com.fasterxml.jackson.module&quot; %% &quot;jackson-module-scala&quot;     % &quot;2.9.0&quot;
-
-        val jsonldJava             = &quot;com.github.jsonld-java&quot;        % &quot;jsonld-java&quot;              % &quot;0.10.0&quot;
-    }
 
 lazy val javaRunOptions = Seq(
     // &quot;-showversion&quot;,
@@ -690,46 +605,52 @@ lazy val javaRunOptions = Seq(
     //&quot;-XX:MaxGCPauseMillis=500&quot;
 )
 
-lazy val javaBaseTestOptions = Seq(
+lazy val javaTestOptions = Seq(
     // &quot;-showversion&quot;,
     &quot;-Xms2G&quot;,
-    &quot;-Xmx2G&quot;
+    &quot;-Xmx4G&quot;
     // &quot;-verbose:gc&quot;,
     //&quot;-XX:+UseG1GC&quot;,
     //&quot;-XX:MaxGCPauseMillis=500&quot;,
     //&quot;-XX:MaxMetaspaceSize=4096m&quot;
 )
 
-lazy val javaTestOptions = Seq(
-    &quot;-Dconfig.resource=graphdb.conf&quot;
-) ++ javaBaseTestOptions
-
 lazy val FusekiTest = config(&quot;fuseki&quot;) extend(Test)
 lazy val javaFusekiTestOptions = Seq(
     &quot;-Dconfig.resource=fuseki.conf&quot;
-) ++ javaBaseTestOptions
+) ++ javaTestOptions
 
 lazy val FusekiIntegrationTest = config(&quot;fuseki-it&quot;) extend(IntegrationTest)
 lazy val javaFusekiIntegrationTestOptions = Seq(
     &quot;-Dconfig.resource=fuseki.conf&quot;
-) ++ javaBaseTestOptions
+) ++ javaTestOptions
 
 lazy val GraphDBTest = config(&quot;graphdb&quot;) extend(Test)
 lazy val javaGraphDBTestOptions = Seq(
     &quot;-Dconfig.resource=graphdb.conf&quot;
-) ++ javaBaseTestOptions
+) ++ javaTestOptions
+
+lazy val GraphDBFreeTest = config(&quot;graphdb-free&quot;) extend(Test)
+lazy val javaGraphDBFreeTestOptions = Seq(
+    &quot;-Dconfig.resource=graphdb-free.conf&quot;
+) ++ javaTestOptions
+
+lazy val GraphDBFreeIntegrationTest = config(&quot;graphdb-free-it&quot;) extend(IntegrationTest)
+lazy val javaGraphDBFreeIntegrationTestOptions = Seq(
+    &quot;-Dconfig.resource=graphdb-free.conf&quot;
+) ++ javaTestOptions
 
 lazy val EmbeddedJenaTDBTest = config(&quot;tdb&quot;) extend(Test)
 lazy val javaEmbeddedJenaTDBTestOptions = Seq(
     &quot;-Dconfig.resource=jenatdb.conf&quot;
-) ++ javaBaseTestOptions
+) ++ javaTestOptions
 
 // The &#39;IntegrationTest&#39; config does not need to be created here, as it is a built-in config!
 // The standard testing tasks are available, but must be prefixed with &#39;it:&#39;, e.g., &#39;it:test&#39;
 // The test need to be stored in the &#39;it&#39; (and not &#39;test&#39;) folder. The standard source hierarchy is used, e.g., &#39;src/it/scala&#39;
 lazy val javaIntegrationTestOptions = Seq(
     &quot;-Dconfig.resource=graphdb.conf&quot;
-) ++ javaBaseTestOptions
+) ++ javaTestOptions
 </pre></div>
 </div>
 </div>
@@ -809,11 +730,10 @@ file which will be loaded into a named graph by the name of <code class="docutil
 <li class="toctree-l1"><a class="reference internal" href="../../introduction/index.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../knora-ontologies/index.html">The Knora Ontologies</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">The Knora API Server</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../deployment/index.html">Getting started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../deployment/index.html">Getting started with the Knora API Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../design-documentation/index.html">Knora API Server Design Documentation</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Developing the Knora API Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_v1/index.html">Using API V1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api_v2/index.html">Using API V2</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../salsah/index.html">SALSAH</a></li>
@@ -856,7 +776,7 @@ file which will be loaded into a named graph by the name of <code class="docutil
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
     </div>
         </div>
         <div class="clearer"></div>

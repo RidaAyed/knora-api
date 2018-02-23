@@ -34,4 +34,4 @@ Knora API Server Design Documentation
    consistency-checking
    authentication
    administration
-   api-v2
+   plans-for-api-v2
