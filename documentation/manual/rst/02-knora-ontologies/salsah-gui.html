@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The SALSAH GUI Ontology &#8212; Knora 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="The Knora API Server" href="../03-knora-api-server/index.html" />
+    <link rel="prev" title="The Knora Base Ontology" href="knora-base.html" /> 
+  </head>
+  <body role="document">
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Knora 0.1 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="knora-base.html" title="The Knora Base Ontology"
+             accesskey="P">previous</a> |
+          <a href="../03-knora-api-server/index.html" title="The Knora API Server"
+             accesskey="N">next</a> |
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="the-salsah-gui-ontology">
+<span id="salsah-gui"></span><h1>The SALSAH GUI Ontology<a class="headerlink" href="#the-salsah-gui-ontology" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#overview" id="id1">Overview</a></li>
+<li><a class="reference internal" href="#properties" id="id2">Properties</a></li>
+<li><a class="reference internal" href="#classes" id="id3">Classes</a></li>
+<li><a class="reference internal" href="#individuals" id="id4">Individuals</a></li>
+</ul>
+</div>
+<div class="section" id="overview">
+<h2><a class="toc-backref" href="#id1">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>The SALSAH GUI ontology provides entities that can be used in project-specific ontologies
+to indicate to SALSAH (or to another GUI) how data should be entered and displayed.</p>
+<p>The SALSAH GUI ontology is identified by the IRI <code class="docutils literal"><span class="pre">http://www.knora.org/ontology/salsah-gui</span></code>.
+In the Knora documentation in general, it is identified by the prefix <code class="docutils literal"><span class="pre">salsah-gui</span></code>, but for brevity,
+we omit the prefix in this document.</p>
+</div>
+<div class="section" id="properties">
+<span id="salsah-gui-properties"></span><h2><a class="toc-backref" href="#id2">Properties</a><a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">guiOrder</span></code></dt>
+<dd>Can be attached to an <code class="docutils literal"><span class="pre">owl:Restriction</span></code> representing a cardinality in a resource class, to indicate
+the order in which properties should be displayed in the GUI. The object is a non-negative integer.
+For example, a property with <code class="docutils literal"><span class="pre">guiOrder</span></code> 0 would be displayed first, followed by a property with <code class="docutils literal"><span class="pre">guiOrder</span></code>
+1, and so on.</dd>
+<dt><code class="docutils literal"><span class="pre">guiElement</span></code></dt>
+<dd>Can be attached to a property definition to indicate which SALSAH GUI element should be used to enter
+data for the property. This should be one of the individuals of class <code class="docutils literal"><span class="pre">Guielement</span></code> described below.</dd>
+<dt><code class="docutils literal"><span class="pre">guiAttribute</span></code></dt>
+<dd><p class="first">Can be attached to a property definition to provide attributes for the GUI element specified in
+<code class="docutils literal"><span class="pre">guiElement</span></code>. The objects of this predicate are written in a DSL with the following syntax:</p>
+<div class="last highlight-ebnf"><div class="highlight"><pre><span></span><span class="k">object </span><span class="o">=</span> <span class="k">attribute name</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="k">attribute value </span><span class="p">;</span>
+
+<span class="k">attribute name </span><span class="o">=</span> <span class="k">identifier </span><span class="p">;</span>
+
+<span class="k">identifier </span><span class="o">=</span> <span class="k">letter </span><span class="p">,</span> <span class="p">{</span> <span class="k">letter </span><span class="p">}</span> <span class="p">;</span>
+
+<span class="k">attribute value </span><span class="o">=</span> <span class="k">integer </span><span class="p">|</span> <span class="k">decimal </span><span class="p">|</span> <span class="k">percent </span><span class="p">|</span> <span class="k">string </span><span class="p">|</span> <span class="k">iri </span><span class="p">;</span>
+
+<span class="k">percent </span><span class="o">=</span> <span class="k">integer</span><span class="p">,</span> <span class="s2">&quot;%&quot;</span> <span class="p">;</span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal"><span class="pre">guiAttributeDefinition</span></code></dt>
+<dd><p class="first">Used only in the <code class="docutils literal"><span class="pre">salsah-gui</span></code> ontology itself, as a predicate attached to instances of <code class="docutils literal"><span class="pre">Guielement</span></code>,
+to specify the attributes that can be given as objects of <code class="docutils literal"><span class="pre">guiAttribute</span></code> when a given <code class="docutils literal"><span class="pre">Guielement</span></code>.
+is used. The objects of this predicate are written in a DSL with the following syntax:</p>
+<div class="highlight-ebnf"><div class="highlight"><pre><span></span><span class="k">object </span><span class="o">=</span> <span class="k">attribute name</span><span class="p">,</span> <span class="p">[</span> <span class="s2">&quot;(required)&quot;</span> <span class="p">],</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="k">attribute type</span><span class="p">,</span> <span class="p">[</span> <span class="k">enumerated values </span><span class="p">]</span> <span class="p">;</span>
+
+<span class="k">enumerated values </span><span class="o">=</span> <span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="k">enumerated value</span><span class="p">,</span> <span class="p">{</span> <span class="s2">&quot;|&quot;</span><span class="p">,</span> <span class="k">enumerated value </span><span class="p">}</span> <span class="s2">&quot;)&quot;</span> <span class="p">;</span>
+
+<span class="k">attribute name </span><span class="o">=</span> <span class="k">identifier </span><span class="p">;</span>
+
+<span class="k">attribute type </span><span class="o">=</span> <span class="s2">&quot;integer&quot;</span> <span class="p">|</span> <span class="s2">&quot;decimal&quot;</span> <span class="p">|</span> <span class="s2">&quot;percent&quot;</span> <span class="p">|</span> <span class="s2">&quot;string&quot;</span> <span class="p">|</span> <span class="s2">&quot;iri&quot;</span> <span class="p">;</span>
+
+<span class="k">enumerated value </span><span class="o">=</span> <span class="k">identifier </span><span class="p">;</span>
+
+<span class="k">identifier </span><span class="o">=</span> <span class="k">letter </span><span class="p">,</span> <span class="p">{</span> <span class="k">letter </span><span class="p">}</span> <span class="p">;</span>
+</pre></div>
+</div>
+<p class="last">Enumerated values are allowed only if <code class="docutils literal"><span class="pre">attribute</span> <span class="pre">type</span></code> is <code class="docutils literal"><span class="pre">string</span></code>. If enumerated values are
+provided for an attribute, the attribute value given via <code class="docutils literal"><span class="pre">guiAttribute</span></code> must be one of the
+enumerated values.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="classes">
+<h2><a class="toc-backref" href="#id3">Classes</a><a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">Guielement</span></code></dt>
+<dd>The instances of this class are individuals representing SALSAH GUI elements for data entry.</dd>
+</dl>
+</div>
+<div class="section" id="individuals">
+<h2><a class="toc-backref" href="#id4">Individuals</a><a class="headerlink" href="#individuals" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">Colorpicker</span></code></dt>
+<dd>A GUI element for selecting a color. A property definition that uses this element may
+also contain a <code class="docutils literal"><span class="pre">guiAttribute</span></code> predicate whose object is a string in the form
+<code class="docutils literal"><span class="pre">&quot;ncolors=N&quot;</span></code>, where <code class="docutils literal"><span class="pre">N</span></code> is an integer specifying the number of colors to display.</dd>
+<dt><code class="docutils literal"><span class="pre">Date</span></code></dt>
+<dd>A GUI element for selecting a date.</dd>
+<dt><code class="docutils literal"><span class="pre">Geometry</span></code></dt>
+<dd>A GUI element for selecting the geometry of a two-dimensional region.</dd>
+<dt><code class="docutils literal"><span class="pre">Geonames</span></code></dt>
+<dd>A GUI element for selecting a <a class="reference external" href="http://www.geonames.org/">Geonames</a> identifier.</dd>
+<dt><code class="docutils literal"><span class="pre">Interval</span></code></dt>
+<dd>A GUI element for selecting a time interval in an audio or video recording.</dd>
+<dt><code class="docutils literal"><span class="pre">List</span></code></dt>
+<dd><p class="first">A GUI element for selecting an item in a hierarchical list (see <a class="reference internal" href="knora-base.html#knora-base-list-value"><span class="std std-ref">ListValue</span></a>).
+A property definition that uses this element must also contain this <code class="docutils literal"><span class="pre">guiAttribute</span></code> predicate:</p>
+<ul class="last simple">
+<li><code class="docutils literal"><span class="pre">&quot;hlist=&lt;LIST_IRI&gt;&quot;</span></code>, where <code class="docutils literal"><span class="pre">LIST_IRI</span></code> is the IRI of a <code class="docutils literal"><span class="pre">knora-base:ListNode</span></code>.</li>
+</ul>
+</dd>
+<dt><code class="docutils literal"><span class="pre">Pulldown</span></code></dt>
+<dd><p class="first">A GUI element for selecting an item in a flat list (see <a class="reference internal" href="knora-base.html#knora-base-list-value"><span class="std std-ref">ListValue</span></a>) using a pull-down menu.
+A property definition that uses this element must also contain this <code class="docutils literal"><span class="pre">guiAttribute</span></code> predicate:</p>
+<ul class="last simple">
+<li><code class="docutils literal"><span class="pre">&quot;hlist=&lt;LIST_IRI&gt;&quot;</span></code>, where <code class="docutils literal"><span class="pre">LIST_IRI</span></code> is the IRI of a <code class="docutils literal"><span class="pre">knora-base:ListNode</span></code>.</li>
+</ul>
+</dd>
+<dt><code class="docutils literal"><span class="pre">Radio</span></code></dt>
+<dd><p class="first">A GUI element for selecting an item in a flat list (see <a class="reference internal" href="knora-base.html#knora-base-list-value"><span class="std std-ref">ListValue</span></a>) using radio buttons.
+A property definition that uses this element must also contain this <code class="docutils literal"><span class="pre">guiAttribute</span></code> predicate:</p>
+<ul class="last simple">
+<li><code class="docutils literal"><span class="pre">&quot;hlist=&lt;LIST_IRI&gt;&quot;</span></code>, where <code class="docutils literal"><span class="pre">LIST_IRI</span></code> is the IRI of a <code class="docutils literal"><span class="pre">knora-base:ListNode</span></code>.</li>
+</ul>
+</dd>
+<dt><code class="docutils literal"><span class="pre">Richtext</span></code></dt>
+<dd>A GUI element for editing multi-line formatted text.</dd>
+<dt><code class="docutils literal"><span class="pre">Searchbox</span></code></dt>
+<dd><p class="first">A GUI element for searching for a resource by matching text in its <code class="docutils literal"><span class="pre">rdfs:label</span></code>. For Knora API v1,
+a property definition that uses this element may also contain this <code class="docutils literal"><span class="pre">guiAttribute</span></code> predicate:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">&quot;numprops=N&quot;</span></code>, where <code class="docutils literal"><span class="pre">N</span></code> is an integer specifying the number of describing properties to be returned for each found resource.</li>
+</ul>
+<p class="last">For Knora API v2, the <code class="docutils literal"><span class="pre">guiAttribute</span></code> has no effect.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">SimpleText</span></code></dt>
+<dd><p class="first">A GUI element for editing a single line of unformatted text. A property definition that uses this element may
+also contain a <code class="docutils literal"><span class="pre">guiAttribute</span></code> predicate with one or both of the following objects:</p>
+<ul class="last simple">
+<li><code class="docutils literal"><span class="pre">&quot;size=N&quot;</span></code>, where <code class="docutils literal"><span class="pre">N</span></code> is an integer specifying the size of the text field.</li>
+<li><code class="docutils literal"><span class="pre">&quot;maxlength=N&quot;</span></code>, where <code class="docutils literal"><span class="pre">N</span></code> is an integer specifying the maximum length of the string to be input.</li>
+</ul>
+</dd>
+<dt><code class="docutils literal"><span class="pre">Slider</span></code></dt>
+<dd><p class="first">A GUI element for choosing numerical values using a slider. A property definition that uses this element must
+also contain a <code class="docutils literal"><span class="pre">guiAttribute</span></code> predicate with both of the following objects:</p>
+<ul class="last simple">
+<li><code class="docutils literal"><span class="pre">&quot;min=N&quot;</span></code>, where <code class="docutils literal"><span class="pre">N</span></code> is an integer specifying the minimum value of the input.</li>
+<li><code class="docutils literal"><span class="pre">&quot;max=N&quot;</span></code>, where <code class="docutils literal"><span class="pre">N</span></code> is an integer specifying the maximum value of the input.</li>
+</ul>
+</dd>
+<dt><code class="docutils literal"><span class="pre">Spinbox</span></code></dt>
+<dd><p class="first">A GUI element for choosing numerical values using a spinbox. A property definition that uses this element may
+also contain a <code class="docutils literal"><span class="pre">guiAttribute</span></code> predicate with one or both of the following objects:</p>
+<ul class="last simple">
+<li><code class="docutils literal"><span class="pre">&quot;min=N&quot;</span></code>, where <code class="docutils literal"><span class="pre">N</span></code> is an integer specifying the minimum value of the input.</li>
+<li><code class="docutils literal"><span class="pre">&quot;max=N&quot;</span></code>, where <code class="docutils literal"><span class="pre">N</span></code> is an integer specifying the maximum value of the input.</li>
+</ul>
+</dd>
+<dt><code class="docutils literal"><span class="pre">Textarea</span></code></dt>
+<dd><p class="first">A GUI element for editing multi-line unformatted text. A property definition that uses this element may
+also contain a <code class="docutils literal"><span class="pre">guiAttribute</span></code> predicate with one or more of the following objects:</p>
+<ul class="last simple">
+<li><code class="docutils literal"><span class="pre">&quot;width=N&quot;</span></code>, where <code class="docutils literal"><span class="pre">N</span></code> is a percentage of the window width (an integer followed by <code class="docutils literal"><span class="pre">%</span></code>).</li>
+<li><code class="docutils literal"><span class="pre">&quot;cols=N&quot;</span></code>, where <code class="docutils literal"><span class="pre">N</span></code> is an integer representing the number of colums in the text entry box.</li>
+<li><code class="docutils literal"><span class="pre">&quot;rows=N&quot;</span></code>, where <code class="docutils literal"><span class="pre">N</span></code> is an integer specifying the height of the text entry box in rows.</li>
+<li><code class="docutils literal"><span class="pre">&quot;wrap=W&quot;</span></code>, where <code class="docutils literal"><span class="pre">W</span></code> is <code class="docutils literal"><span class="pre">soft</span></code> or <code class="docutils literal"><span class="pre">hard</span></code> (see <a class="reference external" href="https://www.w3.org/TR/html5/sec-forms.html#element-attrdef-textarea-wrap">wrap</a>).</li>
+</ul>
+</dd>
+<dt><code class="docutils literal"><span class="pre">Checkbox</span></code></dt>
+<dd>A GUI element for choosing a boolean value using a checkbox.</dd>
+<dt><code class="docutils literal"><span class="pre">Fileupload</span></code></dt>
+<dd>A GUI element for uploading a file.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../00-release-notes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../01-introduction/index.html">Introduction</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">The Knora Ontologies</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="knora-base.html">The Knora Base Ontology</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The SALSAH GUI Ontology</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../03-knora-api-server/index.html">The Knora API Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../04-salsah/index.html">SALSAH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../05-sipi/index.html">Sipi</a></li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+            </form>
+          </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="knora-base.html" title="The Knora Base Ontology"
+              >previous</a> |
+            <a href="../03-knora-api-server/index.html" title="The Knora API Server"
+              >next</a> |
+            <a href="../../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="../../_sources/rst/02-knora-ontologies/salsah-gui.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2015, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>

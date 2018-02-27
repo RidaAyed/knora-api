@@ -295,7 +295,9 @@ looks like this:</p>
 114
 115
 116
-117</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">trusty</span>
+117
+118
+119</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">trusty</span>
 <span class="l l-Scalar l-Scalar-Plain">sudo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">required</span>
 
 <span class="l l-Scalar l-Scalar-Plain">addons</span><span class="p p-Indicator">:</span>
@@ -356,6 +358,8 @@ looks like this:</p>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">cd $TRAVIS_BUILD_DIR/webapi/scripts &amp;&amp; ./graphdb-se-docker-init-knora-test-unit.sh</span>
         <span class="c1"># start the built-in webapi server tests</span>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt graphdb:test</span>
+        <span class="c1"># test sbt stage</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt stage</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">stage</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">test</span>
       <span class="l l-Scalar l-Scalar-Plain">script</span><span class="p p-Indicator">:</span>
         <span class="c1"># prepare needed graphdb-se files</span>
@@ -431,6 +435,9 @@ looks like this:</p>
 <h2><a class="toc-backref" href="#id10">SBT Build Configuration</a><a class="headerlink" href="#sbt-build-configuration" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-default"><div class="highlight"><pre><span></span>import sbt._
 import NativePackagerHelper._
+import sbt.io.IO
+import sbtassembly.MergeStrategy
+import sbtassembly.MergeStrategy._
 
 connectInput in run := true
 
@@ -524,6 +531,8 @@ lazy val webapi = (project in file(&quot;.&quot;)).
             test in assembly := {},
             test in (Test, assembly) := {},
             test in (IntegrationTest, assembly) := {},
+            // need to use our custom merge strategy because of aop.xml (AspectJ)
+            assemblyMergeStrategy in assembly := customMergeStrategy,
             // Skip packageDoc task on stage
             mappings in (Compile, packageDoc) := Seq(),
             mappings in Universal := {
@@ -626,7 +635,7 @@ lazy val library =
     new {
         object Version {
             val akkaBase = &quot;2.5.9&quot;
-            val akkaHttp = &quot;10.0.11&quot;
+            val akkaHttp = &quot;10.1.0-RC2&quot;
             val jena = &quot;3.4.0&quot;
             val aspectj = &quot;1.8.13&quot;
             val kamon = &quot;1.0.0&quot;
@@ -637,13 +646,15 @@ lazy val library =
         val akkaAgent              = &quot;com.typesafe.akka&quot;            %% &quot;akka-agent&quot;               % Version.akkaBase
         val akkaStream             = &quot;com.typesafe.akka&quot;            %% &quot;akka-stream&quot;              % Version.akkaBase
         val akkaSlf4j              = &quot;com.typesafe.akka&quot;            %% &quot;akka-slf4j&quot;               % Version.akkaBase
+        val akkaTestkit            = &quot;com.typesafe.akka&quot;            %% &quot;akka-testkit&quot;             % Version.akkaBase    % &quot;test, fuseki, graphdb, tdb, it, fuseki-it&quot;
+        val akkaStreamTestkit      = &quot;com.typesafe.akka&quot;            %% &quot;akka-stream-testkit&quot;      % Version.akkaBase    % &quot;test, fuseki, graphdb, tdb, it, fuseki-it&quot;
+
+        // akka http
         val akkaHttp               = &quot;com.typesafe.akka&quot;            %% &quot;akka-http&quot;                % Version.akkaHttp
         val akkaHttpXml            = &quot;com.typesafe.akka&quot;            %% &quot;akka-http-xml&quot;            % Version.akkaHttp
         val akkaHttpSprayJson      = &quot;com.typesafe.akka&quot;            %% &quot;akka-http-spray-json&quot;     % Version.akkaHttp
         val akkaHttpJacksonJava    = &quot;com.typesafe.akka&quot;            %% &quot;akka-http-jackson&quot;        % Version.akkaHttp
-        val akkaTestkit            = &quot;com.typesafe.akka&quot;            %% &quot;akka-testkit&quot;             % Version.akkaBase    % &quot;test, fuseki, graphdb, tdb, it, fuseki-it&quot;
         val akkaHttpTestkit        = &quot;com.typesafe.akka&quot;            %% &quot;akka-http-testkit&quot;        % Version.akkaHttp    % &quot;test, fuseki, graphdb, tdb, it, fuseki-it&quot;
-        val akkaStreamTestkit      = &quot;com.typesafe.akka&quot;            %% &quot;akka-stream-testkit&quot;      % Version.akkaBase    % &quot;test, fuseki, graphdb, tdb, it, fuseki-it&quot;
 
         // testing
         val scalaTest              = &quot;org.scalatest&quot;                %% &quot;scalatest&quot;                % &quot;3.0.4&quot;             % &quot;test, fuseki, graphdb, tdb, it, fuseki-it&quot;
@@ -651,7 +662,7 @@ lazy val library =
         val gatlingTestFramework   = &quot;io.gatling&quot;                    % &quot;gatling-test-framework&quot;   % &quot;2.3.0&quot;             % &quot;test, fuseki, graphdb, tdb, it, fuseki-it&quot;
 
         //CORS support
-        val akkaHttpCors           = &quot;ch.megard&quot;                    %% &quot;akka-http-cors&quot;           % &quot;0.1.10&quot;
+        val akkaHttpCors           = &quot;ch.megard&quot;                    %% &quot;akka-http-cors&quot;           % &quot;0.2.2&quot;
 
         // jena
         val jenaLibs               = &quot;org.apache.jena&quot;               % &quot;apache-jena-libs&quot;         % Version.jena exclude(&quot;org.slf4j&quot;, &quot;slf4j-log4j12&quot;) exclude(&quot;commons-codec&quot;, &quot;commons-codec&quot;)
@@ -692,8 +703,8 @@ lazy val library =
         val xmlunitCore            = &quot;org.xmlunit&quot;                   % &quot;xmlunit-core&quot;             % &quot;2.1.1&quot;
 
         // other
-        val rdf4jRioTurtle         = &quot;org.eclipse.rdf4j&quot;             % &quot;rdf4j-rio-turtle&quot;         % &quot;2.2.1&quot;
-        val rdf4jQueryParserSparql = &quot;org.eclipse.rdf4j&quot;             % &quot;rdf4j-queryparser-sparql&quot; % &quot;2.2.1&quot;
+        val rdf4jRioTurtle         = &quot;org.eclipse.rdf4j&quot;             % &quot;rdf4j-rio-turtle&quot;         % &quot;2.2.4&quot;
+        val rdf4jQueryParserSparql = &quot;org.eclipse.rdf4j&quot;             % &quot;rdf4j-queryparser-sparql&quot; % &quot;2.2.4&quot;
         val scallop                = &quot;org.rogach&quot;                   %% &quot;scallop&quot;                  % &quot;2.0.5&quot;
         val gwtServlet             = &quot;com.google.gwt&quot;                % &quot;gwt-servlet&quot;              % &quot;2.8.0&quot;
         val sayonHE                = &quot;net.sf.saxon&quot;                  % &quot;Saxon-HE&quot;                 % &quot;9.7.0-14&quot;
@@ -703,10 +714,10 @@ lazy val library =
         val scalaJava8Compat       = &quot;org.scala-lang.modules&quot;        % &quot;scala-java8-compat_2.12&quot;  % &quot;0.8.0&quot;
 
         // provides akka jackson (json) support
-        val akkaHttpCirce          = &quot;de.heikoseeberger&quot;            %% &quot;akka-http-circe&quot;          % &quot;1.18.0&quot;
-        val jacksonScala           = &quot;com.fasterxml.jackson.module&quot; %% &quot;jackson-module-scala&quot;     % &quot;2.9.0&quot;
+        val akkaHttpCirce          = &quot;de.heikoseeberger&quot;            %% &quot;akka-http-circe&quot;          % &quot;1.20.0-RC1&quot;
+        val jacksonScala           = &quot;com.fasterxml.jackson.module&quot; %% &quot;jackson-module-scala&quot;     % &quot;2.9.4&quot;
 
-        val jsonldJava             = &quot;com.github.jsonld-java&quot;        % &quot;jsonld-java&quot;              % &quot;0.10.0&quot;
+        val jsonldJava             = &quot;com.github.jsonld-java&quot;        % &quot;jsonld-java&quot;              % &quot;0.11.1&quot;
     }
 
 lazy val javaRunOptions = Seq(
@@ -758,6 +769,40 @@ lazy val javaEmbeddedJenaTDBTestOptions = Seq(
 lazy val javaIntegrationTestOptions = Seq(
     &quot;-Dconfig.resource=graphdb.conf&quot;
 ) ++ javaBaseTestOptions
+
+
+// Create a new MergeStrategy for aop.xml files, as the aop.xml file is present in more than one package.
+// When we create a fat JAR (assembly task), then we need to resolve this conflict.
+val aopMerge: MergeStrategy = new MergeStrategy {
+    val name = &quot;aopMerge&quot;
+    import scala.xml._
+    import scala.xml.dtd._
+
+    def apply(tempDir: File, path: String, files: Seq[File]): Either[String, Seq[(File, String)]] = {
+        val dt = DocType(&quot;aspectj&quot;, PublicID(&quot;-//AspectJ//DTD//EN&quot;, &quot;http://www.eclipse.org/aspectj/dtd/aspectj.dtd&quot;), Nil)
+        val file = MergeStrategy.createMergeTarget(tempDir, path)
+        val xmls: Seq[Elem] = files.map(XML.loadFile)
+        val aspectsChildren: Seq[Node] = xmls.flatMap(_ \\ &quot;aspectj&quot; \ &quot;aspects&quot; \ &quot;_&quot;)
+        val weaverChildren: Seq[Node] = xmls.flatMap(_ \\ &quot;aspectj&quot; \ &quot;weaver&quot; \ &quot;_&quot;)
+        val options: String = xmls.map(x =&gt; (x \\ &quot;aspectj&quot; \ &quot;weaver&quot; \ &quot;@options&quot;).text).mkString(&quot; &quot;).trim
+        val weaverAttr = if (options.isEmpty) Null else new UnprefixedAttribute(&quot;options&quot;, options, Null)
+        val aspects = new Elem(null, &quot;aspects&quot;, Null, TopScope, false, aspectsChildren: _*)
+        val weaver = new Elem(null, &quot;weaver&quot;, weaverAttr, TopScope, false, weaverChildren: _*)
+        val aspectj = new Elem(null, &quot;aspectj&quot;, Null, TopScope, false, aspects, weaver)
+        XML.save(file.toString, aspectj, &quot;UTF-8&quot;, xmlDecl = false, dt)
+        IO.append(file, IO.Newline.getBytes(IO.defaultCharset))
+        Right(Seq(file -&gt; path))
+    }
+}
+
+// Use defaultMergeStrategy with a case for aop.xml
+// I like this better than the inline version mentioned in assembly&#39;s README
+val customMergeStrategy: String =&gt; MergeStrategy = {
+    case PathList(&quot;META-INF&quot;, &quot;aop.xml&quot;) =&gt;
+        aopMerge
+    case s =&gt;
+        defaultMergeStrategy(s)
+}
 </pre></div>
 </div>
 </div>
@@ -881,7 +926,7 @@ file which will be loaded into a named graph by the name of <code class="docutil
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
         </div>
         <div class="clearer"></div>

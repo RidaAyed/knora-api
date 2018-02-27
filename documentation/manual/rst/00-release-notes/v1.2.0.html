@@ -86,10 +86,56 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="salsah-gui-guiorder">
+<h3>3. salsah-gui:guiOrder<a class="headerlink" href="#salsah-gui-guiorder" title="Permalink to this headline">¶</a></h3>
+<p>The predicate <code class="docutils literal"><span class="pre">salsah-gui:guiOrder</span></code> is now attached to cardinalities in class definitions, instead of
+attaching it to property definitions. This allows the same property to be first in one class and last in
+another class.</p>
+<p>Before:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">title</span> <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span> <span class="n">owl</span><span class="p">:</span><span class="n">ObjectProperty</span> <span class="p">;</span>
+  <span class="n">salsah</span><span class="o">-</span><span class="n">gui</span><span class="p">:</span><span class="n">guiOrder</span> <span class="s2">&quot;1&quot;</span><span class="o">^^</span><span class="n">xsd</span><span class="p">:</span><span class="n">integer</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>After:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">book</span> <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span> <span class="n">owl</span><span class="p">:</span><span class="n">Class</span> <span class="p">;</span>
+      <span class="n">rdfs</span><span class="p">:</span><span class="n">subClassOf</span> <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">Resource</span> <span class="p">,</span>
+                      <span class="p">[</span>
+                         <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span> <span class="n">owl</span><span class="p">:</span><span class="n">Restriction</span> <span class="p">;</span>
+                         <span class="n">owl</span><span class="p">:</span><span class="n">onProperty</span> <span class="p">:</span><span class="n">title</span> <span class="p">;</span>
+                         <span class="n">owl</span><span class="p">:</span><span class="n">minCardinality</span> <span class="s2">&quot;1&quot;</span><span class="o">^^</span><span class="n">xsd</span><span class="p">:</span><span class="n">nonNegativeInteger</span> <span class="p">;</span>
+                         <span class="n">salsah</span><span class="o">-</span><span class="n">gui</span><span class="p">:</span><span class="n">guiOrder</span> <span class="s2">&quot;1&quot;</span><span class="o">^^</span><span class="n">xsd</span><span class="p">:</span><span class="n">nonNegativeInteger</span>
+                      <span class="p">]</span>
+</pre></div>
+</div>
+<p>Existing project-specific ontologies must be updated. You can use the command-line tool
+<code class="docutils literal"><span class="pre">org/knora/webapi/util/TransformOntology.scala</span></code> to do this automatically. First dump your
+ontology to a Turtle file. Then at the <code class="docutils literal"><span class="pre">sbt</span></code> console, type:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">runMain</span> <span class="n">org</span><span class="o">.</span><span class="n">knora</span><span class="o">.</span><span class="n">webapi</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">TransformOntology</span> <span class="o">-</span><span class="n">t</span> <span class="n">guiorder</span> <span class="n">INPUT</span> <span class="n">OUTPUT</span>
+</pre></div>
+</div>
+<p>For INPUT, use the absolute path of the Turtle file representing your existing ontology. For
+OUTPUT, use the absolute path of the output file to be created.</p>
+<p>Note that, because of a limitation of the current version of the RDF4J Turtle generation
+library, the generated Turtle represents cardinalities as labelled blank nodes, rather than
+as anonymous blank nodes, which would be more readable
+(see <a class="reference external" href="https://github.com/eclipse/rdf4j/pull/890">this pull request</a>).</p>
+<p>Then replace the contents of your ontology&#8217;s named graph in the triplestore with the contents
+of the transformed Turtle file, and restart the Knora API server. Be sure to test this on a test
+installation using a copy of your data and ontologies, before updating the ontology used by a
+live server.</p>
+</div>
 </div>
 <div class="section" id="new-features">
 <h2>New features:<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li><dl class="first docutils">
+<dt>General</dt>
+<dd><ul class="first last">
+<li>Change: Return differently formatted JSON responses for exception messages, depending on which route (<code class="docutils literal"><span class="pre">v1</span></code>, <code class="docutils literal"><span class="pre">v2`</span></code> or <code class="docutils literal"><span class="pre">admin</span></code>) was accessed.</li>
+</ul>
+</dd>
+</dl>
+</li>
 <li><dl class="first docutils">
 <dt>Admin API</dt>
 <dd><ul class="first last">
@@ -98,8 +144,10 @@
 <li>Change: Project description has language tag and is returned as array. Needs change to existing data. Please see example above.</li>
 <li>Change: Remove institution from project (will be added later with the FAIR metadata)</li>
 <li>Change: Sorting of collections with admin objects (user, group, project)</li>
-<li>New: Keywords endpoint at <code class="docutils literal"><span class="pre">admin/projects/keywords</span></code> returns all unique keywords (as strings) for all projects in an array</li>
-<li>New: Keywords endpoint at <code class="docutils literal"><span class="pre">admin/projects/keywords/[projectIri]</span></code> returns all keywords of a single project.</li>
+<li>New: Keywords endpoint at <code class="docutils literal"><span class="pre">/admin/projects/keywords</span></code> returns all unique keywords (as strings) for all projects in an array</li>
+<li>New: Keywords endpoint at <code class="docutils literal"><span class="pre">/admin/projects/keywords/[projectIri]</span></code> returns all keywords of a single project.</li>
+<li>New: Lists endpoint at <code class="docutils literal"><span class="pre">/admin/lists/</span></code> allows new lists to be created.</li>
+<li>New: Lists endpoint at <code class="docutils literal"><span class="pre">/admin/lists/infos/&lt;listIri&gt;</span></code> allows to change basic list information.</li>
 </ul>
 </dd>
 </dl>
@@ -167,7 +215,7 @@
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
         </div>
         <div class="clearer"></div>
