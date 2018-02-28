@@ -16,16 +16,23 @@
    You should have received a copy of the GNU Affero General Public
    License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 
-************
-Using API V2
-************
+***************************************
+v1.3.0 Release Notes (not released yet)
+***************************************
 
-.. toctree::
-   :maxdepth: 2
+See the `release`_ and closed tickets on the `v1.3.0 milestone`_ on Github.
 
-   api-general
-   knora-iris
-   reading-and-searching-resources
-   knarql-syntax
-   ontology-information
-   response-formats
+
+Required changes to existing data:
+----------------------------------
+
+
+New features:
+-------------
+
+
+Bugfixes:
+---------
+
+.. _release: https://github.com/dhlab-basel/Knora/releases/tag/v1.3.0
+.. _v1.3.0 milestone: https://github.com/dhlab-basel/Knora/milestone/7

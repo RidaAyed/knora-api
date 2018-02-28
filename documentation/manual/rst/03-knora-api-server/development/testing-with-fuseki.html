@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Shared Packages &#8212; Knora v1.2.0 documentation</title>
+    <title>Testing with Fuseki 2 &#8212; Knora 0.1 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     'v1.2.0',
+        VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -26,18 +26,18 @@
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="How to Add an API Route" href="how-to-add-a-route.html" />
-    <link rel="prev" title="Store Module" href="store-module.html" /> 
+    <link rel="next" title="Docker Cheat Sheet" href="docker-cheat-sheet.html" />
+    <link rel="prev" title="Test Tags" href="test-tags.html" /> 
   </head>
   <body role="document">
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora v1.2.0 documentation</a></div>
+          href="../../index.html">Knora 0.1 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
-          <a href="store-module.html" title="Store Module"
+          <a href="test-tags.html" title="Test Tags"
              accesskey="P">previous</a> |
-          <a href="how-to-add-a-route.html" title="How to Add an API Route"
+          <a href="docker-cheat-sheet.html" title="Docker Cheat Sheet"
              accesskey="N">next</a> |
           <a href="../../../genindex.html" title="General Index"
              accesskey="I">index</a>
@@ -53,9 +53,51 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="shared-packages">
-<span id="id1"></span><h1>Shared Packages<a class="headerlink" href="#shared-packages" title="Permalink to this headline">¶</a></h1>
-<p>TODO</p>
+  <div class="section" id="testing-with-fuseki-2">
+<h1>Testing with Fuseki 2<a class="headerlink" href="#testing-with-fuseki-2" title="Permalink to this headline">¶</a></h1>
+<p>Inside the Knora API server git repository, there is a folder called
+<code class="docutils literal"><span class="pre">_fuseki</span></code> containing a script named <code class="docutils literal"><span class="pre">fuseki-server</span></code>. All needed
+configuration files are in place. To start Fuseki 2, just run this
+script.</p>
+<div class="section" id="how-to-write-your-test">
+<h2>How to Write Your Test<a class="headerlink" href="#how-to-write-your-test" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Inside a test, at the beginning, add the following (change the paths
+to the test data as needed):</li>
+</ol>
+<div class="highlight-default"><div class="highlight"><pre><span></span>val rdfDataObjects = List (
+       RdfDataObject(path = &quot;_test_data/ontologies/knora-base.ttl&quot;, name = &quot;http://www.knora.org/ontology/knora-base&quot;),
+       RdfDataObject(path = &quot;_test_data/ontologies/salsah-gui.ttl&quot;, name = &quot;http://www.knora.org/ontology/salsah-gui&quot;),
+       RdfDataObject(path = &quot;_test_data/ontologies/incunabula-onto.ttl&quot;, name = &quot;http://www.knora.org/ontology/incunabula&quot;),
+       RdfDataObject(path = &quot;_test_data/responders.v1.ValuesResponderV1Spec/incunabula-data.ttl&quot;, name = &quot;http://www.knora.org/data/incunabula&quot;)
+)
+
+&quot;Reload data &quot; in {
+    storeManager ! ResetTripleStoreContent(rdfDataObjects)
+    expectMsg(15.seconds, ResetTripleStoreContentACK())
+}
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>In the config section add <code class="docutils literal"><span class="pre">fuseki</span></code> as the <code class="docutils literal"><span class="pre">dbtype</span></code>:</li>
+</ol>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">app</span> <span class="p">{</span>
+     <span class="n">triplestore</span> <span class="p">{</span>
+         <span class="o">//</span><span class="n">dbtype</span> <span class="o">=</span> <span class="s2">&quot;embedded-jena-tdb&quot;</span>
+         <span class="n">dbtype</span> <span class="o">=</span> <span class="s2">&quot;fuseki&quot;</span>
+     <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="important">
+<h2>Important<a class="headerlink" href="#important" title="Permalink to this headline">¶</a></h2>
+<p>The reloading of the test data should be always done at the
+beginning of the test, because when using Fuseki in combination with
+<code class="docutils literal"><span class="pre">reload-on-start</span></code>, the data is not loaded in time (when the actor
+starts), so that the tests already run without all the data inside the
+triple store.</p>
+</div>
 </div>
 
 
@@ -71,8 +113,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../02-knora-ontologies/index.html">The Knora Ontologies</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">The Knora API Server</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../deployment/index.html">Getting started</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Knora API Server Design Documentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../development/index.html">Developing the Knora API Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../design-documentation/index.html">Knora API Server Design Documentation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Developing the Knora API Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_v1/index.html">Using API V1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_v2/index.html">Using API V2</a></li>
 </ul>
@@ -99,16 +141,16 @@
       <div class="footer">
         <div class="left">
           <div role="navigation" aria-label="related navigaton">
-            <a href="store-module.html" title="Store Module"
+            <a href="test-tags.html" title="Test Tags"
               >previous</a> |
-            <a href="how-to-add-a-route.html" title="How to Add an API Route"
+            <a href="docker-cheat-sheet.html" title="Docker Cheat Sheet"
               >next</a> |
             <a href="../../../genindex.html" title="General Index"
               >index</a>
           </div>
           <div role="note" aria-label="source link">
               <br/>
-              <a href="../../../_sources/rst/03-knora-api-server/design-documentation/shared-packages.rst.txt"
+              <a href="../../../_sources/rst/03-knora-api-server/development/testing-with-fuseki.rst.txt"
                 rel="nofollow">Show Source</a>
           </div>
         </div>
@@ -116,7 +158,7 @@
         <div class="right">
           
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2015-2018, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
+        &#169; Copyright 2015, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
     </div>
         </div>
