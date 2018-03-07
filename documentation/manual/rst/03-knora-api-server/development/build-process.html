@@ -297,7 +297,10 @@ looks like this:</p>
 116
 117
 118
-119</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">trusty</span>
+119
+120
+121
+122</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">trusty</span>
 <span class="l l-Scalar l-Scalar-Plain">sudo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">required</span>
 
 <span class="l l-Scalar l-Scalar-Plain">addons</span><span class="p p-Indicator">:</span>
@@ -340,8 +343,8 @@ looks like this:</p>
 
 <span class="l l-Scalar l-Scalar-Plain">stages</span><span class="p p-Indicator">:</span>
   <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">test</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">publish</span> <span class="c1"># generally, only publish if we are on &#39;develop&#39;</span>
-    <span class="l l-Scalar l-Scalar-Plain">if</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">branch = develop</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">name</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">publish</span> <span class="c1"># generally, only publish if we are on &#39;develop&#39; or tagged</span>
+    <span class="l l-Scalar l-Scalar-Plain">if</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">branch = develop OR tag IS present</span>
 
 <span class="l l-Scalar l-Scalar-Plain">jobs</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">include</span><span class="p p-Indicator">:</span>
@@ -399,18 +402,21 @@ looks like this:</p>
     <span class="c1">#    - cd $TRAVIS_BUILD_DIR/salsah/ &amp;&amp; sbt headless:test</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">stage</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">publish</span>
       <span class="l l-Scalar l-Scalar-Plain">script</span><span class="p p-Indicator">:</span>
+        <span class="c1"># login into docker hub, build image, and push but only when on the &quot;develop&quot; branch or tagged</span>
+        <span class="c1"># when on &#39;develop&#39; then $TRAVIS_BRANCH = develop</span>
+        <span class="c1"># when on &#39;tag&#39; then $TRAVIS_BRANCH = tag, e.g., v1.2.0</span>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker login -u $DOCKER_USER -p $DOCKER_PASS</span>
         <span class="c1"># webapi</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker build $TRAVIS_BUILD_DIR/webapi/ -t $WEBAPI_REPO:develop</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker tag $WEBAPI_REPO:develop $WEBAPI_REPO:latest</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker build $TRAVIS_BUILD_DIR/webapi/ -t $WEBAPI_REPO:$TRAVIS_BRANCH</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker tag $WEBAPI_REPO:$TRAVIS_BRANCH $WEBAPI_REPO:latest</span>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker push $WEBAPI_REPO</span>
         <span class="c1"># salsah</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker build $TRAVIS_BUILD_DIR/salsah/ -t $SALSAH_REPO:develop</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker tag $SALSAH_REPO:develop $SALSAH_REPO:latest</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker build $TRAVIS_BUILD_DIR/salsah/ -t $SALSAH_REPO:$TRAVIS_BRANCH</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker tag $SALSAH_REPO:$TRAVIS_BRANCH $SALSAH_REPO:latest</span>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker push $SALSAH_REPO</span>
         <span class="c1"># sipi: get the develop sipi and tag it as &#39;develop-knora&#39; so we know that this version is tested (only on the develop branch)</span>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker pull $SIPI_REPO:develop</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker tag $SIPI_REPO:develop $SIPI_REPO:knora-develop</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker tag $SIPI_REPO:develop $SIPI_REPO:knora-$TRAVIS_BRANCH</span>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker push $SIPI_REPO</span>
 
 <span class="l l-Scalar l-Scalar-Plain">notifications</span><span class="p p-Indicator">:</span>
@@ -926,7 +932,7 @@ file which will be loaded into a named graph by the name of <code class="docutil
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
         </div>
         <div class="clearer"></div>

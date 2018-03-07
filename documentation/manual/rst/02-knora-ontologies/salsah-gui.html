@@ -85,7 +85,7 @@ data for the property. This should be one of the individuals of class <code clas
 <dt><code class="docutils literal"><span class="pre">guiAttribute</span></code></dt>
 <dd><p class="first">Can be attached to a property definition to provide attributes for the GUI element specified in
 <code class="docutils literal"><span class="pre">guiElement</span></code>. The objects of this predicate are written in a DSL with the following syntax:</p>
-<div class="last highlight-ebnf"><div class="highlight"><pre><span></span><span class="k">object </span><span class="o">=</span> <span class="k">attribute name</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="k">attribute value </span><span class="p">;</span>
+<div class="highlight-ebnf"><div class="highlight"><pre><span></span><span class="k">object </span><span class="o">=</span> <span class="k">attribute name</span><span class="p">,</span> <span class="s2">&quot;=&quot;</span><span class="p">,</span> <span class="k">attribute value </span><span class="p">;</span>
 
 <span class="k">attribute name </span><span class="o">=</span> <span class="k">identifier </span><span class="p">;</span>
 
@@ -94,13 +94,17 @@ data for the property. This should be one of the individuals of class <code clas
 <span class="k">attribute value </span><span class="o">=</span> <span class="k">integer </span><span class="p">|</span> <span class="k">decimal </span><span class="p">|</span> <span class="k">percent </span><span class="p">|</span> <span class="k">string </span><span class="p">|</span> <span class="k">iri </span><span class="p">;</span>
 
 <span class="k">percent </span><span class="o">=</span> <span class="k">integer</span><span class="p">,</span> <span class="s2">&quot;%&quot;</span> <span class="p">;</span>
+
+<span class="k">iri </span><span class="o">=</span> <span class="s2">&quot;&lt;&quot;</span><span class="p">,</span> <span class="k">string</span><span class="p">,</span> <span class="s2">&quot;&gt;&quot;</span> <span class="p">;</span>
 </pre></div>
 </div>
+<p class="last">The attributes used with each GUI element are described below under <a class="reference internal" href="#salsah-gui-individuals"><span class="std std-ref">Individuals</span></a>.</p>
 </dd>
 <dt><code class="docutils literal"><span class="pre">guiAttributeDefinition</span></code></dt>
-<dd><p class="first">Used only in the <code class="docutils literal"><span class="pre">salsah-gui</span></code> ontology itself, as a predicate attached to instances of <code class="docutils literal"><span class="pre">Guielement</span></code>,
-to specify the attributes that can be given as objects of <code class="docutils literal"><span class="pre">guiAttribute</span></code> when a given <code class="docutils literal"><span class="pre">Guielement</span></code>.
-is used. The objects of this predicate are written in a DSL with the following syntax:</p>
+<dd><p class="first">Used only in the <code class="docutils literal"><span class="pre">salsah-gui</span></code> ontology itself, as a predicate attached to instances of <code class="docutils literal"><span class="pre">Guielement</span></code>
+(see <a class="reference internal" href="#salsah-gui-individuals"><span class="std std-ref">Individuals</span></a>), to specify the attributes that can be given as objects of
+<code class="docutils literal"><span class="pre">guiAttribute</span></code> when a given <code class="docutils literal"><span class="pre">Guielement</span></code>. is used. The objects of this predicate are written in a DSL
+with the following syntax:</p>
 <div class="highlight-ebnf"><div class="highlight"><pre><span></span><span class="k">object </span><span class="o">=</span> <span class="k">attribute name</span><span class="p">,</span> <span class="p">[</span> <span class="s2">&quot;(required)&quot;</span> <span class="p">],</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="k">attribute type</span><span class="p">,</span> <span class="p">[</span> <span class="k">enumerated values </span><span class="p">]</span> <span class="p">;</span>
 
 <span class="k">enumerated values </span><span class="o">=</span> <span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="k">enumerated value</span><span class="p">,</span> <span class="p">{</span> <span class="s2">&quot;|&quot;</span><span class="p">,</span> <span class="k">enumerated value </span><span class="p">}</span> <span class="s2">&quot;)&quot;</span> <span class="p">;</span>
@@ -128,7 +132,7 @@ enumerated values.</p>
 </dl>
 </div>
 <div class="section" id="individuals">
-<h2><a class="toc-backref" href="#id4">Individuals</a><a class="headerlink" href="#individuals" title="Permalink to this headline">¶</a></h2>
+<span id="salsah-gui-individuals"></span><h2><a class="toc-backref" href="#id4">Individuals</a><a class="headerlink" href="#individuals" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt><code class="docutils literal"><span class="pre">Colorpicker</span></code></dt>
 <dd>A GUI element for selecting a color. A property definition that uses this element may
@@ -272,7 +276,7 @@ also contain a <code class="docutils literal"><span class="pre">guiAttribute</sp
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
         </div>
         <div class="clearer"></div>

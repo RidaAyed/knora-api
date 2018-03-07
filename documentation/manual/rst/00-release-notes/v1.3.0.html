@@ -58,9 +58,23 @@
 <p>See the <a class="reference external" href="https://github.com/dhlab-basel/Knora/releases/tag/v1.3.0">release</a> and closed tickets on the <a class="reference external" href="https://github.com/dhlab-basel/Knora/milestone/7">v1.3.0 milestone</a> on Github.</p>
 <div class="section" id="required-changes-to-existing-data">
 <h2>Required changes to existing data:<a class="headerlink" href="#required-changes-to-existing-data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="replace-salsah-gui-ontology">
+<h3>1. Replace salsah-gui ontology<a class="headerlink" href="#replace-salsah-gui-ontology" title="Permalink to this headline">¶</a></h3>
+<p>You must replace the <code class="docutils literal"><span class="pre">salsah-gui</span></code> ontology that you have in the triplestore with the one
+in <code class="docutils literal"><span class="pre">salsah-gui.ttl</span></code>.</p>
+</div>
 </div>
 <div class="section" id="new-features">
 <h2>New features:<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="more-support-for-salsah-gui-elements-and-attributes-in-ontologies">
+<h3>1. More support for salsah-gui elements and attributes in ontologies<a class="headerlink" href="#more-support-for-salsah-gui-elements-and-attributes-in-ontologies" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Serve the <code class="docutils literal"><span class="pre">salsah-gui</span></code> ontology in API v2 in the default schema.</li>
+<li>Show <code class="docutils literal"><span class="pre">salsah-gui:guiElement</span></code> and <code class="docutils literal"><span class="pre">salsah-gui:guiAttribute</span></code> when serving ontologies in API v2 in the default schema.</li>
+<li>Allow <code class="docutils literal"><span class="pre">salsah-gui:guiElement</span></code> and <code class="docutils literal"><span class="pre">salsah-gui:guiAttribute</span></code> to be included in new property definitions created via API v2.</li>
+<li>Change <code class="docutils literal"><span class="pre">salsah-gui</span></code> so that GraphDB&#8217;s consistency checker can check the use of <code class="docutils literal"><span class="pre">guiElement</span></code> and <code class="docutils literal"><span class="pre">guiAttribute</span></code>.</li>
+</ul>
+</div>
 </div>
 <div class="section" id="bugfixes">
 <h2>Bugfixes:<a class="headerlink" href="#bugfixes" title="Permalink to this headline">¶</a></h2>
@@ -124,7 +138,7 @@
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
         </div>
         <div class="clearer"></div>

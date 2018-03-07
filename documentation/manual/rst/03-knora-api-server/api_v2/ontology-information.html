@@ -186,18 +186,6 @@ simple schema, <code class="docutils literal"><span class="pre">http://0.0.0.0:3
         <span class="nt">&quot;rdfs:subClassOf&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/simple/v2#StillImageRepresentation&quot;</span><span class="p">,</span> <span class="p">{</span>
           <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
           <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#erfassungsdatum&quot;</span>
-        <span class="p">},</span> <span class="p">{</span>
-          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#description&quot;</span>
-        <span class="p">},</span> <span class="p">{</span>
-          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;owl:maxCardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#urheber&quot;</span>
-        <span class="p">},</span> <span class="p">{</span>
-          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
           <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/simple/v2#creationDate&quot;</span>
         <span class="p">},</span> <span class="p">{</span>
           <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
@@ -214,7 +202,19 @@ simple schema, <code class="docutils literal"><span class="pre">http://0.0.0.0:3
         <span class="p">},</span> <span class="p">{</span>
           <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
           <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://schema.org/name&quot;</span>
+          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://www.w3.org/2000/01/rdf-schema#label&quot;</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#description&quot;</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#erfassungsdatum&quot;</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;owl:maxCardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#urheber&quot;</span>
         <span class="p">}</span> <span class="p">]</span>
       <span class="p">},</span>
       <span class="nt">&quot;p00FF-images:person&quot;</span> <span class="p">:</span> <span class="p">{</span>
@@ -224,14 +224,6 @@ simple schema, <code class="docutils literal"><span class="pre">http://0.0.0.0:3
         <span class="nt">&quot;rdfs:comment&quot;</span> <span class="p">:</span> <span class="s2">&quot;Person&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:label&quot;</span> <span class="p">:</span> <span class="s2">&quot;Person&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:subClassOf&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/simple/v2#Resource&quot;</span><span class="p">,</span> <span class="p">{</span>
-          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#firstname&quot;</span>
-        <span class="p">},</span> <span class="p">{</span>
-          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#lastname&quot;</span>
-        <span class="p">},</span> <span class="p">{</span>
           <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
           <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
           <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/simple/v2#creationDate&quot;</span>
@@ -246,7 +238,15 @@ simple schema, <code class="docutils literal"><span class="pre">http://0.0.0.0:3
         <span class="p">},</span> <span class="p">{</span>
           <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
           <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://schema.org/name&quot;</span>
+          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://www.w3.org/2000/01/rdf-schema#label&quot;</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#lastname&quot;</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#firstname&quot;</span>
         <span class="p">}</span> <span class="p">]</span>
       <span class="p">}</span>
     <span class="p">},</span>
@@ -295,11 +295,10 @@ simple schema, <code class="docutils literal"><span class="pre">http://0.0.0.0:3
         <span class="nt">&quot;rdfs:subPropertyOf&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/simple/v2#hasLinkTo&quot;</span>
       <span class="p">}</span>
     <span class="p">},</span>
-    <span class="nt">&quot;knora-api:hasStandoffClasses&quot;</span> <span class="p">:</span> <span class="p">{</span> <span class="p">},</span>
-    <span class="nt">&quot;knora-api:hasStandoffProperties&quot;</span> <span class="p">:</span> <span class="p">{</span> <span class="p">},</span>
     <span class="nt">&quot;rdfs:label&quot;</span> <span class="p">:</span> <span class="s2">&quot;The images demo ontology&quot;</span>
   <span class="p">},</span>
   <span class="nd">&quot;@context&quot;</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;rdf&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</span><span class="p">,</span>
     <span class="nt">&quot;p00FF-images&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#&quot;</span><span class="p">,</span>
     <span class="nt">&quot;knora-api&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/simple/v2#&quot;</span><span class="p">,</span>
     <span class="nt">&quot;owl&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://www.w3.org/2002/07/owl#&quot;</span><span class="p">,</span>
@@ -385,26 +384,11 @@ default schema, <code class="docutils literal"><span class="pre">http://0.0.0.0:
         <span class="nd">&quot;@id&quot;</span> <span class="p">:</span> <span class="s2">&quot;p00FF-images:bild&quot;</span><span class="p">,</span>
         <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Class&quot;</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:canBeInstantiated&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;knora-api:isResourceClass&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:resourceIcon&quot;</span> <span class="p">:</span> <span class="s2">&quot;bild.png&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:comment&quot;</span> <span class="p">:</span> <span class="s2">&quot;An image of the demo image collection&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:label&quot;</span> <span class="p">:</span> <span class="s2">&quot;Image&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:subClassOf&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/v2#StillImageRepresentation&quot;</span><span class="p">,</span> <span class="p">{</span>
-          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#erfassungsdatum&quot;</span>
-        <span class="p">},</span> <span class="p">{</span>
-          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#description&quot;</span>
-        <span class="p">},</span> <span class="p">{</span>
-          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;owl:maxCardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#urheber&quot;</span>
-        <span class="p">},</span> <span class="p">{</span>
-          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;owl:maxCardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#urheberValue&quot;</span>
-        <span class="p">},</span> <span class="p">{</span>
           <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
           <span class="nt">&quot;knora-api:isInherited&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
           <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
@@ -438,25 +422,38 @@ default schema, <code class="docutils literal"><span class="pre">http://0.0.0.0:
           <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
           <span class="nt">&quot;knora-api:isInherited&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
           <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://schema.org/name&quot;</span>
+          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://www.w3.org/2000/01/rdf-schema#label&quot;</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;salsah-gui:guiOrder&quot;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+          <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#description&quot;</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;salsah-gui:guiOrder&quot;</span> <span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+          <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#erfassungsdatum&quot;</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;salsah-gui:guiOrder&quot;</span> <span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+          <span class="nt">&quot;owl:maxCardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#urheber&quot;</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;salsah-gui:guiOrder&quot;</span> <span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+          <span class="nt">&quot;owl:maxCardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#urheberValue&quot;</span>
         <span class="p">}</span> <span class="p">]</span>
       <span class="p">},</span>
       <span class="nt">&quot;p00FF-images:person&quot;</span> <span class="p">:</span> <span class="p">{</span>
         <span class="nd">&quot;@id&quot;</span> <span class="p">:</span> <span class="s2">&quot;p00FF-images:person&quot;</span><span class="p">,</span>
         <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Class&quot;</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:canBeInstantiated&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;knora-api:isResourceClass&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:resourceIcon&quot;</span> <span class="p">:</span> <span class="s2">&quot;person.png&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:comment&quot;</span> <span class="p">:</span> <span class="s2">&quot;Person&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:label&quot;</span> <span class="p">:</span> <span class="s2">&quot;Person&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:subClassOf&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/v2#Resource&quot;</span><span class="p">,</span> <span class="p">{</span>
-          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#firstname&quot;</span>
-        <span class="p">},</span> <span class="p">{</span>
-          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
-          <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#lastname&quot;</span>
-        <span class="p">},</span> <span class="p">{</span>
           <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
           <span class="nt">&quot;knora-api:isInherited&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
           <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
@@ -485,7 +482,17 @@ default schema, <code class="docutils literal"><span class="pre">http://0.0.0.0:
           <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
           <span class="nt">&quot;knora-api:isInherited&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
           <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://schema.org/name&quot;</span>
+          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://www.w3.org/2000/01/rdf-schema#label&quot;</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;salsah-gui:guiOrder&quot;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#lastname&quot;</span>
+        <span class="p">},</span> <span class="p">{</span>
+          <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:Restriction&quot;</span><span class="p">,</span>
+          <span class="nt">&quot;salsah-gui:guiOrder&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="nt">&quot;owl:cardinality&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="nt">&quot;owl:onProperty&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#firstname&quot;</span>
         <span class="p">}</span> <span class="p">]</span>
       <span class="p">}</span>
     <span class="p">},</span>
@@ -494,8 +501,11 @@ default schema, <code class="docutils literal"><span class="pre">http://0.0.0.0:
         <span class="nd">&quot;@id&quot;</span> <span class="p">:</span> <span class="s2">&quot;p00FF-images:description&quot;</span><span class="p">,</span>
         <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:ObjectProperty&quot;</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:isEditable&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;knora-api:isResourceProperty&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:objectType&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/v2#TextValue&quot;</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:subjectType&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#bild&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;salsah-gui:guiAttribute&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;rows=10&quot;</span><span class="p">,</span> <span class="s2">&quot;width=95%&quot;</span><span class="p">,</span> <span class="s2">&quot;wrap=soft&quot;</span> <span class="p">],</span>
+        <span class="nt">&quot;salsah-gui:guiElement&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/salsah-gui/v2#Textarea&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:label&quot;</span> <span class="p">:</span> <span class="s2">&quot;Description&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:subPropertyOf&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/v2#hasValue&quot;</span><span class="p">,</span> <span class="s2">&quot;http://purl.org/dc/terms/description&quot;</span> <span class="p">]</span>
       <span class="p">},</span>
@@ -503,8 +513,10 @@ default schema, <code class="docutils literal"><span class="pre">http://0.0.0.0:
         <span class="nd">&quot;@id&quot;</span> <span class="p">:</span> <span class="s2">&quot;p00FF-images:erfassungsdatum&quot;</span><span class="p">,</span>
         <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:ObjectProperty&quot;</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:isEditable&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;knora-api:isResourceProperty&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:objectType&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/v2#DateValue&quot;</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:subjectType&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#bild&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;salsah-gui:guiElement&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/salsah-gui/v2#Date&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:label&quot;</span> <span class="p">:</span> <span class="s2">&quot;Date of acquisition&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:subPropertyOf&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/v2#hasValue&quot;</span><span class="p">,</span> <span class="s2">&quot;http://purl.org/dc/terms/date&quot;</span> <span class="p">]</span>
       <span class="p">},</span>
@@ -512,8 +524,11 @@ default schema, <code class="docutils literal"><span class="pre">http://0.0.0.0:
         <span class="nd">&quot;@id&quot;</span> <span class="p">:</span> <span class="s2">&quot;p00FF-images:firstname&quot;</span><span class="p">,</span>
         <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:ObjectProperty&quot;</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:isEditable&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;knora-api:isResourceProperty&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:objectType&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/v2#TextValue&quot;</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:subjectType&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#person&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;salsah-gui:guiAttribute&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;maxlength=32&quot;</span><span class="p">,</span> <span class="s2">&quot;size=32&quot;</span> <span class="p">],</span>
+        <span class="nt">&quot;salsah-gui:guiElement&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/salsah-gui/v2#SimpleText&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:comment&quot;</span> <span class="p">:</span> <span class="s2">&quot;First name of a person&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:label&quot;</span> <span class="p">:</span> <span class="s2">&quot;First name&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:subPropertyOf&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/v2#hasValue&quot;</span>
@@ -522,8 +537,11 @@ default schema, <code class="docutils literal"><span class="pre">http://0.0.0.0:
         <span class="nd">&quot;@id&quot;</span> <span class="p">:</span> <span class="s2">&quot;p00FF-images:lastname&quot;</span><span class="p">,</span>
         <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:ObjectProperty&quot;</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:isEditable&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;knora-api:isResourceProperty&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:objectType&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/v2#TextValue&quot;</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:subjectType&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#person&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;salsah-gui:guiAttribute&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;maxlength=32&quot;</span><span class="p">,</span> <span class="s2">&quot;size=32&quot;</span> <span class="p">],</span>
+        <span class="nt">&quot;salsah-gui:guiElement&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/salsah-gui/v2#SimpleText&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:comment&quot;</span> <span class="p">:</span> <span class="s2">&quot;Last name of a person&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:label&quot;</span> <span class="p">:</span> <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:subPropertyOf&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/v2#hasValue&quot;</span>
@@ -533,8 +551,11 @@ default schema, <code class="docutils literal"><span class="pre">http://0.0.0.0:
         <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:ObjectProperty&quot;</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:isEditable&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:isLinkProperty&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;knora-api:isResourceProperty&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:objectType&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#person&quot;</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:subjectType&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#bild&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;salsah-gui:guiAttribute&quot;</span> <span class="p">:</span> <span class="s2">&quot;numprops=2&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;salsah-gui:guiElement&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/salsah-gui/v2#Searchbox&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:comment&quot;</span> <span class="p">:</span> <span class="s2">&quot;An entity primarily responsible for making the resource. Examples of a Creator include a person, an organization, or a service. Typically, the name of a Creator should be used to indicate the entity.&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:label&quot;</span> <span class="p">:</span> <span class="s2">&quot;Creator&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:subPropertyOf&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/v2#hasLinkTo&quot;</span>
@@ -544,21 +565,24 @@ default schema, <code class="docutils literal"><span class="pre">http://0.0.0.0:
         <span class="nd">&quot;@type&quot;</span> <span class="p">:</span> <span class="s2">&quot;owl:ObjectProperty&quot;</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:isEditable&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:isLinkValueProperty&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nt">&quot;knora-api:isResourceProperty&quot;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:objectType&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/v2#LinkValue&quot;</span><span class="p">,</span>
         <span class="nt">&quot;knora-api:subjectType&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#bild&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;salsah-gui:guiAttribute&quot;</span> <span class="p">:</span> <span class="s2">&quot;numprops=2&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;salsah-gui:guiElement&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/salsah-gui/v2#Searchbox&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:comment&quot;</span> <span class="p">:</span> <span class="s2">&quot;An entity primarily responsible for making the resource. Examples of a Creator include a person, an organization, or a service. Typically, the name of a Creator should be used to indicate the entity.&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:label&quot;</span> <span class="p">:</span> <span class="s2">&quot;Creator&quot;</span><span class="p">,</span>
         <span class="nt">&quot;rdfs:subPropertyOf&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/v2#hasLinkToValue&quot;</span>
       <span class="p">}</span>
     <span class="p">},</span>
-    <span class="nt">&quot;knora-api:hasStandoffClasses&quot;</span> <span class="p">:</span> <span class="p">{</span> <span class="p">},</span>
-    <span class="nt">&quot;knora-api:hasStandoffProperties&quot;</span> <span class="p">:</span> <span class="p">{</span> <span class="p">},</span>
     <span class="nt">&quot;rdfs:label&quot;</span> <span class="p">:</span> <span class="s2">&quot;The images demo ontology&quot;</span>
   <span class="p">},</span>
   <span class="nd">&quot;@context&quot;</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;rdf&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;</span><span class="p">,</span>
     <span class="nt">&quot;p00FF-images&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://0.0.0.0:3333/ontology/00FF/images/v2#&quot;</span><span class="p">,</span>
     <span class="nt">&quot;knora-api&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/v2#&quot;</span><span class="p">,</span>
     <span class="nt">&quot;owl&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://www.w3.org/2002/07/owl#&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;salsah-gui&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/salsah-gui/v2#&quot;</span><span class="p">,</span>
     <span class="nt">&quot;rdfs&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://www.w3.org/2000/01/rdf-schema#&quot;</span><span class="p">,</span>
     <span class="nt">&quot;xsd&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://www.w3.org/2001/XMLSchema#&quot;</span>
   <span class="p">}</span>
@@ -574,12 +598,15 @@ which has a more complex structure than the <code class="docutils literal"><span
 A client can find out more about these value classes by requesting the <code class="docutils literal"><span class="pre">knora-api</span></code> ontology in the
 default schema, <code class="docutils literal"><span class="pre">http://api.knora.org/ontology/knora-api/v2</span></code>.</p>
 <p>Moreover, additional information is provided in the default schema, to help clients that wish to create
-or update resources and values. A class that can be instantiated is identified with
-the boolean property <code class="docutils literal"><span class="pre">knora-api:canBeInstantiated</span></code>, to distinguish it from built-in abstract
-classes. Properties whose values can be edited by clients are identified with <code class="docutils literal"><span class="pre">knora-api:isEditable</span></code>,
-to distinguish them from properties whose values are maintained automatically by the
-Knora API server. Link value properties are shown along with link properties, because a client
-that updates links will need the IRIs of their link values.</p>
+or update resources and values. A Knora resource class that can be instantiated is identified with
+the boolean properties <code class="docutils literal"><span class="pre">knora-api:isResourceClass</span></code> and <code class="docutils literal"><span class="pre">knora-api:canBeInstantiated</span></code>, to distinguish it
+from built-in abstract classes. Knora resource properties whose values can be edited by clients are identified with
+<code class="docutils literal"><span class="pre">knora-api:isResourceProperty</span></code> and <code class="docutils literal"><span class="pre">knora-api:isEditable</span></code>, to distinguish them from properties whose values
+are maintained automatically by the Knora API server. Link value properties are shown along with link properties,
+because a client that updates links will need the IRIs of their link values. The predicate <code class="docutils literal"><span class="pre">salsah-gui:guiOrder</span></code>
+tells a GUI client in what order to display the properties of a class, and the predicates <code class="docutils literal"><span class="pre">salsah-gui:guiElement</span></code>
+and <code class="docutils literal"><span class="pre">salsah-gui:guiAttribute</span></code> specify how to configure a GUI element for editing the value of a property.
+For more information on the <code class="docutils literal"><span class="pre">salsah-gui</span></code> ontology, see <a class="reference internal" href="../../02-knora-ontologies/salsah-gui.html#salsah-gui"><span class="std std-ref">The SALSAH GUI Ontology</span></a>.</p>
 </div>
 </div>
 </div>
@@ -852,13 +879,16 @@ replace the existing ones.</p>
           <span class="nd">&quot;@language&quot;</span> <span class="p">:</span> <span class="s2">&quot;LANGUAGE_CODE&quot;</span><span class="p">,</span>
           <span class="nd">&quot;@value&quot;</span> <span class="p">:</span> <span class="s2">&quot;COMMENT&quot;</span>
         <span class="p">},</span>
-        <span class="nt">&quot;rdfs:subPropertyOf&quot;</span> <span class="p">:</span> <span class="s2">&quot;BASE_PROPERTY_IRI&quot;</span>
+        <span class="nt">&quot;rdfs:subPropertyOf&quot;</span> <span class="p">:</span> <span class="s2">&quot;BASE_PROPERTY_IRI&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;salsah-gui:guiElement&quot;</span> <span class="p">:</span> <span class="s2">&quot;GUI_ELEMENT_IRI&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;salsah-gui:guiAttribute&quot;</span> <span class="p">:</span> <span class="p">[</span> <span class="s2">&quot;GUI_ATTRIBUTE&quot;</span> <span class="p">]</span>
       <span class="p">}</span>
     <span class="p">},</span>
     <span class="nt">&quot;knora-api:lastModificationDate&quot;</span> <span class="p">:</span> <span class="s2">&quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;</span>
   <span class="p">},</span>
   <span class="nd">&quot;@context&quot;</span> <span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;knora-api&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/knora-api/v2#&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;salsah-gui&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://api.knora.org/ontology/salsah-gui/v2#&quot;</span><span class="p">,</span>
     <span class="nt">&quot;owl&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://www.w3.org/2002/07/owl#&quot;</span><span class="p">,</span>
     <span class="nt">&quot;rdfs&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://www.w3.org/2000/01/rdf-schema#&quot;</span><span class="p">,</span>
     <span class="nt">&quot;xsd&quot;</span> <span class="p">:</span> <span class="s2">&quot;http://www.w3.org/2001/XMLSchema#&quot;</span>
@@ -878,6 +908,10 @@ If the new property is a subproperty of <code class="docutils literal"><span cla
 be a subclass of <code class="docutils literal"><span class="pre">knora-api:Resource</span></code>.</p>
 <p>To improve consistency checking, it is recommended, but not required, to provide <code class="docutils literal"><span class="pre">knora-api:subjectType</span></code>,
 which must be a subclass of <code class="docutils literal"><span class="pre">knora-api:Resource</span></code>.</p>
+<p>The predicates <code class="docutils literal"><span class="pre">salsah-gui:guiElement</span></code> and <code class="docutils literal"><span class="pre">salsah-gui:guiAttribute</span></code> are optional. If provided, the object of
+<code class="docutils literal"><span class="pre">guiElement</span></code> must be one of the OWL named individuals defined in <a class="reference internal" href="../../02-knora-ontologies/salsah-gui.html#salsah-gui-individuals"><span class="std std-ref">Individuals</span></a>. Some GUI elements take
+required or optional attributes, which are provided as objects of <code class="docutils literal"><span class="pre">salsah-gui:guiAttribute</span></code>; see <a class="reference internal" href="../../02-knora-ontologies/salsah-gui.html#salsah-gui"><span class="std std-ref">The SALSAH GUI Ontology</span></a>
+for details.</p>
 <p>A successful response will be a JSON-LD document containing <code class="docutils literal"><span class="pre">knora-api:hasOntologies</span></code>,
 providing the new property definition (but not any of the other entities in the ontology).</p>
 </div>
@@ -1119,7 +1153,7 @@ providing only the ontology&#8217;s metadata.</p>
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
     </div>
         </div>
         <div class="clearer"></div>
