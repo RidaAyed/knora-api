@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Build Process &#8212; Knora v1.2.0 documentation</title>
+    <title>Build Process &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     'v1.2.0',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="Setup IntelliJ for development of Knora" href="intellij-config.html" />
     <link rel="prev" title="Starting GraphDB" href="graphdb.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora v1.2.0 documentation</a></div>
+          href="../../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="graphdb.html" title="Starting GraphDB"
              accesskey="P">previous</a> |
@@ -81,7 +81,7 @@
 <dt>TODO: complete this file.</dt>
 <dd><ul class="first last simple">
 <li>SBT</li>
-<li>Using GraphDB for development and how to initializing the &#8216;knora-test-unit&#8217; repository</li>
+<li>Using GraphDB for development and how to initializing the ‘knora-test-unit’ repository</li>
 <li>Using Fuseki for development</li>
 </ul>
 </dd>
@@ -145,7 +145,7 @@ $ sbt
 <h2><a class="toc-backref" href="#id5">Running the automated tests</a><a class="headerlink" href="#running-the-automated-tests" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="running-tests-with-fuseki">
 <h3><a class="toc-backref" href="#id6">Running Tests with Fuseki</a><a class="headerlink" href="#running-tests-with-fuseki" title="Permalink to this headline">¶</a></h3>
-<p>Make sure you&#8217;ve started Fuseki as shown above. Then at the SBT prompt:</p>
+<p>Make sure you’ve started Fuseki as shown above. Then at the SBT prompt:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">fuseki</span><span class="p">:</span><span class="n">test</span>
 </pre></div>
 </div>
@@ -300,7 +300,14 @@ looks like this:</p>
 119
 120
 121
-122</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">trusty</span>
+122
+123
+124
+125
+126
+127
+128
+129</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">trusty</span>
 <span class="l l-Scalar l-Scalar-Plain">sudo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">required</span>
 
 <span class="l l-Scalar l-Scalar-Plain">addons</span><span class="p p-Indicator">:</span>
@@ -325,11 +332,13 @@ looks like this:</p>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">secure</span><span class="p p-Indicator">:</span> <span class="s">&quot;Sj0D8wR3Vx0J0h+LBUIh9t1PWjLJ2NEiKILf3JO5nuGdlU7dPhbFomR4w08q85O4d60km38ml7zpapC4noDQnbAFQHC6XeOe5CWPYFXCxkw7ueBoxhy/vkfSzypXp0UTNUX3S7+RcGJcTxLaZcUC9u+UaoWB0LMkmOcIlrKIDuzm3HcefMsml8gYX1xhS2TQJ8P7ZerzBmm0kERYLUabhxTnj5WAvue0d1xbUtzCzT1LpignOfsUZ9kHTagQEA15JsU0iNrMCvlDcxRWj8OzLhHRoHui4bJPQQfKEA8oMnTkPyzBRLmqafqHvmGcNQp9iGhuU04gb+FkF4gubBkLrxEvgTL/D5vIin3BHQvnZna9zSnUguZS+jw4sfEYcjZgYRzgMRPma/630ZM08FSZZ/qjSTCut4Cjua5aw2Vf9pYhf+Aad5rR0T2JmVYKp6Ik92aLhPOF9U40MacKRPPT54RIjCYcakZlmU4vl+kK37l3sYjvD57LeSs3PlqvkpSxwJzaQDhZFOZ+c7ICo+zU7DcQnWkN7k+ErKBOE7r0mIqvYuBYhdteBVKfo8a4rpDzYJDXaWzBdjc8ZKiEFQvFHngnZjR2UtKc0CAc6Y7ieCWIvBZYdMoHhKsBwFDaO1iuWwDLW3cswXaPEqENonlVAnXePu7KkQeB2acwDzPkhlI=&quot;</span> <span class="c1">#DOCKER_USER</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">secure</span><span class="p p-Indicator">:</span> <span class="s">&quot;iM3Wjt3f5yUaU16yKstwBEEFA8WKx8qcTVnOwF+o9+sooD1SZ39nYJDPgpHHNwFZ1aSkre5ATPEw+dfslr7SnnwYQeYHjYldcqudB+7pq4dmY5U3rCTsjZCH1XmLnnLO45CZRy05pIAUSxWpIiX5khWoHZd704UlDncqIU/6paWWNkywPb2P4UBZ5Xeai1NTS1URHRz0A4aD+dqwKS6P+baq4CyKLC/AqjsTDI+TV4C26FXXTgS0Ly9VfBVZ55D+SdVHgCZXJaHerAixjSX6zvenfkd/87GR6NEAgJ9QofF2nDEXBZZm4jPv5d285Cc4iUvRo1HLbI1VlALya3qUA9Prbno8QQaChNdjRS7mSplkCxZZKzBItpjvI009NPl20zX6GROb/JCjWHRZ4R358cebFKKqE4W1GBArS0piVbdqZyWA/t5KANouQIdrh+lepAf/Xq5JRcDP9r+Rk2hHLk2Rmj97gv001eRf9GjSEC1Qo1kwu1FabZok1UIemJHpY7yWO4d3ZKSOCyQ0WdW6rLMFGkouoByrFVfNPBVxLqDJ3YVL/4x5jc0Q9+G5jm6omqNwQSsn60nUizZJp1fuLGQRUNj8EDvRhxLgVkOJqFf4P/4qRas47k1wkWBk2iBlpNp2eQTY42IZovPIyT+NCfbdg0yyZRyHThpfc+KfTeg=&quot;</span> <span class="c1">#DOCKER_PASS</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">WEBAPI_REPO=dhlabbasel/webapi</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">SALSAH_REPO=dhlabbasel/salsah</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">SALSAH1_REPO=dhlabbasel/salsah1</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">SALSAH2_REPO=dhlabbasel/salsah2</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">SIPI_REPO=dhlabbasel/sipi</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">DOCKERHOST=$(ip route get 8.8.8.8 | awk &#39;{print $NF; exit}&#39;)</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">CHROME_BIN=google-chrome-stable</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">GDB_HEAP_SIZE=&quot;4G&quot;</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">TAG=${TRAVIS_BRANCH//\//-}</span>
 
 <span class="l l-Scalar l-Scalar-Plain">cache</span><span class="p p-Indicator">:</span>
   <span class="l l-Scalar l-Scalar-Plain">directories</span><span class="p p-Indicator">:</span>
@@ -363,6 +372,11 @@ looks like this:</p>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt graphdb:test</span>
         <span class="c1"># test sbt stage</span>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt stage</span>
+        <span class="c1"># only uncomment if docker image is needed for this branch. remove before merging into develop</span>
+        <span class="c1"># - docker login -u $DOCKER_USER -p $DOCKER_PASS</span>
+        <span class="c1"># - docker build $TRAVIS_BUILD_DIR/webapi/ -t $WEBAPI_REPO:$TAG</span>
+        <span class="c1"># - docker push $WEBAPI_REPO</span>
+
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">stage</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">test</span>
       <span class="l l-Scalar l-Scalar-Plain">script</span><span class="p p-Indicator">:</span>
         <span class="c1"># prepare needed graphdb-se files</span>
@@ -391,15 +405,15 @@ looks like this:</p>
     <span class="c1">#    - cd $TRAVIS_BUILD_DIR/webapi/scripts &amp;&amp; ./graphdb-se-docker-init-knora-test.sh</span>
     <span class="c1">#    # start the sipi container (with test config)</span>
     <span class="c1">#    - docker run -d --add-host webapihost:$DOCKERHOST -v /tmp:/tmp -v $HOME:$HOME -p 1024:1024 $SIPI_REPO:develop /sipi/local/bin/sipi --config=/sipi/config/sipi.knora-test-docker-config.lua</span>
-    <span class="c1">#    # start the webapi and salsah server</span>
+    <span class="c1">#    # start the webapi and salsah1 server</span>
     <span class="c1">#    - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt &quot;run allowReloadOverHTTP&quot; &amp;</span>
-    <span class="c1">#    - cd $TRAVIS_BUILD_DIR/salsah/ &amp;&amp; sbt run &amp;</span>
+    <span class="c1">#    - cd $TRAVIS_BUILD_DIR/salsah1/ &amp;&amp; sbt run &amp;</span>
     <span class="c1">#    # wait for the webapi server to start before we proceed with running the salsah tests</span>
     <span class="c1">#    - until netstat -an 2&gt;/dev/null | grep &#39;3333.*LISTEN&#39;; do true; done</span>
     <span class="c1">#    # unzip chromedriver</span>
-    <span class="c1">#    - cd $TRAVIS_BUILD_DIR/salsah/lib/chromedriver/ &amp;&amp; unzip chromedriver_linux64.zip</span>
-    <span class="c1">#    # start built-in salsah browser tests</span>
-    <span class="c1">#    - cd $TRAVIS_BUILD_DIR/salsah/ &amp;&amp; sbt headless:test</span>
+    <span class="c1">#    - cd $TRAVIS_BUILD_DIR/salsah1/lib/chromedriver/ &amp;&amp; unzip chromedriver_linux64.zip</span>
+    <span class="c1">#    # start built-in salsah1 browser tests</span>
+    <span class="c1">#    - cd $TRAVIS_BUILD_DIR/salsah1/ &amp;&amp; sbt headless:test</span>
     <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">stage</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">publish</span>
       <span class="l l-Scalar l-Scalar-Plain">script</span><span class="p p-Indicator">:</span>
         <span class="c1"># login into docker hub, build image, and push but only when on the &quot;develop&quot; branch or tagged</span>
@@ -410,10 +424,10 @@ looks like this:</p>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker build $TRAVIS_BUILD_DIR/webapi/ -t $WEBAPI_REPO:$TRAVIS_BRANCH</span>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker tag $WEBAPI_REPO:$TRAVIS_BRANCH $WEBAPI_REPO:latest</span>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker push $WEBAPI_REPO</span>
-        <span class="c1"># salsah</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker build $TRAVIS_BUILD_DIR/salsah/ -t $SALSAH_REPO:$TRAVIS_BRANCH</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker tag $SALSAH_REPO:$TRAVIS_BRANCH $SALSAH_REPO:latest</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker push $SALSAH_REPO</span>
+        <span class="c1"># salsah1</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker build $TRAVIS_BUILD_DIR/salsah1/ -t $SALSAH1_REPO:$TRAVIS_BRANCH</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker tag $SALSAH1_REPO:$TRAVIS_BRANCH $SALSAH1_REPO:latest</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker push $SALSAH1_REPO</span>
         <span class="c1"># sipi: get the develop sipi and tag it as &#39;develop-knora&#39; so we know that this version is tested (only on the develop branch)</span>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker pull $SIPI_REPO:develop</span>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">docker tag $SIPI_REPO:develop $SIPI_REPO:knora-$TRAVIS_BRANCH</span>
@@ -559,7 +573,9 @@ lazy val webapi = (project in file(&quot;.&quot;)).
                 // copy the configuration files to config directory
                 contentOf(&quot;configs&quot;).toMap.mapValues(&quot;config/&quot; + _) ++
                 // copy configuration files to config directory
-                contentOf(&quot;src/main/resources&quot;).toMap.mapValues(&quot;config/&quot; + _)
+                contentOf(&quot;src/main/resources&quot;).toMap.mapValues(&quot;config/&quot; + _) ++
+                // copy the aspectj weaver jar
+                contentOf(&quot;vendor&quot;).toMap.mapValues(&quot;aspectjweaver/&quot; + _)
             },
             // the bash scripts classpath only needs the fat jar
             scriptClasspath := Seq( (assemblyJarName in assembly).value ),
@@ -581,7 +597,7 @@ lazy val webapi = (project in file(&quot;.&quot;)).
 lazy val webApiCommonSettings = Seq(
     organization := &quot;org.knora&quot;,
     name := &quot;webapi&quot;,
-    version := &quot;1.2.0&quot;,
+    version := &quot;1.3.0&quot;,
     scalaVersion := &quot;2.12.4&quot;
 )
 
@@ -640,8 +656,8 @@ lazy val webApiLibs = Seq(
 lazy val library =
     new {
         object Version {
-            val akkaBase = &quot;2.5.9&quot;
-            val akkaHttp = &quot;10.1.0-RC2&quot;
+            val akkaBase = &quot;2.5.11&quot;
+            val akkaHttp = &quot;10.1.0&quot;
             val jena = &quot;3.4.0&quot;
             val aspectj = &quot;1.8.13&quot;
             val kamon = &quot;1.0.0&quot;
@@ -720,7 +736,7 @@ lazy val library =
         val scalaJava8Compat       = &quot;org.scala-lang.modules&quot;        % &quot;scala-java8-compat_2.12&quot;  % &quot;0.8.0&quot;
 
         // provides akka jackson (json) support
-        val akkaHttpCirce          = &quot;de.heikoseeberger&quot;            %% &quot;akka-http-circe&quot;          % &quot;1.20.0-RC1&quot;
+        val akkaHttpCirce          = &quot;de.heikoseeberger&quot;            %% &quot;akka-http-circe&quot;          % &quot;1.20.0&quot;
         val jacksonScala           = &quot;com.fasterxml.jackson.module&quot; %% &quot;jackson-module-scala&quot;     % &quot;2.9.4&quot;
 
         val jsonldJava             = &quot;com.github.jsonld-java&quot;        % &quot;jsonld-java&quot;              % &quot;0.11.1&quot;
@@ -931,8 +947,8 @@ file which will be loaded into a named graph by the name of <code class="docutil
         <div class="right">
           
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2015-2018, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+        &#169; Copyright 2015-2018 the contributors (see Contributors.md).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>

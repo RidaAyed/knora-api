@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Triplestore Updates &#8212; Knora v1.2.0 documentation</title>
+    <title>Triplestore Updates &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     'v1.2.0',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="Consistency Checking" href="consistency-checking.html" />
     <link rel="prev" title="How to Add an API Route" href="how-to-add-a-route.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora v1.2.0 documentation</a></div>
+          href="../../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="how-to-add-a-route.html" title="How to Add an API Route"
              accesskey="P">previous</a> |
@@ -76,7 +76,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#sparql-update-examples" id="id14">SPARQL Update Examples</a><ul>
-<li><a class="reference internal" href="#finding-a-value-iri-in-a-value-s-version-history" id="id15">Finding a value IRI in a value&#8217;s version history</a></li>
+<li><a class="reference internal" href="#finding-a-value-iri-in-a-value-s-version-history" id="id15">Finding a value IRI in a value’s version history</a></li>
 <li><a class="reference internal" href="#creating-the-initial-version-of-a-value" id="id16">Creating the initial version of a value</a></li>
 <li><a class="reference internal" href="#adding-a-new-version-of-a-value" id="id17">Adding a new version of a value</a></li>
 <li><a class="reference internal" href="#getting-all-versions-of-a-value" id="id18">Getting all versions of a value</a></li>
@@ -108,7 +108,7 @@ necessary. (We may eventually provide functionality to help users merge edits in
 application can also encourage users to coordinate with one another when they are working
 on the same data, and may eventually provide functionality to facilitate this coordination.)</p>
 <p>We can assume that each SPARQL update operation will run in its own database transaction
-with an isolation level of &#8216;read committed&#8217;. This is what GraphDB does when it receives a
+with an isolation level of ‘read committed’. This is what GraphDB does when it receives a
 SPARQL update over HTTP (see <a class="reference external" href="http://graphdb.ontotext.com/documentation/free/storage.html#transaction-control">GraphDB SE Transactions</a>). We cannot assume that it is possible
 to run more than one SPARQL update in a single database transaction. (The <a class="reference external" href="http://www.w3.org/TR/sparql11-protocol/">SPARQL 1.1 Protocol</a>
 does not provide a way to do this, and currently it can be done only by embedding the triplestore
@@ -132,20 +132,20 @@ created, it is given the default permissions specified in the definition of its 
 <h3><a class="toc-backref" href="#id5">Ontology Constraints</a><a class="headerlink" href="#ontology-constraints" title="Permalink to this headline">¶</a></h3>
 <p>Knora must not allow an update that would violate an ontology constraint.</p>
 <p>When creating a new value (as opposed to adding a new version of an existing value), Knora must not
-allow the update if the containing resource&#8217;s OWL class does not contain a cardinality restriction for the
+allow the update if the containing resource’s OWL class does not contain a cardinality restriction for the
 submitted property, or if the new value would violate the cardinality restriction.</p>
 <p>It must also not allow the update if the type of the submitted value does not
 match the <code class="docutils literal"><span class="pre">knora-base:objectClassConstraint</span></code> of the property, or if the
 property has no <code class="docutils literal"><span class="pre">knora-base:objectClassConstraint</span></code>. In the case of a
 property that points to a resource, Knora must ensure that the target resource
-belongs to the OWL class specified in the property&#8217;s
+belongs to the OWL class specified in the property’s
 <code class="docutils literal"><span class="pre">knora-base:objectClassConstraint</span></code>, or to a subclass of that class.</p>
 </div>
 <div class="section" id="duplicate-and-redundant-values">
 <h3><a class="toc-backref" href="#id6">Duplicate and Redundant Values</a><a class="headerlink" href="#duplicate-and-redundant-values" title="Permalink to this headline">¶</a></h3>
 <p>When creating a new value, or changing an existing value, Knora checks whether the submitted
 value would duplicate an existing value for the same property in the resource. The definition of
-&#8216;duplicate&#8217; depends on the type of value; it does not necessarily mean that the two values are
+‘duplicate’ depends on the type of value; it does not necessarily mean that the two values are
 strictly equal. For example, if two text values contain the same Unicode string, they are considered
 duplicates, even if they have different Standoff markup. If resource <code class="docutils literal"><span class="pre">R</span></code> has property <code class="docutils literal"><span class="pre">P</span></code>
 with value <code class="docutils literal"><span class="pre">V1</span></code>, and <code class="docutils literal"><span class="pre">V1</span></code> is a duplicate of <code class="docutils literal"><span class="pre">V2</span></code>, the API server must not add another instance
@@ -153,7 +153,7 @@ of property <code class="docutils literal"><span class="pre">P</span></code> wit
 see <code class="docutils literal"><span class="pre">V2</span></code>, the duplicate is allowed, because forbidding it would reveal the contents of <code class="docutils literal"><span class="pre">V2</span></code>
 to the user.</p>
 <p>When creating a new version of a value, Knora also checks whether the new version is redundant,
-given the existing value. It is possible for the definition of &#8216;redundant&#8217; can depend on the
+given the existing value. It is possible for the definition of ‘redundant’ can depend on the
 type of value, but in practice, it means that the values are strictly equal: any change, however
 trivial, is allowed.</p>
 </div>
@@ -161,15 +161,15 @@ trivial, is allowed.</p>
 <h3><a class="toc-backref" href="#id7">Versioning</a><a class="headerlink" href="#versioning" title="Permalink to this headline">¶</a></h3>
 <p>Each Knora value (i.e. something belonging to an OWL class derived from
 <code class="docutils literal"><span class="pre">knora-base:Value</span></code>) is versioned. This means that once created, a value is
-never modified. Instead, &#8216;changing&#8217; a value means creating a new version of
-the value &#8212; actually a new value &#8212; that points to the previous version
+never modified. Instead, ‘changing’ a value means creating a new version of
+the value — actually a new value — that points to the previous version
 using <code class="docutils literal"><span class="pre">knora-base:previousValue</span></code>. The versions of a value are a singly-
 linked list, pointing backwards into the past. When a new version of a value
 is made, the triple that points from the resource to the old version (using a
 subproperty of <code class="docutils literal"><span class="pre">knora-base:hasValue</span></code>) is removed, and a triple is added to
 point from the resource to the new version. Thus the resource always points
 only to the current version of the value, and the older versions are available
-only via the current version&#8217;s <code class="docutils literal"><span class="pre">knora-base:previousValue</span></code> predicate.</p>
+only via the current version’s <code class="docutils literal"><span class="pre">knora-base:previousValue</span></code> predicate.</p>
 <p>Unlike values, resources (members of OWL classes derived from
 <code class="docutils literal"><span class="pre">knora-base:Resource</span></code>) are not versioned. The data that is attached to a
 resource, other than its values, can be modified.</p>
@@ -210,14 +210,14 @@ that points to the <code class="docutils literal"><span class="pre">LinkValue</s
 <code class="docutils literal"><span class="pre">rdf:predicate</span></code>, and <code class="docutils literal"><span class="pre">rdf:object</span></code> (and excluding link values that are marked as deleted).</p>
 <p>Like other values, link values are versioned. The link value predicate always points from
 the resource to the current version of the link value, and previous versions are available only via
-the current version&#8217;s <code class="docutils literal"><span class="pre">knora-base:previousValue</span></code> predicate. Deleting a link means deleting the triple
+the current version’s <code class="docutils literal"><span class="pre">knora-base:previousValue</span></code> predicate. Deleting a link means deleting the triple
 that links the two resources, and making a new version of the link value, marked with
 <code class="docutils literal"><span class="pre">knora-base:isDeleted</span></code>. A triple then points from the resource to this new, deleted version
 (using the link value property).</p>
-<p>The API allows a link to be &#8216;changed&#8217; so that it points to a different target resource. This is
+<p>The API allows a link to be ‘changed’ so that it points to a different target resource. This is
 implemented as follows: the existing triple connecting the two resources is removed, and a new triple
 is added using the same link property and pointing to the new target resource. A new version of the
-old link&#8217;s <code class="docutils literal"><span class="pre">LinkValue</span></code> is made, marked with <code class="docutils literal"><span class="pre">knora-base:isDeleted</span></code>. A new <code class="docutils literal"><span class="pre">LinkValue</span></code> is made
+old link’s <code class="docutils literal"><span class="pre">LinkValue</span></code> is made, marked with <code class="docutils literal"><span class="pre">knora-base:isDeleted</span></code>. A new <code class="docutils literal"><span class="pre">LinkValue</span></code> is made
 for the new link. The new <code class="docutils literal"><span class="pre">LinkValue</span></code> has no connection to the old one.</p>
 <p>When a resource contains <code class="docutils literal"><span class="pre">knora-base:TextValue</span></code> with Standoff markup that includes a reference
 to another resource, this reference is materialised as a direct link between the two resources, to
@@ -255,7 +255,7 @@ and hence in a single triplestore transaction.</p>
 </div>
 <div class="section" id="application-level-locking">
 <h3><a class="toc-backref" href="#id12">Application-level Locking</a><a class="headerlink" href="#application-level-locking" title="Permalink to this headline">¶</a></h3>
-<p>The &#8216;read committed&#8217; isolation level cannot prevent a scenario where two users
+<p>The ‘read committed’ isolation level cannot prevent a scenario where two users
 want to add the same data at the same time. It is possible that both requests
 would do pre-update checks and simultaneously find that it is OK to add the
 data, and that both updates would then succeed, inserting redundant data and
@@ -275,7 +275,7 @@ update in its own transaction.</p>
 <ol class="arabic simple">
 <li>By doing pre-update checks using SPARQL SELECT queries and cached ontology data.</li>
 <li>By doing checks in the <code class="docutils literal"><span class="pre">WHERE</span></code> clauses of SPARQL updates.</li>
-<li>By using GraphDB&#8217;s built-in consistency checker (see <a class="reference internal" href="consistency-checking.html#consistency-checking"><span class="std std-ref">Consistency Checking</span></a>).</li>
+<li>By using GraphDB’s built-in consistency checker (see <a class="reference internal" href="consistency-checking.html#consistency-checking"><span class="std std-ref">Consistency Checking</span></a>).</li>
 </ol>
 <p>We take the view that redundant consistency checks are a good thing.</p>
 <p>Pre-update checks are SPARQL <code class="docutils literal"><span class="pre">SELECT</span></code> queries that are executed while
@@ -309,7 +309,7 @@ resource or value exists or is deleted, and checking that the
 its intended object. Cardinality checks are not very difficult, but they perform
 poorly on Jena. Knora does not do permission checks in SPARQL, because its
 permission-checking algorithm is too complex to be implemented in SPARQL. For
-this reason, Knora&#8217;s check for duplicate values cannot be done in SPARQL
+this reason, Knora’s check for duplicate values cannot be done in SPARQL
 update code, because it relies on permission checks.</p>
 <p>In a bulk import operation, which can create a large number of resources in
 a single SPARQL update, a <code class="docutils literal"><span class="pre">WHERE</span></code> clause can become very expensive for the
@@ -324,11 +324,11 @@ imports thus rely on checks (1) and (3) above.</p>
 <div class="section" id="sparql-update-examples">
 <h2><a class="toc-backref" href="#id14">SPARQL Update Examples</a><a class="headerlink" href="#sparql-update-examples" title="Permalink to this headline">¶</a></h2>
 <p>The following sample SPARQL update code is simpler than what Knora actually does. It is included here to
-illustrate the way Knora&#8217;s SPARQL updates are structured and how concurrent updates are handled.</p>
+illustrate the way Knora’s SPARQL updates are structured and how concurrent updates are handled.</p>
 <div class="section" id="finding-a-value-iri-in-a-value-s-version-history">
-<span id="find-value-in-version-history"></span><h3><a class="toc-backref" href="#id15">Finding a value IRI in a value&#8217;s version history</a><a class="headerlink" href="#finding-a-value-iri-in-a-value-s-version-history" title="Permalink to this headline">¶</a></h3>
+<span id="find-value-in-version-history"></span><h3><a class="toc-backref" href="#id15">Finding a value IRI in a value’s version history</a><a class="headerlink" href="#finding-a-value-iri-in-a-value-s-version-history" title="Permalink to this headline">¶</a></h3>
 <p>We will need this query below. If a value is present in a resource
-property&#8217;s version history, the query returns everything known about the
+property’s version history, the query returns everything known about the
 value, or nothing otherwise:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
 prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
@@ -379,8 +379,8 @@ INSERT {
 </pre></div>
 </div>
 <p>To find out whether the insert succeeded, the application can use the
-query in <a class="reference internal" href="#find-value-in-version-history"><span class="std std-ref">Finding a value IRI in a value&#8217;s version history</span></a> to look for the new IRI in the
-property&#8217;s version history.</p>
+query in <a class="reference internal" href="#find-value-in-version-history"><span class="std std-ref">Finding a value IRI in a value’s version history</span></a> to look for the new IRI in the
+property’s version history.</p>
 </div>
 <div class="section" id="adding-a-new-version-of-a-value">
 <h3><a class="toc-backref" href="#id17">Adding a new version of a value</a><a class="headerlink" href="#adding-a-new-version-of-a-value" title="Permalink to this headline">¶</a></h3>
@@ -419,20 +419,20 @@ is not in fact the most recent version (because someone else has done an
 update), this operation will do nothing (because the <code class="docutils literal"><span class="pre">WHERE</span></code> clause
 will return no rows). To find out whether the update succeeded, the
 application will then need to do a SELECT query using the
-query in <a class="reference internal" href="#find-value-in-version-history"><span class="std std-ref">Finding a value IRI in a value&#8217;s version history</span></a>. In the case of concurrent updates,
+query in <a class="reference internal" href="#find-value-in-version-history"><span class="std std-ref">Finding a value IRI in a value’s version history</span></a>. In the case of concurrent updates,
 there are two possibilities:</p>
 <ol class="arabic simple">
 <li>Users A and B are looking at version 1. User A submits an update and
 it succeeds, creating version 2, which user A verifies using a
 SELECT. User B then submits an update to version 1 but it fails,
-because version 1 is no longer the latest version. User B&#8217;s SELECT
-will find that user B&#8217;s new value IRI is absent from the value&#8217;s
+because version 1 is no longer the latest version. User B’s SELECT
+will find that user B’s new value IRI is absent from the value’s
 version history.</li>
 <li>Users A and B are looking at version 1. User A submits an update and
 it succeeds, creating version 2. Before User A has time to do a
 SELECT, user B reads the new value and updates it again. Both users
 then do a SELECT, and find that both their new value IRIs are present
-in the value&#8217;s version history.</li>
+in the value’s version history.</li>
 </ol>
 </div>
 <div class="section" id="getting-all-versions-of-a-value">
@@ -525,8 +525,8 @@ return no rows.</p>
         <div class="right">
           
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2015-2018, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+        &#169; Copyright 2015-2018 the contributors (see Contributors.md).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>

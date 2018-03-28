@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>XML to Standoff Mapping &#8212; Knora v1.2.0 documentation</title>
+    <title>XML to Standoff Mapping &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     'v1.2.0',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="Adding Resources" href="adding-resources.html" />
     <link rel="prev" title="Reading and Searching Resources" href="reading-and-searching-resources.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora v1.2.0 documentation</a></div>
+          href="../../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="reading-and-searching-resources.html" title="Reading and Searching Resources"
              accesskey="P">previous</a> |
@@ -84,7 +84,7 @@
 <p>A mapping allows for the conversion of XML to standoff representation in RDF and back. In order to create a TextValue with markup, the text has to be provided in XML format, along with the IRI of the mapping that will be used to convert the markup to standoff.
 However, a mapping is only needed if a TextValue with markup should be created. If a text has no markup, it is submitted as a mere sequence of characters.</p>
 <p>The two cases are described in the TypeScript interfaces <code class="docutils literal"><span class="pre">simpletext</span></code> and <code class="docutils literal"><span class="pre">richtext</span></code> in module <code class="docutils literal"><span class="pre">basicMessageComponents</span></code>.</p>
-<p>Knora offers a standard mapping with the IRI <code class="docutils literal"><span class="pre">http://data.knora.org/projects/standoff/mappings/StandardMapping</span></code>. The standard mapping covers the HTML elements and attributes supported by the GUI&#8217;s text editor CKEditor <a class="footnote-reference" href="#id4" id="id2">[1]</a>
+<p>Knora offers a standard mapping with the IRI <code class="docutils literal"><span class="pre">http://data.knora.org/projects/standoff/mappings/StandardMapping</span></code>. The standard mapping covers the HTML elements and attributes supported by the GUI’s text editor CKEditor <a class="footnote-reference" href="#id4" id="id2">[1]</a>
 (please note that the HTML has to be encoded in strict XML syntax). The standard mapping contains the following elements and attributes that are mapped to standoff classes and properties defined in the ontology:</p>
 <blockquote>
 <div><ul class="simple">
@@ -123,7 +123,7 @@ Although the GUI supports HTML5, it is treated as if it was XHTML in strict XML 
 It was used to generate the default mapping, distributed
 as <code class="docutils literal"><span class="pre">knora-ontologies/standoff-data.ttl</span></code> and that is loaded at a Knora installation.
 It should be used to re-generate it, whenever we want to amend or extend it.</p>
-<p>Note: once the mapping has been generated, one has to rework the resources&#8217; UUID in order to maintain backward compatibility.</p>
+<p>Note: once the mapping has been generated, one has to rework the resources’ UUID in order to maintain backward compatibility.</p>
 </div>
 </div>
 <div class="section" id="creating-a-custom-mapping">
@@ -259,7 +259,7 @@ but not allowing it more than once.</p>
 <li><code class="docutils literal"><span class="pre">knora-base::StandoffIntervalTag</span></code>: Represents an interval (two decimal numbers separated with a comma must be submitted in the data type attribute, e.g. <code class="docutils literal"><span class="pre">1.1,2.2</span></code>).</li>
 <li><code class="docutils literal"><span class="pre">knora-base::StandoffBooleanTag</span></code>: Represents a Boolean value (<code class="docutils literal"><span class="pre">true</span></code> or <code class="docutils literal"><span class="pre">false</span></code> must be submitted in the data type attribute).</li>
 </ul>
-<p>The basic idea is that parts of a text can be marked up in a way that allows using Knora&#8217;s built-in data types. In order to do so, the typed values have to be provided in a standardized way in an attribute that has to be defined in the mapping.</p>
+<p>The basic idea is that parts of a text can be marked up in a way that allows using Knora’s built-in data types. In order to do so, the typed values have to be provided in a standardized way in an attribute that has to be defined in the mapping.</p>
 <p>Data type standoff classes are standoff classes with predefined properties (e.g., a <code class="docutils literal"><span class="pre">knora-base:StandoffLinkTag</span></code> has a <code class="docutils literal"><span class="pre">knora-base:standoffTagHasLink</span></code> and a <code class="docutils literal"><span class="pre">knora-base:StandoffIntegerTag</span></code> has a <code class="docutils literal"><span class="pre">knora-base:valueHasInteger</span></code>).
 Please note the data type standoff classes can not be combined, i.e. a standoff class can only be the subclass of <strong>one</strong> data type standoff class.
 However, standoff data type classes can be subclassed and extended further by assigning properties to them (see below).</p>
@@ -431,7 +431,7 @@ Predefined standoff classes may also be inherited and extended in project specif
 </div>
 <div class="section" id="respecting-property-types">
 <h3><a class="toc-backref" href="#id16">Respecting Property Types</a><a class="headerlink" href="#respecting-property-types" title="Permalink to this headline">¶</a></h3>
-<p>When mapping XML attributes to standoff properties, attention has to be paid to the properties&#8217; object constraints.</p>
+<p>When mapping XML attributes to standoff properties, attention has to be paid to the properties’ object constraints.</p>
 <p>In the ontology, standoff property literals may have one of the following <code class="docutils literal"><span class="pre">knora-base:objectDatatypeConstraint</span></code>:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">xsd:string</span></code></li>
@@ -454,7 +454,7 @@ Any mapping that does not conform to this XML Schema file will be rejected by Kn
 </div>
 <p>The multipart request consists of two named parts:</p>
 <ul>
-<li><p class="first">&#8220;json&#8221; -&gt;:</p>
+<li><p class="first">“json” -&gt;:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
   <span class="s2">&quot;project_id&quot;</span><span class="p">:</span> <span class="s2">&quot;projectIRI&quot;</span><span class="p">,</span>
   <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;my mapping&quot;</span><span class="p">,</span>
@@ -463,7 +463,7 @@ Any mapping that does not conform to this XML Schema file will be rejected by Kn
 </pre></div>
 </div>
 </li>
-<li><p class="first">&#8220;xml&#8221; -&gt;:</p>
+<li><p class="first">“xml” -&gt;:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;mapping&gt;
     ...
@@ -549,8 +549,8 @@ Once created, a mapping can be used to create TextValues in Knora. The formats a
         <div class="right">
           
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2015-2018, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+        &#169; Copyright 2015-2018 the contributors (see Contributors.md).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>

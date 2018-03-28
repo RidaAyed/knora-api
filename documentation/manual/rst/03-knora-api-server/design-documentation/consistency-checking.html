@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Consistency Checking &#8212; Knora v1.2.0 documentation</title>
+    <title>Consistency Checking &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     'v1.2.0',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="Authentication in the Knora API Server" href="authentication.html" />
     <link rel="prev" title="Triplestore Updates" href="triplestore-updates.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora v1.2.0 documentation</a></div>
+          href="../../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="triplestore-updates.html" title="Triplestore Updates"
              accesskey="P">previous</a> |
@@ -91,7 +91,7 @@ that resources of that class can have.</li>
 <p>Specifically, consistency checking should prevent the following:</p>
 <ul class="simple">
 <li>An object property or datatype property has a subject of the wrong class, or an
-object property has an object of the wrong class (GraphDB&#8217;s consistency checke
+object property has an object of the wrong class (GraphDB’s consistency checke
 cannot check the types of literals).</li>
 <li>An object property has an object that does not exist (i.e. the object is an IRI
 that is not used as the subject of any statements in the repository). This can be treated
@@ -118,10 +118,10 @@ a subproperty of the one specified in the original cardinality.</p>
 <ul class="simple">
 <li>With <code class="docutils literal"><span class="pre">owl:cardinality</span> <span class="pre">1</span></code> or <code class="docutils literal"><span class="pre">owl:maxCardinality</span> <span class="pre">1</span></code>, if the object of the
 property can be marked as deleted, the property must not have more than one object that has
-not been marked as deleted. In other words, it&#8217;s OK if there is more than one object, as
+not been marked as deleted. In other words, it’s OK if there is more than one object, as
 long only one of them has <code class="docutils literal"><span class="pre">knora-base:isDeleted</span> <span class="pre">false</span></code>.</li>
 <li>With <code class="docutils literal"><span class="pre">owl:cardinality</span> <span class="pre">1</span></code> or <code class="docutils literal"><span class="pre">owl:minCardinality</span> <span class="pre">1</span></code>, the property must
-have an object, but it&#8217;s OK if the property&#8217;s only object is marked as deleted.
+have an object, but it’s OK if the property’s only object is marked as deleted.
 We allow this because the subject and object may have different owners, and it may
 not be feasible for them to coordinate their work. The owner of the object
 should always be able to mark it as deleted. (It could be useful to notify
@@ -132,7 +132,7 @@ consistency checking.)</li>
 <div class="section" id="design">
 <h2>Design<a class="headerlink" href="#design" title="Permalink to this headline">¶</a></h2>
 <p>When a repository is created in GraphDB, a set of consistency rules can be
-provided, and GraphDB&#8217;s consistency checker can be turned on to ensure that
+provided, and GraphDB’s consistency checker can be turned on to ensure that
 each update transaction respects these rules, as described in the section
 <a class="reference external" href="http://graphdb.ontotext.com/documentation/standard/reasoning.html">Reasoning</a> of the GraphDB documentation. Like custom inference rules,
 consistency rules are defined in files with the <code class="docutils literal"><span class="pre">.pie</span></code> filename extension,
@@ -147,7 +147,7 @@ settings:</p>
 </div>
 <p>The path to <code class="docutils literal"><span class="pre">KnoraRules.pie</span></code> must be an absolute path. The scripts provided
 with Knora to create test repositories set this path automatically.</p>
-<p>Consistency checking in GraphDB relies on reasoning. GraphDB&#8217;s reasoning
+<p>Consistency checking in GraphDB relies on reasoning. GraphDB’s reasoning
 is <a class="reference external" href="http://graphdb.ontotext.com/documentation/standard/introduction-to-semantic-web.html#reasoning-strategies">Forward-chaining</a>, which means that reasoning is applied to the contents
 of each update, before the update transaction is committed, and the inferred
 statements are added to the repository.</p>
@@ -181,7 +181,7 @@ premises match. A line of hyphens separates premises from consequences.</p>
 statements to be inferred, they represent statements that must exist if the premises
 are satisfied. In other words, if the premises are satisfied and the consequences
 are not found, the rule is violated.</li>
-<li>If a consistency rule doesn&#8217;t specify any consequences, and the premises are
+<li>If a consistency rule doesn’t specify any consequences, and the premises are
 satisfied, the rule is violated.</li>
 </ul>
 <p>Rules use variable names for subjects, predicates, and objects, and they can use actual
@@ -311,7 +311,7 @@ be marked as deleted, so we can use this simple rule:</p>
 the rule is violated.</p>
 <p>To check <code class="docutils literal"><span class="pre">owl:cardinality</span> <span class="pre">1</span></code>, we need two rules: one that checks whether
 there are too few objects, and one that checks whether there are too many.
-To check whether there are too few objects, we don&#8217;t care whether the objects
+To check whether there are too few objects, we don’t care whether the objects
 can be marked as deleted, so the rule is the same as
 <code class="docutils literal"><span class="pre">min_cardinality_1_any_object</span></code>, except for the cardinality:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Consistency</span><span class="p">:</span> <span class="n">cardinality_1_not_less_any_object</span>
@@ -343,7 +343,7 @@ cardinality:</p>
 </pre></div>
 </div>
 <p>Knora allows a subproperty of <code class="docutils literal"><span class="pre">knora-base:hasValue</span></code> or
-<code class="docutils literal"><span class="pre">knora-base:hasLinkTo</span></code> to be a predicate of a resource only if the resource&#8217;s
+<code class="docutils literal"><span class="pre">knora-base:hasLinkTo</span></code> to be a predicate of a resource only if the resource’s
 class has some cardinality for the property. For convenience,
 <code class="docutils literal"><span class="pre">knora-base:hasValue</span></code> and <code class="docutils literal"><span class="pre">knora-base:hasLinkTo</span></code> are subproperties of
 <code class="docutils literal"><span class="pre">knora-base:resourceProperty</span></code>, which is used to check this constraint in the
@@ -361,7 +361,7 @@ and <code class="docutils literal"><span class="pre">i</span></code> is not a me
 with a cardinality on that property (or on one of its base
 properties), the rule is violated.</p>
 <p>A similar rule, <code class="docutils literal"><span class="pre">value_prop_cardinality_any</span></code>, ensures that if a value has
-a subproperty of <code class="docutils literal"><span class="pre">knora-base:valueHas</span></code>, the value&#8217;s class has some cardinality
+a subproperty of <code class="docutils literal"><span class="pre">knora-base:valueHas</span></code>, the value’s class has some cardinality
 for that property.</p>
 </div>
 </div>
@@ -425,8 +425,8 @@ for that property.</p>
         <div class="right">
           
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2015-2018, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+        &#169; Copyright 2015-2018 the contributors (see Contributors.md).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>

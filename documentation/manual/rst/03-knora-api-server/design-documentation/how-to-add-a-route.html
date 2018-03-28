@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>How to Add an API Route &#8212; Knora v1.2.0 documentation</title>
+    <title>How to Add an API Route &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     'v1.2.0',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="Triplestore Updates" href="triplestore-updates.html" />
     <link rel="prev" title="Shared Packages" href="shared-packages.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora v1.2.0 documentation</a></div>
+          href="../../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="shared-packages.html" title="Shared Packages"
              accesskey="P">previous</a> |
@@ -70,8 +70,8 @@
 <div class="section" id="write-responder-request-and-response-messages">
 <h2><a class="toc-backref" href="#id2">Write Responder Request and Response Messages</a><a class="headerlink" href="#write-responder-request-and-response-messages" title="Permalink to this headline">¶</a></h2>
 <p>Add a file to the <code class="docutils literal"><span class="pre">org.knora.webapi.messages.v1respondermessages</span></code>
-package, containing case classes for your responder&#8217;s request and
-response messages. Add a trait that the responder&#8217;s request messages
+package, containing case classes for your responder’s request and
+response messages. Add a trait that the responder’s request messages
 extend. Each request message type should contain a <code class="docutils literal"><span class="pre">UserProfileV1</span></code>.</p>
 <p>Response message classes that represent a complete API response must
 extend <code class="docutils literal"><span class="pre">KnoraResponseV1</span></code>, and must therefore have a <code class="docutils literal"><span class="pre">toJsValue</span></code>
@@ -204,8 +204,8 @@ so that the correct client response (status code, format) will be returned.</p>
         <div class="right">
           
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2015-2018, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+        &#169; Copyright 2015-2018 the contributors (see Contributors.md).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>

@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Administration (Users, Projects, Groups, Institutions, Permissions) &#8212; Knora v1.2.0 documentation</title>
+    <title>Administration (Users, Projects, Groups, Institutions, Permissions) &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     'v1.2.0',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="Knora API v2 Design" href="api-v2.html" />
     <link rel="prev" title="Authentication in the Knora API Server" href="authentication.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora v1.2.0 documentation</a></div>
+          href="../../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="authentication.html" title="Authentication in the Knora API Server"
              accesskey="P">previous</a> |
@@ -89,7 +89,7 @@ the creator of the object.</dd>
 <dd>When checking a user’s permissions, the user is automatically assigned to this group by being a member of a
 project designated by the <code class="docutils literal"><span class="pre">knora-base:isInProject</span></code> property.</dd>
 <dt><strong>knora-base:ProjectAdmin</strong>:</dt>
-<dd>When checking a user&#8217;s permission, the user is automatically assigned to this group through the
+<dd>When checking a user’s permission, the user is automatically assigned to this group through the
 <code class="docutils literal"><span class="pre">knora-base:isInProjectAdminGroup</span></code> property, which points to the project in question.</dd>
 <dt><strong>knora-base:SystemAdmin</strong>:</dt>
 <dd>Membership is received by setting the property <code class="docutils literal"><span class="pre">knora-base:isInSystemAdminGroup</span></code> to <code class="docutils literal"><span class="pre">true</span></code> on a
@@ -707,7 +707,7 @@ by using the <em>knora-base:forProject</em> and either <em>knora-base:forGroup</
 </div>
 <div class="section" id="example-data-stored-in-the-permissions-graph">
 <h3>Example Data stored in the permissions graph<a class="headerlink" href="#example-data-stored-in-the-permissions-graph" title="Permalink to this headline">¶</a></h3>
-<p><strong>Administrative permissions on a &#8216;ProjectAdmin&#8217; group:</strong></p>
+<p><strong>Administrative permissions on a ‘ProjectAdmin’ group:</strong></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">rdfh</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">permissions</span><span class="o">/</span><span class="p">[</span><span class="n">UUID</span><span class="p">]</span><span class="o">&gt;</span> <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span> <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">AdministrativePermission</span> <span class="p">;</span>
      <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">forProject</span> <span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">rdfh</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="mi">00</span><span class="n">FF</span><span class="o">&gt;</span> <span class="p">;</span>
      <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">forGroup</span> <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">ProjectAdmin</span> <span class="p">;</span>
@@ -715,7 +715,7 @@ by using the <em>knora-base:forProject</em> and either <em>knora-base:forGroup</
                                 <span class="n">ProjectAdminAllPermission</span><span class="s2">&quot;^^xsd:string .</span>
 </pre></div>
 </div>
-<p><strong>Administrative permissions on a &#8216;ProjectMember&#8217; group:</strong></p>
+<p><strong>Administrative permissions on a ‘ProjectMember’ group:</strong></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">rdfh</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">permissions</span><span class="o">/</span><span class="p">[</span><span class="n">UUID</span><span class="p">]</span><span class="o">&gt;</span> <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span> <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">AdministrativePermission</span> <span class="p">;</span>
      <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">forProject</span> <span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">rdfh</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="mi">00</span><span class="n">FF</span><span class="o">&gt;</span> <span class="p">;</span>
      <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">forGroup</span> <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">ProjectMember</span> <span class="p">;</span>
@@ -736,7 +736,7 @@ by using the <em>knora-base:forProject</em> and either <em>knora-base:forGroup</
      <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">hasPermissions</span> <span class="s2">&quot;ProjectResourceCreateRestrictedPermission &lt;http://www.knora.org/ontology/images#Person&gt;&quot;</span><span class="o">^^</span><span class="n">xsd</span><span class="p">:</span><span class="n">string</span> <span class="o">.</span>
 </pre></div>
 </div>
-<p><strong>Default object access permission on a &#8216;ProjectMember&#8217; group:</strong></p>
+<p><strong>Default object access permission on a ‘ProjectMember’ group:</strong></p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">rdfh</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">permissions</span><span class="o">/</span><span class="p">[</span><span class="n">UUID</span><span class="p">]</span><span class="o">&gt;</span> <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span> <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">DefaultObjectAccessPermission</span> <span class="p">;</span>
      <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">forProject</span> <span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">rdfh</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="mi">00</span><span class="n">FF</span><span class="o">&gt;</span> <span class="p">;</span>
      <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">forGroup</span> <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">ProjectMember</span> <span class="p">;</span>
@@ -779,7 +779,7 @@ by using the <em>knora-base:forProject</em> and either <em>knora-base:forGroup</
                                  <span class="n">M</span> <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">ProjectMember</span><span class="p">,</span><span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">Creator</span><span class="s2">&quot;^^xsd:string .</span>
 </pre></div>
 </div>
-<p>A the time the user&#8217;s <code class="docutils literal"><span class="pre">UserProfile</span></code> is queried, all permissions for all projects and groups the user is a member of
+<p>A the time the user’s <code class="docutils literal"><span class="pre">UserProfile</span></code> is queried, all permissions for all projects and groups the user is a member of
 are also queried. This information is then stored as an easy accessible object inside the <code class="docutils literal"><span class="pre">UserProfile</span></code>, being readily
 available wherever needed. As this is a somewhat expensive operation, built-in caching mechanism at different levels
 (e.g., UsersResponder, PermissionsResponder), will be applied.</p>
@@ -791,19 +791,19 @@ available wherever needed. As this is a somewhat expensive operation, built-in c
 <h3>UC01: Teaching a Class<a class="headerlink" href="#uc01-teaching-a-class" title="Permalink to this headline">¶</a></h3>
 <dl class="docutils">
 <dt><strong>Description</strong>:</dt>
-<dd>I&#8217;m teaching a class and I have the names and email addresses of all the students. I want to create a project, divide
+<dd>I’m teaching a class and I have the names and email addresses of all the students. I want to create a project, divide
 the students into groups (which will only be relevant to this project, e.g. one group for each section of the class),
-and put some students in each group. I don&#8217;t want people to be able to join the project or the group by themselves.</dd>
+and put some students in each group. I don’t want people to be able to join the project or the group by themselves.</dd>
 <dt><strong>Solution</strong>:</dt>
-<dd>The teacher creates different groups and adds users to those groups. Additionally, the teacher can give TA&#8217;s
-<em>GroupAdmin</em> privileges, and let the TA&#8217;s add students to the different groups.</dd>
+<dd>The teacher creates different groups and adds users to those groups. Additionally, the teacher can give TA’s
+<em>GroupAdmin</em> privileges, and let the TA’s add students to the different groups.</dd>
 </dl>
 </div>
 <div class="section" id="uc02-unibas-librarian">
 <h3>UC02: Unibas Librarian<a class="headerlink" href="#uc02-unibas-librarian" title="Permalink to this headline">¶</a></h3>
 <dl class="docutils">
 <dt><strong>Description</strong>:</dt>
-<dd>I&#8217;m a Unibas librarian managing several archiving projects. I need to give everyone at the university permission to
+<dd>I’m a Unibas librarian managing several archiving projects. I need to give everyone at the university permission to
 view all these projects. I want to create a group called <em>UnibasUser</em> that everyone with a Unibas email address will
 automatically belong to. Most of the resources in those projects can then grant view permission to <em>UnibasUser</em>. Or
 perhaps the group will be <em>SwitchUser</em>, for anyone at a Swiss university. Or something even broader.</dd>
@@ -818,21 +818,21 @@ inside the system.</dd>
 <h3>UC03: Crowdsourcing Project<a class="headerlink" href="#uc03-crowdsourcing-project" title="Permalink to this headline">¶</a></h3>
 <dl class="docutils">
 <dt><strong>Description</strong>:</dt>
-<dd>I&#8217;m doing a crowdsourcing project, which involves several different groups that work on different tasks. I&#8217;m hoping
-for thousands of users, and I&#8217;d like anyone to be able to join the project and add themselves to any group they want
+<dd>I’m doing a crowdsourcing project, which involves several different groups that work on different tasks. I’m hoping
+for thousands of users, and I’d like anyone to be able to join the project and add themselves to any group they want
 (as long as Knora verifies their email address), without needing approval from me.</dd>
 <dt><strong>Solution</strong>:</dt>
 <dd>This can be solved by allowing self-assignment to a group.</dd>
 </dl>
 </div>
 <div class="section" id="uc04-user-left-knora">
-<h3>UC04: User &#8220;left&#8221; Knora<a class="headerlink" href="#uc04-user-left-knora" title="Permalink to this headline">¶</a></h3>
+<h3>UC04: User “left” Knora<a class="headerlink" href="#uc04-user-left-knora" title="Permalink to this headline">¶</a></h3>
 <dl class="docutils">
 <dt><strong>Description</strong>:</dt>
-<dd>An user who was an active collaborator, decides to &#8220;quit&#8221;, and wants to delete his user.</dd>
+<dd>An user who was an active collaborator, decides to “quit”, and wants to delete his user.</dd>
 <dt><strong>Solution</strong>:</dt>
-<dd>The user&#8217;s IRI is saved on each value change as part of the versioning mechanism. Exchanging the user&#8217;s IRI in
-those places would count as &#8216;rewriting history&#8217;. So deleting a user will not be possible, instead the user will be
+<dd>The user’s IRI is saved on each value change as part of the versioning mechanism. Exchanging the user’s IRI in
+those places would count as ‘rewriting history’. So deleting a user will not be possible, instead the user will be
 set as <code class="docutils literal"><span class="pre">not</span> <span class="pre">active</span></code>.</dd>
 </dl>
 </div>
@@ -906,7 +906,7 @@ and (4) change basic user information: email, givenName, familyName, lang</li>
 </pre></div>
 </div>
 <dl class="docutils">
-<dt><strong>Update user&#8217;s password</strong></dt>
+<dt><strong>Update user’s password</strong></dt>
 <dd><ul class="first last simple">
 <li>Required permission: User</li>
 <li>Changeable information: password</li>
@@ -945,7 +945,7 @@ and (4) change basic user information: email, givenName, familyName, lang</li>
 <li>BODY: empty</li>
 </ul>
 </dd>
-<dt><strong>Get user&#8217;s project memberships</strong></dt>
+<dt><strong>Get user’s project memberships</strong></dt>
 <dd><ul class="first last simple">
 <li>GET: <code class="docutils literal"><span class="pre">/v1/users/projects/&lt;userIRI&gt;</span></code></li>
 </ul>
@@ -959,7 +959,7 @@ and (4) change basic user information: email, givenName, familyName, lang</li>
 <li>BODY: empty</li>
 </ul>
 </dd>
-<dt><strong>Get user&#8217;s project admin memberships</strong></dt>
+<dt><strong>Get user’s project admin memberships</strong></dt>
 <dd><ul class="first last simple">
 <li>GET: <code class="docutils literal"><span class="pre">/v1/users/projects-admin/&lt;userIri&gt;</span></code></li>
 </ul>
@@ -973,12 +973,12 @@ and (4) change basic user information: email, givenName, familyName, lang</li>
 <li>BODY: empty</li>
 </ul>
 </dd>
-<dt><strong>Get user&#8217;s group memberships</strong></dt>
+<dt><strong>Get user’s group memberships</strong></dt>
 <dd><ul class="first last simple">
 <li>GET: <code class="docutils literal"><span class="pre">/v1/users/groups/&lt;userIri&gt;</span></code></li>
 </ul>
 </dd>
-<dt><strong>Add/remove user to/from &#8216;normal&#8217; group</strong> (not <em>SystemAdmin</em> or <em>ProjectAdmin</em>):</dt>
+<dt><strong>Add/remove user to/from ‘normal’ group</strong> (not <em>SystemAdmin</em> or <em>ProjectAdmin</em>):</dt>
 <dd><ul class="first last simple">
 <li>Required permission: SystemAdmin / hasProjectAllAdminPermission / hasProjectAllGroupAdminPermission /
 hasProjectRestrictedGroupAdminPermission (for this group) / User (if group self-assignment is enabled)</li>
@@ -1003,7 +1003,7 @@ hasProjectRestrictedGroupAdminPermission (for this group) / User (if group self-
 </pre></div>
 </div>
 <p>Example User Information stored in admin graph:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">rdfh</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">users</span><span class="o">/</span><span class="mi">91</span><span class="n">e19f1e01</span><span class="o">&gt;</span> <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span> <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">User</span> <span class="p">;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">rdfh</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">users</span><span class="o">/</span><span class="mf">91e19</span><span class="n">f1e01</span><span class="o">&gt;</span> <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span> <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">User</span> <span class="p">;</span>
      <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">email</span> <span class="s2">&quot;test@test.ch&quot;</span><span class="o">^^</span><span class="n">xsd</span><span class="p">:</span><span class="n">string</span> <span class="p">;</span>
      <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">givenName</span> <span class="s2">&quot;Administrator&quot;</span><span class="o">^^</span><span class="n">xsd</span><span class="p">:</span><span class="n">string</span> <span class="p">;</span>
      <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">familyName</span> <span class="s2">&quot;Admin&quot;</span><span class="o">^^</span><span class="n">xsd</span><span class="p">:</span><span class="n">string</span> <span class="p">;</span>
@@ -1195,7 +1195,7 @@ hasProjectRestrictedGroupAdminPermission (for this group)</li>
 <div><ul class="simple">
 <li>knora-base:attachedToUser gives owner status to the person who created the resource.</li>
 <li><strong>Proposed change:</strong> remove this altogether or make institution/project owner of the resource.</li>
-<li>Should hiwis be &#8220;owners&#8221; of resources they create on behalf of their professor?</li>
+<li>Should hiwis be “owners” of resources they create on behalf of their professor?</li>
 <li>If the creator should have max permission, then give it explicitly.</li>
 <li>=&gt; Owner will be renamed to creator. We need this for provenance. Does not give any permissions automatically. The
 permissions depend on what is defined for the project and the <em>creator</em> smart group.</li>
@@ -1231,20 +1231,20 @@ Salsah behavior)</li>
 <p><strong>root</strong></p>
 <blockquote>
 <div><ul class="simple">
-<li>Should the &#8216;root&#8217; / SystemAdmin user have &#8216;implicitly&#8217; or &#8216;explicitly&#8217; all permissions?</li>
+<li>Should the ‘root’ / SystemAdmin user have ‘implicitly’ or ‘explicitly’ all permissions?</li>
 <li>=&gt; Has implicitly all permissions.</li>
 <li>Does the has all permissions also extend to projects? Is the root user going to be part of every project?
 If yes, then again implicitly or explicitly?</li>
-<li>=&gt; Since &#8216;root&#8217; / SystemAdmin already has all permissions, doesn&#8217;t realy matter if part of a project or group</li>
+<li>=&gt; Since ‘root’ / SystemAdmin already has all permissions, doesn’t realy matter if part of a project or group</li>
 </ul>
 </div></blockquote>
-<p><strong>Ivan&#8217;s Use Case</strong></p>
+<p><strong>Ivan’s Use Case</strong></p>
 <blockquote>
 <div><ul class="simple">
 <li>The system administrator creates the project and sets Ivan as the project administrator. As the project
 administrator, I have all permissions on all objects (Resources/Values; Project Groups) belonging to the project
 (knora-base:attachedToProject). Nobody outside of the project should be allowed to see anything that is created as
-part of Ivan&#8217;s project. He wants to be able to create two groups: <em>Reviewer</em>, <em>Creator</em>.
+part of Ivan’s project. He wants to be able to create two groups: <em>Reviewer</em>, <em>Creator</em>.
 The <em>Reviewer</em> group should only give <em>read-access</em> to someone inside the group to resources pointing to this group,
 but allow the creation of annotations. Further, annotations should only be readable by users inside the <em>Reviewer</em>
 group.
@@ -1258,12 +1258,12 @@ project, e.g., Hiwis.</li>
 <blockquote>
 <div><ul class="simple">
 <li>A project wants to restrict the permissions of newly created resources to a fixed set</li>
-<li>=&gt; Covered. Will be able do define &#8216;default permissions&#8217; and restrict the creation of new resources to these
+<li>=&gt; Covered. Will be able do define ‘default permissions’ and restrict the creation of new resources to these
 permissions</li>
 <li>This means for the current implementation, that any permissions supplied during the resource creation request need
 to be checked and if needed overriden.</li>
 <li>=&gt; Covered. Also in the new design, the backend will need to always check the suplied permissions for newly created
-resources as we cannot ve sure that the GUI will behave correctly (e.g., many different &#8220;Salsah&#8221; implementations)</li>
+resources as we cannot ve sure that the GUI will behave correctly (e.g., many different “Salsah” implementations)</li>
 <li>Restrict creation/access of certain classes of resources to certain groups, e.g., group A is able to create/access
 resources of class A but not of class B.</li>
 <li>=&gt; Covered. Will be able to give a certain group only create permission for specific classes</li>
@@ -1342,8 +1342,8 @@ and some are attached to resources (e.g., this group has read/modify permission,
         <div class="right">
           
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2015-2018, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+        &#169; Copyright 2015-2018 the contributors (see Contributors.md).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>

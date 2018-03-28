@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Interaction Between Sipi and Knora &#8212; Knora v1.2.0 documentation</title>
+    <title>Interaction Between Sipi and Knora &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     'v1.2.0',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -28,11 +28,11 @@
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="prev" title="Setup Sipi for Knora" href="setup-sipi-for-knora.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../index.html">Knora v1.2.0 documentation</a></div>
+          href="../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="setup-sipi-for-knora.html" title="Setup Sipi for Knora"
              accesskey="P">previous</a> |
@@ -77,9 +77,9 @@ which then gets displayed to the user in the browser. Sipi copies the original f
 <li><code class="docutils literal"><span class="pre">original_filename</span></code>: the original name of the file submitted by the client</li>
 </ul>
 </div></blockquote>
-<p>Once the user finally wants to attach the file to a resource, the request is sent to Knora&#8217;s API
+<p>Once the user finally wants to attach the file to a resource, the request is sent to Knora’s API
 providing all the required parameters to create the resource along with additional information about the file to be attached.
-<strong>However, the file itself is not submitted to the Knora Api, but its filename returned by Sipi (from the ``create_thumbnail`` response).</strong></p>
+<strong>However, the file itself is not submitted to the Knora Api, but its filename returned by Sipi (from the “create_thumbnail“ response).</strong></p>
 <div class="section" id="create-a-new-resource-with-a-digital-representation">
 <h4>Create a new Resource with a Digital Representation<a class="headerlink" href="#create-a-new-resource-with-a-digital-representation" title="Permalink to this headline">¶</a></h4>
 <p>The POST request is handled in <code class="docutils literal"><span class="pre">ResourcesRouteV1.scala</span></code> and parsed to a <code class="docutils literal"><span class="pre">CreateResourceApiRequestV1</span></code>. Information about the file is sent separately
@@ -111,7 +111,7 @@ a <code class="docutils literal"><span class="pre">SipiResponderConversionFileRe
 <h4>Create a new Resource with a Digital Representation<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
 <p>The request is handled in <code class="docutils literal"><span class="pre">ResourcesRouteV1.scala</span></code>. The multipart POST request consists of two named body parts: <code class="docutils literal"><span class="pre">json</span></code> containing the resource parameters (properties)
 and <code class="docutils literal"><span class="pre">file</span></code> containing the binary data as well as the file name and its mime type.
-Using Python&#8217;s <a class="reference external" href="http://docs.python-requests.org/en/master/user/quickstart/#post-a-multipart-encoded-file">request module</a>,
+Using Python’s <a class="reference external" href="http://docs.python-requests.org/en/master/user/quickstart/#post-a-multipart-encoded-file">request module</a>,
 a request could look like this:</p>
 <blockquote id="python-code">
 <div><div class="code highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span><span class="o">,</span> <span class="nn">json</span>
@@ -163,7 +163,7 @@ it has to delete the temporary file after it has been processed by SIPI. Here, w
 </div></blockquote>
 <p>The <code class="docutils literal"><span class="pre">file_type</span></code> is important because representations for resources are restricted to media types: image, audio, video or a generic binary file. If a resource type requires an image representations
 (subclass of <code class="docutils literal"><span class="pre">StillImageRepresentation</span></code>), the <code class="docutils literal"><span class="pre">file_type</span></code> has to be an image.
-Otherwise, the ontology&#8217;s restrictions would be violated. Because of this requirement, there is a construct <code class="docutils literal"><span class="pre">fileType2FileValueProperty</span></code> mapping file types to file value properties.
+Otherwise, the ontology’s restrictions would be violated. Because of this requirement, there is a construct <code class="docutils literal"><span class="pre">fileType2FileValueProperty</span></code> mapping file types to file value properties.
 Also all the possible file types are defined in enumeration.</p>
 <p>Depending on the given file type, Sipi responder can create the apt message (here: <code class="docutils literal"><span class="pre">StillImageFileValueV1</span></code>) to save the data to the triplestore.</p>
 </div>
@@ -172,7 +172,7 @@ Also all the possible file types are defined in enumeration.</p>
 <p>In the values responder, <code class="docutils literal"><span class="pre">ChangeFileValueRequestV1</span></code> is passed to the method <code class="docutils literal"><span class="pre">changeFileValueV1</span></code>. Unlike ordinary value change requests,
 the Iris of the value objects to be updated are not known yet. Because of this, all the existing file values of the given resource Iri have to be queried first.
 Also their quality levels are queried because in case of a <code class="docutils literal"><span class="pre">StillImageFileValue</span></code>, we have to deal with a file value for the thumbnail and another one for the full quality representation.
-When these two file values are being updated, the quality levels have to be considered for the sake of consistency (otherwise a full quality value&#8217;s <code class="docutils literal"><span class="pre">knora-base:previous-value</span></code> may point to a thumbnail file value).</p>
+When these two file values are being updated, the quality levels have to be considered for the sake of consistency (otherwise a full quality value’s <code class="docutils literal"><span class="pre">knora-base:previous-value</span></code> may point to a thumbnail file value).</p>
 <p>With the file values being returned, we actually know about the current Iris of the value objects. Now the Sipi responder is called to handle the file conversion request (cf. <a class="reference internal" href="#resources-responder-and-sipi"><span class="std std-ref">Further Handling of the GUI and the non GUI-case in the Resources Responder</span></a>).
 After that, it is checked that the <code class="docutils literal"><span class="pre">file_type</span></code> returned by Sipi responder corresponds to the property type of the existing file values. For example, if the <code class="docutils literal"><span class="pre">file_type</span></code> is an image, the property pointing to the current file values
 must be a <code class="docutils literal"><span class="pre">hasStillImageFileValue</span></code>. Otherwise, the user submitted a non image file that has to be rejected.</p>
@@ -234,15 +234,15 @@ These messages are passed to <code class="docutils literal"><span class="pre">ch
 <p>Each of these paths has to be handled by the browser by making a call to Sipi, obtaining the binary representation in the desired quality.
 To deal with different image quality levels, Sipi implements the <a class="reference external" href="http://iiif.io/api/image/2.0/">IIIF standard</a>. The different quality level paths
 are created by Knora in <code class="docutils literal"><span class="pre">ValueUtilV1</span></code>.</p>
-<p>Whenever Sipi serves a binary representation of a Knora file value (indicated by using the prefix <code class="docutils literal"><span class="pre">knora</span></code> in the path), it has to make a request to Knora&#8217;s
-Sipi responder to get the user&#8217;s permissions on the requested file. Sipi&#8217;s request to Knora contains a cookie with the Knora session id the user has obtained when logging in to Knora:
-As a response to a successful login, Knora returns the user&#8217;s session id and this id is automatically sent to Sipi by the browser, setting a second cookie for the communication with Sipi.
+<p>Whenever Sipi serves a binary representation of a Knora file value (indicated by using the prefix <code class="docutils literal"><span class="pre">knora</span></code> in the path), it has to make a request to Knora’s
+Sipi responder to get the user’s permissions on the requested file. Sipi’s request to Knora contains a cookie with the Knora session id the user has obtained when logging in to Knora:
+As a response to a successful login, Knora returns the user’s session id and this id is automatically sent to Sipi by the browser, setting a second cookie for the communication with Sipi.
 The reason the Knora session id is set in two cookies, is the fact that cookies can not be shared among different domains. Since Knora and Sipi are likely to be running
 under different domains, this solution offers the necessary flexibility.</p>
 </div>
 <div class="section" id="sharing-the-session-id-with-sipi">
 <span id="sharing-sessionid-with-sipi"></span><h3>Sharing the Session ID with Sipi<a class="headerlink" href="#sharing-the-session-id-with-sipi" title="Permalink to this headline">¶</a></h3>
-<p>Whenever a file is requested, Sipi asks Knora about the currents user&#8217;s permissions on the given file. This is achieved by sharing the Knora session id with Sipi.
+<p>Whenever a file is requested, Sipi asks Knora about the currents user’s permissions on the given file. This is achieved by sharing the Knora session id with Sipi.
 When the user logs in to Knora using his browser, a request is sent to Sipi submitting the session id the user got back from Knora, setting a second session cookie.
 Now the user has two session cookies containing the same session id: one for the communication with Knora and one for the communication with Sipi. However, Sipi does not handle sessions.
 It just sends the given Knora session id to Knora.</p>
@@ -303,8 +303,8 @@ It just sends the given Knora session id to Knora.</p>
         <div class="right">
           
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2015-2018, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+        &#169; Copyright 2015-2018 the contributors (see Contributors.md).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>

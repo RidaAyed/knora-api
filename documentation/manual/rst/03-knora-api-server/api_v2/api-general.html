@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Introduction: Using API V2 &#8212; Knora v1.2.0 documentation</title>
+    <title>Introduction: Using API V2 &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     'v1.2.0',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="Knora IRIs" href="knora-iris.html" />
     <link rel="prev" title="Using API V2" href="index.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora v1.2.0 documentation</a></div>
+          href="../../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="index.html" title="Using API V2"
              accesskey="P">previous</a> |
@@ -80,7 +80,7 @@
 <h2>Support of schema.org Entities<a class="headerlink" href="#support-of-schema-org-entities" title="Permalink to this headline">¶</a></h2>
 <p>In our API responses (e.g., <code class="docutils literal"><span class="pre">ResourcesSequence</span></code>, see <a class="reference internal" href="response-formats.html#response-formats-v2"><span class="std std-ref">V2 Response Formats</span></a>), we use entities defined in <a class="reference external" href="http://www.schema.org">schema.org</a>.</p>
 <p>Our intent is that any client familiar with <a class="reference external" href="http://www.schema.org">schema.org</a> should be able to understand our response format.</p>
-<p>A resource&#8217;s <code class="docutils literal"><span class="pre">rdfs:label</span></code> is represented as a <code class="docutils literal"><span class="pre">http://schema.org/name</span></code> although they might not be equivalent in a strict sense (see <a class="reference external" href="https://github.com/schemaorg/schemaorg/issues/1762">label_name</a>).</p>
+<p>A resource’s <code class="docutils literal"><span class="pre">rdfs:label</span></code> is represented as a <code class="docutils literal"><span class="pre">http://schema.org/name</span></code> although they might not be equivalent in a strict sense (see <a class="reference external" href="https://github.com/schemaorg/schemaorg/issues/1762">label_name</a>).</p>
 <p>Likewise, <code class="docutils literal"><span class="pre">knora-api:Resource</span></code> is declared to be a subclass of <code class="docutils literal"><span class="pre">http://schema.org/Thing</span></code> (see <a class="reference external" href="https://lists.w3.org/Archives/Public/public-schemaorg/2017Mar/0087.html">resource_thing</a>), so we can use a <code class="docutils literal"><span class="pre">knora-api:Resource</span></code> or any of its subclasses where <code class="docutils literal"><span class="pre">http://schema.org</span></code> requires a <code class="docutils literal"><span class="pre">http://schema.org/Thing</span></code>.</p>
 </div>
 <div class="section" id="api-schema">
@@ -157,8 +157,8 @@ Accordingly, requests using any other version of the API will require another pa
         <div class="right">
           
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2015-2018, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+        &#169; Copyright 2015-2018 the contributors (see Contributors.md).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>

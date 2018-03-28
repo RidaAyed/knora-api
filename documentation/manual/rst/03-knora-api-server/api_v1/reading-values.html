@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Reading Values &#8212; Knora v1.2.0 documentation</title>
+    <title>Reading Values &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     'v1.2.0',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="Adding a Value" href="adding-values.html" />
     <link rel="prev" title="Adding Resources" href="adding-resources.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora v1.2.0 documentation</a></div>
+          href="../../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="adding-resources.html" title="Adding Resources"
              accesskey="P">previous</a> |
@@ -60,21 +60,21 @@ The request has to be sent to the Knora server using the <code class="docutils l
 Reading values may require authentication since some resources may have restricted viewing permissions.</p>
 <div class="section" id="reading-a-value">
 <h2>Reading a Value<a class="headerlink" href="#reading-a-value" title="Permalink to this headline">¶</a></h2>
-<p>The representation of a value can be obtained by making a GET request providing the value&#8217;s IRI:</p>
+<p>The representation of a value can be obtained by making a GET request providing the value’s IRI:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">host</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">values</span><span class="o">/</span><span class="n">valueIRI</span>
 </pre></div>
 </div>
-<p>In the response, the value&#8217;s type and value are returned (see TypeScript interface <code class="docutils literal"><span class="pre">valueResponse</span></code> in module <code class="docutils literal"><span class="pre">valueResponseFormats</span></code>).</p>
+<p>In the response, the value’s type and value are returned (see TypeScript interface <code class="docutils literal"><span class="pre">valueResponse</span></code> in module <code class="docutils literal"><span class="pre">valueResponseFormats</span></code>).</p>
 </div>
 <div class="section" id="getting-a-value-s-version-history">
-<h2>Getting a Value&#8217;s Version History<a class="headerlink" href="#getting-a-value-s-version-history" title="Permalink to this headline">¶</a></h2>
+<h2>Getting a Value’s Version History<a class="headerlink" href="#getting-a-value-s-version-history" title="Permalink to this headline">¶</a></h2>
 <p>In order to get the history of a value (its current and previous versions), the IRI of the resource it belongs to, the IRI of the property type that connects the resource to the value,
 and its <strong>current</strong> value IRI have to be submitted. Each of these elements is appended to the URL and separated by a slash. Please note that all of these have to be URL encoded.</p>
 <p>Additionally to <code class="docutils literal"><span class="pre">values</span></code>, the path segment <code class="docutils literal"><span class="pre">history</span></code> has to be used:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">host</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">values</span><span class="o">/</span><span class="n">history</span><span class="o">/</span><span class="n">resourceIRI</span><span class="o">/</span><span class="n">propertyTypeIRI</span><span class="o">/</span><span class="n">valueIRI</span>
 </pre></div>
 </div>
-<p>In the response, the value&#8217;s versions returned (see TypeScript interface <code class="docutils literal"><span class="pre">valueVersionsResponse</span></code> in module <code class="docutils literal"><span class="pre">valueResponseFormats</span></code>).</p>
+<p>In the response, the value’s versions returned (see TypeScript interface <code class="docutils literal"><span class="pre">valueVersionsResponse</span></code> in module <code class="docutils literal"><span class="pre">valueResponseFormats</span></code>).</p>
 </div>
 <div class="section" id="getting-a-linking-value">
 <h2>Getting a Linking Value<a class="headerlink" href="#getting-a-linking-value" title="Permalink to this headline">¶</a></h2>
@@ -147,8 +147,8 @@ Each of these has to be URL encoded.</p>
         <div class="right">
           
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2015-2018, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+        &#169; Copyright 2015-2018 the contributors (see Contributors.md).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>

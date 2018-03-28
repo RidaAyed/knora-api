@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Changing a Value &#8212; Knora v1.2.0 documentation</title>
+    <title>Changing a Value &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     'v1.2.0',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="Deleting Resources and Values" href="delete-resources-and-values.html" />
     <link rel="prev" title="Adding a Value" href="adding-values.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora v1.2.0 documentation</a></div>
+          href="../../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="adding-values.html" title="Adding a Value"
              accesskey="P">previous</a> |
@@ -70,12 +70,12 @@
 Changing values requires authentication since only known users may change values.</p>
 <div class="section" id="modifying-a-property-value">
 <h2><a class="toc-backref" href="#id1">Modifying a Property Value</a><a class="headerlink" href="#modifying-a-property-value" title="Permalink to this headline">¶</a></h2>
-<p>The request has to be sent to the Knora server using the <code class="docutils literal"><span class="pre">values</span></code> path segment followed by the value&#8217;s IRI:</p>
+<p>The request has to be sent to the Knora server using the <code class="docutils literal"><span class="pre">values</span></code> path segment followed by the value’s IRI:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">PUT</span> <span class="n">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">host</span><span class="o">/</span><span class="n">values</span><span class="o">/</span><span class="n">valueIRI</span>
 </pre></div>
 </div>
 <p>Please note that the value IRI has to be URL encoded.</p>
-<p>In order to change an existing value (creating a new version of it), the value&#8217;s current IRI and its new value have to be submitted as JSON in the HTTP body.</p>
+<p>In order to change an existing value (creating a new version of it), the value’s current IRI and its new value have to be submitted as JSON in the HTTP body.</p>
 <dl class="docutils">
 <dt>Depending on the type of the new value, one of the following formats (all TypeScript interfaces defined in module <code class="docutils literal"><span class="pre">changeValueFormats</span></code>) has to be used in order to create a new value:</dt>
 <dd><ul class="first last simple">
@@ -131,12 +131,12 @@ The two cases are referred to as Non GUI-case and GUI-case (see <a class="refere
 <h3><a class="toc-backref" href="#id4">Indicating the location of a file (GUI-case)</a><a class="headerlink" href="#indicating-the-location-of-a-file-gui-case" title="Permalink to this headline">¶</a></h3>
 <p>Here, simply the location of the new file has to be submitted as JSON.
 The JSON format is described in the TypeScript interface <code class="docutils literal"><span class="pre">changeFileValueRequest</span></code> in module <code class="docutils literal"><span class="pre">changeValueFormats</span></code>.
-The request header&#8217;s content type has to set to <code class="docutils literal"><span class="pre">application/json</span></code>.</p>
+The request header’s content type has to set to <code class="docutils literal"><span class="pre">application/json</span></code>.</p>
 </div>
 </div>
 <div class="section" id="response-on-value-change">
 <h2><a class="toc-backref" href="#id5">Response on Value Change</a><a class="headerlink" href="#response-on-value-change" title="Permalink to this headline">¶</a></h2>
-<p>When a value has been successfully changed, Knora sends back a JSON with the new value&#8217;s IRI.
+<p>When a value has been successfully changed, Knora sends back a JSON with the new value’s IRI.
 The value IRI identifies the value and can be used to perform future Knora API V1 operations.</p>
 <p>The JSON format of the response is described in the TypeScript interface <code class="docutils literal"><span class="pre">changeValueResponse</span></code> in module <code class="docutils literal"><span class="pre">changeValueFormats</span></code>.</p>
 </div>
@@ -200,8 +200,8 @@ The value IRI identifies the value and can be used to perform future Knora API V
         <div class="right">
           
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2015-2018, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+        &#169; Copyright 2015-2018 the contributors (see Contributors.md).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>

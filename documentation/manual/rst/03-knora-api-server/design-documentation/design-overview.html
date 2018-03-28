@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Knora API Server Design Overview &#8212; Knora v1.2.0 documentation</title>
+    <title>Knora API Server Design Overview &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     'v1.2.0',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="Futures with Akka" href="futures-with-akka.html" />
     <link rel="prev" title="Knora API Server Design Documentation" href="index.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora v1.2.0 documentation</a></div>
+          href="../../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="index.html" title="Knora API Server Design Documentation"
              accesskey="P">previous</a> |
@@ -81,7 +81,7 @@
 </div>
 <div class="section" id="introduction">
 <h2><a class="toc-backref" href="#id5">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>The Knora API server implements Knora&#8217;s web-based Application Programming Interface (API). It is responsible
+<p>The Knora API server implements Knora’s web-based Application Programming Interface (API). It is responsible
 for receiving HTTP requests from clients (which may be web browsers or other software), performing
 authentication and authorisation, querying and updating the RDF triplestore, transforming the
 results of SPARQL queries into Knora API responses, and returning these responses to the client.
@@ -136,7 +136,7 @@ embedding the triplestore in the API server as a library.</p>
 <p>Each supervisor creates and maintains a pool of workers, with <a class="reference external" href="http://doc.akka.io/docs/akka/snapshot/scala/routing.html">an Akka
 router</a>
 that dispatches messages to the workers according to some strategy. For
-now, all the pools use the &#8216;round-robin&#8217; strategy. The pools and routers
+now, all the pools use the ‘round-robin’ strategy. The pools and routers
 are configured in <code class="docutils literal"><span class="pre">application.conf</span></code>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">actor</span> <span class="p">{</span>
     <span class="n">deployment</span> <span class="p">{</span>
@@ -197,22 +197,22 @@ responder. Whenever a responder needs to do a SPARQL query, it sends a
 message to the store manager, which forwards it to a triplestore actor.
 The size of the pool(s) of triplestore actors sets the
 maximum number of concurrent SPARQL queries.</p>
-<p>The routes and actors in the Knora API server uses Akka&#8217;s <code class="docutils literal"><span class="pre">ask</span></code> pattern, rather than the <code class="docutils literal"><span class="pre">tell</span></code>
+<p>The routes and actors in the Knora API server uses Akka’s <code class="docutils literal"><span class="pre">ask</span></code> pattern, rather than the <code class="docutils literal"><span class="pre">tell</span></code>
 pattern, to send messages and receive responses, because this simplifies the code
 considerably (using <code class="docutils literal"><span class="pre">tell</span></code> would require actors to maintain complex mutable state),
 with no apparent reduction in performance.</p>
-<p>To manage asynchronous communication between actors, the Knora API server uses Scala&#8217;s
+<p>To manage asynchronous communication between actors, the Knora API server uses Scala’s
 <code class="docutils literal"><span class="pre">Future</span></code> monad extensively. See <a class="reference internal" href="futures-with-akka.html#futures-with-akka"><span class="std std-ref">Futures with Akka</span></a> for details.</p>
-<p>We use Akka&#8217;s asynchronous logging interface (see <a class="reference external" href="http://doc.akka.io/docs/akka/current/scala/logging.html">Akka Logging</a>).</p>
+<p>We use Akka’s asynchronous logging interface (see <a class="reference external" href="http://doc.akka.io/docs/akka/current/scala/logging.html">Akka Logging</a>).</p>
 </div>
 <div class="section" id="what-the-responders-do">
 <h2><a class="toc-backref" href="#id14">What the Responders Do</a><a class="headerlink" href="#what-the-responders-do" title="Permalink to this headline">¶</a></h2>
-<p>In the Knora API server, a &#8216;responder&#8217; is an actor that receives a request message (a
+<p>In the Knora API server, a ‘responder’ is an actor that receives a request message (a
 Scala case class) in the <code class="docutils literal"><span class="pre">ask</span></code> pattern, gets data from the
 triplestore, and turns that data into a reply message (another case
 class). These reply messages are are defined in the <code class="docutils literal"><span class="pre">schemas</span></code> package.
 A responder can produce a reply representing a complete API response, or
-part of a response that will be used by another responder. If it&#8217;s a
+part of a response that will be used by another responder. If it’s a
 complete API response, it will extend <code class="docutils literal"><span class="pre">KnoraJsonResponse</span></code>, which can
 be converted directly into JSON by calling its <code class="docutils literal"><span class="pre">toJsValue</span></code> method (see
 the section on JSON below).</p>
@@ -235,8 +235,8 @@ messages to <code class="docutils literal"><span class="pre">StoreManager</span>
 <div class="section" id="triplestore-access">
 <span id="id1"></span><h2><a class="toc-backref" href="#id16">Triplestore Access</a><a class="headerlink" href="#triplestore-access" title="Permalink to this headline">¶</a></h2>
 <p>SPARQL queries are generated from templates, using the <a class="reference external" href="https://github.com/playframework/twirl">Twirl</a> template engine.
-For example, if we&#8217;re querying a resource, the template will contain a
-placeholder for the resource&#8217;s IRI. The templates can be found under
+For example, if we’re querying a resource, the template will contain a
+placeholder for the resource’s IRI. The templates can be found under
 <code class="docutils literal"><span class="pre">src/main/twirl/queries/sparql/v1</span></code>. So far we have been able to avoid generating
 different SPARQL for different triplestores.</p>
 <p>The <code class="docutils literal"><span class="pre">org.knora.webapi.store</span></code> package contains actors for communicating with triplestores in different ways: a
@@ -270,8 +270,8 @@ error occurs.</li>
 <li>Ensure that <code class="docutils literal"><span class="pre">ask</span></code> requests are properly terminated  with an <code class="docutils literal"><span class="pre">akka.actor.Status.Failure</span></code>
 message in the event of an error, without which they will simply time out
 (see <a class="reference external" href="http://doc.akka.io/docs/akka/current/scala/actors.html#Ask__Send-And-Receive-Future">Send-And-Receive-Future</a>).</li>
-<li>When a actor encounters an error that isn&#8217;t the client&#8217;s fault (e.g.
-a triplestore failure), log it, but don&#8217;t do this with errors caused by bad input.</li>
+<li>When a actor encounters an error that isn’t the client’s fault (e.g.
+a triplestore failure), log it, but don’t do this with errors caused by bad input.</li>
 <li>When logging errors, include the full JVM stack trace.</li>
 </ol>
 <p>The design does not yet include, but could easily accommodate,
@@ -281,9 +281,9 @@ representing different sorts of errors that could occur. The hierarchy
 has two main branches:</p>
 <ul class="simple">
 <li><code class="docutils literal"><span class="pre">RequestRejectedException</span></code>, an abstract class for errors that are
-the client&#8217;s fault. These errors are not logged.</li>
+the client’s fault. These errors are not logged.</li>
 <li><code class="docutils literal"><span class="pre">InternalServerException</span></code>, an abstract class for errors that are
-not the client&#8217;s fault. These errors are logged.</li>
+not the client’s fault. These errors are logged.</li>
 </ul>
 <p>Exception classes in this hierarchy can be defined to include a wrapped
 <code class="docutils literal"><span class="pre">cause</span></code> exception. When an exception is logged, its stack trace will
@@ -292,8 +292,8 @@ recommended that low-level code should catch low-level exceptions, and
 wrap them in one of our higher-level exceptions, in order to clarify the
 context in which the error occurred.</p>
 <p>To simplify error-handling in responders, a utility method called <code class="docutils literal"><span class="pre">future2Message</span></code> is provided
-in <code class="docutils literal"><span class="pre">ActorUtils</span></code>. It is intended to be used in an actor&#8217;s <code class="docutils literal"><span class="pre">receive</span></code> method to respond to
-messages in the <code class="docutils literal"><span class="pre">ask</span></code> pattern. If the responder&#8217;s computation is successful,
+in <code class="docutils literal"><span class="pre">ActorUtils</span></code>. It is intended to be used in an actor’s <code class="docutils literal"><span class="pre">receive</span></code> method to respond to
+messages in the <code class="docutils literal"><span class="pre">ask</span></code> pattern. If the responder’s computation is successful,
 it is sent to the requesting actor as a response to the <code class="docutils literal"><span class="pre">ask</span></code>. If the
 computation fails, the exception representing the failure is wrapped in
 a <code class="docutils literal"><span class="pre">Status.Failure</span></code>, which is sent as a response to the <code class="docutils literal"><span class="pre">ask</span></code>. If the
@@ -349,7 +349,7 @@ befor calling <code class="docutils literal"><span class="pre">org.knora.webapi.
 <p>The Knora API server parses and generate JSON using the <a class="reference external" href="https://github.com/spray/spray-json">spray-json</a> library.</p>
 <p>The triplestore returns results in JSON, and these are parsed into <code class="docutils literal"><span class="pre">SparqlSelectResponse</span></code> objects in the <code class="docutils literal"><span class="pre">store</span></code>
 package (by <code class="docutils literal"><span class="pre">SparqlUtils</span></code>, which can be used by any actor in that package). A <code class="docutils literal"><span class="pre">SparqlSelectResponse</span></code> has a
-structure that&#8217;s very close to the JSON returned by a triplestore via the <a class="reference external" href="http://www.w3.org/TR/sparql11-protocol/">SPARQL 1.1 Protocol</a>:
+structure that’s very close to the JSON returned by a triplestore via the <a class="reference external" href="http://www.w3.org/TR/sparql11-protocol/">SPARQL 1.1 Protocol</a>:
 it contains a header (listing the variables that were used in the query) and a body (containing rows of query
 results). Each row of query results is represented by a <code class="docutils literal"><span class="pre">VariableResultsRow</span></code>, which contains a <code class="docutils literal"><span class="pre">Map[String,</span> <span class="pre">String]</span></code>
 of variable names to values.</p>
@@ -423,8 +423,8 @@ only at the last moment, by the <code class="docutils literal"><span class="pre"
         <div class="right">
           
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2015-2018, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+        &#169; Copyright 2015-2018 the contributors (see Contributors.md).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>

@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Docker Cheat Sheet &#8212; Knora v1.2.0 documentation</title>
+    <title>Docker Cheat Sheet &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
-        VERSION:     'v1.2.0',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="Monitoring the Webapi Server" href="monitoring.html" />
     <link rel="prev" title="Testing" href="testing.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora v1.2.0 documentation</a></div>
+          href="../../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="testing.html" title="Testing"
              accesskey="P">previous</a> |
@@ -72,7 +72,7 @@
 <li>[<cite>docker run</cite>](<a class="reference external" href="https://docs.docker.com/reference/commandline/run">https://docs.docker.com/reference/commandline/run</a>) creates and starts a container in one operation.</li>
 <li>[<cite>docker rename</cite>](<a class="reference external" href="https://docs.docker.com/engine/reference/commandline/rename/">https://docs.docker.com/engine/reference/commandline/rename/</a>) allows the container to be renamed.</li>
 <li>[<cite>docker rm</cite>](<a class="reference external" href="https://docs.docker.com/reference/commandline/rm">https://docs.docker.com/reference/commandline/rm</a>) deletes a container.</li>
-<li>[<cite>docker update</cite>](<a class="reference external" href="https://docs.docker.com/engine/reference/commandline/update/">https://docs.docker.com/engine/reference/commandline/update/</a>) updates a container&#8217;s resource limits.</li>
+<li>[<cite>docker update</cite>](<a class="reference external" href="https://docs.docker.com/engine/reference/commandline/update/">https://docs.docker.com/engine/reference/commandline/update/</a>) updates a container’s resource limits.</li>
 </ul>
 <p>If you want a transient container, <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">--rm</span></code> will remove the container after it stops.</p>
 <p>If you want to map a directory on the host to a docker container, <code class="docutils literal"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">-v</span> <span class="pre">$HOSTDIR:$DOCKERDIR</span></code>.</p>
@@ -83,7 +83,7 @@
 <li>[<cite>docker start</cite>](<a class="reference external" href="https://docs.docker.com/reference/commandline/start">https://docs.docker.com/reference/commandline/start</a>) starts a container so it is running.</li>
 <li>[<cite>docker stop</cite>](<a class="reference external" href="https://docs.docker.com/reference/commandline/stop">https://docs.docker.com/reference/commandline/stop</a>) stops a running container.</li>
 <li>[<cite>docker restart</cite>](<a class="reference external" href="https://docs.docker.com/reference/commandline/restart">https://docs.docker.com/reference/commandline/restart</a>) stops and starts a container.</li>
-<li>[<cite>docker pause</cite>](<a class="reference external" href="https://docs.docker.com/engine/reference/commandline/pause/">https://docs.docker.com/engine/reference/commandline/pause/</a>) pauses a running container, &#8220;freezing&#8221; it in place.</li>
+<li>[<cite>docker pause</cite>](<a class="reference external" href="https://docs.docker.com/engine/reference/commandline/pause/">https://docs.docker.com/engine/reference/commandline/pause/</a>) pauses a running container, “freezing” it in place.</li>
 <li>[<cite>docker attach</cite>](<a class="reference external" href="https://docs.docker.com/reference/commandline/attach">https://docs.docker.com/reference/commandline/attach</a>) will connect to a running container.</li>
 </ul>
 </div>
@@ -96,8 +96,8 @@
 <li>[<cite>docker events</cite>](<a class="reference external" href="https://docs.docker.com/reference/commandline/events">https://docs.docker.com/reference/commandline/events</a>) gets events from container.</li>
 <li>[<cite>docker port</cite>](<a class="reference external" href="https://docs.docker.com/reference/commandline/port">https://docs.docker.com/reference/commandline/port</a>) shows public facing port of container.</li>
 <li>[<cite>docker top</cite>](<a class="reference external" href="https://docs.docker.com/reference/commandline/top">https://docs.docker.com/reference/commandline/top</a>) shows running processes in container.</li>
-<li>[<cite>docker stats</cite>](<a class="reference external" href="https://docs.docker.com/reference/commandline/stats">https://docs.docker.com/reference/commandline/stats</a>) shows containers&#8217; resource usage statistics.</li>
-<li>[<cite>docker diff</cite>](<a class="reference external" href="https://docs.docker.com/reference/commandline/diff">https://docs.docker.com/reference/commandline/diff</a>) shows changed files in the container&#8217;s FS.</li>
+<li>[<cite>docker stats</cite>](<a class="reference external" href="https://docs.docker.com/reference/commandline/stats">https://docs.docker.com/reference/commandline/stats</a>) shows containers’ resource usage statistics.</li>
+<li>[<cite>docker diff</cite>](<a class="reference external" href="https://docs.docker.com/reference/commandline/diff">https://docs.docker.com/reference/commandline/diff</a>) shows changed files in the container’s FS.</li>
 </ul>
 <p><code class="docutils literal"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">-a</span></code> shows running and stopped containers.</p>
 <p><code class="docutils literal"><span class="pre">docker</span> <span class="pre">stats</span> <span class="pre">--all</span></code> shows a running list of containers.</p>
@@ -177,8 +177,8 @@
         <div class="right">
           
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2015-2018, Lukas Rosenthaler, Benjamin Geer, Ivan Subotic, Tobias Schweizer, André Kilchenmann, and Sepideh Alassi.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+        &#169; Copyright 2015-2018 the contributors (see Contributors.md).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>
