@@ -4,23 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Getting Started with the Knora API Server &#8212; Knora v1.3.0 documentation</title>
-    
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     'v1.3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
@@ -28,8 +17,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Using HTTPS in the Knora API Server" href="webapi-https.html" />
     <link rel="prev" title="Getting started" href="index.html" /> 
-  </head>
-  <body>
+  </head><body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
@@ -71,15 +59,15 @@ Jena is deprecated, and support for it will probably be removed in the future.</
 for more details.</p>
 <div class="section" id="creating-repositories-and-loading-test-data">
 <h3>Creating Repositories and Loading Test Data<a class="headerlink" href="#creating-repositories-and-loading-test-data" title="Permalink to this headline">¶</a></h3>
-<p>To create a test repository called <code class="docutils literal"><span class="pre">knora-test</span></code> and load test data into it,
-go to <code class="docutils literal"><span class="pre">webapi/scripts</span></code> and run the script for the triplestore you have
+<p>To create a test repository called <code class="docutils literal notranslate"><span class="pre">knora-test</span></code> and load test data into it,
+go to <code class="docutils literal notranslate"><span class="pre">webapi/scripts</span></code> and run the script for the triplestore you have
 chosen.</p>
 <ul class="simple">
 <li><dl class="first docutils">
 <dt>For GraphDB SE:</dt>
 <dd><ul class="first last">
-<li>If you are running GraphDB directly from its installation directory (using its <code class="docutils literal"><span class="pre">graphdb</span></code> script), run <code class="docutils literal"><span class="pre">graphdb-se-local-init-knora-test.sh</span></code>.</li>
-<li>If you are running GraphDB from a Docker image, run <code class="docutils literal"><span class="pre">graphdb-se-docker-init-knora-test.sh</span></code>.</li>
+<li>If you are running GraphDB directly from its installation directory (using its <code class="docutils literal notranslate"><span class="pre">graphdb</span></code> script), run <code class="docutils literal notranslate"><span class="pre">graphdb-se-local-init-knora-test.sh</span></code>.</li>
+<li>If you are running GraphDB from a Docker image, run <code class="docutils literal notranslate"><span class="pre">graphdb-se-docker-init-knora-test.sh</span></code>.</li>
 </ul>
 </dd>
 </dl>
@@ -87,28 +75,28 @@ chosen.</p>
 <li><dl class="first docutils">
 <dt>For GraphDB Free:</dt>
 <dd><ul class="first last">
-<li>Configuration is currently provided only for running GraphDB Free in Docker. To create a test repository, run <code class="docutils literal"><span class="pre">graphdb-free-init-knora-test.sh</span></code></li>
+<li>Configuration is currently provided only for running GraphDB Free in Docker. To create a test repository, run <code class="docutils literal notranslate"><span class="pre">graphdb-free-init-knora-test.sh</span></code></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li>For Fuseki, run <code class="docutils literal"><span class="pre">fuseki-load-test-data.sh</span></code>.</li>
+<li>For Fuseki, run <code class="docutils literal notranslate"><span class="pre">fuseki-load-test-data.sh</span></code>.</li>
 </ul>
 <p>You can create your own scripts based on these scripts, to create new
 repositories and optionally to load existing Knora-compliant RDF data into
 them.</p>
 <p>If you are using GraphDB, you must create your repository using a repository
-configuration file that specifies the file <code class="docutils literal"><span class="pre">KnoraRules.pie</span></code> as its
-<code class="docutils literal"><span class="pre">owlim:ruleset</span></code>. This enables RDFS inference and Knora-specific consistency
+configuration file that specifies the file <code class="docutils literal notranslate"><span class="pre">KnoraRules.pie</span></code> as its
+<code class="docutils literal notranslate"><span class="pre">owlim:ruleset</span></code>. This enables RDFS inference and Knora-specific consistency
 rules. When using GraphDB, the Knora API server uses RDFS inference to improve
 query performance. The Knora-specific consistency rules help ensure that your
 data is internally consistent and conforms to the Knora ontologies.</p>
 <p>When testing with GraphDB, you may sometimes get an error when loading the
 test data that says that there are multiple IDs for the same repository
-<code class="docutils literal"><span class="pre">knora-test</span></code>. In that case, something went wrong when dropping and
+<code class="docutils literal notranslate"><span class="pre">knora-test</span></code>. In that case, something went wrong when dropping and
 recreating the repository. You can solve this by deleting the repository
 manually and starting over. <strong>Make sure you don’t delete important data.</strong> To
-delete the repository, stop GraphDB, delete the <code class="docutils literal"><span class="pre">data</span></code> directory in your
+delete the repository, stop GraphDB, delete the <code class="docutils literal notranslate"><span class="pre">data</span></code> directory in your
 GraphDB installation, and restart GraphDB.</p>
 </div>
 </div>
@@ -121,8 +109,8 @@ GraphDB installation, and restart GraphDB.</p>
 <div class="section" id="creating-and-running-the-webapi-server-distribution-package">
 <h3>Creating and running the WEBAPI Server distribution package<a class="headerlink" href="#creating-and-running-the-webapi-server-distribution-package" title="Permalink to this headline">¶</a></h3>
 <p>To create a deployment package for the WEBAPI Server, please run
-from inside the <code class="docutils literal"><span class="pre">knora/webapi</span></code> folder the following commands:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ sbt stage
+from inside the <code class="docutils literal notranslate"><span class="pre">knora/webapi</span></code> folder the following commands:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sbt stage
 $ cd target/universal/stage
 $ ./bin/webapi
 </pre></div>
@@ -139,7 +127,7 @@ for Knora, please refer to <a class="reference internal" href="../../05-sipi/ind
 <p>When there is a change in Knora’s ontologies or in a project-specific ontology, it may be necessary to update existing
 data to conform to the new ontology. This can be done directly in SPARQL, but for simple transformations, Knora
 includes a command-line program that works on RDF data files in <a class="reference external" href="https://www.w3.org/TR/turtle/">Turtle</a> format. You can run it from SBT:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">run</span><span class="o">-</span><span class="n">main</span> <span class="n">org</span><span class="o">.</span><span class="n">knora</span><span class="o">.</span><span class="n">webapi</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">TransformData</span> <span class="o">--</span><span class="n">help</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">run</span><span class="o">-</span><span class="n">main</span> <span class="n">org</span><span class="o">.</span><span class="n">knora</span><span class="o">.</span><span class="n">webapi</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">TransformData</span> <span class="o">--</span><span class="n">help</span>
 <span class="p">[</span><span class="n">info</span><span class="p">]</span> <span class="n">Running</span> <span class="n">org</span><span class="o">.</span><span class="n">knora</span><span class="o">.</span><span class="n">webapi</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">TransformData</span> <span class="o">--</span><span class="n">help</span>
 <span class="p">[</span><span class="n">info</span><span class="p">]</span>
 <span class="p">[</span><span class="n">info</span><span class="p">]</span> <span class="n">Updates</span> <span class="n">the</span> <span class="n">structure</span> <span class="n">of</span> <span class="n">Knora</span> <span class="n">repository</span> <span class="n">data</span> <span class="n">to</span> <span class="n">accommodate</span> <span class="n">changes</span> <span class="ow">in</span> <span class="n">Knora</span><span class="o">.</span>
@@ -169,34 +157,48 @@ includes a command-line program that works on RDF data files in <a class="refere
 <p>The currently available transformations are:</p>
 <dl class="docutils">
 <dt>deleted</dt>
-<dd>Adds <code class="docutils literal"><span class="pre">knora-base:isDeleted</span> <span class="pre">false</span></code> to resources and values that don’t have a <code class="docutils literal"><span class="pre">knora-base:isDeleted</span></code>
+<dd>Adds <code class="docutils literal notranslate"><span class="pre">knora-base:isDeleted</span> <span class="pre">false</span></code> to resources and values that don’t have a <code class="docutils literal notranslate"><span class="pre">knora-base:isDeleted</span></code>
 predicate.</dd>
 <dt>permissions</dt>
-<dd>Combines old-style permission statements (<code class="docutils literal"><span class="pre">hasViewPermission</span></code>, <code class="docutils literal"><span class="pre">hasModifyPermission</span></code>, etc.) into
-one <code class="docutils literal"><span class="pre">hasPermissions</span></code> statement per resource or value, as described in the section <strong>Permissions</strong> in
+<dd>Combines old-style permission statements (<code class="docutils literal notranslate"><span class="pre">hasViewPermission</span></code>, <code class="docutils literal notranslate"><span class="pre">hasModifyPermission</span></code>, etc.) into
+one <code class="docutils literal notranslate"><span class="pre">hasPermissions</span></code> statement per resource or value, as described in the section <strong>Permissions</strong> in
 <a class="reference internal" href="../../02-knora-ontologies/index.html#knora-ontologies"><span class="std std-ref">The Knora Ontologies</span></a>.</dd>
 <dt>strings</dt>
-<dd>Adds missing <code class="docutils literal"><span class="pre">valueHasString</span></code> statements to Knora value objects.</dd>
+<dd>Adds missing <code class="docutils literal notranslate"><span class="pre">valueHasString</span></code> statements to Knora value objects.</dd>
 <dt>standoff</dt>
 <dd>Transforms old-style standoff markup (containing tag names as strings) to new-style standoff markup
 (using different OWL class names for different tags).</dd>
 <dt>creator</dt>
-<dd>Transforms existing <code class="docutils literal"><span class="pre">knora-base:Owner</span></code> group inside permissions to <code class="docutils literal"><span class="pre">knora-base:Creator</span></code>.</dd>
+<dd>Transforms existing <code class="docutils literal notranslate"><span class="pre">knora-base:Owner</span></code> group inside permissions to <code class="docutils literal notranslate"><span class="pre">knora-base:Creator</span></code>.</dd>
 <dt>owner</dt>
-<dd>Gives <code class="docutils literal"><span class="pre">knora-base:Creator</span></code> <strong>CR permissions</strong> to correspond to the previous behaviour for owners.
+<dd>Gives <code class="docutils literal notranslate"><span class="pre">knora-base:Creator</span></code> <strong>CR permissions</strong> to correspond to the previous behaviour for owners.
 Use with care as it will add permissions that where not there before.</dd>
 <dt>all</dt>
 <dd>Runs all of the above transformations.</dd>
 </dl>
-<p>Transformations that are not needed have no effect, so it is safe to use <code class="docutils literal"><span class="pre">-t</span> <span class="pre">all</span></code>.</p>
+<p>Transformations that are not needed have no effect, so it is safe to use <code class="docutils literal notranslate"><span class="pre">-t</span> <span class="pre">all</span></code>.</p>
 <p>The program uses the Turtle parsing and formatting library from <a class="reference external" href="http://rdf4j.org/">RDF4J</a>. Additional transformations can
-be implemented as subclasses of <code class="docutils literal"><span class="pre">org.eclipse.rdf4j.rio.RDFHandler</span></code>.</p>
+be implemented as subclasses of <code class="docutils literal notranslate"><span class="pre">org.eclipse.rdf4j.rio.RDFHandler</span></code>.</p>
 </div>
 <div class="section" id="selectively-disabling-routes">
 <h2>Selectively Disabling Routes<a class="headerlink" href="#selectively-disabling-routes" title="Permalink to this headline">¶</a></h2>
-<p>In <code class="docutils literal"><span class="pre">application.conf</span></code> the setting <code class="docutils literal"><span class="pre">app.routes-to-reject</span></code> contains a list of strings, representing
+<p>In <code class="docutils literal notranslate"><span class="pre">application.conf</span></code> the setting <code class="docutils literal notranslate"><span class="pre">app.routes-to-reject</span></code> contains a list of strings, representing
 routes which should be rejected.</p>
-<p>For Example, the string <code class="docutils literal"><span class="pre">&quot;v1/users&quot;</span></code> would lead to rejection of any route which contains this string.</p>
+<p>For Example, the string <code class="docutils literal notranslate"><span class="pre">&quot;v1/users&quot;</span></code> would lead to rejection of any route which contains this string.</p>
+</div>
+<div class="section" id="startup-flags">
+<h2>Startup Flags<a class="headerlink" href="#startup-flags" title="Permalink to this headline">¶</a></h2>
+<p>There is a number of flags that can be set on startup, they will override any value set in the application
+configuration file:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">loadDemoData</span></code>, <code class="docutils literal notranslate"><span class="pre">--loadDemoData</span></code>, <code class="docutils literal notranslate"><span class="pre">-d</span></code>: Loads the demo data.</li>
+<li><code class="docutils literal notranslate"><span class="pre">allowReloadOverHTTP</span></code>, <code class="docutils literal notranslate"><span class="pre">--allow-reload-over-http</span></code>, <code class="docutils literal notranslate"><span class="pre">-r</span></code>: Allows reloading of data over HTTP.</li>
+<li><code class="docutils literal notranslate"><span class="pre">-p</span></code>: Starts the Prometheus monitoring reporter.</li>
+<li><code class="docutils literal notranslate"><span class="pre">-z</span></code>: Starts the Zipkin monitoring reporter.</li>
+<li><code class="docutils literal notranslate"><span class="pre">-j</span></code>: Starts the Jaeger monitoring reporter.</li>
+<li><code class="docutils literal notranslate"><span class="pre">-c</span></code>: Print the configuration at startup.</li>
+<li><code class="docutils literal notranslate"><span class="pre">--help</span></code>: Shows the help message with all startup flags.</li>
+</ul>
 </div>
 </div>
 
@@ -217,6 +219,7 @@ routes which should be rejected.</p>
 <li class="toctree-l2"><a class="reference internal" href="../development/index.html">Developing the Knora API Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_v1/index.html">Using API V1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_v2/index.html">Using API V2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_admin/index.html">Using ADMIN API</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../04-salsah/index.html">SALSAH</a></li>
@@ -259,7 +262,7 @@ routes which should be rejected.</p>
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.0.
     </div>
         </div>
         <div class="clearer"></div>

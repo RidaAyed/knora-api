@@ -4,23 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>v1.4.0 Release Notes (not released yet) &#8212; Knora v1.3.0 documentation</title>
-    
     <link rel="stylesheet" href="../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     'v1.3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -28,8 +17,7 @@
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Introduction" href="../01-introduction/index.html" />
     <link rel="prev" title="v1.3.0 Release Notes" href="v1.3.0.html" /> 
-  </head>
-  <body>
+  </head><body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
@@ -58,9 +46,27 @@
 <p>See the <a class="reference external" href="https://github.com/dhlab-basel/Knora/releases/tag/v1.4.0">release</a> and closed tickets on the <a class="reference external" href="https://github.com/dhlab-basel/Knora/milestone/8">v1.4.0 milestone</a> on Github.</p>
 <div class="section" id="required-changes-to-existing-data">
 <h2>Required changes to existing data:<a class="headerlink" href="#required-changes-to-existing-data" title="Permalink to this headline">¶</a></h2>
+<p>Every ontology must now have the property <code class="docutils literal notranslate"><span class="pre">knora-base:attachedToProject</span></code>, which points to the IRI of the
+project that is responsible for the ontology. This must be added to each project-specific ontology in existing
+repositories. All built-in ontologies have been updated to have this property, and must therefore be reloaded
+into existing repositories.</p>
+<p>The property <code class="docutils literal notranslate"><span class="pre">knora-base:projectOntology</span></code> has been removed, and must be removed from project
+definitions in existing repositories.</p>
 </div>
 <div class="section" id="new-features">
 <h2>New features:<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>A project-specific ontology can now be deleted via API v2.</li>
+<li>Added OpenAPI / Swagger API documentation route</li>
+<li>The Knora API server now checks the validity of ontologies on startup.</li>
+</ul>
+</div>
+<div class="section" id="bugfixes">
+<h2>Bugfixes:<a class="headerlink" href="#bugfixes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>API v1 extended search was not properly handling multiple conditions on list values (issue #800)</li>
+<li>Fix image orientation in SALSAH 1 (issue #726)</li>
+</ul>
 </div>
 </div>
 
@@ -122,7 +128,7 @@
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.0.
     </div>
         </div>
         <div class="clearer"></div>

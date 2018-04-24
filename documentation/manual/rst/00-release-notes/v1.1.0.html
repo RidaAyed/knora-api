@@ -4,23 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>v1.1.0 Release Notes &#8212; Knora v1.3.0 documentation</title>
-    
     <link rel="stylesheet" href="../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     'v1.3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -28,8 +17,7 @@
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="v1.2.0 Release Notes" href="v1.2.0.html" />
     <link rel="prev" title="Release Notes" href="index.html" /> 
-  </head>
-  <body>
+  </head><body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
@@ -60,22 +48,22 @@
 <h2>Required changes to existing data:<a class="headerlink" href="#required-changes-to-existing-data" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="project-ontologies-property-changed">
 <h3>1. Project ontologies property changed:<a class="headerlink" href="#project-ontologies-property-changed" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">knora-base:projectOntologyGraph</span></code> needs to be renamed to <code class="docutils literal"><span class="pre">knora-base:projectOntology</span></code>. Also before it
-was a <code class="docutils literal"><span class="pre">xsd:string</span></code>, where now it needs to be an IRI. The graph where the ontology is stored will need to have
+<p>The <code class="docutils literal notranslate"><span class="pre">knora-base:projectOntologyGraph</span></code> needs to be renamed to <code class="docutils literal notranslate"><span class="pre">knora-base:projectOntology</span></code>. Also before it
+was a <code class="docutils literal notranslate"><span class="pre">xsd:string</span></code>, where now it needs to be an IRI. The graph where the ontology is stored will need to have
 the same name.</p>
 </div>
 <div class="section" id="project-data-graph-property-removed">
 <h3>2. Project data graph property removed:<a class="headerlink" href="#project-data-graph-property-removed" title="Permalink to this headline">¶</a></h3>
-<p>The property <code class="docutils literal"><span class="pre">knora-base:projectDataGraph</span></code> needs to be removed.</p>
+<p>The property <code class="docutils literal notranslate"><span class="pre">knora-base:projectDataGraph</span></code> needs to be removed.</p>
 </div>
 <div class="section" id="project-shortcode-property-added">
 <h3>2. Project shortcode property added:<a class="headerlink" href="#project-shortcode-property-added" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal"><span class="pre">knora-base:projectShortcode</span></code> property was added. When adding a project shortcode, we also need to update:</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">knora-base:projectShortcode</span></code> property was added. When adding a project shortcode, we also need to update:</p>
 <ol class="arabic simple">
-<li>the IRI of the project to: <code class="docutils literal"><span class="pre">http://rdfh.ch/projects/[shortcode]</span></code></li>
-<li>the IRIs all project ontologies to: <code class="docutils literal"><span class="pre">http://www.knora.org/ontology/[shortcode]/[ontoname]</span></code></li>
-<li>the IRIs of lists to: <code class="docutils literal"><span class="pre">http://rdfh.ch/lists/[shortcode]/[UUID]</span></code></li>
-<li>the IRIs of groups to: <code class="docutils literal"><span class="pre">http://rdfh.ch/groups/[shortcode]/[UUID]</span></code></li>
+<li>the IRI of the project to: <code class="docutils literal notranslate"><span class="pre">http://rdfh.ch/projects/[shortcode]</span></code></li>
+<li>the IRIs all project ontologies to: <code class="docutils literal notranslate"><span class="pre">http://www.knora.org/ontology/[shortcode]/[ontoname]</span></code></li>
+<li>the IRIs of lists to: <code class="docutils literal notranslate"><span class="pre">http://rdfh.ch/lists/[shortcode]/[UUID]</span></code></li>
+<li>the IRIs of groups to: <code class="docutils literal notranslate"><span class="pre">http://rdfh.ch/groups/[shortcode]/[UUID]</span></code></li>
 </ol>
 </div>
 </div>
@@ -145,7 +133,7 @@ the same name.</p>
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.0.
     </div>
         </div>
         <div class="clearer"></div>

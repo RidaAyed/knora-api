@@ -4,23 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Reading Values &#8212; Knora v1.3.0 documentation</title>
-    
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     'v1.3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
@@ -28,8 +17,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Adding a Value" href="adding-values.html" />
     <link rel="prev" title="Adding Resources" href="adding-resources.html" /> 
-  </head>
-  <body>
+  </head><body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
@@ -56,36 +44,36 @@
   <div class="section" id="reading-values">
 <span id="id1"></span><h1>Reading Values<a class="headerlink" href="#reading-values" title="Permalink to this headline">¶</a></h1>
 <p>In order to get an existing value, the HTTP method GET has to be used.
-The request has to be sent to the Knora server using the <code class="docutils literal"><span class="pre">values</span></code> path segment.
+The request has to be sent to the Knora server using the <code class="docutils literal notranslate"><span class="pre">values</span></code> path segment.
 Reading values may require authentication since some resources may have restricted viewing permissions.</p>
 <div class="section" id="reading-a-value">
 <h2>Reading a Value<a class="headerlink" href="#reading-a-value" title="Permalink to this headline">¶</a></h2>
 <p>The representation of a value can be obtained by making a GET request providing the value’s IRI:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">host</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">values</span><span class="o">/</span><span class="n">valueIRI</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">host</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">values</span><span class="o">/</span><span class="n">valueIRI</span>
 </pre></div>
 </div>
-<p>In the response, the value’s type and value are returned (see TypeScript interface <code class="docutils literal"><span class="pre">valueResponse</span></code> in module <code class="docutils literal"><span class="pre">valueResponseFormats</span></code>).</p>
+<p>In the response, the value’s type and value are returned (see TypeScript interface <code class="docutils literal notranslate"><span class="pre">valueResponse</span></code> in module <code class="docutils literal notranslate"><span class="pre">valueResponseFormats</span></code>).</p>
 </div>
 <div class="section" id="getting-a-value-s-version-history">
 <h2>Getting a Value’s Version History<a class="headerlink" href="#getting-a-value-s-version-history" title="Permalink to this headline">¶</a></h2>
 <p>In order to get the history of a value (its current and previous versions), the IRI of the resource it belongs to, the IRI of the property type that connects the resource to the value,
 and its <strong>current</strong> value IRI have to be submitted. Each of these elements is appended to the URL and separated by a slash. Please note that all of these have to be URL encoded.</p>
-<p>Additionally to <code class="docutils literal"><span class="pre">values</span></code>, the path segment <code class="docutils literal"><span class="pre">history</span></code> has to be used:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">host</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">values</span><span class="o">/</span><span class="n">history</span><span class="o">/</span><span class="n">resourceIRI</span><span class="o">/</span><span class="n">propertyTypeIRI</span><span class="o">/</span><span class="n">valueIRI</span>
+<p>Additionally to <code class="docutils literal notranslate"><span class="pre">values</span></code>, the path segment <code class="docutils literal notranslate"><span class="pre">history</span></code> has to be used:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">host</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">values</span><span class="o">/</span><span class="n">history</span><span class="o">/</span><span class="n">resourceIRI</span><span class="o">/</span><span class="n">propertyTypeIRI</span><span class="o">/</span><span class="n">valueIRI</span>
 </pre></div>
 </div>
-<p>In the response, the value’s versions returned (see TypeScript interface <code class="docutils literal"><span class="pre">valueVersionsResponse</span></code> in module <code class="docutils literal"><span class="pre">valueResponseFormats</span></code>).</p>
+<p>In the response, the value’s versions returned (see TypeScript interface <code class="docutils literal notranslate"><span class="pre">valueVersionsResponse</span></code> in module <code class="docutils literal notranslate"><span class="pre">valueResponseFormats</span></code>).</p>
 </div>
 <div class="section" id="getting-a-linking-value">
 <h2>Getting a Linking Value<a class="headerlink" href="#getting-a-linking-value" title="Permalink to this headline">¶</a></h2>
-<p>In order to get information about a link between two resources, the path segment <code class="docutils literal"><span class="pre">links</span></code> has to be used.
+<p>In order to get information about a link between two resources, the path segment <code class="docutils literal notranslate"><span class="pre">links</span></code> has to be used.
 The IRI of the source object, the IRI of the property type linking the the two objects, and the IRI of the target object have to be provided in the URL separated by slashes.
 Each of these has to be URL encoded.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">host</span><span class="o">/</span><span class="n">links</span><span class="o">/</span><span class="n">sourceObjectIRI</span><span class="o">/</span><span class="n">linkingPropertyIRI</span><span class="o">/</span><span class="n">targetObjectIRI</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">host</span><span class="o">/</span><span class="n">links</span><span class="o">/</span><span class="n">sourceObjectIRI</span><span class="o">/</span><span class="n">linkingPropertyIRI</span><span class="o">/</span><span class="n">targetObjectIRI</span>
 </pre></div>
 </div>
 <p>In the response, information about the link is returned such as a reference count indicating how many links of the specified direction
-(source to target) and type (property) between the two objects exist (see TypeScript interface <code class="docutils literal"><span class="pre">linkResponse</span></code> in module <code class="docutils literal"><span class="pre">valueResponseFormats</span></code>).</p>
+(source to target) and type (property) between the two objects exist (see TypeScript interface <code class="docutils literal notranslate"><span class="pre">linkResponse</span></code> in module <code class="docutils literal notranslate"><span class="pre">valueResponseFormats</span></code>).</p>
 </div>
 </div>
 
@@ -106,6 +94,7 @@ Each of these has to be URL encoded.</p>
 <li class="toctree-l2"><a class="reference internal" href="../development/index.html">Developing the Knora API Server</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Using API V1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_v2/index.html">Using API V2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_admin/index.html">Using ADMIN API</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../04-salsah/index.html">SALSAH</a></li>
@@ -148,7 +137,7 @@ Each of these has to be URL encoded.</p>
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.0.
     </div>
         </div>
         <div class="clearer"></div>

@@ -4,23 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Setup Sipi for Knora &#8212; Knora v1.3.0 documentation</title>
-    
     <link rel="stylesheet" href="../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     'v1.3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -28,8 +17,7 @@
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Interaction Between Sipi and Knora" href="sipi-and-knora.html" />
     <link rel="prev" title="Sipi" href="index.html" /> 
-  </head>
-  <body>
+  </head><body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
@@ -60,16 +48,16 @@
 <p>In order to serve files to the client application like the Salsah GUI, Sipi must be set up and running.
 Sipi can be downloaded from its own github-repository: <a class="reference external" href="https://github.com/dhlab-basel/Sipi">https://github.com/dhlab-basel/Sipi</a>.
 Please follow the instructions given in the README to compile it on your system.</p>
-<p>Once it is compiled, you can run Sipi with the following option: <code class="docutils literal"><span class="pre">./local/bin/sipi</span> <span class="pre">--config=config/sipi.knora-config.lua</span></code>
-(or <code class="docutils literal"><span class="pre">./local/bin/sipi</span> <span class="pre">--config=sipi.knora-test-config.lua</span></code> for using sipi for testing). Please see <code class="docutils literal"><span class="pre">sipi.knora-config.lua</span></code>
+<p>Once it is compiled, you can run Sipi with the following option: <code class="docutils literal notranslate"><span class="pre">./local/bin/sipi</span> <span class="pre">--config=config/sipi.knora-config.lua</span></code>
+(or <code class="docutils literal notranslate"><span class="pre">./local/bin/sipi</span> <span class="pre">--config=sipi.knora-test-config.lua</span></code> for using sipi for testing). Please see <code class="docutils literal notranslate"><span class="pre">sipi.knora-config.lua</span></code>
 for the settings like URL, port number etc.
-These settings need to be set accordingly in Knora’s <code class="docutils literal"><span class="pre">application.conf</span></code>. If you use the default settings both in Sipi
+These settings need to be set accordingly in Knora’s <code class="docutils literal notranslate"><span class="pre">application.conf</span></code>. If you use the default settings both in Sipi
 and Knora, there is no need to change these settings.</p>
 <p>Whenever a file is requested from Sipi (e.g. a browser trying to dereference an image link served by Knora), a preflight
 function is called.
-This function is defined in <code class="docutils literal"><span class="pre">sipi.init-knora.lua</span></code> present in the Sipi root directory. It takes three parameters:
-<code class="docutils literal"><span class="pre">prefix</span></code>, <code class="docutils literal"><span class="pre">identifier</span></code> (the name of the requested file), and <code class="docutils literal"><span class="pre">cookie</span></code>. File links created by Knora use the prefix
-<code class="docutils literal"><span class="pre">knora</span></code>, e.g. <code class="docutils literal"><span class="pre">http://localhost:1024/knora/incunabula_0000000002.jp2/full/2613,3505/0/default.jpg</span></code>.</p>
+This function is defined in <code class="docutils literal notranslate"><span class="pre">sipi.init-knora.lua</span></code> present in the Sipi root directory. It takes three parameters:
+<code class="docutils literal notranslate"><span class="pre">prefix</span></code>, <code class="docutils literal notranslate"><span class="pre">identifier</span></code> (the name of the requested file), and <code class="docutils literal notranslate"><span class="pre">cookie</span></code>. File links created by Knora use the prefix
+<code class="docutils literal notranslate"><span class="pre">knora</span></code>, e.g. <code class="docutils literal notranslate"><span class="pre">http://localhost:1024/knora/incunabula_0000000002.jp2/full/2613,3505/0/default.jpg</span></code>.</p>
 <p>Given these information, Sipi asks Knora about the current’s users permissions on the given file.
 The cookie contains the current user’s Knora session id, so Knora can match Sipi’s request with a given user profile and
 determine the permissions this user has on the file.
@@ -82,7 +70,7 @@ function in Sipi and not controlled by Knora. Knora only provides the permission
 <div class="section" id="using-sipi-in-test-mode">
 <h2>Using Sipi in Test Mode<a class="headerlink" href="#using-sipi-in-test-mode" title="Permalink to this headline">¶</a></h2>
 <p>If you just want to test Sipi with Knora without serving the actual files (e.g. when executing browser tests), you can
-simply start Sipi like this: <code class="docutils literal"><span class="pre">./local/bin/sipi</span> <span class="pre">--config=config/sipi.knora-test-config.lua</span></code>.
+simply start Sipi like this: <code class="docutils literal notranslate"><span class="pre">./local/bin/sipi</span> <span class="pre">--config=config/sipi.knora-test-config.lua</span></code>.
 Then always the same test file will be served which is included in Sipi. In test mode, Sipi will not aks Knora about
 the user’s permission on the requested file.</p>
 </div>
@@ -144,7 +132,7 @@ the user’s permission on the requested file.</p>
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.0.
     </div>
         </div>
         <div class="clearer"></div>

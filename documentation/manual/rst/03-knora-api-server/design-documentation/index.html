@@ -4,23 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Knora API Server Design Documentation &#8212; Knora v1.3.0 documentation</title>
-    
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     'v1.3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
@@ -28,8 +17,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Knora API Server Design Overview" href="design-overview.html" />
     <link rel="prev" title="Using HTTPS in the Knora API Server" href="../deployment/webapi-https.html" /> 
-  </head>
-  <body>
+  </head><body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
@@ -74,7 +62,7 @@
 <li class="toctree-l1"><a class="reference internal" href="futures-with-akka.html">Futures with Akka</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="futures-with-akka.html#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="futures-with-akka.html#handling-errors-with-futures">Handling Errors with Futures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="futures-with-akka.html#using-recover-on-futures">Using <code class="docutils literal"><span class="pre">recover</span></code> on Futures</a></li>
+<li class="toctree-l2"><a class="reference internal" href="futures-with-akka.html#using-recover-on-futures">Using <code class="docutils literal notranslate"><span class="pre">recover</span></code> on Futures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="futures-with-akka.html#designing-with-futures">Designing with Futures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="futures-with-akka.html#mixing-futures-with-non-futures">Mixing Futures with non-Futures</a></li>
 <li class="toctree-l2"><a class="reference internal" href="futures-with-akka.html#how-to-write-for-comprehensions">How to Write For-Comprehensions</a></li>
@@ -164,6 +152,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../development/index.html">Developing the Knora API Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_v1/index.html">Using API V1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_v2/index.html">Using API V2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_admin/index.html">Using ADMIN API</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../04-salsah/index.html">SALSAH</a></li>
@@ -206,7 +195,7 @@
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.0.
     </div>
         </div>
         <div class="clearer"></div>

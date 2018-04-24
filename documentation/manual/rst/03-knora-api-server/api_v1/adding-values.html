@@ -4,23 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Adding a Value &#8212; Knora v1.3.0 documentation</title>
-    
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     'v1.3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
@@ -28,8 +17,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Changing a Value" href="changing-values.html" />
     <link rel="prev" title="Reading Values" href="reading-values.html" /> 
-  </head>
-  <body>
+  </head><body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
@@ -55,31 +43,31 @@
             
   <div class="section" id="adding-a-value">
 <span id="adding-values"></span><h1>Adding a Value<a class="headerlink" href="#adding-a-value" title="Permalink to this headline">¶</a></h1>
-<p>In order to add values to an existing resource, the HTTP method <code class="docutils literal"><span class="pre">POST</span></code> has to be used.
-The request has to be sent to the Knora server using the <code class="docutils literal"><span class="pre">values</span></code> path segment.
+<p>In order to add values to an existing resource, the HTTP method <code class="docutils literal notranslate"><span class="pre">POST</span></code> has to be used.
+The request has to be sent to the Knora server using the <code class="docutils literal notranslate"><span class="pre">values</span></code> path segment.
 Creating values requires authentication since only known users may add values.</p>
 <div class="section" id="adding-a-property-value">
 <h2>Adding a Property Value<a class="headerlink" href="#adding-a-property-value" title="Permalink to this headline">¶</a></h2>
 <p>In order to add a value to a resource, its property type, value, and project has to be indicated in the JSON.
 Also the IRI of the resource the new value belongs has to be provided in the JSON.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">POST</span> <span class="n">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">host</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">values</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">POST</span> <span class="n">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">host</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">values</span>
 </pre></div>
 </div>
 <dl class="docutils">
-<dt>Depending on the type of the new value, one of the following formats (all TypeScript interfaces defined in module <code class="docutils literal"><span class="pre">addValueFormats</span></code>) has to be used in order to create a new value:</dt>
+<dt>Depending on the type of the new value, one of the following formats (all TypeScript interfaces defined in module <code class="docutils literal notranslate"><span class="pre">addValueFormats</span></code>) has to be used in order to create a new value:</dt>
 <dd><ul class="first last simple">
-<li><code class="docutils literal"><span class="pre">addRichtextValueRequest</span></code></li>
-<li><code class="docutils literal"><span class="pre">addLinkValueRequest</span></code></li>
-<li><code class="docutils literal"><span class="pre">addIntegerValueRequest</span></code></li>
-<li><code class="docutils literal"><span class="pre">addDecimalValueRequest</span></code></li>
-<li><code class="docutils literal"><span class="pre">addBooleanValueRequest</span></code></li>
-<li><code class="docutils literal"><span class="pre">addUriValueRequest</span></code></li>
-<li><code class="docutils literal"><span class="pre">addDateValueRequest</span></code> (see <code class="docutils literal"><span class="pre">dateString</span></code> in <code class="docutils literal"><span class="pre">basicMessageComponents</span></code> for the date format)</li>
-<li><code class="docutils literal"><span class="pre">addColorValueRequest</span></code></li>
-<li><code class="docutils literal"><span class="pre">addGeometryValueRequest</span></code></li>
-<li><code class="docutils literal"><span class="pre">addHierarchicalListValueRequest</span></code></li>
-<li><code class="docutils literal"><span class="pre">addintervalValueRequest</span></code></li>
-<li><code class="docutils literal"><span class="pre">addGeonameValueRequest</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">addRichtextValueRequest</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">addLinkValueRequest</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">addIntegerValueRequest</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">addDecimalValueRequest</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">addBooleanValueRequest</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">addUriValueRequest</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">addDateValueRequest</span></code> (see <code class="docutils literal notranslate"><span class="pre">dateString</span></code> in <code class="docutils literal notranslate"><span class="pre">basicMessageComponents</span></code> for the date format)</li>
+<li><code class="docutils literal notranslate"><span class="pre">addColorValueRequest</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">addGeometryValueRequest</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">addHierarchicalListValueRequest</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">addintervalValueRequest</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">addGeonameValueRequest</span></code></li>
 </ul>
 </dd>
 </dl>
@@ -88,7 +76,7 @@ Also the IRI of the resource the new value belongs has to be provided in the JSO
 <h2>Response on Value Creation<a class="headerlink" href="#response-on-value-creation" title="Permalink to this headline">¶</a></h2>
 <p>When a value has been successfully created, Knora sends back a JSON with the new value’s IRI.
 The value IRI identifies the value and can be used to perform future Knora API V1 operations.</p>
-<p>The JSON format of the response is described in the TypeScript interface <code class="docutils literal"><span class="pre">addValueResponse</span></code> in module <code class="docutils literal"><span class="pre">addValueFormats</span></code>.</p>
+<p>The JSON format of the response is described in the TypeScript interface <code class="docutils literal notranslate"><span class="pre">addValueResponse</span></code> in module <code class="docutils literal notranslate"><span class="pre">addValueFormats</span></code>.</p>
 </div>
 </div>
 
@@ -109,6 +97,7 @@ The value IRI identifies the value and can be used to perform future Knora API V
 <li class="toctree-l2"><a class="reference internal" href="../development/index.html">Developing the Knora API Server</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Using API V1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_v2/index.html">Using API V2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_admin/index.html">Using ADMIN API</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../04-salsah/index.html">SALSAH</a></li>
@@ -151,7 +140,7 @@ The value IRI identifies the value and can be used to perform future Knora API V
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.0.
     </div>
         </div>
         <div class="clearer"></div>

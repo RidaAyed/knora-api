@@ -4,23 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Authentication in the Knora API Server &#8212; Knora v1.3.0 documentation</title>
-    
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     'v1.3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
@@ -28,8 +17,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Administration (Users, Projects, Groups, Institutions, Permissions)" href="administration.html" />
     <link rel="prev" title="Consistency Checking" href="consistency-checking.html" /> 
-  </head>
-  <body>
+  </head><body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
@@ -93,9 +81,9 @@ header, URL parameters or cookie header.</p>
 <p>All routes are always accessible and if there are no credentials provided, a default user is assumed. If credentials
 are sent and they are not correct (e.g., wrong username, password incorrect, token expired), then the request will end
 in an error message.</p>
-<p>There are some differences in <code class="docutils literal"><span class="pre">V1</span></code> and <code class="docutils literal"><span class="pre">V2</span></code> of the API regarding authentication. They differ mainly in the format
-of the response and that creation of session cookies are only supported in <code class="docutils literal"><span class="pre">V1</span></code> and tokens in <code class="docutils literal"><span class="pre">V2</span></code>. After <cite>login</cite>
-via either version, all routes (<code class="docutils literal"><span class="pre">V1</span></code> and <code class="docutils literal"><span class="pre">V2</span></code>) are accessible.</p>
+<p>There are some differences in <code class="docutils literal notranslate"><span class="pre">V1</span></code> and <code class="docutils literal notranslate"><span class="pre">V2</span></code> of the API regarding authentication. They differ mainly in the format
+of the response and that creation of session cookies are only supported in <code class="docutils literal notranslate"><span class="pre">V1</span></code> and tokens in <code class="docutils literal notranslate"><span class="pre">V2</span></code>. After <cite>login</cite>
+via either version, all routes (<code class="docutils literal notranslate"><span class="pre">V1</span></code> and <code class="docutils literal notranslate"><span class="pre">V2</span></code>) are accessible.</p>
 </div>
 <div class="section" id="usage-v1">
 <h2><a class="toc-backref" href="#id7">Usage V1</a><a class="headerlink" href="#usage-v1" title="Permalink to this headline">¶</a></h2>
@@ -114,10 +102,10 @@ invalidate the session token and return headers for removing the cookie on the c
 <dl class="docutils">
 <dt>There are two possibilities to do so:</dt>
 <dd><ul class="first last simple">
-<li>in the URL submitting the parameters <code class="docutils literal"><span class="pre">email</span></code> and <code class="docutils literal"><span class="pre">password</span></code> (e.g., <a class="reference external" href="http://knora-host/v1/resources/resIri?email=userUrlEncodedEmail&amp;password=pw">http://knora-host/v1/resources/resIri?email=userUrlEncodedEmail&amp;password=pw</a>)</li>
+<li>in the URL submitting the parameters <code class="docutils literal notranslate"><span class="pre">email</span></code> and <code class="docutils literal notranslate"><span class="pre">password</span></code> (e.g., <a class="reference external" href="http://knora-host/v1/resources/resIri?email=userUrlEncodedEmail&amp;password=pw">http://knora-host/v1/resources/resIri?email=userUrlEncodedEmail&amp;password=pw</a>)</li>
 <li>in the HTTP authorization header (<a class="reference external" href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP basic authentication</a>) when doing a HTTP request to the API
-When using Python’s module <code class="docutils literal"><span class="pre">requests</span></code>, the credentials can simply be submitted as a tuple with each request using
-the param <code class="docutils literal"><span class="pre">auth</span></code> (<a class="reference external" href="http://docs.python-requests.org/en/master/user/authentication/#basic-authentication">python requests</a>).</li>
+When using Python’s module <code class="docutils literal notranslate"><span class="pre">requests</span></code>, the credentials can simply be submitted as a tuple with each request using
+the param <code class="docutils literal notranslate"><span class="pre">auth</span></code> (<a class="reference external" href="http://docs.python-requests.org/en/master/user/authentication/#basic-authentication">python requests</a>).</li>
 </ul>
 </dd>
 </dl>
@@ -141,9 +129,9 @@ credentials are valid.</p>
 <h2><a class="toc-backref" href="#id12">Usage V2</a><a class="headerlink" href="#usage-v2" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="id1">
 <h3><a class="toc-backref" href="#id13">Login and Logout</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>A client sends a POST request (e.g., <code class="docutils literal"><span class="pre">{&quot;email&quot;:&quot;usersemail&quot;,</span> <span class="pre">&quot;password&quot;:&quot;userspassword&quot;}</span></code>) to the
+<p>A client sends a POST request (e.g., <code class="docutils literal notranslate"><span class="pre">{&quot;email&quot;:&quot;usersemail&quot;,</span> <span class="pre">&quot;password&quot;:&quot;userspassword&quot;}</span></code>) to the
 <strong>/v2/authentication</strong> route with <em>email</em> and <em>password</em> in the body. If the credentials are valid,
-a <a class="reference external" href="https://jwt.io">JSON WEB Token</a> (JWT) will be sent back in the response (e.g., <code class="docutils literal"><span class="pre">{&quot;token&quot;:</span> <span class="pre">&quot;eyJ0eXAiOiJ...&quot;}</span></code>). On all subsequent
+a <a class="reference external" href="https://jwt.io">JSON WEB Token</a> (JWT) will be sent back in the response (e.g., <code class="docutils literal notranslate"><span class="pre">{&quot;token&quot;:</span> <span class="pre">&quot;eyJ0eXAiOiJ...&quot;}</span></code>). On all subsequent
 calls to any route, this token can be sent with each request (instead of <em>email</em>/<em>password</em>). If the token is
 successfully validated, then the user is deemed authenticated.</p>
 <p>To <strong>logout</strong> the client sends a DELETE request to the same route <strong>/v2/authentication</strong> and the token (either as an
@@ -154,16 +142,16 @@ URL parameter or authorization header). This will invalidate the token.</p>
 <dl class="docutils">
 <dt>When accessing any route and <em>email</em>/<em>password</em> credentials would need to be sent, we support two options to do so:</dt>
 <dd><ul class="first last simple">
-<li>in the URL submitting the parameters <code class="docutils literal"><span class="pre">email</span></code> and <code class="docutils literal"><span class="pre">password</span></code> (e.g., <a class="reference external" href="http://knora-host/v1/resources/resIri?email=userUrlEncodedEmail&amp;password=pw">http://knora-host/v1/resources/resIri?email=userUrlEncodedEmail&amp;password=pw</a>)</li>
+<li>in the URL submitting the parameters <code class="docutils literal notranslate"><span class="pre">email</span></code> and <code class="docutils literal notranslate"><span class="pre">password</span></code> (e.g., <a class="reference external" href="http://knora-host/v1/resources/resIri?email=userUrlEncodedEmail&amp;password=pw">http://knora-host/v1/resources/resIri?email=userUrlEncodedEmail&amp;password=pw</a>)</li>
 <li>in the HTTP header (<a class="reference external" href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP basic authentication</a>) when doing a HTTP request to the API
-When using Python’s module <code class="docutils literal"><span class="pre">requests</span></code>, the credentials can simply be submitted as a tuple with each request using
-the param <code class="docutils literal"><span class="pre">auth</span></code> (<a class="reference external" href="http://docs.python-requests.org/en/master/user/authentication/#basic-authentication">python requests</a>).</li>
+When using Python’s module <code class="docutils literal notranslate"><span class="pre">requests</span></code>, the credentials can simply be submitted as a tuple with each request using
+the param <code class="docutils literal notranslate"><span class="pre">auth</span></code> (<a class="reference external" href="http://docs.python-requests.org/en/master/user/authentication/#basic-authentication">python requests</a>).</li>
 </ul>
 </dd>
 <dt>When accessing any route and the <em>token</em> would need to be sent, we support two options to do so:</dt>
 <dd><ul class="first last simple">
-<li>in the URL submitting the parameter <code class="docutils literal"><span class="pre">token</span></code> (e.g., <a class="reference external" href="http://knora-host/v1/resources/resIri?token=1234567890">http://knora-host/v1/resources/resIri?token=1234567890</a>)</li>
-<li>in the HTTP authorization header with the <code class="docutils literal"><span class="pre">`Bearer`</span></code> scheme (<a class="reference external" href="https://tools.ietf.org/html/rfc6750#section-2.1">HTTP bearer scheme</a>).</li>
+<li>in the URL submitting the parameter <code class="docutils literal notranslate"><span class="pre">token</span></code> (e.g., <a class="reference external" href="http://knora-host/v1/resources/resIri?token=1234567890">http://knora-host/v1/resources/resIri?token=1234567890</a>)</li>
+<li>in the HTTP authorization header with the <code class="docutils literal notranslate"><span class="pre">`Bearer`</span></code> scheme (<a class="reference external" href="https://tools.ietf.org/html/rfc6750#section-2.1">HTTP bearer scheme</a>).</li>
 </ul>
 </dd>
 </dl>
@@ -184,13 +172,13 @@ credentials are valid.</p>
 <div class="section" id="skipping-authentication">
 <h2><a class="toc-backref" href="#id17">Skipping Authentication</a><a class="headerlink" href="#skipping-authentication" title="Permalink to this headline">¶</a></h2>
 <p>There is the possibility to turn skipping authentication on and use a hardcoded
-user (Test User). In <strong>application.conf</strong> set the <code class="docutils literal"><span class="pre">skip-authentication</span> <span class="pre">=</span> <span class="pre">true</span></code>
+user (Test User). In <strong>application.conf</strong> set the <code class="docutils literal notranslate"><span class="pre">skip-authentication</span> <span class="pre">=</span> <span class="pre">true</span></code>
 and Test User will be always assumed.</p>
 </div>
 <div class="section" id="sipi-media-server">
 <h2><a class="toc-backref" href="#id18">Sipi (Media Server)</a><a class="headerlink" href="#sipi-media-server" title="Permalink to this headline">¶</a></h2>
 <p>For authentication to work with the media server, we need to add support for cookies. At the moment the SALSAH-App
-would set BasicAuth heathers, but this only works for AJAX requests using <code class="docutils literal"><span class="pre">SALSAH.ApiGet</span></code> (<code class="docutils literal"><span class="pre">Put</span></code>, etc.).
+would set BasicAuth heathers, but this only works for AJAX requests using <code class="docutils literal notranslate"><span class="pre">SALSAH.ApiGet</span></code> (<code class="docutils literal notranslate"><span class="pre">Put</span></code>, etc.).
 Since the medias are embedded as source tags, the browser would get them on his own, and doesn’t know anything about
 the needed AuthHeathers. With cookies, the browser would send those automatically with every request. The media server
 can use the credentials of the user requesting something for accessing the RepresentationsRouteV1, i.e. make this
@@ -221,6 +209,7 @@ a problem. The second iteration, could encrypt the email/password.</p>
 <li class="toctree-l2"><a class="reference internal" href="../development/index.html">Developing the Knora API Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_v1/index.html">Using API V1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_v2/index.html">Using API V2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_admin/index.html">Using ADMIN API</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../04-salsah/index.html">SALSAH</a></li>
@@ -263,7 +252,7 @@ a problem. The second iteration, could encrypt the email/password.</p>
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.0.
     </div>
         </div>
         <div class="clearer"></div>

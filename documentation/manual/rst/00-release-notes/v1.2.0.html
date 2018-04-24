@@ -4,23 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>v1.2.0 Release Notes &#8212; Knora v1.3.0 documentation</title>
-    
     <link rel="stylesheet" href="../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     'v1.3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -28,8 +17,7 @@
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="v1.3.0 Release Notes" href="v1.3.0.html" />
     <link rel="prev" title="v1.1.0 Release Notes" href="v1.1.0.html" /> 
-  </head>
-  <body>
+  </head><body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
@@ -62,12 +50,12 @@
 <h3>1. Project keywords (admin data)<a class="headerlink" href="#project-keywords-admin-data" title="Permalink to this headline">¶</a></h3>
 <p>Project keywords need to be transformed into sequences and property changed to <cite>projectKeyword</cite> (singular).</p>
 <p>before:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">rdfh</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="mi">00</span><span class="n">FF</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">rdfh</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="mi">00</span><span class="n">FF</span><span class="o">&gt;</span>
         <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">projectKeywords</span> <span class="s2">&quot;images, collection&quot;</span><span class="o">^^</span><span class="n">xsd</span><span class="p">:</span><span class="n">string</span> <span class="o">.</span>
 </pre></div>
 </div>
 <p>after:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">rdfh</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="mi">00</span><span class="n">FF</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">rdfh</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="mi">00</span><span class="n">FF</span><span class="o">&gt;</span>
         <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">projectKeyword</span> <span class="s2">&quot;images&quot;</span><span class="o">^^</span><span class="n">xsd</span><span class="p">:</span><span class="n">string</span><span class="p">,</span> <span class="s2">&quot;collection&quot;</span><span class="o">^^</span><span class="n">xsd</span><span class="p">:</span><span class="n">string</span> <span class="p">;</span>
 </pre></div>
 </div>
@@ -76,28 +64,28 @@
 <h3>2. Project descriptions (admin data)<a class="headerlink" href="#project-descriptions-admin-data" title="Permalink to this headline">¶</a></h3>
 <p>Project descriptions need to be transformed into sequences with language tag.</p>
 <p>before:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">rdfh</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="mi">00</span><span class="n">FF</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">rdfh</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="mi">00</span><span class="n">FF</span><span class="o">&gt;</span>
         <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">projectDescription</span> <span class="s2">&quot;A demo project of a collection of images&quot;</span><span class="o">^^</span><span class="n">xsd</span><span class="p">:</span><span class="n">string</span> <span class="o">.</span>
 </pre></div>
 </div>
 <p>after:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">rdfh</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="mi">00</span><span class="n">FF</span><span class="o">&gt;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">rdfh</span><span class="o">.</span><span class="n">ch</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="mi">00</span><span class="n">FF</span><span class="o">&gt;</span>
         <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">projectDescription</span> <span class="s2">&quot;A demo project of a collection of images&quot;</span><span class="nd">@en</span> <span class="o">.</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="salsah-gui-guiorder">
 <h3>3. salsah-gui:guiOrder<a class="headerlink" href="#salsah-gui-guiorder" title="Permalink to this headline">¶</a></h3>
-<p>The predicate <code class="docutils literal"><span class="pre">salsah-gui:guiOrder</span></code> is now attached to cardinalities in class definitions, instead of
+<p>The predicate <code class="docutils literal notranslate"><span class="pre">salsah-gui:guiOrder</span></code> is now attached to cardinalities in class definitions, instead of
 attaching it to property definitions. This allows the same property to be first in one class and last in
 another class.</p>
 <p>Before:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">title</span> <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span> <span class="n">owl</span><span class="p">:</span><span class="n">ObjectProperty</span> <span class="p">;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">title</span> <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span> <span class="n">owl</span><span class="p">:</span><span class="n">ObjectProperty</span> <span class="p">;</span>
   <span class="n">salsah</span><span class="o">-</span><span class="n">gui</span><span class="p">:</span><span class="n">guiOrder</span> <span class="s2">&quot;1&quot;</span><span class="o">^^</span><span class="n">xsd</span><span class="p">:</span><span class="n">integer</span> <span class="o">.</span>
 </pre></div>
 </div>
 <p>After:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">book</span> <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span> <span class="n">owl</span><span class="p">:</span><span class="n">Class</span> <span class="p">;</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">book</span> <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span> <span class="n">owl</span><span class="p">:</span><span class="n">Class</span> <span class="p">;</span>
       <span class="n">rdfs</span><span class="p">:</span><span class="n">subClassOf</span> <span class="n">knora</span><span class="o">-</span><span class="n">base</span><span class="p">:</span><span class="n">Resource</span> <span class="p">,</span>
                       <span class="p">[</span>
                          <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span> <span class="n">owl</span><span class="p">:</span><span class="n">Restriction</span> <span class="p">;</span>
@@ -108,9 +96,9 @@ another class.</p>
 </pre></div>
 </div>
 <p>Existing project-specific ontologies must be updated. You can use the command-line tool
-<code class="docutils literal"><span class="pre">org/knora/webapi/util/TransformOntology.scala</span></code> to do this automatically. First dump your
-ontology to a Turtle file. Then at the <code class="docutils literal"><span class="pre">sbt</span></code> console, type:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">runMain</span> <span class="n">org</span><span class="o">.</span><span class="n">knora</span><span class="o">.</span><span class="n">webapi</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">TransformOntology</span> <span class="o">-</span><span class="n">t</span> <span class="n">guiorder</span> <span class="n">INPUT</span> <span class="n">OUTPUT</span>
+<code class="docutils literal notranslate"><span class="pre">org/knora/webapi/util/TransformOntology.scala</span></code> to do this automatically. First dump your
+ontology to a Turtle file. Then at the <code class="docutils literal notranslate"><span class="pre">sbt</span></code> console, type:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">runMain</span> <span class="n">org</span><span class="o">.</span><span class="n">knora</span><span class="o">.</span><span class="n">webapi</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">TransformOntology</span> <span class="o">-</span><span class="n">t</span> <span class="n">guiorder</span> <span class="n">INPUT</span> <span class="n">OUTPUT</span>
 </pre></div>
 </div>
 <p>For INPUT, use the absolute path of the Turtle file representing your existing ontology. For
@@ -123,8 +111,8 @@ as anonymous blank nodes, which would be more readable
 of the transformed Turtle file, and restart the Knora API server. Be sure to test this on a test
 installation using a copy of your data and ontologies, before updating the ontology used by a
 live server.</p>
-<p>Also, you have to replace the <code class="docutils literal"><span class="pre">salsah-gui</span></code> ontology that you have in the triplestore with the one
-in <code class="docutils literal"><span class="pre">salsah-gui.ttl</span></code>.</p>
+<p>Also, you have to replace the <code class="docutils literal notranslate"><span class="pre">salsah-gui</span></code> ontology that you have in the triplestore with the one
+in <code class="docutils literal notranslate"><span class="pre">salsah-gui.ttl</span></code>.</p>
 </div>
 </div>
 <div class="section" id="new-features">
@@ -133,7 +121,7 @@ in <code class="docutils literal"><span class="pre">salsah-gui.ttl</span></code>
 <li><dl class="first docutils">
 <dt>General</dt>
 <dd><ul class="first last">
-<li>Change: Return differently formatted JSON responses for exception messages, depending on which route (<code class="docutils literal"><span class="pre">v1</span></code>, <code class="docutils literal"><span class="pre">v2`</span></code> or <code class="docutils literal"><span class="pre">admin</span></code>) was accessed.</li>
+<li>Change: Return differently formatted JSON responses for exception messages, depending on which route (<code class="docutils literal notranslate"><span class="pre">v1</span></code>, <code class="docutils literal notranslate"><span class="pre">v2`</span></code> or <code class="docutils literal notranslate"><span class="pre">admin</span></code>) was accessed.</li>
 </ul>
 </dd>
 </dl>
@@ -146,10 +134,10 @@ in <code class="docutils literal"><span class="pre">salsah-gui.ttl</span></code>
 <li>Change: Project description has language tag and is returned as array. Needs change to existing data. Please see example above.</li>
 <li>Change: Remove institution from project (will be added later with the FAIR metadata)</li>
 <li>Change: Sorting of collections with admin objects (user, group, project)</li>
-<li>New: Keywords endpoint at <code class="docutils literal"><span class="pre">/admin/projects/keywords</span></code> returns all unique keywords (as strings) for all projects in an array</li>
-<li>New: Keywords endpoint at <code class="docutils literal"><span class="pre">/admin/projects/keywords/[projectIri]</span></code> returns all keywords of a single project.</li>
-<li>New: Lists endpoint at <code class="docutils literal"><span class="pre">/admin/lists/</span></code> allows new lists to be created.</li>
-<li>New: Lists endpoint at <code class="docutils literal"><span class="pre">/admin/lists/infos/&lt;listIri&gt;</span></code> allows to change basic list information.</li>
+<li>New: Keywords endpoint at <code class="docutils literal notranslate"><span class="pre">/admin/projects/keywords</span></code> returns all unique keywords (as strings) for all projects in an array</li>
+<li>New: Keywords endpoint at <code class="docutils literal notranslate"><span class="pre">/admin/projects/keywords/[projectIri]</span></code> returns all keywords of a single project.</li>
+<li>New: Lists endpoint at <code class="docutils literal notranslate"><span class="pre">/admin/lists/</span></code> allows new lists to be created.</li>
+<li>New: Lists endpoint at <code class="docutils literal notranslate"><span class="pre">/admin/lists/infos/&lt;listIri&gt;</span></code> allows to change basic list information.</li>
 </ul>
 </dd>
 </dl>
@@ -219,7 +207,7 @@ in <code class="docutils literal"><span class="pre">salsah-gui.ttl</span></code>
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.0.
     </div>
         </div>
         <div class="clearer"></div>

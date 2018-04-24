@@ -4,23 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Starting GraphDB &#8212; Knora v1.3.0 documentation</title>
-    
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     'v1.3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
@@ -28,8 +17,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Build Process" href="build-process.html" />
     <link rel="prev" title="Starting Fuseki 3" href="fuseki.html" /> 
-  </head>
-  <body>
+  </head><body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
@@ -57,12 +45,12 @@
 <span id="id1"></span><h1>Starting GraphDB<a class="headerlink" href="#starting-graphdb" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="graphdb-se">
 <h2>GraphDB SE<a class="headerlink" href="#graphdb-se" title="Permalink to this headline">¶</a></h2>
-<p>Inside the Knora API server git repository, there is a folder called <code class="docutils literal"><span class="pre">/triplestores/graphdb-se</span></code> containing the
+<p>Inside the Knora API server git repository, there is a folder called <code class="docutils literal notranslate"><span class="pre">/triplestores/graphdb-se</span></code> containing the
 latest supported version of the GraphDB-SE distribution archive.</p>
 <div class="section" id="running-locally">
 <h3>Running Locally<a class="headerlink" href="#running-locally" title="Permalink to this headline">¶</a></h3>
-<p>Unzip <code class="docutils literal"><span class="pre">graphdb-se-x.x.x-dist.zip</span></code> to a place of your choosing and run the following:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd /to/unziped/location
+<p>Unzip <code class="docutils literal notranslate"><span class="pre">graphdb-se-x.x.x-dist.zip</span></code> to a place of your choosing and run the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd /to/unziped/location
 $ ./bin/graphdb -Dgraphdb.license.file=/path/to/GRAPHDB_SE.license
 </pre></div>
 </div>
@@ -75,14 +63,14 @@ $ ./bin/graphdb -Dgraphdb.license.file=/path/to/GRAPHDB_SE.license
 <blockquote>
 <div><ol class="arabic simple">
 <li>Install Docker from <a class="reference external" href="http://docker.com">http://docker.com</a>.</li>
-<li>Copy the GraphDB-SE license file into a folder of you choosing and name it <code class="docutils literal"><span class="pre">GRAPHDB_SE.license</span></code>. We will mount
+<li>Copy the GraphDB-SE license file into a folder of you choosing and name it <code class="docutils literal notranslate"><span class="pre">GRAPHDB_SE.license</span></code>. We will mount
 this folder into the docker container, so that the license can be used by GraphDB running inside the container.</li>
 </ol>
 </div></blockquote>
 </div>
 <div class="section" id="usage">
 <h4>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h4>
-<div class="highlight-default"><div class="highlight"><pre><span></span> $ docker run --rm -it -v /path/to/license/folder:/external -p 7200:7200 dhlabbasel/graphdb
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> $ docker run --rm -it -v /path/to/license/folder:/external -p 7200:7200 dhlabbasel/graphdb
 
 
 - ``--rm`` removes the container as soon as you stop it
@@ -91,9 +79,9 @@ this folder into the docker container, so that the license can be used by GraphD
 </pre></div>
 </div>
 <p>After the GraphDB inside the docker container has started, you can find the GraphDB workbench here: <a class="reference external" href="http://localhost:7200">http://localhost:7200</a></p>
-<p>Above, we create and start a transient container (<code class="docutils literal"><span class="pre">--rm</span></code> flag). To create a container that we can stop and start again
+<p>Above, we create and start a transient container (<code class="docutils literal notranslate"><span class="pre">--rm</span></code> flag). To create a container that we can stop and start again
 at a later time, follow the following steps:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span> $ docker run --name graphdb -d -t -v /path/to/license/folder:/external -p 7200:7200 dhlabbasel/graphdb
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> $ docker run --name graphdb -d -t -v /path/to/license/folder:/external -p 7200:7200 dhlabbasel/graphdb
 
  (to see the console output, attach to the container; to detach press Ctrl-c)
  $ docker attach graphdb
@@ -120,7 +108,7 @@ at a later time, follow the following steps:</p>
 <h2>GraphDB Free<a class="headerlink" href="#graphdb-free" title="Permalink to this headline">¶</a></h2>
 <p>You can run GraphDB Free locally as described for GraphDB SE above, or you can use Knora’s pre-built
 GraphDB Free Docker image:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ docker run --rm -p 7200:7200 dhlabbasel/graphdb-free
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker run --rm -p 7200:7200 dhlabbasel/graphdb-free
 </pre></div>
 </div>
 </div>
@@ -143,6 +131,7 @@ GraphDB Free Docker image:</p>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Developing the Knora API Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_v1/index.html">Using API V1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_v2/index.html">Using API V2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_admin/index.html">Using ADMIN API</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../04-salsah/index.html">SALSAH</a></li>
@@ -185,7 +174,7 @@ GraphDB Free Docker image:</p>
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.0.
     </div>
         </div>
         <div class="clearer"></div>

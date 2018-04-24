@@ -4,23 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Introduction: Using API V2 &#8212; Knora v1.3.0 documentation</title>
-    
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     'v1.3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
@@ -28,8 +17,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Knora IRIs" href="knora-iris.html" />
     <link rel="prev" title="Using API V2" href="index.html" /> 
-  </head>
-  <body>
+  </head><body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
@@ -78,10 +66,10 @@
 </div>
 <div class="section" id="support-of-schema-org-entities">
 <h2>Support of schema.org Entities<a class="headerlink" href="#support-of-schema-org-entities" title="Permalink to this headline">¶</a></h2>
-<p>In our API responses (e.g., <code class="docutils literal"><span class="pre">ResourcesSequence</span></code>, see <a class="reference internal" href="response-formats.html#response-formats-v2"><span class="std std-ref">V2 Response Formats</span></a>), we use entities defined in <a class="reference external" href="http://www.schema.org">schema.org</a>.</p>
+<p>In our API responses (e.g., <code class="docutils literal notranslate"><span class="pre">ResourcesSequence</span></code>, see <a class="reference internal" href="response-formats.html#response-formats-v2"><span class="std std-ref">V2 Response Formats</span></a>), we use entities defined in <a class="reference external" href="http://www.schema.org">schema.org</a>.</p>
 <p>Our intent is that any client familiar with <a class="reference external" href="http://www.schema.org">schema.org</a> should be able to understand our response format.</p>
-<p>A resource’s <code class="docutils literal"><span class="pre">rdfs:label</span></code> is represented as a <code class="docutils literal"><span class="pre">http://schema.org/name</span></code> although they might not be equivalent in a strict sense (see <a class="reference external" href="https://github.com/schemaorg/schemaorg/issues/1762">label_name</a>).</p>
-<p>Likewise, <code class="docutils literal"><span class="pre">knora-api:Resource</span></code> is declared to be a subclass of <code class="docutils literal"><span class="pre">http://schema.org/Thing</span></code> (see <a class="reference external" href="https://lists.w3.org/Archives/Public/public-schemaorg/2017Mar/0087.html">resource_thing</a>), so we can use a <code class="docutils literal"><span class="pre">knora-api:Resource</span></code> or any of its subclasses where <code class="docutils literal"><span class="pre">http://schema.org</span></code> requires a <code class="docutils literal"><span class="pre">http://schema.org/Thing</span></code>.</p>
+<p>A resource’s <code class="docutils literal notranslate"><span class="pre">rdfs:label</span></code> is represented as a <code class="docutils literal notranslate"><span class="pre">http://schema.org/name</span></code> although they might not be equivalent in a strict sense (see <a class="reference external" href="https://github.com/schemaorg/schemaorg/issues/1762">label_name</a>).</p>
+<p>Likewise, <code class="docutils literal notranslate"><span class="pre">knora-api:Resource</span></code> is declared to be a subclass of <code class="docutils literal notranslate"><span class="pre">http://schema.org/Thing</span></code> (see <a class="reference external" href="https://lists.w3.org/Archives/Public/public-schemaorg/2017Mar/0087.html">resource_thing</a>), so we can use a <code class="docutils literal notranslate"><span class="pre">knora-api:Resource</span></code> or any of its subclasses where <code class="docutils literal notranslate"><span class="pre">http://schema.org</span></code> requires a <code class="docutils literal notranslate"><span class="pre">http://schema.org/Thing</span></code>.</p>
 </div>
 <div class="section" id="api-schema">
 <h2>API Schema<a class="headerlink" href="#api-schema" title="Permalink to this headline">¶</a></h2>
@@ -94,7 +82,7 @@
 </div>
 <div class="section" id="v2-path-segment">
 <h2>V2 Path Segment<a class="headerlink" href="#v2-path-segment" title="Permalink to this headline">¶</a></h2>
-<p>Every request to API V1 includes <code class="docutils literal"><span class="pre">v2</span></code> as a path segment, e.g. <code class="docutils literal"><span class="pre">http://host/v2/resources/http%3A%2F%2Fdata.knora.org%2Fc5058f3a</span></code>.
+<p>Every request to API V1 includes <code class="docutils literal notranslate"><span class="pre">v2</span></code> as a path segment, e.g. <code class="docutils literal notranslate"><span class="pre">http://host/v2/resources/http%3A%2F%2Fdata.knora.org%2Fc5058f3a</span></code>.
 Accordingly, requests using any other version of the API will require another path segment.</p>
 </div>
 </div>
@@ -116,6 +104,7 @@ Accordingly, requests using any other version of the API will require another pa
 <li class="toctree-l2"><a class="reference internal" href="../development/index.html">Developing the Knora API Server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api_v1/index.html">Using API V1</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html">Using API V2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api_admin/index.html">Using ADMIN API</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../04-salsah/index.html">SALSAH</a></li>
@@ -158,7 +147,7 @@ Accordingly, requests using any other version of the API will require another pa
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.0.
     </div>
         </div>
         <div class="clearer"></div>

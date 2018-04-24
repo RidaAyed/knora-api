@@ -4,23 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Build Process &#8212; Knora v1.3.0 documentation</title>
-    
     <link rel="stylesheet" href="../../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     'v1.3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
@@ -28,8 +17,7 @@
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="SALSAH Design Documentation" href="../design-documentation/index.html" />
     <link rel="prev" title="Developing SALSAH" href="index.html" /> 
-  </head>
-  <body>
+  </head><body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
@@ -65,45 +53,45 @@
 <div class="section" id="building-and-running">
 <h2>Building and Running<a class="headerlink" href="#building-and-running" title="Permalink to this headline">¶</a></h2>
 <p>Start the provided Fuseki triplestore:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd KNORA_PROJECT_DIRECTORY/triplestores/fuseki
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd KNORA_PROJECT_DIRECTORY/triplestores/fuseki
 $ ./fuseki-server
 </pre></div>
 </div>
 <p>Then in another terminal, load some test data into the triplestore:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd KNORA_PROJECT_DIRECTORY/webapi/scripts
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd KNORA_PROJECT_DIRECTORY/webapi/scripts
 $ ./fuseki-load-test-data.sh
 </pre></div>
 </div>
 <p>Then go back to the webapi root directory and use SBT to start the API server:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd KNORA_PROJECT_DIRECTORY/webapi
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd KNORA_PROJECT_DIRECTORY/webapi
 $ sbt
 &gt; compile
 &gt; re-start allowReloadOverHTTP
 </pre></div>
 </div>
 <p>Then in another terminal, go to the SIPI project root directory and start the server:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ ./local/bin/sipi --config=config/sipi.knora-config.lua (for production)
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./local/bin/sipi --config=config/sipi.knora-config.lua (for production)
 $ ./local/bin/sipi --config=config/sipi.knora-test-config.lua (for running tests)
 </pre></div>
 </div>
 <p>Then in another terminal, go to the SALSAH root directory and start the server:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd KNORA_PROJECT_DIRECTORY/salsah
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd KNORA_PROJECT_DIRECTORY/salsah
 $ sbt
 &gt; compile
 &gt; re-start
 </pre></div>
 </div>
 <p>To shut down the SALSAH server:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">re</span><span class="o">-</span><span class="n">stop</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">re</span><span class="o">-</span><span class="n">stop</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="run-the-automated-tests">
 <h2>Run the automated tests<a class="headerlink" href="#run-the-automated-tests" title="Permalink to this headline">¶</a></h2>
 <p>In order to run the tests, the Selenium driver for Chrome has to be installed.</p>
-<p>It is architecture-dependant, please go to <code class="docutils literal"><span class="pre">salsah/lib/chromedriver</span></code> directory and unzip the distribution that matches your architecture, or download it from <a class="reference external" href="https://sites.google.com/a/chromium.org/chromedriver/downloads">here</a> and install it in this directory.</p>
-<p>Then, launch the services as described above; the triple store with the test data, the api server with the <code class="docutils literal"><span class="pre">allowReloadOverHTTP</span></code> option, sipi with the test configuration and salsah where you can run the tests in the same SBT session:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>$ cd KNORA_PROJECT_DIRECTORY/salsah
+<p>It is architecture-dependant, please go to <code class="docutils literal notranslate"><span class="pre">salsah/lib/chromedriver</span></code> directory and unzip the distribution that matches your architecture, or download it from <a class="reference external" href="https://sites.google.com/a/chromium.org/chromedriver/downloads">here</a> and install it in this directory.</p>
+<p>Then, launch the services as described above; the triple store with the test data, the api server with the <code class="docutils literal notranslate"><span class="pre">allowReloadOverHTTP</span></code> option, sipi with the test configuration and salsah where you can run the tests in the same SBT session:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd KNORA_PROJECT_DIRECTORY/salsah
 $ sbt
 &gt; compile
 &gt; re-start
@@ -115,11 +103,11 @@ $ sbt
 <div class="section" id="runing-automated-tests-in-headless-browser-mode">
 <h2>Runing automated tests in headless browser mode<a class="headerlink" href="#runing-automated-tests-in-headless-browser-mode" title="Permalink to this headline">¶</a></h2>
 <p>The automated tests can also be run in the headless browser mode, which is supported in Chrome version 59 or higher.</p>
-<p>To run the tests in headless mode, execute them with the <code class="docutils literal"><span class="pre">headless</span></code> prefix, e.g., <code class="docutils literal"><span class="pre">$</span> <span class="pre">sbt</span> <span class="pre">headless:test</span></code>.</p>
+<p>To run the tests in headless mode, execute them with the <code class="docutils literal notranslate"><span class="pre">headless</span></code> prefix, e.g., <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sbt</span> <span class="pre">headless:test</span></code>.</p>
 </div>
 <div class="section" id="sbt-build-configuration">
 <h2>SBT Build Configuration<a class="headerlink" href="#sbt-build-configuration" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default"><div class="highlight"><pre><span></span>import sbt._
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>import sbt._
 import NativePackagerHelper._
 
 lazy val salsah = (project in file(&quot;.&quot;)).
@@ -276,7 +264,7 @@ lazy val salsahLibs = Seq(
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.0.
     </div>
         </div>
         <div class="clearer"></div>

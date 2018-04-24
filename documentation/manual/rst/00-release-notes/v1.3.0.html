@@ -4,23 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>v1.3.0 Release Notes &#8212; Knora v1.3.0 documentation</title>
-    
     <link rel="stylesheet" href="../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     'v1.3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -28,8 +17,7 @@
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="v1.4.0 Release Notes (not released yet)" href="v1.4.0.html" />
     <link rel="prev" title="v1.2.0 Release Notes" href="v1.2.0.html" /> 
-  </head>
-  <body>
+  </head><body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
@@ -60,22 +48,22 @@
 <h2>Required changes to existing data:<a class="headerlink" href="#required-changes-to-existing-data" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="replace-salsah-gui-ontology">
 <h3>1. Replace salsah-gui ontology<a class="headerlink" href="#replace-salsah-gui-ontology" title="Permalink to this headline">¶</a></h3>
-<p>You must replace the <code class="docutils literal"><span class="pre">salsah-gui</span></code> ontology that you have in the triplestore with the one
-in <code class="docutils literal"><span class="pre">salsah-gui.ttl</span></code>.</p>
+<p>You must replace the <code class="docutils literal notranslate"><span class="pre">salsah-gui</span></code> ontology that you have in the triplestore with the one
+in <code class="docutils literal notranslate"><span class="pre">salsah-gui.ttl</span></code>.</p>
 </div>
 </div>
 <div class="section" id="new-features">
 <h2>New features:<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>More support for salsah-gui elements and attributes in ontologies
-- Serve the <code class="docutils literal"><span class="pre">salsah-gui</span></code> ontology in API v2 in the default schema.
-- Show <code class="docutils literal"><span class="pre">salsah-gui:guiElement</span></code> and <code class="docutils literal"><span class="pre">salsah-gui:guiAttribute</span></code> when serving ontologies in API v2 in the default schema.
-- Allow <code class="docutils literal"><span class="pre">salsah-gui:guiElement</span></code> and <code class="docutils literal"><span class="pre">salsah-gui:guiAttribute</span></code> to be included in new property definitions created via API v2.
-- Change <code class="docutils literal"><span class="pre">salsah-gui</span></code> so that GraphDB’s consistency checker can check the use of <code class="docutils literal"><span class="pre">guiElement</span></code> and <code class="docutils literal"><span class="pre">guiAttribute</span></code>.</li>
-<li>Changes to <code class="docutils literal"><span class="pre">application.conf</span></code>. The <code class="docutils literal"><span class="pre">sipi</span></code> and <code class="docutils literal"><span class="pre">web-api</span></code> sections have received a big update, adding separate settings
+- Serve the <code class="docutils literal notranslate"><span class="pre">salsah-gui</span></code> ontology in API v2 in the default schema.
+- Show <code class="docutils literal notranslate"><span class="pre">salsah-gui:guiElement</span></code> and <code class="docutils literal notranslate"><span class="pre">salsah-gui:guiAttribute</span></code> when serving ontologies in API v2 in the default schema.
+- Allow <code class="docutils literal notranslate"><span class="pre">salsah-gui:guiElement</span></code> and <code class="docutils literal notranslate"><span class="pre">salsah-gui:guiAttribute</span></code> to be included in new property definitions created via API v2.
+- Change <code class="docutils literal notranslate"><span class="pre">salsah-gui</span></code> so that GraphDB’s consistency checker can check the use of <code class="docutils literal notranslate"><span class="pre">guiElement</span></code> and <code class="docutils literal notranslate"><span class="pre">guiAttribute</span></code>.</li>
+<li>Changes to <code class="docutils literal notranslate"><span class="pre">application.conf</span></code>. The <code class="docutils literal notranslate"><span class="pre">sipi</span></code> and <code class="docutils literal notranslate"><span class="pre">web-api</span></code> sections have received a big update, adding separate settings
 for internal and external host settings:</li>
 </ul>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">app</span> <span class="p">{</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">app</span> <span class="p">{</span>
     <span class="n">knora</span><span class="o">-</span><span class="n">api</span> <span class="p">{</span>
         <span class="o">//</span> <span class="n">relevant</span> <span class="k">for</span> <span class="n">direct</span> <span class="n">communication</span> <span class="n">inside</span> <span class="n">the</span> <span class="n">knora</span> <span class="n">stack</span>
         <span class="n">internal</span><span class="o">-</span><span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;0.0.0.0&quot;</span>
@@ -118,8 +106,8 @@ for internal and external host settings:</li>
 <div class="section" id="bugfixes">
 <h2>Bugfixes:<a class="headerlink" href="#bugfixes" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>When API v2 served <code class="docutils literal"><span class="pre">knora-api</span></code> (default schema), <code class="docutils literal"><span class="pre">salsah-gui:guiElement</span></code> and <code class="docutils literal"><span class="pre">salsah-gui:guiAttribute</span></code> were not shown in properties in that ontology.</li>
-<li>The predicate <code class="docutils literal"><span class="pre">salsah-gui:guiOrder</span></code> was not accepted when creating a property via API v2.</li>
+<li>When API v2 served <code class="docutils literal notranslate"><span class="pre">knora-api</span></code> (default schema), <code class="docutils literal notranslate"><span class="pre">salsah-gui:guiElement</span></code> and <code class="docutils literal notranslate"><span class="pre">salsah-gui:guiAttribute</span></code> were not shown in properties in that ontology.</li>
+<li>The predicate <code class="docutils literal notranslate"><span class="pre">salsah-gui:guiOrder</span></code> was not accepted when creating a property via API v2.</li>
 </ul>
 </div>
 </div>
@@ -182,7 +170,7 @@ for internal and external host settings:</li>
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.0.
     </div>
         </div>
         <div class="clearer"></div>

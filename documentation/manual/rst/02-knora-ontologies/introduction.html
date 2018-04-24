@@ -4,23 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
     <title>Introduction &#8212; Knora v1.3.0 documentation</title>
-    
     <link rel="stylesheet" href="../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../',
-        VERSION:     'v1.3.0',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
+    <script type="text/javascript" src="../../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
@@ -28,8 +17,7 @@
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="The Knora Base Ontology" href="knora-base.html" />
     <link rel="prev" title="The Knora Ontologies" href="index.html" /> 
-  </head>
-  <body>
+  </head><body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
@@ -126,14 +114,14 @@ connect many subjects, like this:</p>
 <p>In RDF, each subject and predicate has a unique, URL-like identifier
 called an Internationalized Resource Identifier (<a class="reference external" href="http://tools.ietf.org/html/rfc3987">IRI</a>). Within a given project,
 IRIs typically differ only in their last component (the “local part”), which
-is often the fragment following a <code class="docutils literal"><span class="pre">#</span></code> character. Such IRIs share a
+is often the fragment following a <code class="docutils literal notranslate"><span class="pre">#</span></code> character. Such IRIs share a
 long “prefix”. In <a class="reference external" href="http://www.w3.org/TR/turtle/">Turtle</a> and similar formats for
 writing RDF, a short prefix label can be defined to represent the long
 prefix. Then an IRI can be written as a prefix label and a local part,
-separated by a colon (<code class="docutils literal"><span class="pre">:</span></code>). For example, if the “example” project’s
-long prefix is <code class="docutils literal"><span class="pre">http://www.example.org/rdf#</span></code>, and it contains subjects
-with IRIs like <code class="docutils literal"><span class="pre">http://www.example.org/rdf#book</span></code>, we can define the
-prefix label <code class="docutils literal"><span class="pre">ex</span></code> to represent the prefix label, and write prefixed
+separated by a colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>). For example, if the “example” project’s
+long prefix is <code class="docutils literal notranslate"><span class="pre">http://www.example.org/rdf#</span></code>, and it contains subjects
+with IRIs like <code class="docutils literal notranslate"><span class="pre">http://www.example.org/rdf#book</span></code>, we can define the
+prefix label <code class="docutils literal notranslate"><span class="pre">ex</span></code> to represent the prefix label, and write prefixed
 names for IRIs:</p>
 <img src="../../_images/graphviz-288ac97bf6dd53b831dc4cdd6241773b38e5698c.png" alt="digraph {
     {
@@ -224,7 +212,7 @@ The main built-in ontology in Knora is <a class="reference internal" href="knora
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.0.
     </div>
         </div>
         <div class="clearer"></div>
