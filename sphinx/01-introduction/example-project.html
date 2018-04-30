@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>An Example Project: Incunabula &#8212; Knora 0.1.0-SNAPSHOT documentation</title>
+    <title>An Example Project: Incunabula &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.0-SNAPSHOT',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="The Knora Ontologies" href="../02-knora-ontologies/index.html" />
     <link rel="prev" title="What Is Knora?" href="what-is-knora.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../index.html">Knora 0.1.0-SNAPSHOT documentation</a></div>
+          href="../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="what-is-knora.html" title="What Is Knora?"
              accesskey="P">previous</a> |
@@ -99,13 +99,13 @@ The <code class="docutils literal"><span class="pre">dcterms</span></code> ontol
 <span class="nd">@prefix</span> <span class="n">salsah</span><span class="o">-</span><span class="n">gui</span><span class="p">:</span> <span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">knora</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">ontology</span><span class="o">/</span><span class="n">salsah</span><span class="o">-</span><span class="n">gui</span><span class="c1">#&gt; .</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal"><span class="pre">knora-base</span></code> ontology contains Knora&#8217;s core abstractions, and is
+<p>The <code class="docutils literal"><span class="pre">knora-base</span></code> ontology contains Knora’s core abstractions, and is
 described in <a class="reference internal" href="../02-knora-ontologies/knora-base.html#knora-base"><span class="std std-ref">The Knora Base Ontology</span></a>. The <code class="docutils literal"><span class="pre">salsah-gui</span></code> ontology includes
-properties that Knora projects must use to enable SALSAH, Knora&#8217;s generic
+properties that Knora projects must use to enable SALSAH, Knora’s generic
 virtual research environment.</p>
 <p>For convenience, we can use the empty prefix to refer to the <code class="docutils literal"><span class="pre">incunabula</span></code>
 ontology itself:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@prefix</span> <span class="p">:</span> <span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">knora</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">ontology</span><span class="o">/</span><span class="n">incunabula</span><span class="c1">#&gt; .</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@prefix</span> <span class="p">:</span> <span class="o">&lt;</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">knora</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">ontology</span><span class="o">/</span><span class="mi">0803</span><span class="o">/</span><span class="n">incunabula</span><span class="c1">#&gt; .</span>
 </pre></div>
 </div>
 <p>However, outside the ontology file, it would make more sense to define an
@@ -324,15 +324,15 @@ Here is <code class="docutils literal"><span class="pre">incunabula:book</span><
 </div>
 <p>Like every Knora resource class, <code class="docutils literal"><span class="pre">incunabula:book</span></code> is a subclass of
 <code class="docutils literal"><span class="pre">knora-base:Resource</span></code>. It is also a subclass of a number of other classes of type
-<code class="docutils literal"><span class="pre">owl:Restriction</span></code>, which are defined in square brackets, using Turtle&#8217;s
+<code class="docutils literal"><span class="pre">owl:Restriction</span></code>, which are defined in square brackets, using Turtle’s
 syntax for anonymous blank nodes. Each <code class="docutils literal"><span class="pre">owl:Restriction</span></code> specifies a
 cardinality for a property that is allowed in resources of type
 <code class="docutils literal"><span class="pre">incunabula:book</span></code>. A cardinality is indeed a kind of restriction: it means
 that a resource of this type may have, or must have, a certain number of
 instances of the specified property. For example, <code class="docutils literal"><span class="pre">incunabula:book</span></code> has
 cardinalities saying that a book must have at least one title and at most one
-publication date. In the Knora API version 1, the word &#8216;occurrence&#8217; is used
-instead of &#8216;cardinality&#8217;.</p>
+publication date. In the Knora API version 1, the word ‘occurrence’ is used
+instead of ‘cardinality’.</p>
 <p>As explained in <a class="reference internal" href="../02-knora-ontologies/knora-base.html#knora-base-cardinalities"><span class="std std-ref">OWL Cardinalities</span></a>, these
 are the cardinalities supported by Knora:</p>
 <ul class="simple">
@@ -351,7 +351,7 @@ as if it serves no purpose, since it says that the property is optional and
 can have any number of instances. You may be wondering whether this
 cardinality could simply be omitted from the definition of
 <code class="docutils literal"><span class="pre">incunabula:book</span></code>. However, Knora requires every property of a resource to
-have some cardinality in the resource&#8217;s class. This is because Knora uses
+have some cardinality in the resource’s class. This is because Knora uses
 the cardinalities to determine which properties are <em>possible</em> for instances
 of the class, and the Knora API relies on this information. If there was no
 cardinality for <code class="docutils literal"><span class="pre">incunabula:hasAuthor</span></code>, Knora would not allow a book to have
@@ -435,7 +435,7 @@ as long as they are of the same type and are semantically equivalent, e.g.
 are different versions of the same image with different colorspaces, so that
 coordinates in one file will work in the other files.</p>
 <p>In Knora, a subclass inherits the cardinalities defined in its superclasses.
-Let&#8217;s look at the class hierarchy of <code class="docutils literal"><span class="pre">incunabula:page</span></code>, starting with
+Let’s look at the class hierarchy of <code class="docutils literal"><span class="pre">incunabula:page</span></code>, starting with
 <code class="docutils literal"><span class="pre">knora-base:Representation</span></code>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">Representation</span> <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span> <span class="n">owl</span><span class="p">:</span><span class="n">Class</span> <span class="p">;</span>
 
@@ -461,7 +461,7 @@ property <code class="docutils literal"><span class="pre">hasFileValue</span></c
 </div>
 <p>The subject of <code class="docutils literal"><span class="pre">hasFileValue</span></code> must be a <code class="docutils literal"><span class="pre">Representation</span></code>, and its object
 must be a <code class="docutils literal"><span class="pre">FileValue</span></code>. There are different subclasses of <code class="docutils literal"><span class="pre">FileValue</span></code> for
-different kinds of files, but we&#8217;ll skip the details here.</p>
+different kinds of files, but we’ll skip the details here.</p>
 <p>This is the definition of <code class="docutils literal"><span class="pre">knora-base:StillImageRepresentation</span></code>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">StillImageRepresentation</span> <span class="n">rdf</span><span class="p">:</span><span class="nb">type</span> <span class="n">owl</span><span class="p">:</span><span class="n">Class</span> <span class="p">;</span>
 
@@ -494,13 +494,13 @@ the base class. Since <code class="docutils literal"><span class="pre">incunabul
 <code class="docutils literal"><span class="pre">StillImageRepresentation</span></code>, it inherits the cardinality on
 <code class="docutils literal"><span class="pre">hasStillImageFileValue</span></code>. As a result, a page must have at least one image
 file attached to it.</p>
-<p>Here&#8217;s another example of cardinality inheritance. The class <code class="docutils literal"><span class="pre">knora-base:Resource</span></code>
+<p>Here’s another example of cardinality inheritance. The class <code class="docutils literal"><span class="pre">knora-base:Resource</span></code>
 has a cardinality for <code class="docutils literal"><span class="pre">knora-base:seqnum</span></code>. The idea is that resources of any
 type could be arranged in some sort of sequence. As we saw above,
 <code class="docutils literal"><span class="pre">incunabula:page</span></code> is a subclass of <code class="docutils literal"><span class="pre">knora-base:Resource</span></code>. But
 <code class="docutils literal"><span class="pre">incunabula:page</span></code> has its own cardinality for <code class="docutils literal"><span class="pre">incunabula:seqnum</span></code>, which
-is a subproperty of <code class="docutils literal"><span class="pre">knora-base:seqnum</span></code>. Once again, the subclass&#8217;s
-cardinality on the subproperty replaces the superclass&#8217;s cardinality on the
+is a subproperty of <code class="docutils literal"><span class="pre">knora-base:seqnum</span></code>. Once again, the subclass’s
+cardinality on the subproperty replaces the superclass’s cardinality on the
 superproperty: a page is allowed to have an <code class="docutils literal"><span class="pre">incunabula:seqnum</span></code>, but it is
 not allowed to have a <code class="docutils literal"><span class="pre">knora-base:seqnum</span></code>.</p>
 </div>
@@ -563,7 +563,7 @@ not allowed to have a <code class="docutils literal"><span class="pre">knora-bas
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>

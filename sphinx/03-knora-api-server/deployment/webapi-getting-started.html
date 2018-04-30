@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Getting Started with the Knora API Server &#8212; Knora 0.1.0-SNAPSHOT documentation</title>
+    <title>Getting Started with the Knora API Server &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.1.0-SNAPSHOT',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="Using HTTPS in the Knora API Server" href="webapi-https.html" />
     <link rel="prev" title="Getting started" href="index.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora 0.1.0-SNAPSHOT documentation</a></div>
+          href="../../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="index.html" title="Getting started"
              accesskey="P">previous</a> |
@@ -107,7 +107,7 @@ data is internally consistent and conforms to the Knora ontologies.</p>
 test data that says that there are multiple IDs for the same repository
 <code class="docutils literal"><span class="pre">knora-test</span></code>. In that case, something went wrong when dropping and
 recreating the repository. You can solve this by deleting the repository
-manually and starting over. <strong>Make sure you don&#8217;t delete important data.</strong> To
+manually and starting over. <strong>Make sure you don’t delete important data.</strong> To
 delete the repository, stop GraphDB, delete the <code class="docutils literal"><span class="pre">data</span></code> directory in your
 GraphDB installation, and restart GraphDB.</p>
 </div>
@@ -136,7 +136,7 @@ for Knora, please refer to <a class="reference internal" href="../../05-sipi/ind
 </div>
 <div class="section" id="transforming-data-when-ontologies-change">
 <h2>Transforming Data When Ontologies Change<a class="headerlink" href="#transforming-data-when-ontologies-change" title="Permalink to this headline">¶</a></h2>
-<p>When there is a change in Knora&#8217;s ontologies or in a project-specific ontology, it may be necessary to update existing
+<p>When there is a change in Knora’s ontologies or in a project-specific ontology, it may be necessary to update existing
 data to conform to the new ontology. This can be done directly in SPARQL, but for simple transformations, Knora
 includes a command-line program that works on RDF data files in <a class="reference external" href="https://www.w3.org/TR/turtle/">Turtle</a> format. You can run it from SBT:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">run</span><span class="o">-</span><span class="n">main</span> <span class="n">org</span><span class="o">.</span><span class="n">knora</span><span class="o">.</span><span class="n">webapi</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">TransformData</span> <span class="o">--</span><span class="n">help</span>
@@ -169,7 +169,7 @@ includes a command-line program that works on RDF data files in <a class="refere
 <p>The currently available transformations are:</p>
 <dl class="docutils">
 <dt>deleted</dt>
-<dd>Adds <code class="docutils literal"><span class="pre">knora-base:isDeleted</span> <span class="pre">false</span></code> to resources and values that don&#8217;t have a <code class="docutils literal"><span class="pre">knora-base:isDeleted</span></code>
+<dd>Adds <code class="docutils literal"><span class="pre">knora-base:isDeleted</span> <span class="pre">false</span></code> to resources and values that don’t have a <code class="docutils literal"><span class="pre">knora-base:isDeleted</span></code>
 predicate.</dd>
 <dt>permissions</dt>
 <dd>Combines old-style permission statements (<code class="docutils literal"><span class="pre">hasViewPermission</span></code>, <code class="docutils literal"><span class="pre">hasModifyPermission</span></code>, etc.) into
@@ -274,7 +274,7 @@ configuration file:</p>
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>

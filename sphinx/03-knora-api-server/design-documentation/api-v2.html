@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Knora API v2 Design &#8212; Knora 0.1.0-SNAPSHOT documentation</title>
+    <title>Knora API v2 Design &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.1.0-SNAPSHOT',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="Developing the Knora API Server" href="../development/index.html" />
     <link rel="prev" title="Administration (Users, Projects, Groups, Institutions, Permissions)" href="administration.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora 0.1.0-SNAPSHOT documentation</a></div>
+          href="../../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="administration.html" title="Administration (Users, Projects, Groups, Institutions, Permissions)"
              accesskey="P">previous</a> |
@@ -92,7 +92,7 @@ client can request information about these types separately.</li>
 <div class="section" id="api-schemas">
 <h2><a class="toc-backref" href="#id3">API Schemas</a><a class="headerlink" href="#api-schemas" title="Permalink to this headline">¶</a></h2>
 <p>The types used in the triplestore are not exposed directly in the API. Instead, they are
-mapped onto API &#8216;schemas&#8217;. Two schemas are currently provided.</p>
+mapped onto API ‘schemas’. Two schemas are currently provided.</p>
 <ul class="simple">
 <li>A default schema, which is suitable both for reading and for editing data. The default schema
 represents values primarily as complex objects.</li>
@@ -129,7 +129,7 @@ available in output than in input. For example, when a value is read from the tr
 is available, but when it is being created, it does not yet have an IRI. In such cases, there is a
 class like <code class="docutils literal"><span class="pre">ValueContentV2</span></code>, which represents the data that is used both for input and for output.
 When a value is read, a <code class="docutils literal"><span class="pre">ValueContentV2</span></code> is wrapped in a <code class="docutils literal"><span class="pre">ReadValueV2</span></code>, which additionally
-contains the value&#8217;s IRI. When a value is created, it is wrapped in a <code class="docutils literal"><span class="pre">CreateValueV2</span></code>, which has
+contains the value’s IRI. When a value is created, it is wrapped in a <code class="docutils literal"><span class="pre">CreateValueV2</span></code>, which has
 the resource IRI and the property IRI, but not the value IRI.</p>
 <p>A <code class="docutils literal"><span class="pre">Read*</span></code> wrapper can be wrapped in another <code class="docutils literal"><span class="pre">Read*</span></code> wrapper; for example, a <code class="docutils literal"><span class="pre">ReadResourceV2</span></code>
 contains <code class="docutils literal"><span class="pre">ReadValueV2</span></code> objects.</p>
@@ -182,14 +182,14 @@ cached). If a data IRI has been received from a client request, it is better jus
 <div class="section" id="id1">
 <h4><a class="toc-backref" href="#id9">Implementation</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
 <p>The smart IRI implementation, <code class="docutils literal"><span class="pre">SmartIriImpl</span></code>, is nested in the <code class="docutils literal"><span class="pre">StringFormatter</span></code> class, because
-it uses the Knora API server&#8217;s hostname, which isn&#8217;t available until the Akka ActorSystem has
+it uses the Knora API server’s hostname, which isn’t available until the Akka ActorSystem has
 started. However, this means that the type of a <code class="docutils literal"><span class="pre">SmartIriImpl</span></code> instance is dependent on the instance
 of <code class="docutils literal"><span class="pre">StringFormatter</span></code> that constructed it. Therefore, instances of <code class="docutils literal"><span class="pre">SmartIriImpl</span></code>
-created by different instances of <code class="docutils literal"><span class="pre">StringFormatter</span></code> can&#8217;t be compared directly.</p>
+created by different instances of <code class="docutils literal"><span class="pre">StringFormatter</span></code> can’t be compared directly.</p>
 <p>There are in fact two instances of <code class="docutils literal"><span class="pre">StringFormatter</span></code>:</p>
 <ul class="simple">
 <li>one returned by <code class="docutils literal"><span class="pre">StringFormatter.getGeneralInstance</span></code> which is available after Akka has started
-and has the API server&#8217;s hostname (and can therefore provide <code class="docutils literal"><span class="pre">SmartIri</span></code> instances capable
+and has the API server’s hostname (and can therefore provide <code class="docutils literal"><span class="pre">SmartIri</span></code> instances capable
 of parsing IRIs containing that hostname). This instance is used throughout the Knora API
 server.</li>
 <li>one returned by <code class="docutils literal"><span class="pre">StringFormatter.getInstanceForConstantOntologies</span></code>, which is available before
@@ -264,7 +264,7 @@ compared (e.g. to use them as unique keys in collections), regardless of which i
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>

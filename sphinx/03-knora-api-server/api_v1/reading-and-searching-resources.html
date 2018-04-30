@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Reading and Searching Resources &#8212; Knora 0.1.0-SNAPSHOT documentation</title>
+    <title>Reading and Searching Resources &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.1.0-SNAPSHOT',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="XML to Standoff Mapping" href="create-a-mapping.html" />
     <link rel="prev" title="Introduction: Using API V1" href="api-general.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora 0.1.0-SNAPSHOT documentation</a></div>
+          href="../../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="api-general.html" title="Introduction: Using API V1"
              accesskey="P">previous</a> |
@@ -106,7 +106,7 @@ Reading resources may require authentication since some resources may have restr
 <li><code class="docutils literal"><span class="pre">status</span></code>: The Knora status code, <code class="docutils literal"><span class="pre">0</span></code> if everything went well</li>
 <li><code class="docutils literal"><span class="pre">userdata</span></code>: Data about the user that made the request</li>
 <li><code class="docutils literal"><span class="pre">resinfo</span></code>: Data describing the requested resource and its class</li>
-<li><code class="docutils literal"><span class="pre">resdata</span></code>: Short information about the resource and its class (including information about the given user&#8217;s permissions on the resource)</li>
+<li><code class="docutils literal"><span class="pre">resdata</span></code>: Short information about the resource and its class (including information about the given user’s permissions on the resource)</li>
 <li><code class="docutils literal"><span class="pre">incoming</span></code>: Resources pointing to the requested resource</li>
 <li><code class="docutils literal"><span class="pre">props</span></code>: Properties of the requested resource.</li>
 </ul>
@@ -121,9 +121,9 @@ Reading resources may require authentication since some resources may have restr
 <li><dl class="first docutils">
 <dt><code class="docutils literal"><span class="pre">reqtype=info|context|rights</span></code>: Specifies the type of request.</dt>
 <dd><ul class="first last">
-<li>Setting the parameter&#8217;s to value <code class="docutils literal"><span class="pre">info</span></code> returns short information about the requested resource (contains only <code class="docutils literal"><span class="pre">resinfo</span></code> and no properties, see TypeScript interface <code class="docutils literal"><span class="pre">resourceInfoResponse</span></code> in module <code class="docutils literal"><span class="pre">resourceResponseFormats</span></code>).</li>
-<li>Settings the parameter&#8217;s value to <code class="docutils literal"><span class="pre">context</span></code> returns context information (<code class="docutils literal"><span class="pre">resource_context</span></code>) about the requested resource: Either the dependent parts of a compound resource (e.g. pages of a book) or the parent resource of a dependent resource (e.g. the book a pages belongs to). By default, a context query does not return information about the requested resource itself, but only about its context (see TypeScript interface <code class="docutils literal"><span class="pre">resourceContextResponse</span></code> in module <code class="docutils literal"><span class="pre">resourceResponseFormats</span></code>). See below how to get additional information about the resource.</li>
-<li>The parameter <code class="docutils literal"><span class="pre">rights</span></code> returns only the given user&#8217;s permissions on the requested resource (see TypeScript interface <code class="docutils literal"><span class="pre">resourceRightsResponse</span></code> in module <code class="docutils literal"><span class="pre">resourceResponseFormats</span></code>).</li>
+<li>Setting the parameter’s to value <code class="docutils literal"><span class="pre">info</span></code> returns short information about the requested resource (contains only <code class="docutils literal"><span class="pre">resinfo</span></code> and no properties, see TypeScript interface <code class="docutils literal"><span class="pre">resourceInfoResponse</span></code> in module <code class="docutils literal"><span class="pre">resourceResponseFormats</span></code>).</li>
+<li>Settings the parameter’s value to <code class="docutils literal"><span class="pre">context</span></code> returns context information (<code class="docutils literal"><span class="pre">resource_context</span></code>) about the requested resource: Either the dependent parts of a compound resource (e.g. pages of a book) or the parent resource of a dependent resource (e.g. the book a pages belongs to). By default, a context query does not return information about the requested resource itself, but only about its context (see TypeScript interface <code class="docutils literal"><span class="pre">resourceContextResponse</span></code> in module <code class="docutils literal"><span class="pre">resourceResponseFormats</span></code>). See below how to get additional information about the resource.</li>
+<li>The parameter <code class="docutils literal"><span class="pre">rights</span></code> returns only the given user’s permissions on the requested resource (see TypeScript interface <code class="docutils literal"><span class="pre">resourceRightsResponse</span></code> in module <code class="docutils literal"><span class="pre">resourceResponseFormats</span></code>).</li>
 </ul>
 </dd>
 </dl>
@@ -149,14 +149,14 @@ the requested resource (complementary to its context), see TypeScript interface 
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">host</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">properties</span><span class="o">/</span><span class="n">resourceIRI</span>
 </pre></div>
 </div>
-<p>The JSON contains just the member <code class="docutils literal"><span class="pre">properties</span></code> representing the requested resource&#8217;s properties (see TypeScript interface <code class="docutils literal"><span class="pre">resourcePropertiesResponse</span></code> in module <code class="docutils literal"><span class="pre">resourceResponseFormats</span></code>).</p>
+<p>The JSON contains just the member <code class="docutils literal"><span class="pre">properties</span></code> representing the requested resource’s properties (see TypeScript interface <code class="docutils literal"><span class="pre">resourcePropertiesResponse</span></code> in module <code class="docutils literal"><span class="pre">resourceResponseFormats</span></code>).</p>
 </div>
 </div>
 <div class="section" id="get-information-about-a-resource-class">
 <h2><a class="toc-backref" href="#id7">Get Information about a Resource Class</a><a class="headerlink" href="#get-information-about-a-resource-class" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="get-a-resource-class-by-its-iri">
 <h3><a class="toc-backref" href="#id8">Get a Resource Class by its IRI</a><a class="headerlink" href="#get-a-resource-class-by-its-iri" title="Permalink to this headline">¶</a></h3>
-<p>In order to get information about a resource class, the path segment <code class="docutils literal"><span class="pre">resourcetypes</span></code> can be used. Append the IRI of the resource class to the URL (e.g. <code class="docutils literal"><span class="pre">http://www.knora.org/ontology/incunabula#book</span></code>).</p>
+<p>In order to get information about a resource class, the path segment <code class="docutils literal"><span class="pre">resourcetypes</span></code> can be used. Append the IRI of the resource class to the URL (e.g. <code class="docutils literal"><span class="pre">http://www.knora.org/ontology/0803/incunabula#book</span></code>).</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">host</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">resourcetypes</span><span class="o">/</span><span class="n">resourceClassIRI</span>
 </pre></div>
 </div>
@@ -180,7 +180,7 @@ and means that the resource classes from all the available vocabularies are retu
 <div class="section" id="get-the-resource-classes-of-a-vocabulary">
 <h3><a class="toc-backref" href="#id10">Get the Resource Classes of a Vocabulary</a><a class="headerlink" href="#get-the-resource-classes-of-a-vocabulary" title="Permalink to this headline">¶</a></h3>
 <p>Resource classes and property types are organized in (project specific) name spaces, so called vocabularies.
-In order to get all the resource classes defined for a specific vocabulary (e.g. <code class="docutils literal"><span class="pre">incunabula</span></code>), the parameter <code class="docutils literal"><span class="pre">vocabulary</span></code> has to be used and assigned the vocabulary&#8217;s IRI:</p>
+In order to get all the resource classes defined for a specific vocabulary (e.g. <code class="docutils literal"><span class="pre">incunabula</span></code>), the parameter <code class="docutils literal"><span class="pre">vocabulary</span></code> has to be used and assigned the vocabulary’s IRI:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>HTTP GET to http://host/v1/resourcetypes?vocabulary=vocabularyIRI
 </pre></div>
 </div>
@@ -250,7 +250,7 @@ See TypeScript interface <code class="docutils literal"><span class="pre">search
 <dt>The parameter <code class="docutils literal"><span class="pre">searchtype</span></code> is required and has to be set to <code class="docutils literal"><span class="pre">extended</span></code>. An extended search requires at least one set of parameters consisting of:</dt>
 <dd><ul class="first last simple">
 <li><code class="docutils literal"><span class="pre">property_id=propertyTypeIRI</span></code>: the property the resource has to have (subproperties of that property will also match).</li>
-<li><code class="docutils literal"><span class="pre">compop=comparisonOperator</span></code>: the comparison operator to be used to match between the resource&#8217;s property value and the search term.</li>
+<li><code class="docutils literal"><span class="pre">compop=comparisonOperator</span></code>: the comparison operator to be used to match between the resource’s property value and the search term.</li>
 <li><code class="docutils literal"><span class="pre">searchval=searchTerm</span></code>: the search value to look for.</li>
 </ul>
 </dd>
@@ -300,22 +300,22 @@ See TypeScript interface <code class="docutils literal"><span class="pre">search
 <dl class="docutils">
 <dt>Explanation of the comparison operators:</dt>
 <dd><ul class="first last simple">
-<li><code class="docutils literal"><span class="pre">EQ</span></code>: checks if a resource&#8217;s value <em>equals</em> the search value. In case of a text value type, it checks for identity of the strings compared.
+<li><code class="docutils literal"><span class="pre">EQ</span></code>: checks if a resource’s value <em>equals</em> the search value. In case of a text value type, it checks for identity of the strings compared.
 In case of a date value type, equality is given if the dates overlap in any way. Since dates are internally always treated as periods,
-equality is given if a date value&#8217;s period ends after or equals the start of the defined period and
-a date value&#8217;s period starts before or equals the end of the defined period.</li>
-<li><code class="docutils literal"><span class="pre">!EQ</span></code>: checks if a resource&#8217;s value <em>does not equal</em> the search value. In case of a text value type, it checks if the compared strings are different.
+equality is given if a date value’s period ends after or equals the start of the defined period and
+a date value’s period starts before or equals the end of the defined period.</li>
+<li><code class="docutils literal"><span class="pre">!EQ</span></code>: checks if a resource’s value <em>does not equal</em> the search value. In case of a text value type, it checks if the compared strings are different.
 In case of a date value type, inequality is given if the dates do not overlap in any way, meaning that a date starts after the end of the defined period or ends before the beginning of the defined period
 (dates are internally always treated as periods, see above).</li>
-<li><code class="docutils literal"><span class="pre">GT</span></code>: checks if a resource&#8217;s value is <em>greater than</em> the search value. In case of a date value type, it assures that a period begins after the indicated period&#8217;s end.</li>
-<li><code class="docutils literal"><span class="pre">GT_EQ</span></code>: checks if a resource&#8217;s value <em>equals or is greater than</em> the search value. In case of a date value type, it assures that the periods overlap in any way (see <code class="docutils literal"><span class="pre">EQ</span></code>) <strong>or</strong> that the period starts after the indicated period&#8217;s end (see <code class="docutils literal"><span class="pre">GT</span></code>).</li>
-<li><code class="docutils literal"><span class="pre">LT</span></code>: checks if a resource&#8217;s value is <em>lower than</em> the search value. In case of a date value type, it assures that a period ends before the indicated period&#8217;s start.</li>
-<li><code class="docutils literal"><span class="pre">LT_EQ</span></code>: checks if a resource&#8217;s value <em>equals or is lower than</em> the search value. In case of a date value type, it assures that the periods overlap in any way (see <code class="docutils literal"><span class="pre">EQ</span></code>) <strong>or</strong> that the period ends before the indicated period&#8217;s start (see <code class="docutils literal"><span class="pre">LT</span></code>).</li>
-<li><code class="docutils literal"><span class="pre">EXISTS</span></code>: checks if an instance of the indicated property type <em>exists</em> for a resource. <strong>Please always provide an empty search value when using EXISTS: &#8220;searchval=&#8221;</strong>. Otherwise, the query syntax rules would be violated.</li>
-<li><code class="docutils literal"><span class="pre">MATCH</span></code>: checks if a resource&#8217;s text value <em>matches</em> the search value. The behaviour depends on the used triplestore&#8217;s full text index.</li>
-<li><code class="docutils literal"><span class="pre">LIKE</span></code>: checks if the search value is contained in a resource&#8217;s text value.</li>
-<li><code class="docutils literal"><span class="pre">!LIKE</span></code>: checks if the search value is not contained in a resource&#8217;s text value.</li>
-<li><code class="docutils literal"><span class="pre">MATCH_BOOLEAN</span></code>: checks if a resource&#8217;s text value <em>matches</em> the provided list of positive (exist) and negative (do not exist) terms. The list takes this form: <code class="docutils literal"><span class="pre">([+-]term\s)+</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">GT</span></code>: checks if a resource’s value is <em>greater than</em> the search value. In case of a date value type, it assures that a period begins after the indicated period’s end.</li>
+<li><code class="docutils literal"><span class="pre">GT_EQ</span></code>: checks if a resource’s value <em>equals or is greater than</em> the search value. In case of a date value type, it assures that the periods overlap in any way (see <code class="docutils literal"><span class="pre">EQ</span></code>) <strong>or</strong> that the period starts after the indicated period’s end (see <code class="docutils literal"><span class="pre">GT</span></code>).</li>
+<li><code class="docutils literal"><span class="pre">LT</span></code>: checks if a resource’s value is <em>lower than</em> the search value. In case of a date value type, it assures that a period ends before the indicated period’s start.</li>
+<li><code class="docutils literal"><span class="pre">LT_EQ</span></code>: checks if a resource’s value <em>equals or is lower than</em> the search value. In case of a date value type, it assures that the periods overlap in any way (see <code class="docutils literal"><span class="pre">EQ</span></code>) <strong>or</strong> that the period ends before the indicated period’s start (see <code class="docutils literal"><span class="pre">LT</span></code>).</li>
+<li><code class="docutils literal"><span class="pre">EXISTS</span></code>: checks if an instance of the indicated property type <em>exists</em> for a resource. <strong>Please always provide an empty search value when using EXISTS: “searchval=”</strong>. Otherwise, the query syntax rules would be violated.</li>
+<li><code class="docutils literal"><span class="pre">MATCH</span></code>: checks if a resource’s text value <em>matches</em> the search value. The behaviour depends on the used triplestore’s full text index.</li>
+<li><code class="docutils literal"><span class="pre">LIKE</span></code>: checks if the search value is contained in a resource’s text value.</li>
+<li><code class="docutils literal"><span class="pre">!LIKE</span></code>: checks if the search value is not contained in a resource’s text value.</li>
+<li><code class="docutils literal"><span class="pre">MATCH_BOOLEAN</span></code>: checks if a resource’s text value <em>matches</em> the provided list of positive (exist) and negative (do not exist) terms. The list takes this form: <code class="docutils literal"><span class="pre">([+-]term\s)+</span></code>.</li>
 </ul>
 </dd>
 <dt>Additionally, these parameters can be set:</dt>
@@ -329,8 +329,8 @@ In case of a date value type, inequality is given if the dates do not overlap in
 </dd>
 <dt>Some sample searches:</dt>
 <dd><ul class="first last simple">
-<li><code class="docutils literal"><span class="pre">http://localhost:3333/v1/search/?searchtype=extended&amp;filter_by_restype=http%3A%2F%2Fwww.knora.org%2Fontology%2Fincunabula%23book&amp;property_id=http%3A%2F%2Fwww.knora.org%2Fontology%2Fincunabula%23title&amp;compop=!EQ&amp;searchval=Zeitgl%C3%B6cklein%20des%20Lebens%20und%20Leidens%20Christi</span></code>: searches for books that have a title that does not equal &#8220;Zeitglöcklein des Lebens und Leidens Christi&#8221;.</li>
-<li><code class="docutils literal"><span class="pre">http://www.knora.org/v1/search/?searchtype=extended&amp;filter_by_restype=http%3A%2F%2Fwww.knora.org%2Fontology%2Fincunabula%23book&amp;property_id=http%3A%2F%2Fwww.knora.org%2Fontology%2Fincunabula%23title&amp;compop=MATCH&amp;searchval=Zeitgl%C3%B6cklein&amp;property_id=http%3A%2F%2Fwww.knora.org%2Fontology%2Fincunabula%23pubdate&amp;compop=EQ&amp;searchval=JULIAN:1490</span></code>: searches for resources of type <code class="docutils literal"><span class="pre">incunabula:book</span></code> whose titles match &#8220;Zeitglöcklein&#8221; and were published in the year 1490 (according to the Julian calendar).</li>
+<li><code class="docutils literal"><span class="pre">http://localhost:3333/v1/search/?searchtype=extended&amp;filter_by_restype=http%3A%2F%2Fwww.knora.org%2Fontology%2Fincunabula%23book&amp;property_id=http%3A%2F%2Fwww.knora.org%2Fontology%2Fincunabula%23title&amp;compop=!EQ&amp;searchval=Zeitgl%C3%B6cklein%20des%20Lebens%20und%20Leidens%20Christi</span></code>: searches for books that have a title that does not equal “Zeitglöcklein des Lebens und Leidens Christi”.</li>
+<li><code class="docutils literal"><span class="pre">http://www.knora.org/v1/search/?searchtype=extended&amp;filter_by_restype=http%3A%2F%2Fwww.knora.org%2Fontology%2Fincunabula%23book&amp;property_id=http%3A%2F%2Fwww.knora.org%2Fontology%2Fincunabula%23title&amp;compop=MATCH&amp;searchval=Zeitgl%C3%B6cklein&amp;property_id=http%3A%2F%2Fwww.knora.org%2Fontology%2Fincunabula%23pubdate&amp;compop=EQ&amp;searchval=JULIAN:1490</span></code>: searches for resources of type <code class="docutils literal"><span class="pre">incunabula:book</span></code> whose titles match “Zeitglöcklein” and were published in the year 1490 (according to the Julian calendar).</li>
 </ul>
 </dd>
 </dl>
@@ -354,12 +354,12 @@ See the TypeScript interface <code class="docutils literal"><span class="pre">se
 <h2><a class="toc-backref" href="#id17">Get Hierarchical Lists</a><a class="headerlink" href="#get-hierarchical-lists" title="Permalink to this headline">¶</a></h2>
 <p>The knora-base ontology allows for the definition of hierarchical lists. These can be queried by providing the IRI of the root node.
 Selections are hierarchical list that are just one level deep. Internally, they are represented as hierarchical lists.</p>
-<p>You can get a hierarchical by using the path segment <code class="docutils literal"><span class="pre">hlists</span></code> and appending the hierarchical list&#8217;s IRI (URL encoded):</p>
+<p>You can get a hierarchical by using the path segment <code class="docutils literal"><span class="pre">hlists</span></code> and appending the hierarchical list’s IRI (URL encoded):</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">HTTP</span> <span class="n">GET</span> <span class="n">to</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">host</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">hlists</span><span class="o">/</span><span class="n">rootNodeIRI</span>
 </pre></div>
 </div>
 <p>The response shows all of the list nodes that are element of the requested hierarchical list as a tree structure. See TypeScript interface <code class="docutils literal"><span class="pre">hierarchicalListResponse</span></code> in module <code class="docutils literal"><span class="pre">hierarchicalListResponseFormats</span></code>.</p>
-<p>For each node, the full path leading to it from the top level can be requested by making a query providing the node&#8217;s IRI and setting the param <code class="docutils literal"><span class="pre">reqtype=node</span></code>:</p>
+<p>For each node, the full path leading to it from the top level can be requested by making a query providing the node’s IRI and setting the param <code class="docutils literal"><span class="pre">reqtype=node</span></code>:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span>HTTP GET to http://host/v1/hlists/nodeIri?reqtype=node
 </pre></div>
 </div>
@@ -427,7 +427,7 @@ Selections are hierarchical list that are just one level deep. Internally, they 
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>

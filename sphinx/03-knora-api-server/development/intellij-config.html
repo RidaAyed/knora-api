@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Setup IntelliJ for development of Knora &#8212; Knora 0.1.0-SNAPSHOT documentation</title>
+    <title>Setup IntelliJ for development of Knora &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.1.0-SNAPSHOT',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="Documentation Guidelines" href="documentation.html" />
     <link rel="prev" title="Build Process" href="build-process.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora 0.1.0-SNAPSHOT documentation</a></div>
+          href="../../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="build-process.html" title="Build Process"
              accesskey="P">previous</a> |
@@ -59,7 +59,7 @@
 <ul class="simple">
 <li><a class="reference internal" href="#create-an-intellij-project-for-the-knora-api-server" id="id15">Create an IntelliJ Project for the Knora API Server</a></li>
 <li><a class="reference internal" href="#twirl" id="id16">Twirl</a></li>
-<li><a class="reference internal" href="#use-intellij-idea-s-debugger-with-the-knora-api-server" id="id17">Use IntelliJ IDEA&#8217;s Debugger with the Knora API Server</a></li>
+<li><a class="reference internal" href="#use-intellij-idea-s-debugger-with-the-knora-api-server" id="id17">Use IntelliJ IDEA’s Debugger with the Knora API Server</a></li>
 <li><a class="reference internal" href="#profile-knora-using-visualvm-in-intellij" id="id18">Profile Knora Using VisualVM in IntelliJ</a></li>
 </ul>
 </div>
@@ -71,21 +71,21 @@
 </ul>
 <div class="figure" id="id1">
 <a class="reference internal image-reference" href="../../_images/install-scala-plugin.png"><img alt="screenshot 'Install Scala Plugin'" src="../../_images/install-scala-plugin.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-text">screenshot &#8216;Install Scala Plugin&#8217;</span></p>
+<p class="caption"><span class="caption-text">screenshot ‘Install Scala Plugin’</span></p>
 </div>
 <ul class="simple">
 <li>Import the <code class="docutils literal"><span class="pre">webapi</span></code> directory in the Knora source tree: <code class="docutils literal"><span class="pre">Import</span> <span class="pre">Project</span></code> -&gt; Choose the option <code class="docutils literal"><span class="pre">module</span> <span class="pre">SBT</span></code></li>
 </ul>
 <div class="figure" id="id2">
 <a class="reference internal image-reference" href="../../_images/import-from-sbt.png"><img alt="screenshot 'import existing SBT project'" src="../../_images/import-from-sbt.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-text">screenshot &#8216;import existing SBT project&#8217;</span></p>
+<p class="caption"><span class="caption-text">screenshot ‘import existing SBT project’</span></p>
 </div>
 <ul class="simple">
 <li>make sure that the tab size is set correctly to <strong>4 spaces</strong> (so you can use automatic code reformatting): <code class="docutils literal"><span class="pre">Preferences</span> <span class="pre">-&gt;</span> <span class="pre">Code</span> <span class="pre">Style</span> <span class="pre">-&gt;</span> <span class="pre">Scala</span></code>:</li>
 </ul>
 <div class="figure" id="id3">
 <a class="reference internal image-reference" href="../../_images/setting-tab-space.png"><img alt="screenshot 'setting tab size'" src="../../_images/setting-tab-space.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-text">screenshot &#8216;setting tab size&#8217;</span></p>
+<p class="caption"><span class="caption-text">screenshot ‘setting tab size’</span></p>
 </div>
 </div>
 <div class="section" id="twirl">
@@ -94,23 +94,23 @@
 Then Intellij will correctly resolve the references to the template files.</p>
 </div>
 <div class="section" id="use-intellij-idea-s-debugger-with-the-knora-api-server">
-<h2><a class="toc-backref" href="#id17">Use IntelliJ IDEA&#8217;s Debugger with the Knora API Server</a><a class="headerlink" href="#use-intellij-idea-s-debugger-with-the-knora-api-server" title="Permalink to this headline">¶</a></h2>
+<h2><a class="toc-backref" href="#id17">Use IntelliJ IDEA’s Debugger with the Knora API Server</a><a class="headerlink" href="#use-intellij-idea-s-debugger-with-the-knora-api-server" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>Create an application configuration:</li>
 </ul>
 <div class="figure" id="id4">
 <a class="reference internal image-reference" href="../../_images/edit-config.png"><img alt="screenshot 'edit application config'" src="../../_images/edit-config.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-text">screenshot &#8216;edit application config&#8217;</span></p>
+<p class="caption"><span class="caption-text">screenshot ‘edit application config’</span></p>
 </div>
 <div class="figure" id="id5">
 <a class="reference internal image-reference" href="../../_images/create-app.png"><img alt="screenshot 'create application configuration'" src="../../_images/create-app.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-text">screenshot &#8216;create application configuration&#8217;</span></p>
+<p class="caption"><span class="caption-text">screenshot ‘create application configuration’</span></p>
 <div class="legend">
 Fill in the configuration details:</div>
 </div>
 <div class="figure" id="id6">
 <a class="reference internal image-reference" href="../../_images/app-config-setup.png"><img alt="screenshot 'change application configuration'" src="../../_images/app-config-setup.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-text">screenshot &#8216;change application configuration&#8217;</span></p>
+<p class="caption"><span class="caption-text">screenshot ‘change application configuration’</span></p>
 </div>
 <ul class="simple">
 <li>Click on the debugging symbol to start the application with a
@@ -118,26 +118,26 @@ debugger attached</li>
 </ul>
 <div class="figure" id="id7">
 <a class="reference internal image-reference" href="../../_images/debug.png"><img alt="screenshot 'debug'" src="../../_images/debug.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-text">screenshot &#8216;debug&#8217;</span></p>
+<p class="caption"><span class="caption-text">screenshot ‘debug’</span></p>
 </div>
 <ul class="simple">
 <li>Click on a line-number to add a breakpoint</li>
 </ul>
 <div class="figure" id="id8">
 <a class="reference internal image-reference" href="../../_images/breakpoint.png"><img alt="screenshot 'set a breakpoint'" src="../../_images/breakpoint.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-text">screenshot &#8216;set a breakpoint&#8217;</span></p>
+<p class="caption"><span class="caption-text">screenshot ‘set a breakpoint’</span></p>
 </div>
 </div>
 <div class="section" id="profile-knora-using-visualvm-in-intellij">
 <h2><a class="toc-backref" href="#id18">Profile Knora Using VisualVM in IntelliJ</a><a class="headerlink" href="#profile-knora-using-visualvm-in-intellij" title="Permalink to this headline">¶</a></h2>
 <p>First, download and install <a class="reference external" href="https://visualvm.github.io/">VisualVM</a>.</p>
 <p>Then, in IntelliJ, under Preferences -&gt; Plugins, search for the <a class="reference external" href="https://plugins.jetbrains.com/plugin/7115-visualvm-launcher">VisualVM
-Launcher</a>, click on &#8220;Search in repositories&#8221;, install the plugin, and restart
-IntelliJ. IntelliJ&#8217;s toolbar should now contain a button with a green triangle
-on an orange circle, with the tooltip &#8220;Run with VisualVM&#8221;:</p>
+Launcher</a>, click on “Search in repositories”, install the plugin, and restart
+IntelliJ. IntelliJ’s toolbar should now contain a button with a green triangle
+on an orange circle, with the tooltip “Run with VisualVM”:</p>
 <div class="figure" id="id9">
 <img alt="screenshot 'Run with VisualVM button'" src="../../_images/launch-visualvm.png" />
-<p class="caption"><span class="caption-text">screenshot &#8216;Run with VisualVM button&#8217;</span></p>
+<p class="caption"><span class="caption-text">screenshot ‘Run with VisualVM button’</span></p>
 </div>
 <p>You can use this button to run the class <code class="docutils literal"><span class="pre">org.knora.webapi.Main</span></code> and profile it in VisualVM.
 The first time you do this, IntelliJ will ask you for the path to the VisualVM executable.
@@ -145,30 +145,30 @@ On macOS this is <code class="docutils literal"><span class="pre">/Applications/
 <p>When VisualVM starts, it will open a window like this:</p>
 <div class="figure" id="id10">
 <a class="reference internal image-reference" href="../../_images/visualvm-overview.png"><img alt="screenshot 'VisualVM overview'" src="../../_images/visualvm-overview.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-text">screenshot &#8216;VisualVM overview&#8217;</span></p>
+<p class="caption"><span class="caption-text">screenshot ‘VisualVM overview’</span></p>
 </div>
-<p>To use the profiler, click on the &#8220;Sampler&#8221; tab, then on the &#8220;CPU&#8221; button:</p>
+<p>To use the profiler, click on the “Sampler” tab, then on the “CPU” button:</p>
 <div class="figure" id="id11">
 <a class="reference internal image-reference" href="../../_images/visualvm-sampler.png"><img alt="screenshot 'VisualVM sampler'" src="../../_images/visualvm-sampler.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-text">screenshot &#8216;VisualVM sampler&#8217;</span></p>
+<p class="caption"><span class="caption-text">screenshot ‘VisualVM sampler’</span></p>
 </div>
-<p>Now run some Knora API operations that you&#8217;re interested in profiling,
+<p>Now run some Knora API operations that you’re interested in profiling,
 preferably several times to allow the sampler to collect enough data. Then
-click on the &#8220;Snapshot&#8221; button:</p>
+click on the “Snapshot” button:</p>
 <div class="figure" id="id12">
 <a class="reference internal image-reference" href="../../_images/visualvm-snapshot-button.png"><img alt="screenshot 'VisualVM snapshot button'" src="../../_images/visualvm-snapshot-button.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-text">screenshot &#8216;VisualVM snapshot button&#8217;</span></p>
+<p class="caption"><span class="caption-text">screenshot ‘VisualVM snapshot button’</span></p>
 </div>
-<p>In the snapshot, you&#8217;ll see a list of threads that were profiled:</p>
+<p>In the snapshot, you’ll see a list of threads that were profiled:</p>
 <div class="figure" id="id13">
 <a class="reference internal image-reference" href="../../_images/visualvm-snapshot.png"><img alt="screenshot 'VisualVM snapshot'" src="../../_images/visualvm-snapshot.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-text">screenshot &#8216;VisualVM snapshot&#8217;</span></p>
+<p class="caption"><span class="caption-text">screenshot ‘VisualVM snapshot’</span></p>
 </div>
 <p>You can then browse the call tree for each thread, looking for Knora method
 calls, to see the total time spent in each method:</p>
 <div class="figure" id="id14">
 <a class="reference internal image-reference" href="../../_images/visualvm-call-tree.png"><img alt="screenshot 'VisualVM call tree'" src="../../_images/visualvm-call-tree.png" style="width: 100%;" /></a>
-<p class="caption"><span class="caption-text">screenshot &#8216;VisualVM call tree&#8217;</span></p>
+<p class="caption"><span class="caption-text">screenshot ‘VisualVM call tree’</span></p>
 </div>
 </div>
 </div>
@@ -233,7 +233,7 @@ calls, to see the total time spent in each method:</p>
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>

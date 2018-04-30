@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Build Process &#8212; Knora 0.1.0-SNAPSHOT documentation</title>
+    <title>Build Process &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.1.0-SNAPSHOT',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="Setup IntelliJ for development of Knora" href="intellij-config.html" />
     <link rel="prev" title="Starting GraphDB" href="graphdb.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora 0.1.0-SNAPSHOT documentation</a></div>
+          href="../../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="graphdb.html" title="Starting GraphDB"
              accesskey="P">previous</a> |
@@ -81,7 +81,7 @@
 <dt>TODO: complete this file.</dt>
 <dd><ul class="first last simple">
 <li>SBT</li>
-<li>Using GraphDB for development and how to initializing the &#8216;knora-test-unit&#8217; repository</li>
+<li>Using GraphDB for development and how to initializing the ‘knora-test-unit’ repository</li>
 <li>Using Fuseki for development</li>
 </ul>
 </dd>
@@ -145,7 +145,7 @@ $ sbt
 <h2><a class="toc-backref" href="#id5">Running the automated tests</a><a class="headerlink" href="#running-the-automated-tests" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="running-tests-with-fuseki">
 <h3><a class="toc-backref" href="#id6">Running Tests with Fuseki</a><a class="headerlink" href="#running-tests-with-fuseki" title="Permalink to this headline">¶</a></h3>
-<p>Make sure you&#8217;ve started Fuseki as shown above. Then at the SBT prompt:</p>
+<p>Make sure you’ve started Fuseki as shown above. Then at the SBT prompt:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">fuseki</span><span class="p">:</span><span class="n">test</span>
 </pre></div>
 </div>
@@ -333,7 +333,9 @@ looks like this:</p>
 152
 153
 154
-155</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">trusty</span>
+155
+156
+157</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">dist</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">trusty</span>
 <span class="l l-Scalar l-Scalar-Plain">sudo</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">required</span>
 
 <span class="l l-Scalar l-Scalar-Plain">addons</span><span class="p p-Indicator">:</span>
@@ -441,6 +443,8 @@ looks like this:</p>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">npm install --global typedoc</span>
         <span class="c1"># install jekyll dependencies</span>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">cd $TRAVIS_BUILD_DIR/docs/src/jekyll &amp;&amp; bundle install</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">gem install eventmachine -v 1.2.5</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">gem uninstall eventmachine -v 1.2.6</span>
         <span class="c1"># compile and build all docs (sphinx, paradox, typescript, jekyll)</span>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">cd $TRAVIS_BUILD_DIR/docs &amp;&amp; sbt makeSite</span>
     <span class="c1"># Salsah browser tests</span>
@@ -510,7 +514,6 @@ import NativePackagerHelper._
 import sbt.io.IO
 import sbtassembly.MergeStrategy
 import sbtassembly.MergeStrategy._
-import sun.util.logging.resources.logging
 
 connectInput in run := true
 
@@ -924,7 +927,7 @@ consisting of the following exemplary content:</p>
   <span class="p">},</span>
   <span class="p">{</span>
     <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;_test_data/ontologies/incunabula-onto.ttl&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;http://www.knora.org/ontology/incunabula&quot;</span>
+    <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;http://www.knora.org/ontology/0803/incunabula&quot;</span>
   <span class="p">},</span>
   <span class="p">{</span>
     <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;_test_data/all_data/incunabula-data.ttl&quot;</span><span class="p">,</span>
@@ -1005,7 +1008,7 @@ file which will be loaded into a named graph by the name of <code class="docutil
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>

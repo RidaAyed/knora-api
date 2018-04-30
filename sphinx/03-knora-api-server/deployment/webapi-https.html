@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using HTTPS in the Knora API Server &#8212; Knora 0.1.0-SNAPSHOT documentation</title>
+    <title>Using HTTPS in the Knora API Server &#8212; Knora v1.3.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/agogo.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.1.0-SNAPSHOT',
+        VERSION:     'v1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -29,11 +29,11 @@
     <link rel="next" title="Knora API Server Design Documentation" href="../design-documentation/index.html" />
     <link rel="prev" title="Getting Started with the Knora API Server" href="webapi-getting-started.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="header-wrapper" role="banner">
       <div class="header">
         <div class="headertitle"><a
-          href="../../index.html">Knora 0.1.0-SNAPSHOT documentation</a></div>
+          href="../../index.html">Knora v1.3.0 documentation</a></div>
         <div class="rel" role="navigation" aria-label="related navigation">
           <a href="webapi-getting-started.html" title="Getting Started with the Knora API Server"
              accesskey="P">previous</a> |
@@ -126,7 +126,7 @@ browser to accept it.</p>
 <div class="section" id="firefox">
 <h4><a class="toc-backref" href="#id5">Firefox</a><a class="headerlink" href="#firefox" title="Permalink to this headline">¶</a></h4>
 <p>Make a request to the API server over HTTPS by typing a Knora API URL into
-the browser&#8217;s location bar, e.g.:</p>
+the browser’s location bar, e.g.:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="p">:</span><span class="mi">3334</span><span class="o">/</span><span class="n">v1</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">http</span><span class="o">%</span><span class="mi">3</span><span class="n">A</span><span class="o">%</span><span class="mi">2</span><span class="n">F</span><span class="o">%</span><span class="mi">2</span><span class="n">Fdata</span><span class="o">.</span><span class="n">knora</span><span class="o">.</span><span class="n">org</span><span class="o">%</span><span class="mi">2</span><span class="n">Fc5058f3a</span>
 </pre></div>
 </div>
@@ -139,7 +139,7 @@ the browser&#8217;s location bar, e.g.:</p>
 <h2><a class="toc-backref" href="#id6">Configuring the SALSAH GUI to Connect to the Knora API Server over HTTPS</a><a class="headerlink" href="#configuring-the-salsah-gui-to-connect-to-the-knora-api-server-over-https" title="Permalink to this headline">¶</a></h2>
 <p>In the file <code class="docutils literal"><span class="pre">salsah/src/public/js/00_init_javascript.js</span></code>, change the value
 of the variable <code class="docutils literal"><span class="pre">API_URL</span></code> to specify <code class="docutils literal"><span class="pre">https</span></code> instead of <code class="docutils literal"><span class="pre">http</span></code>, along
-with the HTTPS port configured in the Knora API server&#8217;s <code class="docutils literal"><span class="pre">application.conf</span></code>.
+with the HTTPS port configured in the Knora API server’s <code class="docutils literal"><span class="pre">application.conf</span></code>.
 For example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="n">API_URL</span> <span class="o">=</span> <span class="s1">&#39;https://localhost:3334&#39;</span><span class="p">;</span>
 </pre></div>
@@ -212,7 +212,7 @@ being intercepted in transit. You must then set <code class="docutils literal"><
           
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015-2018 the contributors (see Contributors.md).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
         </div>
         <div class="clearer"></div>
