@@ -18,7 +18,7 @@
 
 <meta name="description" content="root">
 <link rel="shortcut icon" href="../cloud">
-<title>v1.4.0 Release Notes · Knora Documentation</title>
+<title>v1.4.0 Release Notes (not released yet) · Knora Documentation</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-v1.4.0 Release Notes
+v1.4.0 Release Notes (not released yet)
 </span>
 </div>
 </div>
@@ -140,8 +140,7 @@ dhlab-basel/Knora/docs
     <li><a href="../00-release-notes/v1.1.0.html" class="page">v1.1.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.2.0.html" class="page">v1.2.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.3.0.html" class="page">v1.3.0 Release Notes</a></li>
-    <li><a href="../00-release-notes/v1.4.0.html" class="active page">v1.4.0 Release Notes</a></li>
-    <li><a href="../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes (not released yet)</a></li>
+    <li><a href="../00-release-notes/v1.4.0.html" class="active page">v1.4.0 Release Notes (not released yet)</a></li>
   </ul></li>
   <li><a href="../01-introduction/index.html" class="page">Introduction</a></li>
   <li><a href="../02-knora-ontologies/index.html" class="page">Knora Ontologies</a></li>
@@ -152,7 +151,7 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../00-release-notes/v1.4.0.html#v1-4-0-release-notes" class="header">v1.4.0 Release Notes</a>
+  <li><a href="../00-release-notes/v1.4.0.html#v1-4-0-release-notes-not-released-yet-" class="header">v1.4.0 Release Notes (not released yet)</a>
   <ul>
     <li><a href="../00-release-notes/v1.4.0.html#required-changes-to-existing-data-" class="header">Required changes to existing data:</a></li>
     <li><a href="../00-release-notes/v1.4.0.html#new-features-" class="header">New features:</a></li>
@@ -175,7 +174,7 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../00-release-notes/v1.4.0.html#v1-4-0-release-notes" class="header">v1.4.0 Release Notes</a>
+  <li><a href="../00-release-notes/v1.4.0.html#v1-4-0-release-notes-not-released-yet-" class="header">v1.4.0 Release Notes (not released yet)</a>
   <ul>
     <li><a href="../00-release-notes/v1.4.0.html#required-changes-to-existing-data-" class="header">Required changes to existing data:</a></li>
     <li><a href="../00-release-notes/v1.4.0.html#new-features-" class="header">New features:</a></li>
@@ -190,20 +189,15 @@ dhlab-basel/Knora/docs
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
-<h1><a href="#v1-4-0-release-notes" name="v1-4-0-release-notes" class="anchor"><span class="anchor-link"></span></a>v1.4.0 Release Notes</h1>
+<h1><a href="#v1-4-0-release-notes-not-released-yet-" name="v1-4-0-release-notes-not-released-yet-" class="anchor"><span class="anchor-link"></span></a>v1.4.0 Release Notes (not released yet)</h1>
 <p>See the <a href="https://github.com/dhlab-basel/Knora/releases/tag/v1.4.0">release</a> and closed tickets on the <a href="https://github.com/dhlab-basel/Knora/milestone/8">v1.4.0 milestone</a> on Github.</p>
 <h2><a href="#required-changes-to-existing-data-" name="required-changes-to-existing-data-" class="anchor"><span class="anchor-link"></span></a>Required changes to existing data:</h2>
-<ul>
-  <li>
-  <p>Every ontology must now have the property <code>knora-base:attachedToProject</code>, which points to the IRI of the project  that is responsible for the ontology. This must be added to each project-specific ontology in existing repositories.  All built-in ontologies have been updated to have this property, and must therefore be reloaded into existing  repositories.<br/> The property <code>knora-base:projectOntology</code> has been removed, and must be removed from project definitions in  existing repositories.</p></li>
-  <li>
-  <p>Every project now needs to have the property <code>knora-base:projectShortcode</code> set.</p></li>
-</ul>
+<p>Every ontology must now have the property <code>knora-base:attachedToProject</code>, which points to the IRI of the project that is responsible for the ontology. This must be added to each project-specific ontology in existing repositories. All built-in ontologies have been updated to have this property, and must therefore be reloaded into existing repositories.</p>
+<p>The property <code>knora-base:projectOntology</code> has been removed, and must be removed from project definitions in existing repositories.</p>
 <h2><a href="#new-features-" name="new-features-" class="anchor"><span class="anchor-link"></span></a>New features:</h2>
 <ul>
+  <li>A project-specific ontology can now be deleted via API v2.</li>
   <li>Added OpenAPI / Swagger API documentation route</li>
-  <li>The Knora API server now checks the validity of ontologies on startup.</li>
-  <li>The property <code>knora-base:projectShortcode</code> is now a required property (was optional).</li>
 </ul>
 <h2><a href="#bugfixes-" name="bugfixes-" class="anchor"><span class="anchor-link"></span></a>Bugfixes:</h2>
 <ul>
@@ -241,13 +235,13 @@ v1.3.0 Release Notes
 </span>
 </div>
 </a>
-<a href="../00-release-notes/v1.5.0.html" title="v1.5.0 Release Notes (not released yet)" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../01-introduction/index.html" title="Introduction" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-v1.5.0 Release Notes (not released yet)
+Introduction
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

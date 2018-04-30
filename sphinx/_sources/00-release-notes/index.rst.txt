@@ -20,6 +20,10 @@ Release Notes
 #############
 
 
-Please find the release notes in the new_documentation_.
+.. toctree::
+   :maxdepth: 2
 
-.. _new_documentation: http://docs.knora.org/paradox/index.html
+   v1.1.0
+   v1.2.0
+   v1.3.0
+   v1.4.0
