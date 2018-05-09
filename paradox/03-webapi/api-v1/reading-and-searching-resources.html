@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="description" content="root">
+<meta name="generator" content="Paradox, paradox-material-theme=v1.4.0, mkdocs-material=2.2.2">
+
+<meta name="lang:clipboard.copy" content="Copy to clipboard">
+<meta name="lang:clipboard.copied" content="Copied to clipboard">
+<meta name="lang:search.result.none" content="No matching documents">
+<meta name="lang:search.result.one" content="1 matching document">
+<meta name="lang:search.result.other" content="# matching documents">
+<meta name="lang:search.language" content="">
+<meta name="lang:search.tokenizer" content="[\s\-]+">
+
+
+<meta name="description" content="root">
+<link rel="shortcut icon" href="../../cloud">
+<title>Reading and Searching Resources · Knora Documentation</title>
+<link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
+<link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
+<link rel="stylesheet" href="../../lib/material__tabs/dist/mdc.tabs.min.css">
+<link rel="stylesheet" href="../../lib/prettify/prettify.css">
+<script src="../../lib/modernizr/modernizr.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+<style>
+body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}
+code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../../assets/stylesheets/paradox-material-theme.css">
+</head>
+<body
+data-md-color-primary="blue"
+data-md-color-accent="yellow"
+>
+<input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+<input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+<label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+<header class="md-header" data-md-component="header">
+<nav class="md-header-nav md-grid">
+<div class="md-flex">
+<div class="md-flex__cell md-flex__cell--shrink">
+<a href="../../index.html" title="Knora Documentation" class="md-header-nav__button md-logo">
+<i class="md-icon">cloud</i>
+</a>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch">
+<div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+<span class="md-header-nav__topic">
+Knora Documentation
+</span>
+<span class="md-header-nav__topic">
+Reading and Searching Resources
+</span>
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="search"></label>
+<div class="md-search__inner">
+<form class="md-search__form" name="search">
+<input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+<label class="md-icon md-search__icon" for="search"></label>
+<button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix>
+<div class="md-search-result" data-md-component="result">
+<div class="md-search-result__meta">
+Type to start searching
+</div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<div class="md-header-nav__source">
+<a href="https://github.com/dhlab-basel/Knora/docs"
+title="Go to repository"
+class="md-source"
+data-md-source="github">
+<div class="md-source__icon">
+<i class="fa fa-github"></i>
+</div>
+<div class="md-source__repository">
+dhlab-basel/Knora/docs
+</div>
+</a>
+
+</div>
+</div>
+</div>
+</nav>
+</header>
+
+<div class="md-container">
+<main class="md-main">
+<div class="md-main__inner md-grid" data-md-component="container">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" data-md-level="0" style="visibility: hidden">
+<label class="md-nav__title md-nav__title--site" for="drawer">
+<span class="md-nav__button md-logo">
+<i class="md-icon">cloud</i>
+</span>
+<a href="../../index.html" title="Knora Documentation">
+Knora Documentation
+</a>
+</label>
+<div class="md-nav__source">
+<a href="https://github.com/dhlab-basel/Knora/docs"
+title="Go to repository"
+class="md-source"
+data-md-source="github">
+<div class="md-source__icon">
+<i class="fa fa-github"></i>
+</div>
+<div class="md-source__repository">
+dhlab-basel/Knora/docs
+</div>
+</a>
+
+</div>
+<ul>
+  <li><a href="../../00-release-notes/index.html" class="page">Release Notes</a>
+  <ul>
+    <li><a href="../../00-release-notes/v1.1.0.html" class="page">v1.1.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.2.0.html" class="page">v1.2.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.3.0.html" class="page">v1.3.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes (not released yet)</a></li>
+  </ul></li>
+  <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
+  <ul>
+    <li><a href="../../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../../01-introduction/example-project.html" class="page">An Example Project</a></li>
+  </ul></li>
+  <li><a href="../../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
+  <ul>
+    <li><a href="../../02-knora-ontologies/introduction.html" class="page">Introduction</a></li>
+    <li><a href="../../02-knora-ontologies/knora-base.html" class="page">The Knora Base Ontology</a></li>
+    <li><a href="../../02-knora-ontologies/salsah-gui.html" class="page">The SALSAH GUI Ontology</a></li>
+  </ul></li>
+  <li><a href="../../03-webapi/index.html" class="page">The Knora API Server</a>
+  <ul>
+    <li><a href="../../03-webapi/deployment/index.html" class="page">Deployment</a></li>
+    <li><a href="../../03-webapi/design/index.html" class="page">Design</a></li>
+    <li><a href="../../03-webapi/development/index.html" class="page">Development</a></li>
+    <li><a href="../../03-webapi/api-v1/index.html" class="page">Knora API v1</a></li>
+    <li><a href="../../03-webapi/api-v2/index.html" class="page">Knora API v2</a></li>
+    <li><a href="../../03-webapi/api-admin/index.html" class="page">Knora Admin API</a></li>
+  </ul></li>
+  <li><a href="../../04-salsah/index.html" class="page">The SALSAH 1 GUI</a></li>
+  <li><a href="../../05-sipi/index.html" class="page">The Sipi Media Server</a>
+  <ul>
+    <li><a href="../../05-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
+    <li><a href="../../05-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
+  </ul></li>
+</ul>
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#reading-and-searching-resources" class="header">Reading and Searching Resources</a>
+  <ul>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-the-representation-of-a-resource-by-its-iri" class="header">Get the Representation of a Resource by its IRI</a></li>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-information-about-a-resource-class" class="header">Get Information about a Resource Class</a></li>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-all-the-vocabularies" class="header">Get all the Vocabularies</a></li>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#search-for-resources" class="header">Search for Resources</a></li>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-a-graph-of-resources" class="header">Get a Graph of Resources</a></li>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-hierarchical-lists" class="header">Get Hierarchical Lists</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+<div class="md-nav__title--site md-version" title="Version">
+<i class="md-icon">label_outline</i> v1.4.0
+</div>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#reading-and-searching-resources" class="header">Reading and Searching Resources</a>
+  <ul>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-the-representation-of-a-resource-by-its-iri" class="header">Get the Representation of a Resource by its IRI</a></li>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-information-about-a-resource-class" class="header">Get Information about a Resource Class</a></li>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-all-the-vocabularies" class="header">Get all the Vocabularies</a></li>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#search-for-resources" class="header">Search for Resources</a></li>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-a-graph-of-resources" class="header">Get a Graph of Resources</a></li>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-hierarchical-lists" class="header">Get Hierarchical Lists</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset">
+<div class="md-content__searchable">
+<!---
+Copyright © 2015-2018 the contributors (see Contributors.md).
+
+This file is part of Knora.
+
+Knora is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Knora is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<h1><a href="#reading-and-searching-resources" name="reading-and-searching-resources" class="anchor"><span class="anchor-link"></span></a>Reading and Searching Resources</h1>
+<div class="toc ">
+<ul>
+  <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-the-representation-of-a-resource-by-its-iri" class="header">Get the Representation of a Resource by its IRI</a>
+  <ul>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#simple-request-of-a-resource-full-resource-request-" class="header">Simple Request of a Resource (full Resource Request)</a>
+    <ul>
+      <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#provide-request-parameters" class="header">Provide Request Parameters</a></li>
+    </ul></li>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#obtain-an-html-representation-of-a-resource" class="header">Obtain an HTML Representation of a Resource</a></li>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-only-the-properties-belonging-to-a-resource" class="header">Get only the Properties belonging to a Resource</a></li>
+  </ul></li>
+  <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-information-about-a-resource-class" class="header">Get Information about a Resource Class</a>
+  <ul>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-a-resource-class-by-its-iri" class="header">Get a Resource Class by its IRI</a></li>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-all-the-property-types-of-a-resource-class-or-a-vocabulary" class="header">Get all the Property Types of a Resource Class or a Vocabulary</a></li>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-the-resource-classes-of-a-vocabulary" class="header">Get the Resource Classes of a Vocabulary</a></li>
+  </ul></li>
+  <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-all-the-vocabularies" class="header">Get all the Vocabularies</a></li>
+  <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#search-for-resources" class="header">Search for Resources</a>
+  <ul>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#search-for-resources-by-their-label" class="header">Search for Resources by their Label</a></li>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#fulltext-search" class="header">Fulltext Search</a></li>
+    <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#extended-search-for-resources" class="header">Extended Search for Resources</a></li>
+  </ul></li>
+  <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-a-graph-of-resources" class="header">Get a Graph of Resources</a></li>
+  <li><a href="../../03-webapi/api-v1/reading-and-searching-resources.html#get-hierarchical-lists" class="header">Get Hierarchical Lists</a></li>
+</ul>
+</div>
+<p>In order to get an existing resource, the HTTP method <code>GET</code> has to be used. The request has to be sent to the Knora server using the <code>resources</code> path segment (depending on the type of request, this segment has to be exchanged, see below). Reading resources may require authentication since some resources may have restricted viewing permissions.</p>
+<h2><a href="#get-the-representation-of-a-resource-by-its-iri" name="get-the-representation-of-a-resource-by-its-iri" class="anchor"><span class="anchor-link"></span></a>Get the Representation of a Resource by its IRI</h2>
+<h3><a href="#simple-request-of-a-resource-full-resource-request-" name="simple-request-of-a-resource-full-resource-request-" class="anchor"><span class="anchor-link"></span></a>Simple Request of a Resource (full Resource Request)</h3>
+<p>A resource can be obtained by making a GET request to the API providing its IRI. Because a Knora IRI has the format of a URL, its IRI has to be URL encoded.</p>
+<p>In order to get the resource with the IRI <code>http://rdfh.ch/c5058f3a</code> (an incunabula book contained in the test data), make a HTTP GET request to the resources route (path segment <code>resources</code> in the API call) and append the URL encoded  IRI:</p>
+<pre><code>HTTP GET to http://host/v1/resources/http%3A%2F%2Frdfh.ch%2Fc5058f3a
+</code></pre>
+<p>More formalized, the URL looks like this:</p>
+<pre><code>HTTP GET to http://host/v1/resources/resourceIRI
+</code></pre>
+<p>As an answer, the client receives a JSON that represents the requested resource. It has the following members:</p>
+<ul>
+  <li><code>status</code>: The Knora status code, <code>0</code> if everything went well</li>
+  <li><code>userdata</code>: Data about the user that made the request</li>
+  <li><code>resinfo</code>: Data describing the requested resource and its class</li>
+  <li><code>resdata</code>: Short information about the resource and its class  (including information about the given user&rsquo;s permissions on the  resource)</li>
+  <li><code>incoming</code>: Resources pointing to the requested resource</li>
+  <li><code>props</code>: Properties of the requested resource.</li>
+</ul>
+<p>For a complete and more formalized description of a full resource request, look at the TypeScript interface <code>resourceFullResponse</code> in the module <code>resourceResponseFormats</code>.</p>
+<h4><a href="#provide-request-parameters" name="provide-request-parameters" class="anchor"><span class="anchor-link"></span></a>Provide Request Parameters</h4>
+<p>To make a request more specific, the following parameters can be appended to the URL (<code>http://www.knora.org/resources/resourceIRI?param1=value1&amp;param2=value2</code>):</p>
+<ul>
+  <li>
+    <p><code>reqtype=info|context|rights</code>: Specifies the type of  request.</p>
+    <ul>
+      <li>
+      <p>Setting the parameter&rsquo;s to value <code>info</code> returns short  information about the requested resource (contains only  <code>resinfo</code> and no properties, see TypeScript interface  <code>resourceInfoResponse</code> in module  <code>resourceResponseFormats</code>).</p></li>
+      <li>
+      <p>Setting the parameter&rsquo;s value to <code>context</code> returns  context information (<code>resource_context</code>) about the  requested resource: Either the dependent parts of a  compound resource (e.g. pages of a book) or the parent  resource of a dependent resource (e.g. the book a pages  belongs to). By default, a context query does not return  information about the requested resource itself, but  only about its context (see TypeScript interface  <code>resourceContextResponse</code> in module  <code>resourceResponseFormats</code>). See below how to get  additional information about the resource.</p></li>
+      <li>
+      <p>The parameter <code>rights</code> returns only the given user&rsquo;s  permissions on the requested resource (see TypeScript  interface <code>resourceRightsResponse</code> in module  <code>resourceResponseFormats</code>).</p></li>
+    </ul>
+  </li>
+  <li>
+  <p><code>resinfo=true</code>: Can be used in combination with  <code>reqtype=context</code>: If set, <code>resinfo</code> is added to the response  representing information about the requested resource  (complementary to its context), see TypeScript interface  <code>resourceContextResponse</code> in module <code>resourceResponseFormats</code>.</p></li>
+</ul>
+<h3><a href="#obtain-an-html-representation-of-a-resource" name="obtain-an-html-representation-of-a-resource" class="anchor"><span class="anchor-link"></span></a>Obtain an HTML Representation of a Resource</h3>
+<p>In order to get an HTML representation of a resource (not a JSON), the path segment <code>resources.html</code> can be  used:</p>
+<pre><code>HTTP GET to http://host/v1/resources.html/resourceIRI?reqtype=properties
+</code></pre>
+<p>The request returns the properties of the requested resource as an HTML document.</p>
+<h3><a href="#get-only-the-properties-belonging-to-a-resource" name="get-only-the-properties-belonging-to-a-resource" class="anchor"><span class="anchor-link"></span></a>Get only the Properties belonging to a Resource</h3>
+<p>In order to get only the properties of a resource without any other information, the path segment <code>properties</code> can be used:</p>
+<pre><code>HTTP GET to http://host/v1/properties/resourceIRI
+</code></pre>
+<p>The JSON contains just the member <code>properties</code> representing the requested resource&rsquo;s properties (see TypeScript interface <code>resourcePropertiesResponse</code> in module <code>resourceResponseFormats</code>).</p>
+<h2><a href="#get-information-about-a-resource-class" name="get-information-about-a-resource-class" class="anchor"><span class="anchor-link"></span></a>Get Information about a Resource Class</h2>
+<h3><a href="#get-a-resource-class-by-its-iri" name="get-a-resource-class-by-its-iri" class="anchor"><span class="anchor-link"></span></a>Get a Resource Class by its IRI</h3>
+<p>In order to get information about a resource class, the path segment <code>resourcetypes</code> can be used. Append the IRI of the resource class to the URL (e.g. <code>http://www.knora.org/ontology/0803/incunabula#book</code>).</p>
+<pre><code>HTTP GET to http://host/v1/resourcetypes/resourceClassIRI
+</code></pre>
+<p>In the JSON, the information about the resource class and all the property types that it may have are returned. None of these are actual instances of a property, but only types (see TypeScript interface <code>resourceTypeResponse</code> in module <code>resourceResponseFormats</code>).</p>
+<h3><a href="#get-all-the-property-types-of-a-resource-class-or-a-vocabulary" name="get-all-the-property-types-of-a-resource-class-or-a-vocabulary" class="anchor"><span class="anchor-link"></span></a>Get all the Property Types of a Resource Class or a Vocabulary</h3>
+<p>To get a list of all the available property types, the path segment <code>propertylists</code> can be used. It can be restricted to a certain vocbulary using the parameter <code>vocabulary</code> or to a certain resource class using the parameter <code>restype</code>.</p>
+<pre><code># returns all the property types for incunabula:page
+HTTP GET to http://host/v1/propertylists?restype=resourceClassIRI
+
+# returns all the property types for the incunabula vocabulary
+HTTP GET to http://host/v1/propertylists?vocabulary=vocabularyIRI
+</code></pre>
+<p>Both of these queries return a list of property types. The default value for the parameter <code>vocabulary</code> is <code>0</code> and means that the resource classes from all the available vocabularies are returned. See TypeScript interface <code>propertyTypesInResourceClassResponse</code> in module <code>resourceResponseFormats</code>.</p>
+<h3><a href="#get-the-resource-classes-of-a-vocabulary" name="get-the-resource-classes-of-a-vocabulary" class="anchor"><span class="anchor-link"></span></a>Get the Resource Classes of a Vocabulary</h3>
+<p>Resource classes and property types are organized in (project specific) name spaces, so called vocabularies. In order to get all the resource classes defined for a specific vocabulary (e.g. <code>incunabula</code>), the parameter <code>vocabulary</code> has to be used and assigned the vocabulary&rsquo;s IRI:</p>
+<pre><code>HTTP GET to http://host/v1/resourcetypes?vocabulary=vocabularyIRI
+</code></pre>
+<p>This returns all the resource classes defined for the specified vocabulary and their property types. The default value for the parameter <code>vocabulary</code> is <code>0</code> and means that the resource classes from all the available vocabularies are returned. See TypeScript interface <code>resourceTypesInVocabularyResponse</code> in module <code>resourceResponseFormats</code>.</p>
+<h2><a href="#get-all-the-vocabularies" name="get-all-the-vocabularies" class="anchor"><span class="anchor-link"></span></a>Get all the Vocabularies</h2>
+<p>To get a list of all available vocabularies, the path segment <code>vocabularies</code> can be used:</p>
+<pre><code>HTTP GET to http://host/v1/vocabularies
+</code></pre>
+<p>The response will list all the available vocabularies. See TypeScript interface <code>vocabularyResponse</code> in module <code>resourceResponseFormats</code>.</p>
+<h2><a href="#search-for-resources" name="search-for-resources" class="anchor"><span class="anchor-link"></span></a>Search for Resources</h2>
+<h3><a href="#search-for-resources-by-their-label" name="search-for-resources-by-their-label" class="anchor"><span class="anchor-link"></span></a>Search for Resources by their Label</h3>
+<p>This is a simplified way for searching for resources just by their label. It is a simple string-based method:</p>
+<pre><code>HTTP GET to http://host/v1/resources?searchstr=searchValue
+</code></pre>
+<p>Additionally, the following parameters can be appended to the URL (search value is <code>Zeitglöcklein</code>):</p>
+<ul>
+  <li>
+  <p><code>restype_id=resourceClassIRI</code>: This restricts the search to  resources of the specified class (subclasses of that class will  also match). <code>-1</code> is the default value and means no restriction  to a specific class. If a resource class IRI is specified, it  has to be URL encoded (e.g.  <code>http://www.knora.org/v1/resources?searchstr=Zeitgl%C3%B6cklein&amp;restype_id=http%3A%2F%2Fwww.knora.org%2Fontology%2Fincunabula%23book</code>).</p></li>
+  <li>
+  <p><code>numprops=Integer</code>: Specifies the number of properties returned  for each resource that was found (sorted by GUI order), e.g.  <code>http://www.knora.org/v1/resources?searchstr=Zeitgl%C3%B6cklein&amp;numprops=4</code>.</p></li>
+  <li>
+  <p><code>limit=Integer</code>: Limits the amount of results returned (e.g.  <code>http://www.knora.org/v1/resources?searchstr=Zeitgl%C3%B6cklein&amp;limit=1</code>).</p></li>
+</ul>
+<p>The response lists the resources that matched the search criteria (see TypeScript interface <code>resourceLabelSearchResponse</code> in module <code>resourceResponseFormats</code>).</p>
+<h3><a href="#fulltext-search" name="fulltext-search" class="anchor"><span class="anchor-link"></span></a>Fulltext Search</h3>
+<p>Knora offers a fulltext search that searches through all textual representations of values. You can separate search terms by a white space and they will be combined using the Boolean <code>AND</code> operator. The search terms have to be URL encoded.</p>
+<pre><code>HTTP GET to http://host/v1/search/searchValue?searchtype=fulltext[&amp;filter_by_restype=resourceClassIRI]
+[&amp;filter_by_project=projectIRI][&amp;show_nrows=Integer]{[&amp;start_at=Integer]
+</code></pre>
+<p>The parameter <code>searchtype</code> is required and has to be set to <code>fulltext</code>. Additionally, these parameters can be set:</p>
+<ul>
+  <li><code>filter_by_restype=resourceClassIRI</code>: restricts the search to  resources of the specified resource class (subclasses of that  class will also match).</li>
+  <li><code>filter_by_project=projectIRI</code>: restricts the search to  resources of the specified project.</li>
+  <li><code>show_nrows=Integer</code>: Indicates how many reults should be  presented on one page. If omitted, the default value <code>25</code> is  used.</li>
+  <li><code>start_at=Integer</code>: Used to enable paging and go through all the  results request by request.</li>
+</ul>
+<p>The response presents the retrieved resources (according to <code>show_nrows</code> and <code>start_at</code>) and information about paging. If not all resources could be presented on one page (<code>nhits</code> is greater than <code>shown_nrows</code>), the next page can be requested (by increasing <code>start_at</code> by the number of <code>show_nrows</code>). You can simply go through the elements of <code>paging</code> to request the single pages one by one. See TypeScript interface <code>searchResponse</code> in module <code>searchResponseFormats</code>.</p>
+<h3><a href="#extended-search-for-resources" name="extended-search-for-resources" class="anchor"><span class="anchor-link"></span></a>Extended Search for Resources</h3>
+<pre><code>HTTP GET to http://host/v1/search/?searchtype=extended
+[&amp;filter_by_restype=resourceClassIRI][&amp;filter_by_project=projectIRI][&amp;filter_by_owner=userIRI]
+(&amp;property_id=propertyTypeIRI&amp;compop=comparisonOperator&amp;searchval=searchValue)+
+[&amp;show_nrows=Integer][&amp;start_at=Integer]
+</code></pre>
+<p>The parameter <code>searchtype</code> is required and has to be set to <code>extended</code>. An extended search requires at least one set of parameters consisting of:</p>
+<ul>
+  <li>
+  <p><code>property_id=propertyTypeIRI</code>: the property the resource has to  have (subproperties of that property will also match).</p></li>
+  <li>
+  <p><code>compop=comparisonOperator</code>: the comparison operator to be used  to match between the resource&rsquo;s property value and the search  term.</p></li>
+  <li>
+  <p><code>searchval=searchTerm</code>: the search value to look for.</p></li>
+</ul>
+<p>You can also provide several of these sets to make your query more specific.</p>
+<p>The following table indicates the possible combinations of value types and comparison operators:</p>
+<table>
+  <thead>
+    <tr>
+      <th>Value Type </th>
+      <th>Comparison Operator </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Date Value </td>
+      <td>EQ, !EQ, GT, GT_EQ, LT, LT_EQ, EXISTS </td>
+    </tr>
+    <tr>
+      <td>Integer Value </td>
+      <td>EQ, !EQ, GT, GT_EQ, LT, LT_EQ, EXISTS </td>
+    </tr>
+    <tr>
+      <td>Float Value </td>
+      <td>EQ, !EQ, GT, GT_EQ, LT, LT_EQ, EXISTS </td>
+    </tr>
+    <tr>
+      <td>Text Value </td>
+      <td>MATCH_BOOLEAN, MATCH, EQ, !EQ, LIKE, !LIKE, EXISTS </td>
+    </tr>
+    <tr>
+      <td>Geometry Value </td>
+      <td>EXISTS </td>
+    </tr>
+    <tr>
+      <td>Resource Pointer </td>
+      <td>EQ, EXISTS </td>
+    </tr>
+    <tr>
+      <td>Color Value </td>
+      <td>EQ, EXISTS </td>
+    </tr>
+    <tr>
+      <td>List Value </td>
+      <td>EQ, EXISTS </td>
+    </tr>
+    <tr>
+      <td>Boolean Value </td>
+      <td>EQ, !EQ, EXISTS </td>
+    </tr>
+  </tbody>
+</table>
+<p>Explanation of the comparison operators:</p>
+<ul>
+  <li><code>EQ</code>: checks if a resource&rsquo;s value <em>equals</em> the search value. In  case of a text value type, it checks for identity of the strings  compared. In case of a date value type, equality is given if the  dates overlap in any way. Since dates are internally always  treated as periods, equality is given if a date value&rsquo;s period  ends after or equals the start of the defined period and a date  value&rsquo;s period starts before or equals the end of the defined  period.</li>
+  <li><code>!EQ</code>: checks if a resource&rsquo;s value <em>does not equal</em> the search  value. In case of a text value type, it checks if the compared  strings are different. In case of a date value type, inequality  is given if the dates do not overlap in any way, meaning that a  date starts after the end of the defined period or ends before  the beginning of the defined period (dates are internally always  treated as periods, see above).</li>
+  <li><code>GT</code>: checks if a resource&rsquo;s value is <em>greater than</em> the search  value. In case of a date value type, it assures that a period  begins after the indicated period&rsquo;s end.</li>
+  <li><code>GT_EQ</code>: checks if a resource&rsquo;s value <em>equals or is greater  than</em> the search value. In case of a date value type, it assures  that the periods overlap in any way (see <code>EQ</code>) <strong>or</strong> that the  period starts after the indicated period&rsquo;s end (see <code>GT</code>).</li>
+  <li><code>LT</code>: checks if a resource&rsquo;s value is <em>lower than</em> the search  value. In case of a date value type, it assures that a period  ends before the indicated period&rsquo;s start.</li>
+  <li><code>LT_EQ</code>: checks if a resource&rsquo;s value <em>equals or is lower than</em>  the search value. In case of a date value type, it assures that  the periods overlap in any way (see <code>EQ</code>) <strong>or</strong> that the period  ends before the indicated period&rsquo;s start (see <code>LT</code>).</li>
+  <li><code>EXISTS</code>: checks if an instance of the indicated property type  <em>exists</em> for a resource. <strong>Please always provide an empty search  value when using EXISTS: &ldquo;searchval=&rdquo;</strong>. Otherwise, the query  syntax rules would be violated.</li>
+  <li><code>MATCH</code>: checks if a resource&rsquo;s text value <em>matches</em> the search  value. The behaviour depends on the used triplestore&rsquo;s full text  index.</li>
+  <li><code>LIKE</code>: checks if the search value is contained in a resource&rsquo;s  text value.</li>
+  <li><code>!LIKE</code>: checks if the search value is not contained in a  resource&rsquo;s text value.</li>
+  <li><code>MATCH_BOOLEAN</code>: checks if a resource&rsquo;s text value <em>matches</em> the  provided list of positive (exist) and negative (do not exist)  terms. The list takes this form: <code>([+-]term\s)+</code>.</li>
+</ul>
+<p>Additionally, these parameters can be set:</p>
+<ul>
+  <li><code>filter_by_restype=resourceClassIRI</code>: restricts the search to  resources of the specified resource class (subclasses of that  class will also match).</li>
+  <li><code>filter_by_project=projectIRI</code>: restricts the search to  resources of the specified project.</li>
+  <li><code>filter_by_owner</code>: restricts the search to resources owned by  the specified user.</li>
+  <li><code>show_nrows=Integer</code>: Indicates how many reults should be  presented on one page. If omitted, the default value <code>25</code> is  used.</li>
+  <li><code>start_at=Integer</code>: Used to enable paging and go through all the  results request by request.</li>
+</ul>
+<p>Some sample searches:</p>
+<ul>
+  <li><code>http://localhost:3333/v1/search/?searchtype=extended&amp;filter_by_restype=http%3A%2F%2Fwww.knora.org%2Fontology%2Fincunabula%23book&amp;property_id=http%3A%2F%2Fwww.knora.org%2Fontology%2Fincunabula%23title&amp;compop=!EQ&amp;searchval=Zeitgl%C3%B6cklein%20des%20Lebens%20und%20Leidens%20Christi</code>:  searches for books that have a title that does not equal  &ldquo;Zeitglöcklein des Lebens und Leidens  Christi&rdquo;.</li>
+  <li><code>http://www.knora.org/v1/search/?searchtype=extended&amp;filter_by_restype=http%3A%2F%2Fwww.knora.org%2Fontology%2Fincunabula%23book&amp;property_id=http%3A%2F%2Fwww.knora.org%2Fontology%2Fincunabula%23title&amp;compop=MATCH&amp;searchval=Zeitgl%C3%B6cklein&amp;property_id=http%3A%2F%2Fwww.knora.org%2Fontology%2Fincunabula%23pubdate&amp;compop=EQ&amp;searchval=JULIAN:1490</code>:  searches for resources of type <code>incunabula:book</code> whose titles  match &ldquo;Zeitglöcklein&rdquo; and were published in the year 1490  (according to the Julian calendar).</li>
+</ul>
+<p>The response presents the retrieved resources (according to <code>show_nrows</code> and <code>start_at</code>) and information about paging. If not all resources could be presented on one page (<code>nhits</code> is greater than <code>shown_nrows</code>), the next page can be requested (by increasing <code>start_at</code> by the number of <code>show_nrows</code>). You can simply go through the elements of <code>paging</code> to request the single pages one by one. See the TypeScript interface <code>searchResponse</code> in module <code>searchResponseFormats</code>.</p>
+<h2><a href="#get-a-graph-of-resources" name="get-a-graph-of-resources" class="anchor"><span class="anchor-link"></span></a>Get a Graph of Resources</h2>
+<p>The path segment <code>graphdata</code> returns a graph of resources that are reachable via links to or from an initial resource.</p>
+<pre><code>HTTP GET to http://host/v1/graphdata/resourceIRI?depth=Integer
+</code></pre>
+<p>The parameter <code>depth</code> specifies the maximum depth of the graph, and defaults to 4. If <code>depth</code> is 1, the operation will return only the initial resource and any resources that are directly linked to or from it.</p>
+<p>The graph includes any link that is a subproperty of <code>knora-base:hasLinkTo</code>, except for links that are subproperties of <code>knora-base:isPartOf</code>. Specifically, if resource <code>R1</code> has a link that is a subproperty of <code>knora-base:isPartOf</code> pointing to resource <code>R2</code>, no link from <code>R1</code> to <code>R2</code> is included in the graph.</p>
+<p>The response represents the graph as a list of nodes (resources) and a list of edges (links). For details, see the TypeScript interface <code>graphDataResponse</code> in module <code>graphDataResponseFormats</code>.</p>
+<h2><a href="#get-hierarchical-lists" name="get-hierarchical-lists" class="anchor"><span class="anchor-link"></span></a>Get Hierarchical Lists</h2>
+<p>The knora-base ontology allows for the definition of hierarchical lists. These can be queried by providing the IRI of the root node. Selections are hierarchical list that are just one level deep. Internally, they are represented as hierarchical lists.</p>
+<p>You can get a hierarchical by using the path segment <code>hlists</code> and appending the hierarchical list&rsquo;s IRI (URL encoded):</p>
+<pre><code>HTTP GET to http://host/v1/hlists/rootNodeIRI
+</code></pre>
+<p>The response shows all of the list nodes that are element of the requested hierarchical list as a tree structure. See TypeScript interface <code>hierarchicalListResponse</code> in module <code>hierarchicalListResponseFormats</code>.</p>
+<p>For each node, the full path leading to it from the top level can be requested by making a query providing the node&rsquo;s IRI and setting the param <code>reqtype=node</code>:</p>
+<pre><code>HTTP GET to http://host/v1/hlists/nodeIri?reqtype=node
+</code></pre>
+<p>The response presents the full path to the current node. See the TypeScript interface <code>nodePathResponse</code> in module <code>hierarchicalListResponseFormats</code>.</p>
+</div>
+<div>
+<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/03-webapi/api-v1/reading-and-searching-resources.md" title="Edit this page" class="md-source-file md-edit">
+Edit this page
+</a>
+</div>
+<div class="print-only">
+<span class="md-source-file md-version">
+v1.4.0
+</span>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav class="md-footer-nav__inner md-grid">
+<a href="../../03-webapi/api-v1/introduction.html" title="Introduction: Using API V1" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Previous
+</span>
+Introduction: Using API V1
+</span>
+</div>
+</a>
+<a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html" title="XML to Standoff Mapping" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Next
+</span>
+XML to Standoff Mapping
+</span>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+<div class="md-footer-copyright__highlight">
+Copyright 2015-2018 the contributors (see Contributors.md)
+</div>
+Powered by
+<a href="https://github.com/lightbend/paradox">Paradox</a>
+and
+<a href="https://jonas.github.io/paradox-material-theme/">Paradox Material Theme</a>
+
+</div>
+<div class="md-footer-social">
+<a href="https://github.com/dhlab-basel" class="md-footer-social__link fa fa-github"></a><a href="https://twitter.com/dhlabbasel" class="md-footer-social__link fa fa-twitter"></a>
+</div>
+
+</div>
+</div>
+</footer>
+
+</div>
+<script src="../../assets/javascripts/application.5165553b.js"></script>
+<script src="../../assets/javascripts/paradox-material-theme.js"></script>
+<script>app.initialize({version:"0.17",url:{base:"../../."}})</script>
+<script type="text/javascript" src="../../lib/prettify/prettify.js"></script>
+<script type="text/javascript" src="../../lib/prettify/lang-scala.js"></script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+window.prettyPrint && prettyPrint();
+});
+</script>
+</body>
+</html>

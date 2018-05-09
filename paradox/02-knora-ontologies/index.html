@@ -143,11 +143,32 @@ dhlab-basel/Knora/docs
     <li><a href="../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes (not released yet)</a></li>
   </ul></li>
-  <li><a href="../01-introduction/index.html" class="page">Introduction</a></li>
-  <li><a href="../02-knora-ontologies/index.html" class="active page">Knora Ontologies</a></li>
-  <li><a href="../03-webapi/index.html" class="page">Webapi</a></li>
-  <li><a href="../04-salsah/index.html" class="page">Salsah</a></li>
-  <li><a href="../05-sipi/index.html" class="page">Sipi</a></li>
+  <li><a href="../01-introduction/index.html" class="page">Introduction</a>
+  <ul>
+    <li><a href="../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../01-introduction/example-project.html" class="page">An Example Project</a></li>
+  </ul></li>
+  <li><a href="../02-knora-ontologies/index.html" class="active page">Knora Ontologies</a>
+  <ul>
+    <li><a href="../02-knora-ontologies/introduction.html" class="page">Introduction</a></li>
+    <li><a href="../02-knora-ontologies/knora-base.html" class="page">The Knora Base Ontology</a></li>
+    <li><a href="../02-knora-ontologies/salsah-gui.html" class="page">The SALSAH GUI Ontology</a></li>
+  </ul></li>
+  <li><a href="../03-webapi/index.html" class="page">The Knora API Server</a>
+  <ul>
+    <li><a href="../03-webapi/deployment/index.html" class="page">Deployment</a></li>
+    <li><a href="../03-webapi/design/index.html" class="page">Design</a></li>
+    <li><a href="../03-webapi/development/index.html" class="page">Development</a></li>
+    <li><a href="../03-webapi/api-v1/index.html" class="page">Knora API v1</a></li>
+    <li><a href="../03-webapi/api-v2/index.html" class="page">Knora API v2</a></li>
+    <li><a href="../03-webapi/api-admin/index.html" class="page">Knora Admin API</a></li>
+  </ul></li>
+  <li><a href="../04-salsah/index.html" class="page">The SALSAH 1 GUI</a></li>
+  <li><a href="../05-sipi/index.html" class="page">The Sipi Media Server</a>
+  <ul>
+    <li><a href="../05-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
+    <li><a href="../05-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
+  </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 </nav>
@@ -163,7 +184,49 @@ dhlab-basel/Knora/docs
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
+<!---
+Copyright © 2015-2018 the contributors (see Contributors.md).
+
+This file is part of Knora.
+
+Knora is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Knora is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
+-->
 <h1><a href="#knora-ontologies" name="knora-ontologies" class="anchor"><span class="anchor-link"></span></a>Knora Ontologies</h1>
+<div class="toc ">
+<ul>
+  <li><a href="../02-knora-ontologies/introduction.html" class="page">Introduction</a>
+  <ul>
+    <li><a href="../02-knora-ontologies/introduction.html#resource-description-framework-rdf-" class="header">Resource Description Framework (RDF)</a></li>
+    <li><a href="../02-knora-ontologies/introduction.html#built-in-ontologies-and-project-specific-ontologies" class="header">Built-in Ontologies and Project-specific Ontologies</a></li>
+  </ul></li>
+  <li><a href="../02-knora-ontologies/knora-base.html" class="page">The Knora Base Ontology</a>
+  <ul>
+    <li><a href="../02-knora-ontologies/knora-base.html#overview" class="header">Overview</a></li>
+    <li><a href="../02-knora-ontologies/knora-base.html#the-knora-data-model" class="header">The Knora Data Model</a></li>
+    <li><a href="../02-knora-ontologies/knora-base.html#summary-of-restrictions-on-project-specific-ontologies" class="header">Summary of Restrictions on Project-Specific Ontologies</a></li>
+    <li><a href="../02-knora-ontologies/knora-base.html#standardisation" class="header">Standardisation</a></li>
+  </ul></li>
+  <li><a href="../02-knora-ontologies/salsah-gui.html" class="page">The SALSAH GUI Ontology</a>
+  <ul>
+    <li><a href="../02-knora-ontologies/salsah-gui.html#overview" class="header">Overview</a></li>
+    <li><a href="../02-knora-ontologies/salsah-gui.html#properties" class="header">Properties</a></li>
+    <li><a href="../02-knora-ontologies/salsah-gui.html#classes" class="header">Classes</a></li>
+    <li><a href="../02-knora-ontologies/salsah-gui.html#individuals" class="header">Individuals</a></li>
+  </ul></li>
+</ul>
+</div>
+<p>The Knora ontologies provide a generic framework for describing humanities research data, allowing data from different projects to be combined, augmented, and reused.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/02-knora-ontologies/index.md" title="Edit this page" class="md-source-file md-edit">
@@ -182,7 +245,7 @@ v1.4.0
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../01-introduction/index.html" title="Introduction" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../01-introduction/example-project.html" title="An Example Project" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -191,17 +254,17 @@ v1.4.0
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Introduction
+An Example Project
 </span>
 </div>
 </a>
-<a href="../03-webapi/index.html" title="Webapi" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../02-knora-ontologies/introduction.html" title="Introduction" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Webapi
+Introduction
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

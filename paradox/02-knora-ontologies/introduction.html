@@ -18,7 +18,7 @@
 
 <meta name="description" content="root">
 <link rel="shortcut icon" href="../cloud">
-<title>v1.4.0 Release Notes · Knora Documentation</title>
+<title>Introduction · Knora Documentation</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-v1.4.0 Release Notes
+Introduction
 </span>
 </div>
 </div>
@@ -140,7 +140,7 @@ dhlab-basel/Knora/docs
     <li><a href="../00-release-notes/v1.1.0.html" class="page">v1.1.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.2.0.html" class="page">v1.2.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.3.0.html" class="page">v1.3.0 Release Notes</a></li>
-    <li><a href="../00-release-notes/v1.4.0.html" class="active page">v1.4.0 Release Notes</a></li>
+    <li><a href="../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes (not released yet)</a></li>
   </ul></li>
   <li><a href="../01-introduction/index.html" class="page">Introduction</a>
@@ -150,7 +150,7 @@ dhlab-basel/Knora/docs
   </ul></li>
   <li><a href="../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
   <ul>
-    <li><a href="../02-knora-ontologies/introduction.html" class="page">Introduction</a></li>
+    <li><a href="../02-knora-ontologies/introduction.html" class="active page">Introduction</a></li>
     <li><a href="../02-knora-ontologies/knora-base.html" class="page">The Knora Base Ontology</a></li>
     <li><a href="../02-knora-ontologies/salsah-gui.html" class="page">The SALSAH GUI Ontology</a></li>
   </ul></li>
@@ -173,11 +173,10 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../00-release-notes/v1.4.0.html#v1-4-0-release-notes" class="header">v1.4.0 Release Notes</a>
+  <li><a href="../02-knora-ontologies/introduction.html#introduction" class="header">Introduction</a>
   <ul>
-    <li><a href="../00-release-notes/v1.4.0.html#required-changes-to-existing-data-" class="header">Required changes to existing data:</a></li>
-    <li><a href="../00-release-notes/v1.4.0.html#new-features-" class="header">New features:</a></li>
-    <li><a href="../00-release-notes/v1.4.0.html#bugfixes-" class="header">Bugfixes:</a></li>
+    <li><a href="../02-knora-ontologies/introduction.html#resource-description-framework-rdf-" class="header">Resource Description Framework (RDF)</a></li>
+    <li><a href="../02-knora-ontologies/introduction.html#built-in-ontologies-and-project-specific-ontologies" class="header">Built-in Ontologies and Project-specific Ontologies</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -196,11 +195,10 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../00-release-notes/v1.4.0.html#v1-4-0-release-notes" class="header">v1.4.0 Release Notes</a>
+  <li><a href="../02-knora-ontologies/introduction.html#introduction" class="header">Introduction</a>
   <ul>
-    <li><a href="../00-release-notes/v1.4.0.html#required-changes-to-existing-data-" class="header">Required changes to existing data:</a></li>
-    <li><a href="../00-release-notes/v1.4.0.html#new-features-" class="header">New features:</a></li>
-    <li><a href="../00-release-notes/v1.4.0.html#bugfixes-" class="header">Bugfixes:</a></li>
+    <li><a href="../02-knora-ontologies/introduction.html#resource-description-framework-rdf-" class="header">Resource Description Framework (RDF)</a></li>
+    <li><a href="../02-knora-ontologies/introduction.html#built-in-ontologies-and-project-specific-ontologies" class="header">Built-in Ontologies and Project-specific Ontologies</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -211,29 +209,43 @@ dhlab-basel/Knora/docs
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
-<h1><a href="#v1-4-0-release-notes" name="v1-4-0-release-notes" class="anchor"><span class="anchor-link"></span></a>v1.4.0 Release Notes</h1>
-<p>See the <a href="https://github.com/dhlab-basel/Knora/releases/tag/v1.4.0">release</a> and closed tickets on the <a href="https://github.com/dhlab-basel/Knora/milestone/8">v1.4.0 milestone</a> on Github.</p>
-<h2><a href="#required-changes-to-existing-data-" name="required-changes-to-existing-data-" class="anchor"><span class="anchor-link"></span></a>Required changes to existing data:</h2>
+<!---
+Copyright © 2015-2018 the contributors (see Contributors.md).
+
+This file is part of Knora.
+
+Knora is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Knora is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<h1><a href="#introduction" name="introduction" class="anchor"><span class="anchor-link"></span></a>Introduction</h1>
+<div class="toc ">
 <ul>
-  <li>
-  <p>Every ontology must now have the property <code>knora-base:attachedToProject</code>, which points to the IRI of the project  that is responsible for the ontology. This must be added to each project-specific ontology in existing repositories.  All built-in ontologies have been updated to have this property, and must therefore be reloaded into existing  repositories.<br/> The property <code>knora-base:projectOntology</code> has been removed, and must be removed from project definitions in  existing repositories.</p></li>
-  <li>
-  <p>Every project now needs to have the property <code>knora-base:projectShortcode</code> set.</p></li>
-</ul>
-<h2><a href="#new-features-" name="new-features-" class="anchor"><span class="anchor-link"></span></a>New features:</h2>
-<ul>
-  <li>Added OpenAPI / Swagger API documentation route</li>
-  <li>The Knora API server now checks the validity of ontologies on startup.</li>
-  <li>The property <code>knora-base:projectShortcode</code> is now a required property (was optional).</li>
-</ul>
-<h2><a href="#bugfixes-" name="bugfixes-" class="anchor"><span class="anchor-link"></span></a>Bugfixes:</h2>
-<ul>
-  <li>API v1 extended search was not properly handling multiple conditions on list values (issue #800)</li>
-  <li>Fix image orientation in SALSAH 1 (issue #726)</li>
+  <li><a href="../02-knora-ontologies/introduction.html#resource-description-framework-rdf-" class="header">Resource Description Framework (RDF)</a></li>
+  <li><a href="../02-knora-ontologies/introduction.html#built-in-ontologies-and-project-specific-ontologies" class="header">Built-in Ontologies and Project-specific Ontologies</a></li>
 </ul>
 </div>
+<h2><a href="#resource-description-framework-rdf-" name="resource-description-framework-rdf-" class="anchor"><span class="anchor-link"></span></a>Resource Description Framework (RDF)</h2>
+<p>Knora uses a hierarchy of ontologies based on the Resource Description Framework (<a href="http://www.w3.org/TR/2014/NOTE-rdf11-primer-20140624/">RDF</a>), RDF Schema (<a href="http://www.w3.org/TR/2014/REC-rdf-schema-20140225/">RDFS</a>), and the Web Ontology Language (<a href="https://www.w3.org/TR/owl2-quick-reference/">OWL</a>). Both RDFS and OWL are expressed in RDF. RDF expresses information as a set of statements (called <em>triples</em>). A triple consists of a subject, a predicate, and an object:</p>
+<p><img src="introduction-fig1.dot.png" alt="Figure 1" title="Figure 1" /></p>
+<p>The object may be either a literal value (such as a name or number) or another subject. Thus it is possible to create complex graphs that connect many subjects, like this:</p>
+<p><img src="introduction-fig2.dot.png" alt="Figure 2" title="Figure 2" /></p>
+<p>In RDF, each subject and predicate has a unique, URL-like identifier called an Internationalized Resource Identifier (<a href="http://tools.ietf.org/html/rfc3987">IRI</a>). Within a given project, IRIs typically differ only in their last component (the &ldquo;local part&rdquo;), which is often the fragment following a <code>#</code> character. Such IRIs share a long &ldquo;prefix&rdquo;. In <a href="http://www.w3.org/TR/turtle/">Turtle</a> and similar formats for writing RDF, a short prefix label can be defined to represent the long prefix. Then an IRI can be written as a prefix label and a local part, separated by a colon (<code>:</code>). For example, if the &ldquo;example&rdquo; project&rsquo;s long prefix is <code>http://www.example.org/rdf#</code>, and it contains subjects with IRIs like <code>http://www.example.org/rdf#book</code>, we can define the prefix label <code>ex</code> to represent the prefix label, and write prefixed names for IRIs:</p>
+<p><img src="introduction-fig3.dot.png" alt="Figure 3" title="Figure 3" /></p>
+<h2><a href="#built-in-ontologies-and-project-specific-ontologies" name="built-in-ontologies-and-project-specific-ontologies" class="anchor"><span class="anchor-link"></span></a>Built-in Ontologies and Project-specific Ontologies</h2>
+<p>To ensure the interoperability of data produced by different projects, each project must describe its data model by creating ontologies that extend Knora&#39;s built-in ontologies. The main built-in ontology in Knora is <a href="knora-base.html">knora-base</a>.</p>
+</div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/00-release-notes/v1.4.0.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/02-knora-ontologies/introduction.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -249,7 +261,7 @@ v1.4.0
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../00-release-notes/v1.3.0.html" title="v1.3.0 Release Notes" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../02-knora-ontologies/index.html" title="Knora Ontologies" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -258,17 +270,17 @@ v1.4.0
 <span class="md-footer-nav__direction">
 Previous
 </span>
-v1.3.0 Release Notes
+Knora Ontologies
 </span>
 </div>
 </a>
-<a href="../00-release-notes/v1.5.0.html" title="v1.5.0 Release Notes (not released yet)" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../02-knora-ontologies/knora-base.html" title="The Knora Base Ontology" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-v1.5.0 Release Notes (not released yet)
+The Knora Base Ontology
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

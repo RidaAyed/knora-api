@@ -18,7 +18,7 @@
 
 <meta name="description" content="root">
 <link rel="shortcut icon" href="../cloud">
-<title>Webapi · Knora Documentation</title>
+<title>The Knora API Server · Knora Documentation</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Webapi
+The Knora API Server
 </span>
 </div>
 </div>
@@ -143,11 +143,32 @@ dhlab-basel/Knora/docs
     <li><a href="../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes (not released yet)</a></li>
   </ul></li>
-  <li><a href="../01-introduction/index.html" class="page">Introduction</a></li>
-  <li><a href="../02-knora-ontologies/index.html" class="page">Knora Ontologies</a></li>
-  <li><a href="../03-webapi/index.html" class="active page">Webapi</a></li>
-  <li><a href="../04-salsah/index.html" class="page">Salsah</a></li>
-  <li><a href="../05-sipi/index.html" class="page">Sipi</a></li>
+  <li><a href="../01-introduction/index.html" class="page">Introduction</a>
+  <ul>
+    <li><a href="../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../01-introduction/example-project.html" class="page">An Example Project</a></li>
+  </ul></li>
+  <li><a href="../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
+  <ul>
+    <li><a href="../02-knora-ontologies/introduction.html" class="page">Introduction</a></li>
+    <li><a href="../02-knora-ontologies/knora-base.html" class="page">The Knora Base Ontology</a></li>
+    <li><a href="../02-knora-ontologies/salsah-gui.html" class="page">The SALSAH GUI Ontology</a></li>
+  </ul></li>
+  <li><a href="../03-webapi/index.html" class="active page">The Knora API Server</a>
+  <ul>
+    <li><a href="../03-webapi/deployment/index.html" class="page">Deployment</a></li>
+    <li><a href="../03-webapi/design/index.html" class="page">Design</a></li>
+    <li><a href="../03-webapi/development/index.html" class="page">Development</a></li>
+    <li><a href="../03-webapi/api-v1/index.html" class="page">Knora API v1</a></li>
+    <li><a href="../03-webapi/api-v2/index.html" class="page">Knora API v2</a></li>
+    <li><a href="../03-webapi/api-admin/index.html" class="page">Knora Admin API</a></li>
+  </ul></li>
+  <li><a href="../04-salsah/index.html" class="page">The SALSAH 1 GUI</a></li>
+  <li><a href="../05-sipi/index.html" class="page">The Sipi Media Server</a>
+  <ul>
+    <li><a href="../05-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
+    <li><a href="../05-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
+  </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 </nav>
@@ -163,7 +184,85 @@ dhlab-basel/Knora/docs
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
-<h1><a href="#webapi" name="webapi" class="anchor"><span class="anchor-link"></span></a>Webapi</h1>
+<!---
+Copyright © 2015-2018 the contributors (see Contributors.md).
+
+This file is part of Knora.
+
+Knora is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Knora is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<h1><a href="#the-knora-api-server" name="the-knora-api-server" class="anchor"><span class="anchor-link"></span></a>The Knora API Server</h1>
+<p>The Knora API server implements Knora&rsquo;s HTTP-based APIs, and manages data stored in an RDF triplestore and in files.</p>
+<div class="toc ">
+<ul>
+  <li><a href="../03-webapi/deployment/index.html" class="page">Deployment</a>
+  <ul>
+    <li><a href="../03-webapi/deployment/webapi-getting-started.html" class="page">Getting Started with the Knora API Server</a></li>
+  </ul></li>
+  <li><a href="../03-webapi/design/index.html" class="page">Design</a>
+  <ul>
+    <li><a href="../03-webapi/design/design-overview.html" class="page">Knora API Server Design Overview</a></li>
+    <li><a href="../03-webapi/design/futures-with-akka.html" class="page">Futures with Akka</a></li>
+    <li><a href="../03-webapi/design/http-module.html" class="page">HTTP Module</a></li>
+    <li><a href="../03-webapi/design/responders-module.html" class="page">Responders Module</a></li>
+    <li><a href="../03-webapi/design/store-module.html" class="page">Store Module</a></li>
+    <li><a href="../03-webapi/design/shared-packages.html" class="page">Shared Packages</a></li>
+    <li><a href="../03-webapi/design/how-to-add-a-route.html" class="page">How to Add an API Route</a></li>
+    <li><a href="../03-webapi/design/triplestore-updates.html" class="page">Triplestore Updates</a></li>
+    <li><a href="../03-webapi/design/consistency-checking.html" class="page">Consistency Checking</a></li>
+    <li><a href="../03-webapi/design/authentication.html" class="page">Authentication in the Knora API Server</a></li>
+    <li><a href="../03-webapi/design/administration.html" class="page">Administration (Users, Projects, Groups, Institutions, Permissions)</a></li>
+    <li><a href="../03-webapi/design/api-v2.html" class="page">Knora API v2 Design</a></li>
+  </ul></li>
+  <li><a href="../03-webapi/development/index.html" class="page">Development</a>
+  <ul>
+    <li><a href="../03-webapi/development/overview.html" class="page">Overview</a></li>
+    <li><a href="../03-webapi/development/fuseki.html" class="page">Starting Fuseki 3</a></li>
+    <li><a href="../03-webapi/development/graphdb.html" class="page">Starting GraphDB</a></li>
+    <li><a href="../03-webapi/development/build-process.html" class="page">Build Process</a></li>
+    <li><a href="../03-webapi/development/intellij-config.html" class="page">Setup IntelliJ for development of Knora</a></li>
+    <li><a href="../03-webapi/development/testing.html" class="page">Testing</a></li>
+    <li><a href="../03-webapi/development/docker-cheat-sheet.html" class="page">Docker Cheat Sheet</a></li>
+    <li><a href="../03-webapi/development/monitoring.html" class="page">Monitoring the Webapi Server</a></li>
+  </ul></li>
+  <li><a href="../03-webapi/api-v1/index.html" class="page">Knora API v1</a>
+  <ul>
+    <li><a href="../03-webapi/api-v1/introduction.html" class="page">Introduction: Using API V1</a></li>
+    <li><a href="../03-webapi/api-v1/reading-and-searching-resources.html" class="page">Reading and Searching Resources</a></li>
+    <li><a href="../03-webapi/api-v1/xml-to-standoff-mapping.html" class="page">XML to Standoff Mapping</a></li>
+    <li><a href="../03-webapi/api-v1/adding-resources.html" class="page">Adding Resources</a></li>
+    <li><a href="../03-webapi/api-v1/reading-values.html" class="page">Reading Values</a></li>
+    <li><a href="../03-webapi/api-v1/adding-values.html" class="page">Adding a Value</a></li>
+    <li><a href="../03-webapi/api-v1/changing-values.html" class="page">Changing a Value</a></li>
+    <li><a href="../03-webapi/api-v1/delete-resources-and-values.html" class="page">Deleting Resources and Values</a></li>
+  </ul></li>
+  <li><a href="../03-webapi/api-v2/index.html" class="page">Knora API v2</a>
+  <ul>
+    <li><a href="../03-webapi/api-v2/introduction.html" class="page">Introduction: Using API V2</a></li>
+    <li><a href="../03-webapi/api-v2/knora-iris.html" class="page">Knora IRIs</a></li>
+    <li><a href="../03-webapi/api-v2/reading-and-searching-resources.html" class="page">Reading and Searching Resources</a></li>
+    <li><a href="../03-webapi/api-v2/xml-to-standoff-mapping.html" class="page">XML to Standoff Mapping</a></li>
+    <li><a href="../03-webapi/api-v2/query-language.html" class="page">KnarQL: Knora Query Language</a></li>
+    <li><a href="../03-webapi/api-v2/ontology-information.html" class="page">Querying, Creating, and Updating Ontologies</a></li>
+    <li><a href="../03-webapi/api-v2/response-formats.html" class="page">Response Formats</a></li>
+  </ul></li>
+  <li><a href="../03-webapi/api-admin/index.html" class="page">Knora Admin API</a>
+  <ul>
+    <li><a href="../03-webapi/api-admin/introduction.html" class="page">Introduction: Using the Admin API</a></li>
+  </ul></li>
+</ul>
+</div>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/03-webapi/index.md" title="Edit this page" class="md-source-file md-edit">
@@ -182,7 +281,7 @@ v1.4.0
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../02-knora-ontologies/index.html" title="Knora Ontologies" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../02-knora-ontologies/salsah-gui.html" title="The SALSAH GUI Ontology" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -191,17 +290,17 @@ v1.4.0
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Knora Ontologies
+The SALSAH GUI Ontology
 </span>
 </div>
 </a>
-<a href="../04-salsah/index.html" title="Salsah" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../03-webapi/deployment/index.html" title="Deployment" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Salsah
+Deployment
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

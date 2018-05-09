@@ -18,7 +18,7 @@
 
 <meta name="description" content="root">
 <link rel="shortcut icon" href="../cloud">
-<title>v1.4.0 Release Notes · Knora Documentation</title>
+<title>Setting Up Sipi for Knora · Knora Documentation</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-v1.4.0 Release Notes
+Setting Up Sipi for Knora
 </span>
 </div>
 </div>
@@ -140,7 +140,7 @@ dhlab-basel/Knora/docs
     <li><a href="../00-release-notes/v1.1.0.html" class="page">v1.1.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.2.0.html" class="page">v1.2.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.3.0.html" class="page">v1.3.0 Release Notes</a></li>
-    <li><a href="../00-release-notes/v1.4.0.html" class="active page">v1.4.0 Release Notes</a></li>
+    <li><a href="../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes (not released yet)</a></li>
   </ul></li>
   <li><a href="../01-introduction/index.html" class="page">Introduction</a>
@@ -166,18 +166,17 @@ dhlab-basel/Knora/docs
   <li><a href="../04-salsah/index.html" class="page">The SALSAH 1 GUI</a></li>
   <li><a href="../05-sipi/index.html" class="page">The Sipi Media Server</a>
   <ul>
-    <li><a href="../05-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
+    <li><a href="../05-sipi/setup-sipi-for-knora.html" class="active page">Setting Up Sipi for Knora</a></li>
     <li><a href="../05-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../00-release-notes/v1.4.0.html#v1-4-0-release-notes" class="header">v1.4.0 Release Notes</a>
+  <li><a href="../05-sipi/setup-sipi-for-knora.html#setting-up-sipi-for-knora" class="header">Setting Up Sipi for Knora</a>
   <ul>
-    <li><a href="../00-release-notes/v1.4.0.html#required-changes-to-existing-data-" class="header">Required changes to existing data:</a></li>
-    <li><a href="../00-release-notes/v1.4.0.html#new-features-" class="header">New features:</a></li>
-    <li><a href="../00-release-notes/v1.4.0.html#bugfixes-" class="header">Bugfixes:</a></li>
+    <li><a href="../05-sipi/setup-sipi-for-knora.html#setup-and-execution" class="header">Setup and Execution</a></li>
+    <li><a href="../05-sipi/setup-sipi-for-knora.html#using-sipi-in-test-mode" class="header">Using Sipi in Test Mode</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -196,11 +195,10 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../00-release-notes/v1.4.0.html#v1-4-0-release-notes" class="header">v1.4.0 Release Notes</a>
+  <li><a href="../05-sipi/setup-sipi-for-knora.html#setting-up-sipi-for-knora" class="header">Setting Up Sipi for Knora</a>
   <ul>
-    <li><a href="../00-release-notes/v1.4.0.html#required-changes-to-existing-data-" class="header">Required changes to existing data:</a></li>
-    <li><a href="../00-release-notes/v1.4.0.html#new-features-" class="header">New features:</a></li>
-    <li><a href="../00-release-notes/v1.4.0.html#bugfixes-" class="header">Bugfixes:</a></li>
+    <li><a href="../05-sipi/setup-sipi-for-knora.html#setup-and-execution" class="header">Setup and Execution</a></li>
+    <li><a href="../05-sipi/setup-sipi-for-knora.html#using-sipi-in-test-mode" class="header">Using Sipi in Test Mode</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -211,29 +209,37 @@ dhlab-basel/Knora/docs
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
-<h1><a href="#v1-4-0-release-notes" name="v1-4-0-release-notes" class="anchor"><span class="anchor-link"></span></a>v1.4.0 Release Notes</h1>
-<p>See the <a href="https://github.com/dhlab-basel/Knora/releases/tag/v1.4.0">release</a> and closed tickets on the <a href="https://github.com/dhlab-basel/Knora/milestone/8">v1.4.0 milestone</a> on Github.</p>
-<h2><a href="#required-changes-to-existing-data-" name="required-changes-to-existing-data-" class="anchor"><span class="anchor-link"></span></a>Required changes to existing data:</h2>
-<ul>
-  <li>
-  <p>Every ontology must now have the property <code>knora-base:attachedToProject</code>, which points to the IRI of the project  that is responsible for the ontology. This must be added to each project-specific ontology in existing repositories.  All built-in ontologies have been updated to have this property, and must therefore be reloaded into existing  repositories.<br/> The property <code>knora-base:projectOntology</code> has been removed, and must be removed from project definitions in  existing repositories.</p></li>
-  <li>
-  <p>Every project now needs to have the property <code>knora-base:projectShortcode</code> set.</p></li>
-</ul>
-<h2><a href="#new-features-" name="new-features-" class="anchor"><span class="anchor-link"></span></a>New features:</h2>
-<ul>
-  <li>Added OpenAPI / Swagger API documentation route</li>
-  <li>The Knora API server now checks the validity of ontologies on startup.</li>
-  <li>The property <code>knora-base:projectShortcode</code> is now a required property (was optional).</li>
-</ul>
-<h2><a href="#bugfixes-" name="bugfixes-" class="anchor"><span class="anchor-link"></span></a>Bugfixes:</h2>
-<ul>
-  <li>API v1 extended search was not properly handling multiple conditions on list values (issue #800)</li>
-  <li>Fix image orientation in SALSAH 1 (issue #726)</li>
-</ul>
+<!---
+Copyright © 2015-2018 the contributors (see Contributors.md).
+
+This file is part of Knora.
+
+Knora is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Knora is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<h1><a href="#setting-up-sipi-for-knora" name="setting-up-sipi-for-knora" class="anchor"><span class="anchor-link"></span></a>Setting Up Sipi for Knora</h1>
+<h2><a href="#setup-and-execution" name="setup-and-execution" class="anchor"><span class="anchor-link"></span></a>Setup and Execution</h2>
+<p>In order to serve files to the client application like the Salsah GUI, Sipi must be set up and running. Sipi can be downloaded from its own GitHub repository: <a href="https://github.com/dhlab-basel/Sipi">https://github.com/dhlab-basel/Sipi</a>. Please follow the instructions given in the README to compile it on your system.</p>
+<p>Once it is compiled, you can run Sipi with the following option: <code>./local/bin/sipi --config=config/sipi.knora-config.lua</code> (or <code>./local/bin/sipi --config=sipi.knora-test-config.lua</code> for using sipi for testing). Please see <code>sipi.knora-config.lua</code> for the settings like URL, port number etc. These settings need to be set accordingly in Knora&rsquo;s <code>application.conf</code>. If you use the default settings both in Sipi and Knora, there is no need to change these settings.</p>
+<p>Whenever a file is requested from Sipi (e.g. a browser trying to dereference an image link served by Knora), a preflight function is called. This function is defined in <code>sipi.init-knora.lua</code> present in the Sipi root directory. It takes three parameters: <code>prefix</code>, <code>identifier</code> (the name of the requested file), and <code>cookie</code>. File links created by Knora use the prefix <code>knora</code>, e.g. <code>http://localhost:1024/knora/incunabula_0000000002.jp2/full/2613,3505/0/default.jpg</code>.</p>
+<p>Given these information, Sipi asks Knora about the current&rsquo;s users permissions on the given file. The cookie contains the current user&rsquo;s Knora session id, so Knora can match Sipi&rsquo;s request with a given user profile and determine the permissions this user has on the file. If the Knora response grants sufficient permissions, the file is served in the requested quality. If the suer has preview rights, Sipi serves a reduced quality or integrates a watermark. If the user has no permissions, Sipi refuses to serve the file. However, all of this behaviour is defined in the preflight function in Sipi and not controlled by Knora. Knora only provides the permission code.</p>
+<p>See <a href="sipi-and-knora.html#sharing-the-session-id-with-sipi">Sharing the Session ID with Sipi</a> for more information about sharing the session id.</p>
+<h2><a href="#using-sipi-in-test-mode" name="using-sipi-in-test-mode" class="anchor"><span class="anchor-link"></span></a>Using Sipi in Test Mode</h2>
+<p>If you just want to test Sipi with Knora without serving the actual files (e.g. when executing browser tests), you can simply start Sipi like this: <code>./local/bin/sipi
+--config=config/sipi.knora-test-config.lua</code>. Then always the same test file will be served which is included in Sipi. In test mode, Sipi will not aks Knora about the user&rsquo;s permission on the requested file.</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/00-release-notes/v1.4.0.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/05-sipi/setup-sipi-for-knora.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -249,7 +255,7 @@ v1.4.0
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../00-release-notes/v1.3.0.html" title="v1.3.0 Release Notes" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../05-sipi/index.html" title="The Sipi Media Server" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -258,17 +264,17 @@ v1.4.0
 <span class="md-footer-nav__direction">
 Previous
 </span>
-v1.3.0 Release Notes
+The Sipi Media Server
 </span>
 </div>
 </a>
-<a href="../00-release-notes/v1.5.0.html" title="v1.5.0 Release Notes (not released yet)" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../05-sipi/sipi-and-knora.html" title="Interaction Between Sipi and Knora" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-v1.5.0 Release Notes (not released yet)
+Interaction Between Sipi and Knora
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

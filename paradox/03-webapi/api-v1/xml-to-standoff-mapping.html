@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="description" content="root">
+<meta name="generator" content="Paradox, paradox-material-theme=v1.4.0, mkdocs-material=2.2.2">
+
+<meta name="lang:clipboard.copy" content="Copy to clipboard">
+<meta name="lang:clipboard.copied" content="Copied to clipboard">
+<meta name="lang:search.result.none" content="No matching documents">
+<meta name="lang:search.result.one" content="1 matching document">
+<meta name="lang:search.result.other" content="# matching documents">
+<meta name="lang:search.language" content="">
+<meta name="lang:search.tokenizer" content="[\s\-]+">
+
+
+<meta name="description" content="root">
+<link rel="shortcut icon" href="../../cloud">
+<title>XML to Standoff Mapping · Knora Documentation</title>
+<link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
+<link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
+<link rel="stylesheet" href="../../lib/material__tabs/dist/mdc.tabs.min.css">
+<link rel="stylesheet" href="../../lib/prettify/prettify.css">
+<script src="../../lib/modernizr/modernizr.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+<style>
+body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}
+code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../../assets/stylesheets/paradox-material-theme.css">
+</head>
+<body
+data-md-color-primary="blue"
+data-md-color-accent="yellow"
+>
+<input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+<input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+<label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+<header class="md-header" data-md-component="header">
+<nav class="md-header-nav md-grid">
+<div class="md-flex">
+<div class="md-flex__cell md-flex__cell--shrink">
+<a href="../../index.html" title="Knora Documentation" class="md-header-nav__button md-logo">
+<i class="md-icon">cloud</i>
+</a>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch">
+<div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+<span class="md-header-nav__topic">
+Knora Documentation
+</span>
+<span class="md-header-nav__topic">
+XML to Standoff Mapping
+</span>
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="search"></label>
+<div class="md-search__inner">
+<form class="md-search__form" name="search">
+<input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+<label class="md-icon md-search__icon" for="search"></label>
+<button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix>
+<div class="md-search-result" data-md-component="result">
+<div class="md-search-result__meta">
+Type to start searching
+</div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<div class="md-header-nav__source">
+<a href="https://github.com/dhlab-basel/Knora/docs"
+title="Go to repository"
+class="md-source"
+data-md-source="github">
+<div class="md-source__icon">
+<i class="fa fa-github"></i>
+</div>
+<div class="md-source__repository">
+dhlab-basel/Knora/docs
+</div>
+</a>
+
+</div>
+</div>
+</div>
+</nav>
+</header>
+
+<div class="md-container">
+<main class="md-main">
+<div class="md-main__inner md-grid" data-md-component="container">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" data-md-level="0" style="visibility: hidden">
+<label class="md-nav__title md-nav__title--site" for="drawer">
+<span class="md-nav__button md-logo">
+<i class="md-icon">cloud</i>
+</span>
+<a href="../../index.html" title="Knora Documentation">
+Knora Documentation
+</a>
+</label>
+<div class="md-nav__source">
+<a href="https://github.com/dhlab-basel/Knora/docs"
+title="Go to repository"
+class="md-source"
+data-md-source="github">
+<div class="md-source__icon">
+<i class="fa fa-github"></i>
+</div>
+<div class="md-source__repository">
+dhlab-basel/Knora/docs
+</div>
+</a>
+
+</div>
+<ul>
+  <li><a href="../../00-release-notes/index.html" class="page">Release Notes</a>
+  <ul>
+    <li><a href="../../00-release-notes/v1.1.0.html" class="page">v1.1.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.2.0.html" class="page">v1.2.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.3.0.html" class="page">v1.3.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes (not released yet)</a></li>
+  </ul></li>
+  <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
+  <ul>
+    <li><a href="../../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../../01-introduction/example-project.html" class="page">An Example Project</a></li>
+  </ul></li>
+  <li><a href="../../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
+  <ul>
+    <li><a href="../../02-knora-ontologies/introduction.html" class="page">Introduction</a></li>
+    <li><a href="../../02-knora-ontologies/knora-base.html" class="page">The Knora Base Ontology</a></li>
+    <li><a href="../../02-knora-ontologies/salsah-gui.html" class="page">The SALSAH GUI Ontology</a></li>
+  </ul></li>
+  <li><a href="../../03-webapi/index.html" class="page">The Knora API Server</a>
+  <ul>
+    <li><a href="../../03-webapi/deployment/index.html" class="page">Deployment</a></li>
+    <li><a href="../../03-webapi/design/index.html" class="page">Design</a></li>
+    <li><a href="../../03-webapi/development/index.html" class="page">Development</a></li>
+    <li><a href="../../03-webapi/api-v1/index.html" class="page">Knora API v1</a></li>
+    <li><a href="../../03-webapi/api-v2/index.html" class="page">Knora API v2</a></li>
+    <li><a href="../../03-webapi/api-admin/index.html" class="page">Knora Admin API</a></li>
+  </ul></li>
+  <li><a href="../../04-salsah/index.html" class="page">The SALSAH 1 GUI</a></li>
+  <li><a href="../../05-sipi/index.html" class="page">The Sipi Media Server</a>
+  <ul>
+    <li><a href="../../05-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
+    <li><a href="../../05-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
+  </ul></li>
+</ul>
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#xml-to-standoff-mapping" class="header">XML to Standoff Mapping</a>
+  <ul>
+    <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#the-knora-standard-mapping" class="header">The Knora Standard Mapping</a></li>
+    <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#creating-a-custom-mapping" class="header">Creating a custom Mapping</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+<div class="md-nav__title--site md-version" title="Version">
+<i class="md-icon">label_outline</i> v1.4.0
+</div>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#xml-to-standoff-mapping" class="header">XML to Standoff Mapping</a>
+  <ul>
+    <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#the-knora-standard-mapping" class="header">The Knora Standard Mapping</a></li>
+    <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#creating-a-custom-mapping" class="header">Creating a custom Mapping</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset">
+<div class="md-content__searchable">
+<!---
+Copyright © 2015-2018 the contributors (see Contributors.md).
+
+This file is part of Knora.
+
+Knora is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Knora is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<h1><a href="#xml-to-standoff-mapping" name="xml-to-standoff-mapping" class="anchor"><span class="anchor-link"></span></a>XML to Standoff Mapping</h1>
+<div class="toc ">
+<ul>
+  <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#the-knora-standard-mapping" class="header">The Knora Standard Mapping</a>
+  <ul>
+    <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#description" class="header">Description</a></li>
+    <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#maintenance" class="header">Maintenance</a></li>
+  </ul></li>
+  <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#creating-a-custom-mapping" class="header">Creating a custom Mapping</a>
+  <ul>
+    <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#basic-structure-of-a-mapping" class="header">Basic Structure of a Mapping</a></li>
+    <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#id-and-class-attributes" class="header"><code>id</code> and <code>class</code> Attributes</a></li>
+    <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#respecting-cardinalities" class="header">Respecting Cardinalities</a></li>
+    <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#standoff-data-types" class="header">Standoff Data Types</a>
+    <ul>
+      <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#internal-references-in-an-xml-document" class="header">Internal References in an XML Document</a></li>
+    </ul></li>
+    <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#predefined-standoff-classes-and-properties" class="header">Predefined Standoff Classes and Properties</a></li>
+    <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#respecting-property-types" class="header">Respecting Property Types</a></li>
+    <li><a href="../../03-webapi/api-v1/xml-to-standoff-mapping.html#validating-a-mapping-and-sending-it-to-knora" class="header">Validating a Mapping and sending it to Knora</a></li>
+  </ul></li>
+</ul>
+</div>
+<h2><a href="#the-knora-standard-mapping" name="the-knora-standard-mapping" class="anchor"><span class="anchor-link"></span></a>The Knora Standard Mapping</h2>
+<h3><a href="#description" name="description" class="anchor"><span class="anchor-link"></span></a>Description</h3>
+<p>A mapping allows for the conversion of XML to standoff representation in RDF and back. In order to create a <code>TextValue</code> with markup, the text has to be provided in XML format, along with the IRI of the mapping that will be used to convert the markup to standoff. However, a mapping is only needed if a TextValue with markup should be created. If a text has no markup, it is submitted as a mere sequence of characters.</p>
+<p>The two cases are described in the TypeScript interfaces <code>simpletext</code> and <code>richtext</code> in module <code>basicMessageComponents</code>.</p>
+<p>Knora offers a standard mapping with the IRI <code>http://data.knora.org/projects/standoff/mappings/StandardMapping</code>. The standard mapping covers the HTML elements and attributes supported by the GUI&rsquo;s text editor, <a href="https://ckeditor.com/">CKEditor</a>. (Please note that the HTML has to be encoded in strict XML syntax. CKeditor offers the possibility to define filter rules. They should reflect the elements supported by the mapping; see <code>jquery.htmleditor.js</code>.) The standard mapping contains the following elements and attributes that are mapped to standoff classes and properties defined in the ontology:</p>
+<ul>
+  <li><code>&lt;text&gt;</code> → <code>standoff:StandoffRootTag</code></li>
+  <li><code>&lt;p&gt;</code> → <code>standoff:StandoffParagraphTag</code></li>
+  <li><code>&lt;em&gt;</code> → <code>standoff:StandoffItalicTag</code></li>
+  <li><code>&lt;strong&gt;</code> → <code>standoff:StandoffBoldTag</code></li>
+  <li><code>&lt;u&gt;</code> → <code>standoff:StandoffUnderlineTag</code></li>
+  <li><code>&lt;sub&gt;</code> → <code>standoff:StandoffSubscriptTag</code></li>
+  <li><code>&lt;sup&gt;</code> → <code>standoff:StandoffSuperscriptTag</code></li>
+  <li><code>&lt;strike&gt;</code> → <code>standoff:StandoffStrikeTag</code></li>
+  <li><code>&lt;a href=&quot;URL&quot;&gt;</code> → <code>knora-base:StandoffUriTag</code></li>
+  <li><code>&lt;a class=&quot;salsah-link&quot; href=&quot;Knora IRI&quot;&gt;</code> → <code>knora-base:StandoffLinkTag</code></li>
+  <li><code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> → <code>standoff:StandoffHeader1Tag</code> to <code>standoff:StandoffHeader6Tag</code></li>
+  <li><code>&lt;ol&gt;</code> → <code>standoff:StandoffOrderedListTag</code></li>
+  <li><code>&lt;ul&gt;</code> → <code>standoff:StandoffUnrderedListTag</code></li>
+  <li><code>&lt;li&gt;</code> → <code>standoff:StandoffListElementTag</code></li>
+  <li><code>&lt;tbody&gt;</code> → <code>standoff:StandoffTableBodyTag</code></li>
+  <li><code>&lt;table&gt;</code> → <code>standoff:StandoffTableTag</code></li>
+  <li><code>&lt;tr&gt;</code> → <code>standoff:StandoffTableRowTag</code></li>
+  <li><code>&lt;td&gt;</code> → <code>standoff:StandoffTableCellTag</code></li>
+  <li><code>&lt;br&gt;</code> → <code>standoff:StandoffBrTag</code></li>
+  <li><code>&lt;hr&gt;</code> → <code>standoff:StandoffLineTag</code></li>
+  <li><code>&lt;pre&gt;</code> → <code>standoff:StandoffPreTag</code></li>
+  <li><code>&lt;cite&gt;</code> → <code>standoff:StandoffCiteTag</code></li>
+  <li><code>&lt;blockquote&gt;</code> → <code>standoff:StandoffBlockquoteTag</code></li>
+  <li><code>&lt;code&gt;</code> → <code>standoff:StandoffCodeTag</code></li>
+</ul>
+<p>The HTML produced by CKEditor is wrapped in an XML doctype and a pair of root tags <code>&lt;text&gt;...&lt;/text&gt;</code> and then sent to Knora. The XML sent to the GUI by Knora is unwrapped accordingly (see <code>jquery.htmleditor.js</code>). Although the GUI supports HTML5, it is treated as if it was XHTML in strict XML notation.</p>
+<h3><a href="#maintenance" name="maintenance" class="anchor"><span class="anchor-link"></span></a>Maintenance</h3>
+<p>The standard mapping definition can be found at <code>webapi/_test_data/test_route/texts/mappingForStandardHTML.xml</code>. It was used to generate the default mapping, distributed as <code>knora-ontologies/standoff-data.ttl</code> and that is loaded at a Knora installation. It should be used to re-generate it, whenever we want to amend or extend it.</p>
+<p>Note: once the mapping has been generated, one has to rework the resources&rsquo; UUID in order to maintain backward compatibility.</p>
+<h2><a href="#creating-a-custom-mapping" name="creating-a-custom-mapping" class="anchor"><span class="anchor-link"></span></a>Creating a custom Mapping</h2>
+<p>The Knora standard mapping only supports a few HTML tags. In order to submit more complex XML markup to Knora, a custom mapping has to be created first. Basically, a mapping expresses the relations between XML elements and attributes and their corresponding standoff classes and properties. The relations expressed in a mapping are one-to-one relations, so the XML can be recreated from the data in RDF. However, since HTML offers a very limited set of elements, Knora mappings support the combination of element names and classes. In this way, the same element can be used several times in combination with another classname (please note that <code>&lt;a&gt;</code> without a class is a mere hyperlink whereas <code>&lt;a
+class=&quot;salsah-link&quot;&gt;</code> is an internal link/standoff link).</p>
+<p>With a mapping, a default XSL transformation may be provided to transform the XML to HTML before sending it back to the client. This is useful when the client is a web-browser expecting HTML (instead of XML).</p>
+<h3><a href="#basic-structure-of-a-mapping" name="basic-structure-of-a-mapping" class="anchor"><span class="anchor-link"></span></a>Basic Structure of a Mapping</h3>
+<p>The mapping is written in XML itself (for a formal description, see <code>webapi/src/resources/mappingXMLToStandoff.xsd</code>). It has the following structure (the indentation corresponds to the nesting in XML):</p>
+<ul>
+  <li><code>&lt;mapping&gt;</code>: the root element
+    <ul>
+      <li>
+      <p><code>&lt;defaultXSLTransformation&gt; (optional)</code>: the Iri of the  default XSL transformation to be applied to the XML when  reading it back from Knora. The XSL transformation is  expected to produce HTML. If given, the Iri has to refer to  a resource of type <code>knora-base:XSLTransformation</code>.</p></li>
+      <li>
+        <p><code>&lt;mappingElement&gt;</code>: an element of the mapping (at least  one)</p>
+        <ul>
+          <li>
+            <p><code>&lt;tag&gt;</code>: information about the XML element that  is mapped to a standoff class</p>
+            <ul>
+              <li><code>&lt;name&gt;</code>: name of the XML element</li>
+              <li><code>&lt;class&gt;</code>: value of the class attribute of  the XML element, if any. If the element has  no class attribute, the keyword <code>noClass</code>  has to be used.</li>
+              <li><code>&lt;namespace&gt;</code>: the namespace the XML element  belongs to, if any. If the element does not  belong to a namespace, the keyword  <code>noNamespace</code> has to be used.</li>
+              <li><code>&lt;separatesWords&gt;</code>: a Boolean value  indicating whether this tag separates words  in the text. Once an XML document is  converted to RDF-standoff the markup is  stripped from the text, possibly leading to  continuous text that has been separated by  tags before. For structural tags like  paragraphs etc., <code>&lt;separatesWords&gt;</code> can be  set to <code>true</code> in which case a special  separator is inserted in the the text in the  RDF representation. In this way, words stay  separated and are represented in the  fulltext index as such.</li>
+            </ul>
+          </li>
+          <li>
+            <p><code>&lt;standoffClass&gt;</code>: information about the  standoff class the XML element is mapped to</p>
+            <ul>
+              <li>
+              <p><code>&lt;classIri&gt;</code>: Iri of the standoff class the  XML element is mapped to</p></li>
+              <li>
+                <p><code>&lt;attributes&gt;</code>: XML attributes to be  mapped to standoff properties (other  than <code>id</code> or <code>class</code>), if any</p>
+                <ul>
+                  <li>
+                    <p><code>&lt;attribute&gt;</code>: an XML attribute  to be mapped to a standoff  property, may be repeated</p>
+                    <ul>
+                      <li><code>&lt;attributeName&gt;</code>: the name  of the XML attribute</li>
+                      <li><code>&lt;namespace&gt;</code>: the namespace  the attribute belongs to, if  any. If the attribute does  not belong to a namespace,  the keyword <code>noNamespace</code>  has to be used.</li>
+                      <li><code>&lt;propertyIri&gt;</code>: the Iri of  the standoff property the  XML attribute is mapped to.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <p><code>&lt;datatype&gt;</code>: the data type of the  standoff class, if any.</p>
+                <ul>
+                  <li><code>&lt;type&gt;</code>: the Iri of the data type  standoff class</li>
+                  <li><code>&lt;attributeName&gt;</code>: the name of the  attribute holding the typed value in  the expected Knora standard format</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<p>XML structure of a mapping:</p>
+<pre class="prettyprint"><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;mapping&gt;
+    &lt;defaultXSLTransformation&gt;Iri of a knora-base:XSLTransformation&lt;/defaultXSLTransformation&gt;
+    &lt;mappingElement&gt;
+        &lt;tag&gt;
+            &lt;name&gt;XML element name&lt;/name&gt;
+            &lt;class&gt;XML class name or &quot;noClass&quot;&lt;/class&gt;
+            &lt;namespace&gt;XML namespace or &quot;noNamespace&quot;&lt;/namespace&gt;
+            &lt;separatesWords&gt;true or false&lt;/separatesWords&gt;
+        &lt;/tag&gt;
+        &lt;standoffClass&gt;
+            &lt;classIri&gt;standoff class Iri&lt;/classIri&gt;
+            &lt;attributes&gt;
+                &lt;attribute&gt;
+                    &lt;attributeName&gt;XML attribute name&lt;/attributeName&gt;
+                    &lt;namespace&gt;XML namespace or &quot;noNamespace&quot;&lt;/namespace&gt;
+                    &lt;propertyIri&gt;standoff property Iri&lt;/propertyIri&gt;
+                &lt;/attribute&gt;
+            &lt;/attributes&gt;
+            &lt;datatype&gt;
+                &lt;type&gt;standoff data type class&lt;/type&gt;
+                &lt;attributeName&gt;XML attribute with the typed value&lt;/attributeName&gt;
+            &lt;/datatype&gt;
+        &lt;/standoffClass&gt;
+    &lt;/mappingElement&gt;
+    &lt;mappingElement&gt;
+       ...
+    &lt;/mappingElement&gt;
+&lt;/mapping&gt;
+</code></pre>
+<p>Please note that the absence of an XML namespace and/or a class have to be explicitly stated using the keywords <code>noNamespace</code> and <code>noClass</code>. (This is because we use XML Schema validation to ensure the one-to-one relations between XML elements and standoff classes. XML Schema validation&rsquo;s unique checks do not support optional values.)</p>
+<h3><a href="#id-and-class-attributes" name="id-and-class-attributes" class="anchor"><span class="anchor-link"></span></a><code>id</code> and <code>class</code> Attributes</h3>
+<p>The <code>id</code> and <code>class</code> attributes are supported by default and do not have to be included in the mapping like other attributes. The <code>id</code> attribute identifies an element and must be unique in the document. <code>id</code> is an optional attribute. The <code>class</code> attribute allows for the reuse of an element in the mapping, i.e. the same element can be combined with different class names and mapped to different standoff classes (mapping element <code>&lt;class&gt;</code> in <code>&lt;tag&gt;</code>).</p>
+<h3><a href="#respecting-cardinalities" name="respecting-cardinalities" class="anchor"><span class="anchor-link"></span></a>Respecting Cardinalities</h3>
+<p>A mapping from XML elements and attributes to standoff classes and standoff properties must respect the cardinalities defined in the ontology for those very standoff classes. If an XML element is mapped to a certain standoff class and this class requires a standoff property, an attribute must be defined for the XML element mapping to that very standoff property. Equally, all mappings for attributes of an XML element must have corresponding cardinalities for standoff properties defined for the standoff class the XML element maps to.</p>
+<p>However, since an XML attribute may occur once at maximum, it makes sense to make the corresponding standoff property required (<code>owl:cardinality</code> of one) in the ontology or optional (<code>owl:maxCardinality</code> of one), but not allowing it more than once.</p>
+<h3><a href="#standoff-data-types" name="standoff-data-types" class="anchor"><span class="anchor-link"></span></a>Standoff Data Types</h3>
+<p>Knora allows the use of all its value types as standoff data types (defined in <code>knora-base.ttl</code>):</p>
+<ul>
+  <li><code>knora-base:StandoffLinkTag</code>: Represents a reference to a Knora resource (the IRI of the target resource must be submitted in the data type attribute).</li>
+  <li><code>knora-base:StandoffInternalReferenceTag</code>: Represents an internal reference inside a document (the id of the target element inside the same document must be indicated in the data type attribute); see <a href="#internal-references-in-an-xml-document">Internal References in an XML Document</a>.</li>
+  <li><code>knora-base:StandoffUriTag</code>: Represents a reference to a URI (the URI of the target resource must be submitted in the data type attribute).</li>
+  <li><code>knora-base:StandoffDateTag</code>: Represents a date (a Knora date string must be submitted in the data type attribute, e.g. <code>GREGORIAN:2017-01-27</code>).</li>
+  <li><code>knora-base:StandoffColorTag</code>: Represents a color (a hexadecimal RGB color string must be submitted in the data type attribute, e.g. <code>#0000FF</code>).</li>
+  <li><code>knora-base:StandoffIntegerTag</code>: Represents an integer (the integer must be submitted in the data type attribute).</li>
+  <li><code>knora-base:StandoffDecimalTag</code>: Represents a number with fractions (the decimal number must be submitted in the data type attribute, e.g. <code>1.1</code>).</li>
+  <li><code>knora-base:StandoffIntervalTag</code>: Represents an interval (two decimal numbers separated with a comma must be submitted in the data type attribute, e.g. <code>1.1,2.2</code>).</li>
+  <li><code>knora-base:StandoffBooleanTag</code>: Represents a Boolean value (<code>true</code> or <code>false</code> must be submitted in the data type attribute).</li>
+</ul>
+<p>The basic idea is that parts of a text can be marked up in a way that allows using Knora&rsquo;s built-in data types. In order to do so, the typed values have to be provided in a standardized way in an attribute that has to be defined in the mapping.</p>
+<p>Data type standoff classes are standoff classes with predefined properties (e.g., a <code>knora-base:StandoffLinkTag</code> has a <code>knora-base:standoffTagHasLink</code> and a <code>knora-base:StandoffIntegerTag</code> has a <code>knora-base:valueHasInteger</code>). Please note the data type standoff classes can not be combined, i.e. a standoff class can only be the subclass of <strong>one</strong> data type standoff class. However, standoff data type classes can be subclassed and extended further by assigning properties to them (see below).</p>
+<p>The following simple mapping illustrates this principle:</p>
+<pre class="prettyprint"><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;mapping&gt;
+     &lt;mappingElement&gt;
+        &lt;tag&gt;
+            &lt;name&gt;text&lt;/name&gt;
+            &lt;class&gt;noClass&lt;/class&gt;
+            &lt;namespace&gt;noNamespace&lt;/namespace&gt;
+            &lt;separatesWords&gt;false&lt;/separatesWords&gt;
+        &lt;/tag&gt;
+        &lt;standoffClass&gt;
+            &lt;classIri&gt;http://www.knora.org/ontology/standoff#StandoffRootTag&lt;/classIri&gt;
+        &lt;/standoffClass&gt;
+    &lt;/mappingElement&gt;
+
+    &lt;mappingElement&gt;
+        &lt;tag&gt;
+            &lt;name&gt;mydate&lt;/name&gt;
+            &lt;class&gt;noClass&lt;/class&gt;
+            &lt;namespace&gt;noNamespace&lt;/namespace&gt;
+            &lt;separatesWords&gt;false&lt;/separatesWords&gt;
+        &lt;/tag&gt;
+        &lt;standoffClass&gt;
+            &lt;classIri&gt;http://www.knora.org/ontology/0001/anything#StandoffEventTag&lt;/classIri&gt;
+            &lt;attributes&gt;
+                &lt;attribute&gt;
+                    &lt;attributeName&gt;description&lt;/attributeName&gt;
+                    &lt;namespace&gt;noNamespace&lt;/namespace&gt;
+                    &lt;propertyIri&gt;http://www.knora.org/ontology/0001/anything#standoffEventTagHasDescription&lt;/propertyIri&gt;
+                &lt;/attribute&gt;
+            &lt;/attributes&gt;
+            &lt;datatype&gt;
+                &lt;type&gt;http://www.knora.org/ontology/knora-base#StandoffDateTag&lt;/type&gt;
+                &lt;attributeName&gt;knoraDate&lt;/attributeName&gt;
+            &lt;/datatype&gt;
+        &lt;/standoffClass&gt;
+    &lt;/mappingElement&gt;
+&lt;/mapping&gt;
+</code></pre>
+<p><code>&lt;datatype&gt;</code> <strong>must</strong> hold the Iri of a standoff data type class (see list above). The <code>&lt;classIri&gt;</code> must be a subclass of this type or this type itself (the latter is probably not recommendable since semantics are missing: what is the meaning of the date?). In the example above, the standoff class is <code>anything:StandoffEventTag</code> which has the following definition in the ontology <code>anything-onto.ttl</code>:</p>
+<pre><code>anything:StandoffEventTag rdf:type owl:Class ;
+
+    rdfs:subClassOf knora-base:StandoffDateTag,
+                   [
+                      rdf:type owl:Restriction ;
+                      owl:onProperty :standoffEventTagHasDescription ;
+                      owl:cardinality &quot;1&quot;^^xsd:nonNegativeInteger
+                   ] ;
+
+    rdfs:label &quot;Represents an event in a TextValue&quot;@en ;
+
+    rdfs:comment &quot;&quot;&quot;Represents an event in a TextValue&quot;&quot;&quot;@en .
+</code></pre>
+<p><code>anything:StandoffEventTag</code> is a subclass of <code>knora-base:StandoffDateTag</code> and therefore has the data type date. It also requires the standoff property <code>anything:standoffEventTagHasDescription</code> which is defined as an attribute in the mapping.</p>
+<p>Once the mapping has been created, an XML like the following could be sent to Knora and converted to standoff:</p>
+<pre class="prettyprint"><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;text&gt;
+    We had a party on &lt;mydate description=&quot;new year&quot; knoraDate=&quot;GREGORIAN:2016-12-31&quot;&gt;New Year&#39;s Eve&lt;/mydate&gt;. It was a lot of fun.
+&lt;/text&gt;
+</code></pre>
+<p>The attribute holds the date in the format of a Knora date string (the format is also documented in the typescript type alias <code>dateString</code> in module <code>basicMessageComponents</code>. There you will also find documentation about the other types like color etc.). Knora date strings have this format: <code>GREGORIAN|JULIAN):YYYY[-MM[-DD]][:YYYY[-MM[-DD]]]</code>. This allows for different formats as well as for imprecision and periods. Intervals are submitted as one attribute in the following format: <code>interval-attribute=&quot;1.0,2.0&quot;</code> (two decimal numbers separated with a comma).</p>
+<p>You will find a sample mapping with all the data types and a sample XML file in the the test data: <code>webapi/_test_data/test_route/texts/mappingForHTML.xml</code> and <code>webapi/_test_data/test_route/texts/HTML.xml</code>.</p>
+<h4><a href="#internal-references-in-an-xml-document" name="internal-references-in-an-xml-document" class="anchor"><span class="anchor-link"></span></a>Internal References in an XML Document</h4>
+<p>Internal references inside an XML document can be represented using the data type standoff class <code>knora-base:StandoffInternalReferenceTag</code> or a subclass of it. This class has a standoff property that points to a standoff node representing the target XML element when converted to RDF.</p>
+<p>The following example shows the definition of a mapping element for an internal reference (for reasons of simplicity, only the mapping element for the element is question is depicted):</p>
+<pre class="prettyprint"><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;mappingElement&gt;
+    &lt;tag&gt;
+        &lt;name&gt;ref&lt;/name&gt;
+        &lt;class&gt;noClass&lt;/class&gt;
+        &lt;namespace&gt;noNamespace&lt;/namespace&gt;
+        &lt;separatesWords&gt;false&lt;/separatesWords&gt;
+    &lt;/tag&gt;
+    &lt;standoffClass&gt;
+        &lt;classIri&gt;http://www.knora.org/ontology/knora-base#StandoffInternalReferenceTag&lt;/classIri&gt;
+        &lt;datatype&gt;
+            &lt;type&gt;http://www.knora.org/ontology/knora-base#StandoffInternalReferenceTag&lt;/type&gt;
+            &lt;attributeName&gt;internalRef&lt;/attributeName&gt;
+        &lt;/datatype&gt;
+    &lt;/standoffClass&gt;
+&lt;/mappingElement&gt;
+</code></pre>
+<p>Now, an internal reference to an element in the same document can be made that will be converted to a pointer in RDF:</p>
+<pre class="prettyprint"><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;text&gt;
+    This is an &lt;sample id=&quot;1&quot;&gt;element&lt;/sample&gt; and here is a reference to &lt;ref internalRef=&quot;#1&quot;&gt;it&lt;/ref&gt;.
+&lt;/text&gt;
+</code></pre>
+<p>An internal reference in XML has to start with a <code>#</code> followed by the value of the <code>id</code> attribute of the element referred to.</p>
+<h3><a href="#predefined-standoff-classes-and-properties" name="predefined-standoff-classes-and-properties" class="anchor"><span class="anchor-link"></span></a>Predefined Standoff Classes and Properties</h3>
+<p>The standoff ontology <code>standoff-onto.ttl</code> offers a set of predefined standoff classes that can be used in a custom mapping like the following:</p>
+<pre class="prettyprint"><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;mapping&gt;
+    &lt;mappingElement&gt;
+        &lt;tag&gt;
+            &lt;name&gt;myDoc&lt;/name&gt;
+            &lt;class&gt;noClass&lt;/class&gt;
+            &lt;namespace&gt;noNamespace&lt;/namespace&gt;
+            &lt;separatesWords&gt;false&lt;/separatesWords&gt;
+        &lt;/tag&gt;
+        &lt;standoffClass&gt;
+            &lt;classIri&gt;http://www.knora.org/ontology/standoff#StandoffRootTag&lt;/classIri&gt;
+            &lt;attributes&gt;
+                &lt;attribute&gt;
+                    &lt;attributeName&gt;documentType&lt;/attributeName&gt;
+                    &lt;namespace&gt;noNamespace&lt;/namespace&gt;
+                    &lt;propertyIri&gt;http://www.knora.org/ontology/standoff#standoffRootTagHasDocumentType&lt;/propertyIri&gt;
+                &lt;/attribute&gt;
+            &lt;/attributes&gt;
+        &lt;/standoffClass&gt;
+    &lt;/mappingElement&gt;
+
+    &lt;mappingElement&gt;
+        &lt;tag&gt;
+            &lt;name&gt;p&lt;/name&gt;
+            &lt;class&gt;noClass&lt;/class&gt;
+            &lt;namespace&gt;noNamespace&lt;/namespace&gt;
+            &lt;separatesWords&gt;true&lt;/separatesWords&gt;
+        &lt;/tag&gt;
+        &lt;standoffClass&gt;
+            &lt;classIri&gt;http://www.knora.org/ontology/standoff#StandoffParagraphTag&lt;/classIri&gt;
+        &lt;/standoffClass&gt;
+    &lt;/mappingElement&gt;
+
+    &lt;mappingElement&gt;
+        &lt;tag&gt;
+            &lt;name&gt;i&lt;/name&gt;
+            &lt;class&gt;noClass&lt;/class&gt;
+            &lt;namespace&gt;noNamespace&lt;/namespace&gt;
+            &lt;separatesWords&gt;false&lt;/separatesWords&gt;
+        &lt;/tag&gt;
+        &lt;standoffClass&gt;
+            &lt;classIri&gt;http://www.knora.org/ontology/standoff#StandoffItalicTag&lt;/classIri&gt;
+        &lt;/standoffClass&gt;
+    &lt;/mappingElement&gt;
+&lt;/mapping&gt;
+</code></pre>
+<p>Predefined standoff classes may be used by various projects, each providing a custom mapping to be able to recreate the original XML from RDF. Predefined standoff classes may also be inherited and extended in project specific ontologies.</p>
+<p>The mapping above allows for an XML like this:</p>
+<pre class="prettyprint"><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;myDoc documentType=&quot;letter&quot;&gt;
+    &lt;p&gt;
+        This my text that is &lt;i&gt;very&lt;/i&gt; interesting.
+    &lt;/p&gt;
+    &lt;p&gt;
+        And here it goes on.
+    &lt;/p&gt;
+&lt;/myDoc&gt;
+</code></pre>
+<h3><a href="#respecting-property-types" name="respecting-property-types" class="anchor"><span class="anchor-link"></span></a>Respecting Property Types</h3>
+<p>When mapping XML attributes to standoff properties, attention has to be paid to the properties&rsquo; object constraints.</p>
+<p>In the ontology, standoff property literals may have one of the following <code>knora-base:objectDatatypeConstraint</code>:</p>
+<ul>
+  <li><code>xsd:string</code></li>
+  <li><code>xsd:integer</code></li>
+  <li><code>xsd:boolean</code></li>
+  <li><code>xsd:decimal</code></li>
+  <li><code>xsd:anyURI</code></li>
+</ul>
+<p>In XML, all attribute values are submitted as strings. However, these string representations need to be convertible to the types defined in the ontology. If they are not, the request will be rejected. It is recommended to enforce types on attributes by applying XML Schema validations (restrictions).</p>
+<p>Links (object property) to a <code>knora-base:Resource</code> can be represented using the data type standoff class <code>knora-base:StandoffLinkTag</code>, internal links using the data type standoff class <code>knora-base:StandoffInternalReferenceTag</code>.</p>
+<h3><a href="#validating-a-mapping-and-sending-it-to-knora" name="validating-a-mapping-and-sending-it-to-knora" class="anchor"><span class="anchor-link"></span></a>Validating a Mapping and sending it to Knora</h3>
+<p>A mapping can be validated before sending it to Knora with the following XML Schema file: <code>webapi/src/resources/mappingXMLToStandoff.xsd</code>. Any mapping that does not conform to this XML Schema file will be rejected by Knora.</p>
+<p>The mapping has to be sent as a multipart request to the standoff route using the path segment <code>mapping</code>:</p>
+<pre><code>HTTP POST http://host/v1/mapping
+</code></pre>
+<p>The multipart request consists of two named parts:</p>
+<pre><code>&quot;json&quot;:
+
+  {
+    &quot;project_id&quot;: &quot;projectIRI&quot;,
+    &quot;label&quot;: &quot;my mapping&quot;,
+    &quot;mappingName&quot;: &quot;MappingNameSegment&quot;
+  }
+
+&quot;xml&quot;:
+
+  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+  &lt;mapping&gt;
+      ...
+  &lt;/mapping&gt;
+</code></pre>
+<p>A successful response returns the Iri of the mapping. However, the Iri of a mapping is predictable: it consists of the project Iri followed by <code>/mappings/</code> and the <code>mappingName</code> submitted in the JSON (if the name already exists, the request will be rejected). Once created, a mapping can be used to create TextValues in Knora. The formats are documented in the typescript interfaces <code>addMappingRequest</code> and <code>addMappingResponse</code> in module <code>mappingFormats</code></p>
+</div>
+<div>
+<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/03-webapi/api-v1/xml-to-standoff-mapping.md" title="Edit this page" class="md-source-file md-edit">
+Edit this page
+</a>
+</div>
+<div class="print-only">
+<span class="md-source-file md-version">
+v1.4.0
+</span>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav class="md-footer-nav__inner md-grid">
+<a href="../../03-webapi/api-v1/reading-and-searching-resources.html" title="Reading and Searching Resources" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Previous
+</span>
+Reading and Searching Resources
+</span>
+</div>
+</a>
+<a href="../../03-webapi/api-v1/adding-resources.html" title="Adding Resources" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Next
+</span>
+Adding Resources
+</span>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+<div class="md-footer-copyright__highlight">
+Copyright 2015-2018 the contributors (see Contributors.md)
+</div>
+Powered by
+<a href="https://github.com/lightbend/paradox">Paradox</a>
+and
+<a href="https://jonas.github.io/paradox-material-theme/">Paradox Material Theme</a>
+
+</div>
+<div class="md-footer-social">
+<a href="https://github.com/dhlab-basel" class="md-footer-social__link fa fa-github"></a><a href="https://twitter.com/dhlabbasel" class="md-footer-social__link fa fa-twitter"></a>
+</div>
+
+</div>
+</div>
+</footer>
+
+</div>
+<script src="../../assets/javascripts/application.5165553b.js"></script>
+<script src="../../assets/javascripts/paradox-material-theme.js"></script>
+<script>app.initialize({version:"0.17",url:{base:"../../."}})</script>
+<script type="text/javascript" src="../../lib/prettify/prettify.js"></script>
+<script type="text/javascript" src="../../lib/prettify/lang-scala.js"></script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+window.prettyPrint && prettyPrint();
+});
+</script>
+</body>
+</html>

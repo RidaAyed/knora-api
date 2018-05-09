@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="description" content="root">
+<meta name="generator" content="Paradox, paradox-material-theme=v1.4.0, mkdocs-material=2.2.2">
+
+<meta name="lang:clipboard.copy" content="Copy to clipboard">
+<meta name="lang:clipboard.copied" content="Copied to clipboard">
+<meta name="lang:search.result.none" content="No matching documents">
+<meta name="lang:search.result.one" content="1 matching document">
+<meta name="lang:search.result.other" content="# matching documents">
+<meta name="lang:search.language" content="">
+<meta name="lang:search.tokenizer" content="[\s\-]+">
+
+
+<meta name="description" content="root">
+<link rel="shortcut icon" href="../../cloud">
+<title>Consistency Checking · Knora Documentation</title>
+<link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
+<link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
+<link rel="stylesheet" href="../../lib/material__tabs/dist/mdc.tabs.min.css">
+<link rel="stylesheet" href="../../lib/prettify/prettify.css">
+<script src="../../lib/modernizr/modernizr.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+<style>
+body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}
+code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../../assets/stylesheets/paradox-material-theme.css">
+</head>
+<body
+data-md-color-primary="blue"
+data-md-color-accent="yellow"
+>
+<input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+<input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+<label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+<header class="md-header" data-md-component="header">
+<nav class="md-header-nav md-grid">
+<div class="md-flex">
+<div class="md-flex__cell md-flex__cell--shrink">
+<a href="../../index.html" title="Knora Documentation" class="md-header-nav__button md-logo">
+<i class="md-icon">cloud</i>
+</a>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch">
+<div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+<span class="md-header-nav__topic">
+Knora Documentation
+</span>
+<span class="md-header-nav__topic">
+Consistency Checking
+</span>
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="search"></label>
+<div class="md-search__inner">
+<form class="md-search__form" name="search">
+<input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+<label class="md-icon md-search__icon" for="search"></label>
+<button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix>
+<div class="md-search-result" data-md-component="result">
+<div class="md-search-result__meta">
+Type to start searching
+</div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<div class="md-header-nav__source">
+<a href="https://github.com/dhlab-basel/Knora/docs"
+title="Go to repository"
+class="md-source"
+data-md-source="github">
+<div class="md-source__icon">
+<i class="fa fa-github"></i>
+</div>
+<div class="md-source__repository">
+dhlab-basel/Knora/docs
+</div>
+</a>
+
+</div>
+</div>
+</div>
+</nav>
+</header>
+
+<div class="md-container">
+<main class="md-main">
+<div class="md-main__inner md-grid" data-md-component="container">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" data-md-level="0" style="visibility: hidden">
+<label class="md-nav__title md-nav__title--site" for="drawer">
+<span class="md-nav__button md-logo">
+<i class="md-icon">cloud</i>
+</span>
+<a href="../../index.html" title="Knora Documentation">
+Knora Documentation
+</a>
+</label>
+<div class="md-nav__source">
+<a href="https://github.com/dhlab-basel/Knora/docs"
+title="Go to repository"
+class="md-source"
+data-md-source="github">
+<div class="md-source__icon">
+<i class="fa fa-github"></i>
+</div>
+<div class="md-source__repository">
+dhlab-basel/Knora/docs
+</div>
+</a>
+
+</div>
+<ul>
+  <li><a href="../../00-release-notes/index.html" class="page">Release Notes</a>
+  <ul>
+    <li><a href="../../00-release-notes/v1.1.0.html" class="page">v1.1.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.2.0.html" class="page">v1.2.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.3.0.html" class="page">v1.3.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes (not released yet)</a></li>
+  </ul></li>
+  <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
+  <ul>
+    <li><a href="../../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../../01-introduction/example-project.html" class="page">An Example Project</a></li>
+  </ul></li>
+  <li><a href="../../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
+  <ul>
+    <li><a href="../../02-knora-ontologies/introduction.html" class="page">Introduction</a></li>
+    <li><a href="../../02-knora-ontologies/knora-base.html" class="page">The Knora Base Ontology</a></li>
+    <li><a href="../../02-knora-ontologies/salsah-gui.html" class="page">The SALSAH GUI Ontology</a></li>
+  </ul></li>
+  <li><a href="../../03-webapi/index.html" class="page">The Knora API Server</a>
+  <ul>
+    <li><a href="../../03-webapi/deployment/index.html" class="page">Deployment</a></li>
+    <li><a href="../../03-webapi/design/index.html" class="page">Design</a></li>
+    <li><a href="../../03-webapi/development/index.html" class="page">Development</a></li>
+    <li><a href="../../03-webapi/api-v1/index.html" class="page">Knora API v1</a></li>
+    <li><a href="../../03-webapi/api-v2/index.html" class="page">Knora API v2</a></li>
+    <li><a href="../../03-webapi/api-admin/index.html" class="page">Knora Admin API</a></li>
+  </ul></li>
+  <li><a href="../../04-salsah/index.html" class="page">The SALSAH 1 GUI</a></li>
+  <li><a href="../../05-sipi/index.html" class="page">The Sipi Media Server</a>
+  <ul>
+    <li><a href="../../05-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
+    <li><a href="../../05-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
+  </ul></li>
+</ul>
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../03-webapi/design/consistency-checking.html#consistency-checking" class="header">Consistency Checking</a>
+  <ul>
+    <li><a href="../../03-webapi/design/consistency-checking.html#requirements" class="header">Requirements</a></li>
+    <li><a href="../../03-webapi/design/consistency-checking.html#design" class="header">Design</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+<div class="md-nav__title--site md-version" title="Version">
+<i class="md-icon">label_outline</i> v1.4.0
+</div>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../03-webapi/design/consistency-checking.html#consistency-checking" class="header">Consistency Checking</a>
+  <ul>
+    <li><a href="../../03-webapi/design/consistency-checking.html#requirements" class="header">Requirements</a></li>
+    <li><a href="../../03-webapi/design/consistency-checking.html#design" class="header">Design</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset">
+<div class="md-content__searchable">
+<!---
+Copyright © 2015-2018 the contributors (see Contributors.md).
+
+This file is part of Knora.
+
+Knora is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Knora is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<h1><a href="#consistency-checking" name="consistency-checking" class="anchor"><span class="anchor-link"></span></a>Consistency Checking</h1>
+<div class="toc ">
+<ul>
+  <li><a href="../../03-webapi/design/consistency-checking.html#requirements" class="header">Requirements</a></li>
+  <li><a href="../../03-webapi/design/consistency-checking.html#design" class="header">Design</a>
+  <ul>
+    <li><a href="../../03-webapi/design/consistency-checking.html#empty-string-as-object" class="header">Empty string as object</a></li>
+    <li><a href="../../03-webapi/design/consistency-checking.html#subject-and-object-class-constraints" class="header">Subject and object class constraints</a></li>
+    <li><a href="../../03-webapi/design/consistency-checking.html#cardinality-constraints" class="header">Cardinality constraints</a></li>
+  </ul></li>
+</ul>
+</div>
+<p><a href="https://ontotext.com/products/graphdb/">Ontotext GraphDB</a> provides a mechanism for checking the consistency of data in a repository each time an update transaction is committed. Knora provides GraphDB-specific consistency rules that take advantage of this feature to provide an extra layer of consistency checks, in addition to the checks that are implemented in the Knora API server.</p>
+<h2><a href="#requirements" name="requirements" class="anchor"><span class="anchor-link"></span></a>Requirements</h2>
+<p>The Knora API server is designed to prevent inconsistencies in RDF data, as far as is practical, in a triplestore-independent way (see <a href="triplestore-updates.html">Triplestore Updates</a>). However, it is also useful to enforce consistency constraints in the triplestore itself, for two reasons:</p>
+<ol>
+  <li>To prevent inconsistencies resulting from bugs in the Knora API server.</li>
+  <li>To prevent users from inserting inconsistent data directly into the triplestore, bypassing the Knora API server.</li>
+</ol>
+<p>The design of the <code>knora-base</code> ontology supports two ways of specifying constraints on data (see <a href="../../02-knora-ontologies/knora-base.html#consistency-checking">knora-base: Consistency Checking</a> for details):</p>
+<ol>
+  <li>A property definition should specify the types that are allowed as subjects and objects of the property, using <code>knora-base:subjectClassConstraint</code> and (if it is an object property) <code>knora-base:objectClassConstraint</code>. Every subproperty of <code>knora-base:hasValue</code> or a <code>knora-base:hasLinkTo</code> (i.e. every property of a resource that points to a <code>knora-base:Value</code> or to another resource) is required have this constraint, because the Knora API server relies on it to know what type of object to expect for the property. Use of <code>knora-base:subjectClassConstraint</code> is recommended but not required.</li>
+  <li>A class definition should use OWL cardinalities (see <a href="https://www.w3.org/TR/owl2-quick-reference/">OWL 2 Quick Reference Guide</a>) to indicate the properties that instances of the class are allowed to have, and to constrain the number of objects that each property can have. Subclasses of <code>knora-base:Resource</code> are required to have a cardinality for each subproperty of <code>knora-base:hasValue</code> or a <code>knora-base:hasLinkTo</code> that resources of that class can have.</li>
+</ol>
+<p>Specifically, consistency checking should prevent the following:</p>
+<ul>
+  <li>An object property or datatype property has a subject of the wrong class, or an object property has an object of the wrong class (GraphDB&rsquo;s consistency checke cannot check the types of literals).</li>
+  <li>An object property has an object that does not exist (i.e. the object is an IRI that is not used as the subject of any statements in the repository). This can be treated as if the object is of the wrong type (i.e. it can cause a violation of <code>knora-base:objectClassConstraint</code>, because there is no compatible <code>rdf:type</code> statement for the object).</li>
+  <li>A class has <code>owl:cardinality 1</code> or <code>owl:minCardinality 1</code> on an object property or datatype property, and an instance of the class does not have that property.</li>
+  <li>A class has <code>owl:cardinality 1</code> or <code>owl:maxCardinality 1</code> on an object property or datatype property, and an instance of the class has more than one object for that property.</li>
+  <li>An instance of <code>knora-base:Resource</code> has an object property pointing to a <code>knora-base:Value</code> or to another <code>Resource</code>, and its class has no cardinality for that property.</li>
+  <li>An instance of <code>knora-base:Value</code> has a subproperty of <code>knora-base:valueHas</code>, and its class has no cardinality for that property.</li>
+  <li>A datatype property has an empty string as an object.</li>
+</ul>
+<p>Cardinalities in base classes are inherited by derived classes. Derived classes can override inherited cardinalities by making them more restrictive, i.e. by specifying a subproperty of the one specified in the original cardinality.</p>
+<p>Instances of <code>Resource</code> and <code>Value</code> can be marked as deleted, using the property <code>isDeleted</code>. This must be taken into account as follows:</p>
+<ul>
+  <li>With <code>owl:cardinality 1</code> or <code>owl:maxCardinality 1</code>, if the object of the property can be marked as deleted, the property must not have more than one object that has not been marked as deleted. In other words, it&rsquo;s OK if there is more than one object, as long only one of them has <code>knora-base:isDeleted false</code>.</li>
+  <li>With <code>owl:cardinality 1</code> or <code>owl:minCardinality 1</code>, the property must have an object, but it&rsquo;s OK if the property&rsquo;s only object is marked as deleted. We allow this because the subject and object may have different owners, and it may not be feasible for them to coordinate their work. The owner of the object should always be able to mark it as deleted. (It could be useful to notify the owner of the subject when this happens, but that is beyond the scope of consistency checking.)</li>
+</ul>
+<h2><a href="#design" name="design" class="anchor"><span class="anchor-link"></span></a>Design</h2>
+<p>When a repository is created in GraphDB, a set of consistency rules can be provided, and GraphDB&rsquo;s consistency checker can be turned on to ensure that each update transaction respects these rules, as described in the section <a href="http://graphdb.ontotext.com/documentation/standard/reasoning.html">Reasoning</a> of the GraphDB documentation. Like custom inference rules, consistency rules are defined in files with the <code>.pie</code> filename extension, in a GraphDB-specific syntax.</p>
+<p>We have added rules to the standard RDFS inference rules file <code>builtin_RdfsRules.pie</code>, to create the file <code>KnoraRules.pie</code>. The <code>.ttl</code> configuration file that is used to create the repository must contain these settings:</p>
+<pre><code>owlim:ruleset &quot;/path/to/KnoraRules.pie&quot; ;
+owlim:check-for-inconsistencies &quot;true&quot; ;
+</code></pre>
+<p>The path to <code>KnoraRules.pie</code> must be an absolute path. The scripts provided with Knora to create test repositories set this path automatically.</p>
+<p>Consistency checking in GraphDB relies on reasoning. GraphDB&rsquo;s reasoning is <a href="http://graphdb.ontotext.com/documentation/standard/introduction-to-semantic-web.html#reasoning-strategies">Forward-chaining</a>, which means that reasoning is applied to the contents of each update, before the update transaction is committed, and the inferred statements are added to the repository.</p>
+<p>A GraphDB rules file can contain two types of rules: inference rules and consistency rules. Before committing an update transaction, GraphDB applies inference rules, then consistency rules. If any of the consistency rules are violated, the transaction is rolled back.</p>
+<p>An inference rule has this form:</p>
+<pre><code>Id: &lt;rule_name&gt;
+    &lt;premises&gt; &lt;optional_constraints&gt;
+    -------------------------------
+    &lt;consequences&gt; &lt;optional_constraints&gt;
+</code></pre>
+<p>The premises are a pattern that tries to match statements found in the data. Optional constraints, which are enclosed in square brackets, make it possible to specify the premises more precisely, or to specify a named graph (see examples below). Consequences are the statements that will be inferred if the premises match. A line of hyphens separates premises from consequences.</p>
+<p>A GraphDB consistency rule has a similar form:</p>
+<pre><code>Consistency: &lt;rule_name&gt;
+    &lt;premises&gt; &lt;optional_constraints&gt;
+    -------------------------------
+    &lt;consequences&gt; &lt;optional_constraints&gt;
+</code></pre>
+<p>The differences between inference rules and consistency rules are:</p>
+<ul>
+  <li>A consistency rule begins with <code>Consistency</code> instead of <code>Id</code>.</li>
+  <li>In a consistency rule, the consequences are optional. Instead of representing statements to be inferred, they represent statements that must exist if the premises are satisfied. In other words, if the premises are satisfied and the consequences are not found, the rule is violated.</li>
+  <li>If a consistency rule doesn&rsquo;t specify any consequences, and the premises are satisfied, the rule is violated.</li>
+</ul>
+<p>Rules use variable names for subjects, predicates, and objects, and they can use actual property names.</p>
+<h3><a href="#empty-string-as-object" name="empty-string-as-object" class="anchor"><span class="anchor-link"></span></a>Empty string as object</h3>
+<p>If subject <code>i</code> has a predicate <code>p</code> whose object is an empty string, the constraint is violated:</p>
+<pre><code>Consistency: empty_string
+    i p &quot;&quot;
+    ------------------------------------
+</code></pre>
+<h3><a href="#subject-and-object-class-constraints" name="subject-and-object-class-constraints" class="anchor"><span class="anchor-link"></span></a>Subject and object class constraints</h3>
+<p>If subject <code>i</code> has a predicate <code>p</code> that requires a subject of type <code>t</code>, and <code>i</code> is not a <code>t</code>, the constraint is violated:</p>
+<pre><code>Consistency: subject_class_constraint
+    p &lt;knora-base:subjectClassConstraint&gt; t
+    i p j
+    ------------------------------------
+    i &lt;rdf:type&gt; t
+</code></pre>
+<p>If subject <code>i</code> has a predicate <code>p</code> that requires an object of type <code>t</code>, and the object of <code>p</code> is not a <code>t</code>, the constraint is violated:</p>
+<pre><code>Consistency: object_class_constraint
+    p &lt;knora-base:objectClassConstraint&gt; t
+    i p j
+    ------------------------------------
+    j &lt;rdf:type&gt; t
+</code></pre>
+<h3><a href="#cardinality-constraints" name="cardinality-constraints" class="anchor"><span class="anchor-link"></span></a>Cardinality constraints</h3>
+<p>A simple implementation of a consistency rule to check <code>owl:maxCardinality 1</code>, for objects that can be marked as deleted, could look like this:</p>
+<pre><code>Consistency: max_cardinality_1_with_deletion_flag
+    i &lt;rdf:type&gt; r
+    r &lt;owl:maxCardinality&gt; &quot;1&quot;^^xsd:nonNegativeInteger
+    r &lt;owl:onProperty&gt; p
+    i p j
+    i p k [Constraint j != k]
+    j &lt;knora-base:isDeleted&gt; &quot;false&quot;^^xsd:boolean
+    k &lt;knora-base:isDeleted&gt; &quot;false&quot;^^xsd:boolean
+    ------------------------------------
+</code></pre>
+<p>This means: if resource <code>i</code> is a subclass of an <code>owl:Restriction</code> <code>r</code> with <code>owl:maxCardinality 1</code> on property <code>p</code>, and the resource has two different objects for that property, neither of which is marked as deleted, the rule is violated. Note that this takes advantage of the fact that <code>Resource</code> and <code>Value</code> have <code>owl:cardinality 1</code> on <code>isDeleted</code> (<code>isDeleted</code> must be present even if false), so we do not need to check whether <code>i</code> is actually something that can be marked as deleted.</p>
+<p>However, this implementation would be much too slow. We therefore use two optimisations suggested by Ontotext:</p>
+<ol>
+  <li>Add custom inference rules to make tables (i.e. named graphs) of pre-calculated information about the cardinalities on properties of subjects, and use those tables to simplify the consistency rules.</li>
+  <li>Use the <code>[Cut]</code> constraint to avoid generating certain redundant compiled rules (see <a href="http://graphdb.ontotext.com/documentation/standard/reasoning.html#entailment-rules">Entailment rules</a>).</li>
+</ol>
+<p>For example, to construct a table of subjects belonging to classes that have <code>owl:maxCardinality 1</code> on some property <code>p</code>, we use the following custom inference rule:</p>
+<pre><code>Id: maxCardinality_1_table
+    i &lt;rdf:type&gt; r
+    r &lt;owl:maxCardinality&gt; &quot;1&quot;^^xsd:nonNegativeInteger
+    r &lt;owl:onProperty&gt; p
+    ------------------------------------
+    i p r [Context &lt;onto:_maxCardinality_1_table&gt;]
+</code></pre>
+<p>The constraint <code>[Context &lt;onto:_maxCardinality_1_table&gt;]</code> means that the inferred triples are added to the context (i.e. the named graph) <code>http://www.ontotext.com/_maxCardinality_1_table</code>. (Note that we have defined the prefix <code>onto</code> as <code>http://www.ontotext.com/</code> in the <code>Prefices</code> section of the rules file.) As the GraphDB documentation on <a href="http://graphdb.ontotext.com/documentation/standard/reasoning.html#rules">Rules</a> explains:</p>
+<blockquote>
+  <p>If the context is provided, the statements produced as rule consequences are not ‘visible’ during normal query answering. Instead, they can only be used as input to this or other rules and only when the rule premise explicitly uses the given context.</p>
+</blockquote>
+<p>Now, to find out whether a subject belongs to a class with that cardinality on a given property, we only need to match one triple. The revised implementation of the rule <code>max_cardinality_1_with_deletion_flag</code> is as follows:</p>
+<pre><code>Consistency: max_cardinality_1_with_deletion_flag
+    i p r [Context &lt;onto:_maxCardinality_1_table&gt;]
+    i p j [Constraint j != k]
+    i p k [Cut]
+    j &lt;knora-base:isDeleted&gt; &quot;false&quot;^^xsd:boolean
+    k &lt;knora-base:isDeleted&gt; &quot;false&quot;^^xsd:boolean
+    ------------------------------------
+</code></pre>
+<p>The constraint <code>[Constraint j != k]</code> means that the premises will be satisfied only if the variables <code>j</code> and <code>k</code> do not refer to the same thing.</p>
+<p>With these optimisations, the rule is faster by several orders of magnitude.</p>
+<p>Since properties whose objects can be marked as deleted must be handled differently to properties whose objects cannot be marked as deleted, the <code>knora-base</code> ontology provides a property called <code>objectCannotBeMarkedAsDeleted</code>. All properties in <code>knora-base</code> whose objects cannot take the <code>isDeleted</code> flag (including datatype properties) should be derived from this property. This is how it is used to check <code>owl:maxCardinality 1</code> for objects that cannot be marked as deleted:</p>
+<pre><code>Consistency: max_cardinality_1_without_deletion_flag
+    i p r [Context &lt;onto:_maxCardinality_1_table&gt;]
+    p &lt;rdfs:subPropertyOf&gt; &lt;knora-base:objectCannotBeMarkedAsDeleted&gt;
+    i p j [Constraint j != k]
+    i p k [Cut]
+    ------------------------------------
+</code></pre>
+<p>To check <code>owl:minCardinality 1</code>, we do not care whether the object can be marked as deleted, so we can use this simple rule:</p>
+<pre><code>Consistency: min_cardinality_1_any_object
+    i p r [Context &lt;onto:_minCardinality_1_table&gt;]
+    ------------------------------------
+    i p j
+</code></pre>
+<p>This means: if a subject <code>i</code> belongs to a class that has <code>owl:minCardinality 1</code> on property <code>p</code>, and <code>i</code> has no object for <code>p</code>, the rule is violated.</p>
+<p>To check <code>owl:cardinality 1</code>, we need two rules: one that checks whether there are too few objects, and one that checks whether there are too many. To check whether there are too few objects, we don&rsquo;t care whether the objects can be marked as deleted, so the rule is the same as <code>min_cardinality_1_any_object</code>, except for the cardinality:</p>
+<pre><code>Consistency: cardinality_1_not_less_any_object
+    i p r [Context &lt;onto:_cardinality_1_table&gt;]
+    ------------------------------------
+    i p j
+</code></pre>
+<p>To check whether there are too many objects, we need to know whether the objects can be marked as deleted or not. In the case where the objects can be marked as deleted, the rule is the same as <code>max_cardinality_1_with_deletion_flag</code>, except for the cardinality:</p>
+<pre><code>Consistency: cardinality_1_not_greater_with_deletion_flag
+    i p r [Context &lt;onto:_cardinality_1_table&gt;]
+    i p j [Constraint j != k]
+    i p k [Cut]
+    j &lt;knora-base:isDeleted&gt; &quot;false&quot;^^xsd:boolean
+    k &lt;knora-base:isDeleted&gt; &quot;false&quot;^^xsd:boolean
+    ------------------------------------
+</code></pre>
+<p>In the case where the objects cannot be marked as deleted, the rule is the same as <code>max_cardinality_1_without_deletion_flag</code>, except for the cardinality:</p>
+<pre><code>Consistency: cardinality_1_not_less_any_object
+    i p r [Context &lt;onto:_cardinality_1_table&gt;]
+    ------------------------------------
+    i p j
+</code></pre>
+<p>Knora allows a subproperty of <code>knora-base:hasValue</code> or <code>knora-base:hasLinkTo</code> to be a predicate of a resource only if the resource&rsquo;s class has some cardinality for the property. For convenience, <code>knora-base:hasValue</code> and <code>knora-base:hasLinkTo</code> are subproperties of <code>knora-base:resourceProperty</code>, which is used to check this constraint in the following rule:</p>
+<pre><code>Consistency: resource_prop_cardinality_any
+    i &lt;knora-base:resourceProperty&gt; j
+    ------------------------------------
+    i p j
+    i &lt;rdf:type&gt; r
+    r &lt;owl:onProperty&gt; p
+</code></pre>
+<p>If resource <code>i</code> has a subproperty of <code>knora-base:resourceProperty</code>, and <code>i</code> is not a member of a subclass of an <code>owl:Restriction</code> <code>r</code> with a cardinality on that property (or on one of its base properties), the rule is violated.</p>
+<p>A similar rule, <code>value_prop_cardinality_any</code>, ensures that if a value has a subproperty of <code>knora-base:valueHas</code>, the value&rsquo;s class has some cardinality for that property.</p>
+</div>
+<div>
+<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/03-webapi/design/consistency-checking.md" title="Edit this page" class="md-source-file md-edit">
+Edit this page
+</a>
+</div>
+<div class="print-only">
+<span class="md-source-file md-version">
+v1.4.0
+</span>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav class="md-footer-nav__inner md-grid">
+<a href="../../03-webapi/design/triplestore-updates.html" title="Triplestore Updates" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Previous
+</span>
+Triplestore Updates
+</span>
+</div>
+</a>
+<a href="../../03-webapi/design/authentication.html" title="Authentication in the Knora API Server" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Next
+</span>
+Authentication in the Knora API Server
+</span>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+<div class="md-footer-copyright__highlight">
+Copyright 2015-2018 the contributors (see Contributors.md)
+</div>
+Powered by
+<a href="https://github.com/lightbend/paradox">Paradox</a>
+and
+<a href="https://jonas.github.io/paradox-material-theme/">Paradox Material Theme</a>
+
+</div>
+<div class="md-footer-social">
+<a href="https://github.com/dhlab-basel" class="md-footer-social__link fa fa-github"></a><a href="https://twitter.com/dhlabbasel" class="md-footer-social__link fa fa-twitter"></a>
+</div>
+
+</div>
+</div>
+</footer>
+
+</div>
+<script src="../../assets/javascripts/application.5165553b.js"></script>
+<script src="../../assets/javascripts/paradox-material-theme.js"></script>
+<script>app.initialize({version:"0.17",url:{base:"../../."}})</script>
+<script type="text/javascript" src="../../lib/prettify/prettify.js"></script>
+<script type="text/javascript" src="../../lib/prettify/lang-scala.js"></script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+window.prettyPrint && prettyPrint();
+});
+</script>
+</body>
+</html>
