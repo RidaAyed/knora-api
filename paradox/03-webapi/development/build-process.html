@@ -650,7 +650,7 @@ lazy val webApiLibs = Seq(
     library.bcprov,
     library.commonsBeanUtil,
     library.commonsIo,
-    library.commonsLang3,
+    library.commonsText,
     library.commonsValidator,
     library.diff,
     library.ehcache,
@@ -671,9 +671,8 @@ lazy val webApiLibs = Seq(
     library.kamonZipkin,
     library.kamonJaeger,
     library.logbackClassic,
-    library.rdf4jRioTurtle,
-    library.rdf4jQueryParserSparql,
-    library.sayonHE,
+    library.rdf4jRuntime,
+    library.saxonHE,
     library.scalaArm,
     library.scalaJava8Compat,
     library.scalaLogging,
@@ -746,7 +745,7 @@ lazy val library =
 
         // other
         //&quot;javax.transaction&quot; % &quot;transaction-api&quot; % &quot;1.1-rev-1&quot;,
-        val commonsLang3           = &quot;org.apache.commons&quot;            % &quot;commons-lang3&quot;            % &quot;3.7&quot;
+        val commonsText            = &quot;org.apache.commons&quot;            % &quot;commons-text&quot;             % &quot;1.3&quot;
         val commonsIo              = &quot;commons-io&quot;                    % &quot;commons-io&quot;               % &quot;2.6&quot;
         val commonsBeanUtil        = &quot;commons-beanutils&quot;             % &quot;commons-beanutils&quot;        % &quot;1.9.3&quot; exclude(&quot;commons-logging&quot;, &quot;commons-logging&quot;) // not used by us, but need newest version to prevent this problem: http://stackoverflow.com/questions/14402745/duplicate-classes-in-commons-collections-and-commons-beanutils
         val jodd                   = &quot;org.jodd&quot;                      % &quot;jodd&quot;                     % &quot;3.2.6&quot;
@@ -756,11 +755,10 @@ lazy val library =
         val xmlunitCore            = &quot;org.xmlunit&quot;                   % &quot;xmlunit-core&quot;             % &quot;2.1.1&quot;
 
         // other
-        val rdf4jRioTurtle         = &quot;org.eclipse.rdf4j&quot;             % &quot;rdf4j-rio-turtle&quot;         % &quot;2.3.0&quot;
-        val rdf4jQueryParserSparql = &quot;org.eclipse.rdf4j&quot;             % &quot;rdf4j-queryparser-sparql&quot; % &quot;2.2.4&quot;
+        val rdf4jRuntime           = &quot;org.eclipse.rdf4j&quot;             % &quot;rdf4j-runtime&quot;            % &quot;2.3.2&quot;
         val scallop                = &quot;org.rogach&quot;                   %% &quot;scallop&quot;                  % &quot;2.0.5&quot;
         val gwtServlet             = &quot;com.google.gwt&quot;                % &quot;gwt-servlet&quot;              % &quot;2.8.0&quot;
-        val sayonHE                = &quot;net.sf.saxon&quot;                  % &quot;Saxon-HE&quot;                 % &quot;9.7.0-14&quot;
+        val saxonHE                = &quot;net.sf.saxon&quot;                  % &quot;Saxon-HE&quot;                 % &quot;9.7.0-14&quot;
 
         val scalaXml               = &quot;org.scala-lang.modules&quot;       %% &quot;scala-xml&quot;                % &quot;1.1.0&quot;
         val scalaArm               = &quot;com.jsuereth&quot;                  % &quot;scala-arm_2.12&quot;           % &quot;2.0&quot;
@@ -856,6 +854,9 @@ val aopMerge: MergeStrategy = new MergeStrategy {
 val customMergeStrategy: String =&gt; MergeStrategy = {
     case PathList(&quot;META-INF&quot;, &quot;aop.xml&quot;) =&gt;
         aopMerge
+    case PathList(ps @ _*) if ps.exists(_.contains(&quot;aopalliance&quot;)) || ps.exists(_.contains(&quot;lucene&quot;)) || ps.exists(_.contains(&quot;joda&quot;)) =&gt;
+        // Workaround for #855. TODO: find a better way to resolve these conflicts.
+        MergeStrategy.first
     case s =&gt;
         defaultMergeStrategy(s)
 }</code></pre>

@@ -236,7 +236,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     <li><a href="../../03-webapi/api-v2/ontology-information.html#querying-an-ontology" class="header">Querying an Ontology</a>
     <ul>
       <li><a href="../../03-webapi/api-v2/ontology-information.html#json-ld-representation-of-an-ontology-in-the-simple-schema" class="header">JSON-LD Representation of an Ontology in the Simple Schema</a></li>
-      <li><a href="../../03-webapi/api-v2/ontology-information.html#json-ld-representation-of-an-ontology-in-the-default-schema" class="header">JSON-LD Representation of an Ontology in the Default Schema</a></li>
+      <li><a href="../../03-webapi/api-v2/ontology-information.html#json-ld-representation-of-an-ontology-in-the-complex-schema" class="header">JSON-LD Representation of an Ontology in the Complex Schema</a></li>
     </ul></li>
   </ul></li>
   <li><a href="../../03-webapi/api-v2/ontology-information.html#ontology-updates" class="header">Ontology Updates</a>
@@ -260,52 +260,72 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </div>
 <h2><a href="#querying-ontology-information" name="querying-ontology-information" class="anchor"><span class="anchor-link"></span></a>Querying Ontology Information</h2>
 <p>Before reading this document, you should have a basic understanding of Knora API v2 external ontology schemas (see <a href="knora-iris.html">Knora IRIs</a>).</p>
-<p>Knora uses a single JSON-LD response format to represent ontology information, regardless of the request. Clients that update ontology information also submit their updates in this same format. The basic structure of this format is a JSON-LD document containing, at the top level, the property <code>knora-api:hasOntologies</code>, whose object can be a single ontology or an array of ontologies.</p>
-<p>This response format uses prefixes to shorten IRIs, making them more human-readable. A client may wish to convert these to full IRIs for processing. This can be done using a library that implements the <a href="https://www.w3.org/TR/json-ld-api/">JSON-LD API</a>, by compacting the document with an empty context.</p>
+<p>Each request returns a single RDF graph, which can be represented in <a href="https://json-ld.org/spec/latest/json-ld/">JSON-LD</a>, <a href="https://www.w3.org/TR/turtle/">Turtle</a>, or <a href="https://www.w3.org/TR/rdf-syntax-grammar/">RDF/XML</a>, using <a href="http://tools.ietf.org/html/rfc7231#section-5.3.2">HTTP content negotiation</a> (see <a href="introduction.html#response-formats">Response Formats</a>).</p>
+<p>The response format uses prefixes to shorten IRIs, making them more human-readable. A client may wish to convert these to full IRIs for processing. This can be done with responses in JSON-LD by using a library that implements the <a href="https://www.w3.org/TR/json-ld-api/">JSON-LD API</a> to compact the document with an empty JSON-LD <code>@context</code>.</p>
 <h3><a href="#querying-ontology-metadata" name="querying-ontology-metadata" class="anchor"><span class="anchor-link"></span></a>Querying Ontology Metadata</h3>
-<p>To get metadata about all ontologies:</p>
+<p>Requests for ontology metadata can return information about more than one ontology, unlike other requests for ontology information. To get metadata about all ontologies:</p>
 <pre><code>HTTP GET to http://host/v2/ontologies/metadata
 </code></pre>
-<p>The response is in the default API v2 schema. Sample response:</p>
+<p>The response is in the complex API v2 schema. Sample response:</p>
 <pre class="prettyprint"><code class="language-jsonld">{
-  &quot;knora-api:hasOntologies&quot; : [ {
+  &quot;@graph&quot; : [ {
     &quot;@id&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2&quot;,
-    &quot;@type&quot; : &quot;http://www.w3.org/2002/07/owl#Ontology&quot;,
+    &quot;@type&quot; : &quot;owl:Ontology&quot;,
+    &quot;knora-api:attachedToProject&quot; : {
+      &quot;@id&quot; : &quot;http://rdfh.ch/projects/00FF&quot;
+    },
     &quot;rdfs:label&quot; : &quot;The images demo ontology&quot;
   }, {
-    &quot;@id&quot; : &quot;http://0.0.0.0:3333/ontology/0803/incunabula/v2&quot;,
-    &quot;@type&quot; : &quot;http://www.w3.org/2002/07/owl#Ontology&quot;,
-    &quot;rdfs:label&quot; : &quot;The incunabula ontology&quot;
+    &quot;@id&quot; : &quot;http://0.0.0.0:3333/ontology/0801/beol/v2&quot;,
+    &quot;@type&quot; : &quot;owl:Ontology&quot;,
+    &quot;knora-api:attachedToProject&quot; : {
+      &quot;@id&quot; : &quot;http://rdfh.ch/projects/yTerZGyxjZVqFMNNKXCDPF&quot;
+    },
+    &quot;rdfs:label&quot; : &quot;The BEOL ontology&quot;
   }, {
-    &quot;@id&quot; : &quot;http://0.0.0.0:3333/ontology/0001/anything/v2#&quot;,
-    &quot;@type&quot; : &quot;http://www.w3.org/2002/07/owl#Ontology&quot;,
-    &quot;rdfs:label&quot; : &quot;The anything ontology&quot;,
-    &quot;knora-api:lastModificationDate&quot; : &quot;2017-12-19T15:23:42.166Z&quot;
+    &quot;@id&quot; : &quot;http://0.0.0.0:3333/ontology/0804/dokubib/v2&quot;,
+    &quot;@type&quot; : &quot;owl:Ontology&quot;,
+    &quot;knora-api:attachedToProject&quot; : {
+      &quot;@id&quot; : &quot;http://rdfh.ch/projects/0804&quot;
+    },
+    &quot;rdfs:label&quot; : &quot;The dokubib ontology&quot;
   }, {
-    &quot;@id&quot; : &quot;http://api.knora.org/ontology/knora-api/v2&quot;,
-    &quot;@type&quot; : &quot;http://www.w3.org/2002/07/owl#Ontology&quot;,
-    &quot;rdfs:label&quot; : &quot;The default knora-api ontology&quot;
+    &quot;@id&quot; : &quot;http://api.knora.org/ontology/salsah-gui/v2&quot;,
+    &quot;@type&quot; : &quot;owl:Ontology&quot;,
+    &quot;knora-api:attachedToProject&quot; : {
+      &quot;@id&quot; : &quot;http://www.knora.org/ontology/knora-base#SystemProject&quot;
+    },
+    &quot;rdfs:label&quot; : &quot;The salsah-gui ontology&quot;
+  }, {
+    &quot;@id&quot; : &quot;http://api.knora.org/ontology/standoff/v2&quot;,
+    &quot;@type&quot; : &quot;owl:Ontology&quot;,
+    &quot;knora-api:attachedToProject&quot; : {
+      &quot;@id&quot; : &quot;http://www.knora.org/ontology/knora-base#SystemProject&quot;
+    },
+    &quot;rdfs:label&quot; : &quot;The standoff ontology&quot;
   } ],
   &quot;@context&quot; : {
     &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
-    &quot;rdfs&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#&quot;
+    &quot;rdfs&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#&quot;,
+    &quot;owl&quot; : &quot;http://www.w3.org/2002/07/owl#&quot;
   }
 }
 </code></pre>
 <p>To get metadata about the ontologies that belong to a particular project:</p>
 <pre><code>HTTP GET to http://host/v2/ontologies/metadata/PROJECT_IRI
 </code></pre>
-<p>The project IRI must be URL-encoded. Example response for the <code>anything</code> test project (project IRI <code>http://rdfh.ch/projects/0001</code>):</p>
+<p>The project IRI must be URL-encoded. Example response for the <code>images</code> test project (project IRI <code>http://rdfh.ch/projects/00FF</code>):</p>
 <pre class="prettyprint"><code class="language-jsonld">{
-  &quot;knora-api:hasOntologies&quot; : {
-    &quot;@id&quot; : &quot;http://0.0.0.0:3333/ontology/0001/anything/v2#&quot;,
-    &quot;@type&quot; : &quot;http://www.w3.org/2002/07/owl#Ontology&quot;,
-    &quot;rdfs:label&quot; : &quot;The anything ontology&quot;,
-    &quot;knora-api:lastModificationDate&quot; : &quot;2017-12-19T15:23:42.166Z&quot;
+  &quot;@id&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2&quot;,
+  &quot;@type&quot; : &quot;owl:Ontology&quot;,
+  &quot;knora-api:attachedToProject&quot; : {
+    &quot;@id&quot; : &quot;http://rdfh.ch/projects/00FF&quot;
   },
+  &quot;rdfs:label&quot; : &quot;The images demo ontology&quot;,
   &quot;@context&quot; : {
     &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
-    &quot;rdfs&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#&quot;
+    &quot;rdfs&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#&quot;,
+    &quot;owl&quot; : &quot;http://www.w3.org/2002/07/owl#&quot;
   }
 }
 </code></pre>
@@ -313,139 +333,205 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>An ontology can be queried either by using an API route directly or by simply dereferencing the ontology IRI. The API route is as follows:</p>
 <pre><code>HTTP GET to http://host/v2/ontologies/allentities/ONTOLOGY_IRI
 </code></pre>
-<p>The ontology IRI must be URL-encoded, and may be in either the default or the simple schema. The response will be in the same schema.</p>
+<p>The ontology IRI must be URL-encoded, and may be in either the complex or the simple schema. The response will be in the same schema.</p>
 <p>If the client dereferences a project-specific ontology IRI as a URL, the Knora API server running on the hostname in the IRI will serve the ontology. For example, if the server is running on <code>0.0.0.0:3333</code>, the IRI <code>http://0.0.0.0:3333/ontology/00FF/images/simple/v2</code> can be dereferenced to request the <code>images</code> sample ontology in the simple schema.</p>
 <p>If the client dereferences a built-in Knora ontology, such as <code>http://api.knora.org/ontology/knora-api/simple/v2</code>, there must be a Knora API server running at <code>api.knora.org</code> that can serve the ontology. The <a href="http://dasch.swiss/">DaSCH</a> intends to run such as server. For testing, you can configure your local <code>/etc/hosts</code> file to resolve <code>api.knora.org</code> as <code>localhost</code>.</p>
 <h4><a href="#json-ld-representation-of-an-ontology-in-the-simple-schema" name="json-ld-representation-of-an-ontology-in-the-simple-schema" class="anchor"><span class="anchor-link"></span></a>JSON-LD Representation of an Ontology in the Simple Schema</h4>
 <p>The simple schema is suitable for client applications that need to read but not update data in Knora. For example, here is the response for the <code>images</code> sample ontology in the simple schema, <code>http://0.0.0.0:3333/ontology/00FF/images/simple/v2</code> (simplified for clarity):</p>
 <pre class="prettyprint"><code class="language-jsonld">{
-  &quot;knora-api:hasOntologies&quot; : {
-    &quot;@id&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2&quot;,
-    &quot;@type&quot; : &quot;owl:Ontology&quot;,
-    &quot;knora-api:hasClasses&quot; : {
-      &quot;p00FF-images:bild&quot; : {
-        &quot;@id&quot; : &quot;p00FF-images:bild&quot;,
-        &quot;@type&quot; : &quot;owl:Class&quot;,
-        &quot;knora-api:resourceIcon&quot; : &quot;bild.png&quot;,
-        &quot;rdfs:comment&quot; : &quot;An image of the demo image collection&quot;,
-        &quot;rdfs:label&quot; : &quot;Image&quot;,
-        &quot;rdfs:subClassOf&quot; : [ &quot;http://api.knora.org/ontology/knora-api/simple/v2#StillImageRepresentation&quot;, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/simple/v2#creationDate&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;owl:minCardinality&quot; : 0,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/simple/v2#hasStandoffLinkTo&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;owl:minCardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/simple/v2#hasStillImageFile&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;owl:maxCardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/simple/v2#lastModificationDate&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#label&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#description&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#erfassungsdatum&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;owl:maxCardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#urheber&quot;
-        } ]
-      },
-      &quot;p00FF-images:person&quot; : {
-        &quot;@id&quot; : &quot;p00FF-images:person&quot;,
-        &quot;@type&quot; : &quot;owl:Class&quot;,
-        &quot;knora-api:resourceIcon&quot; : &quot;person.png&quot;,
-        &quot;rdfs:comment&quot; : &quot;Person&quot;,
-        &quot;rdfs:label&quot; : &quot;Person&quot;,
-        &quot;rdfs:subClassOf&quot; : [ &quot;http://api.knora.org/ontology/knora-api/simple/v2#Resource&quot;, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/simple/v2#creationDate&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;owl:minCardinality&quot; : 0,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/simple/v2#hasStandoffLinkTo&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;owl:maxCardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/simple/v2#lastModificationDate&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#label&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#lastname&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#firstname&quot;
-        } ]
+  &quot;@id&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2&quot;,
+  &quot;@type&quot; : &quot;owl:Ontology&quot;,
+  &quot;rdfs:label&quot; : &quot;The images demo ontology&quot;,
+  &quot;@graph&quot; : [ {
+    &quot;@id&quot; : &quot;images:bild&quot;,
+    &quot;@type&quot; : &quot;owl:Class&quot;,
+    &quot;knora-api:resourceIcon&quot; : &quot;bild.png&quot;,
+    &quot;rdfs:comment&quot; : &quot;An image of the demo image collection&quot;,
+    &quot;rdfs:label&quot; : &quot;Image&quot;,
+    &quot;rdfs:subClassOf&quot; : [ {
+      &quot;@id&quot; : &quot;knora-api:StillImageRepresentation&quot;
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:creationDate&quot;
       }
-    },
-    &quot;knora-api:hasProperties&quot; : {
-      &quot;p00FF-images:description&quot; : {
-        &quot;@id&quot; : &quot;p00FF-images:description&quot;,
-        &quot;@type&quot; : &quot;owl:DatatypeProperty&quot;,
-        &quot;knora-api:objectType&quot; : &quot;http://www.w3.org/2001/XMLSchema#string&quot;,
-        &quot;knora-api:subjectType&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#bild&quot;,
-        &quot;rdfs:label&quot; : &quot;Description&quot;,
-        &quot;rdfs:subPropertyOf&quot; : [ &quot;http://api.knora.org/ontology/knora-api/simple/v2#hasValue&quot;, &quot;http://purl.org/dc/terms/description&quot; ]
-      },
-      &quot;p00FF-images:erfassungsdatum&quot; : {
-        &quot;@id&quot; : &quot;p00FF-images:erfassungsdatum&quot;,
-        &quot;@type&quot; : &quot;owl:DatatypeProperty&quot;,
-        &quot;knora-api:objectType&quot; : &quot;http://api.knora.org/ontology/knora-api/simple/v2#Date&quot;,
-        &quot;knora-api:subjectType&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#bild&quot;,
-        &quot;rdfs:label&quot; : &quot;Date of acquisition&quot;,
-        &quot;rdfs:subPropertyOf&quot; : [ &quot;http://api.knora.org/ontology/knora-api/simple/v2#hasValue&quot;, &quot;http://purl.org/dc/terms/date&quot; ]
-      },
-      &quot;p00FF-images:firstname&quot; : {
-        &quot;@id&quot; : &quot;p00FF-images:firstname&quot;,
-        &quot;@type&quot; : &quot;owl:DatatypeProperty&quot;,
-        &quot;knora-api:objectType&quot; : &quot;http://www.w3.org/2001/XMLSchema#string&quot;,
-        &quot;knora-api:subjectType&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#person&quot;,
-        &quot;rdfs:comment&quot; : &quot;First name of a person&quot;,
-        &quot;rdfs:label&quot; : &quot;First name&quot;,
-        &quot;rdfs:subPropertyOf&quot; : &quot;http://api.knora.org/ontology/knora-api/simple/v2#hasValue&quot;
-      },
-      &quot;p00FF-images:lastname&quot; : {
-        &quot;@id&quot; : &quot;p00FF-images:lastname&quot;,
-        &quot;@type&quot; : &quot;owl:DatatypeProperty&quot;,
-        &quot;knora-api:objectType&quot; : &quot;http://www.w3.org/2001/XMLSchema#string&quot;,
-        &quot;knora-api:subjectType&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#person&quot;,
-        &quot;rdfs:comment&quot; : &quot;Last name of a person&quot;,
-        &quot;rdfs:label&quot; : &quot;Name&quot;,
-        &quot;rdfs:subPropertyOf&quot; : &quot;http://api.knora.org/ontology/knora-api/simple/v2#hasValue&quot;
-      },
-      &quot;p00FF-images:urheber&quot; : {
-        &quot;@id&quot; : &quot;p00FF-images:urheber&quot;,
-        &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
-        &quot;knora-api:objectType&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#person&quot;,
-        &quot;knora-api:subjectType&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#bild&quot;,
-        &quot;rdfs:comment&quot; : &quot;An entity primarily responsible for making the resource. Examples of a Creator include a person, an organization, or a service. Typically, the name of a Creator should be used to indicate the entity.&quot;,
-        &quot;rdfs:label&quot; : &quot;Creator&quot;,
-        &quot;rdfs:subPropertyOf&quot; : &quot;http://api.knora.org/ontology/knora-api/simple/v2#hasLinkTo&quot;
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;owl:minCardinality&quot; : 0,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:hasIncomingLink&quot;
       }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;owl:minCardinality&quot; : 0,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:hasStandoffLinkTo&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;owl:minCardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:hasStillImageFile&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;owl:maxCardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:lastModificationDate&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;rdfs:label&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;images:description&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;images:erfassungsdatum&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;owl:maxCardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;images:urheber&quot;
+      }
+    } ]
+  }, {
+    &quot;@id&quot; : &quot;images:description&quot;,
+    &quot;@type&quot; : &quot;owl:DatatypeProperty&quot;,
+    &quot;knora-api:objectType&quot; : {
+      &quot;@id&quot; : &quot;xsd:string&quot;
     },
-    &quot;rdfs:label&quot; : &quot;The images demo ontology&quot;
-  },
+    &quot;knora-api:subjectType&quot; : {
+      &quot;@id&quot; : &quot;images:bild&quot;
+    },
+    &quot;rdfs:label&quot; : &quot;Description&quot;,
+    &quot;rdfs:subPropertyOf&quot; : [ {
+      &quot;@id&quot; : &quot;knora-api:hasValue&quot;
+    }, {
+      &quot;@id&quot; : &quot;http://purl.org/dc/terms/description&quot;
+    } ]
+  }, {
+    &quot;@id&quot; : &quot;images:erfassungsdatum&quot;,
+    &quot;@type&quot; : &quot;owl:DatatypeProperty&quot;,
+    &quot;knora-api:objectType&quot; : {
+      &quot;@id&quot; : &quot;knora-api:Date&quot;
+    },
+    &quot;knora-api:subjectType&quot; : {
+      &quot;@id&quot; : &quot;images:bild&quot;
+    },
+    &quot;rdfs:label&quot; : &quot;Date of acquisition&quot;,
+    &quot;rdfs:subPropertyOf&quot; : [ {
+      &quot;@id&quot; : &quot;knora-api:hasValue&quot;
+    }, {
+      &quot;@id&quot; : &quot;http://purl.org/dc/terms/date&quot;
+    } ]
+  }, {
+    &quot;@id&quot; : &quot;images:firstname&quot;,
+    &quot;@type&quot; : &quot;owl:DatatypeProperty&quot;,
+    &quot;knora-api:objectType&quot; : {
+      &quot;@id&quot; : &quot;xsd:string&quot;
+    },
+    &quot;knora-api:subjectType&quot; : {
+      &quot;@id&quot; : &quot;images:person&quot;
+    },
+    &quot;rdfs:comment&quot; : &quot;First name of a person&quot;,
+    &quot;rdfs:label&quot; : &quot;First name&quot;,
+    &quot;rdfs:subPropertyOf&quot; : {
+      &quot;@id&quot; : &quot;knora-api:hasValue&quot;
+    }
+  }, {
+    &quot;@id&quot; : &quot;images:lastname&quot;,
+    &quot;@type&quot; : &quot;owl:DatatypeProperty&quot;,
+    &quot;knora-api:objectType&quot; : {
+      &quot;@id&quot; : &quot;xsd:string&quot;
+    },
+    &quot;knora-api:subjectType&quot; : {
+      &quot;@id&quot; : &quot;images:person&quot;
+    },
+    &quot;rdfs:comment&quot; : &quot;Last name of a person&quot;,
+    &quot;rdfs:label&quot; : &quot;Name&quot;,
+    &quot;rdfs:subPropertyOf&quot; : {
+      &quot;@id&quot; : &quot;knora-api:hasValue&quot;
+    }
+  }, {
+    &quot;@id&quot; : &quot;images:person&quot;,
+    &quot;@type&quot; : &quot;owl:Class&quot;,
+    &quot;knora-api:resourceIcon&quot; : &quot;person.png&quot;,
+    &quot;rdfs:comment&quot; : &quot;Person&quot;,
+    &quot;rdfs:label&quot; : &quot;Person&quot;,
+    &quot;rdfs:subClassOf&quot; : [ {
+      &quot;@id&quot; : &quot;knora-api:Resource&quot;
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:creationDate&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;owl:minCardinality&quot; : 0,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:hasIncomingLink&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;owl:minCardinality&quot; : 0,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:hasStandoffLinkTo&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;owl:maxCardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:lastModificationDate&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;rdfs:label&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;images:lastname&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;images:firstname&quot;
+      }
+    } ]
+  }, {
+    &quot;@id&quot; : &quot;images:urheber&quot;,
+    &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
+    &quot;knora-api:objectType&quot; : {
+      &quot;@id&quot; : &quot;images:person&quot;
+    },
+    &quot;knora-api:subjectType&quot; : {
+      &quot;@id&quot; : &quot;images:bild&quot;
+    },
+    &quot;rdfs:comment&quot; : &quot;An entity primarily responsible for making the resource. Examples of a Creator include a person, an organization, or a service. Typically, the name of a Creator should be used to indicate the entity.&quot;,
+    &quot;rdfs:label&quot; : &quot;Creator&quot;,
+    &quot;rdfs:subPropertyOf&quot; : {
+      &quot;@id&quot; : &quot;knora-api:hasLinkTo&quot;
+    }
+  } ],
   &quot;@context&quot; : {
     &quot;rdf&quot; : &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;,
-    &quot;p00FF-images&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#&quot;,
+    &quot;images&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#&quot;,
     &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/simple/v2#&quot;,
     &quot;owl&quot; : &quot;http://www.w3.org/2002/07/owl#&quot;,
     &quot;rdfs&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#&quot;,
@@ -453,254 +539,402 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   }
 }
 </code></pre>
-<p>This response format has several sections: <code>knora-api:hasClasses</code>, <code>knora-api:hasProperties</code>, <code>knora-api:hasStandoffClasses</code>, and <code>knora-api:hasStandoffProperties</code>.</p>
+<p>The response format is an RDF graph. The top level object describes the ontology itself, providing its IRI (in the <code>@id</code> member) and its <code>rdfs:label</code>. The <code>@graph</code> member (see <a href="https://json-ld.org/spec/latest/json-ld/#named-graphs">Named Graphs</a> in the JSON-LD specification) contains an array of entities that belong to the ontology.</p>
 <p>In a class definition, cardinalities for properties of the class are represented as in OWL, using objects of type <code>owl:Restriction</code>. The supported cardinalities are the ones indicated in <a href="../../02-knora-ontologies/knora-base.html#owl-cardinalities">OWL Cardinalities</a>.</p>
 <p>The class definitions include cardinalities that are directly defined on each class, as well as cardinalities inherited from base classes. For example, we can see cardinalities inherited from <code>knora-api:Resource</code>, such as <code>knora-api:hasStandoffLinkTo</code> and <code>http://schema.org/name</code> (which represents <code>rdfs:label</code>).</p>
-<p>In the simple schema, Knora value properties can be datatype properties. The <code>knora-base:objectType</code> of a Knora value property such as <code>p00FF-images:description</code> is a literal datatype, in this case <code>xsd:string</code>. Moreover, <code>p00FF-images:description</code> is a subproperty of the standard property <code>dcterms:description</code>, whose object can be a literal value. A client that understands <code>rdfs:subPropertyOf</code>, and is familiar with <code>dcterms:description</code>, can then work with <code>p00FF-images:description</code> on the basis of its knowledge about <code>dcterms:description</code>.</p>
-<p>By default, values for <code>rdfs:label</code> and <code>rdfs:comment</code> are returned only in the user&rsquo;s preferred language, or in the system default language. To obtain these values in all available languages, add the URL parameter <code>?allLanguages=true</code>. For example, with this parameter, the definition of <code>p00FF-images:titel</code> becomes:</p>
+<p>In the simple schema, Knora value properties can be datatype properties. The <code>knora-base:objectType</code> of a Knora value property such as <code>images:description</code> is a literal datatype, in this case <code>xsd:string</code>. Moreover, <code>images:description</code> is a subproperty of the standard property <code>dcterms:description</code>, whose object can be a literal value. A client that understands <code>rdfs:subPropertyOf</code>, and is familiar with <code>dcterms:description</code>, can then work with <code>images:description</code> on the basis of its knowledge about <code>dcterms:description</code>.</p>
+<p>By default, values for <code>rdfs:label</code> and <code>rdfs:comment</code> are returned only in the user&rsquo;s preferred language, or in the system default language. To obtain these values in all available languages, add the URL parameter <code>?allLanguages=true</code>. For example, with this parameter, the definition of <code>images:description</code> becomes:</p>
 <pre class="prettyprint"><code class="language-jsonld">{
-   &quot;@id&quot; : &quot;p00FF-images:titel&quot;,
-   &quot;@type&quot; : &quot;owl:DatatypeProperty&quot;,
-   &quot;knora-api:objectType&quot; : &quot;http://www.w3.org/2001/XMLSchema#string&quot;,
-   &quot;knora-api:subjectType&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/simple/v2#bild&quot;,
-   &quot;rdfs:label&quot; : [ {
+  &quot;@id&quot; : &quot;images:description&quot;,
+  &quot;@type&quot; : &quot;owl:DatatypeProperty&quot;,
+  &quot;knora-api:objectType&quot; : {
+    &quot;@id&quot; : &quot;xsd:string&quot;
+  },
+  &quot;knora-api:subjectType&quot; : {
+    &quot;@id&quot; : &quot;images:bild&quot;
+  },
+  &quot;rdfs:label&quot; : [ {
     &quot;@language&quot; : &quot;en&quot;,
-    &quot;@value&quot; : &quot;Title&quot;
-   }, {
+    &quot;@value&quot; : &quot;Description&quot;
+  }, {
     &quot;@language&quot; : &quot;de&quot;,
-    &quot;@value&quot; : &quot;Titel&quot;
-   }, {
+    &quot;@value&quot; : &quot;Beschreibung&quot;
+  }, {
     &quot;@language&quot; : &quot;fr&quot;,
-    &quot;@value&quot; : &quot;Titre&quot;
-   }, {
+    &quot;@value&quot; : &quot;Description&quot;
+  }, {
     &quot;@language&quot; : &quot;it&quot;,
-    &quot;@value&quot; : &quot;Titolo&quot;
-   } ],
-   &quot;rdfs:subPropertyOf&quot; : &quot;http://api.knora.org/ontology/knora-api/simple/v2#hasValue&quot;
+    &quot;@value&quot; : &quot;Descrizione&quot;
+  } ],
+  &quot;rdfs:subPropertyOf&quot; : [ {
+    &quot;@id&quot; : &quot;knora-api:hasValue&quot;
+  }, {
+    &quot;@id&quot; : &quot;http://purl.org/dc/terms/description&quot;
+  } ]
 }
 </code></pre>
-<p>To find out more about the <code>knora-api</code> entities used in the response, the client can request the <code>knora-api</code> ontology in the simple schema: <code>http://api.knora.org/ontology/knora-api/simple/v2</code>. For example, <code>p00FF-images:erfassungsdatum</code> has a <code>knora-api:objectType</code> of <code>knora-api:Date</code>, which is a subtype of <code>xsd:string</code> with a Knora-specific, human-readable format. In the <code>knora-api</code> simple ontology, there is a definition of this type:</p>
+<p>To find out more about the <code>knora-api</code> entities used in the response, the client can request the <code>knora-api</code> ontology in the simple schema: <code>http://api.knora.org/ontology/knora-api/simple/v2</code>. For example, <code>images:erfassungsdatum</code> has a <code>knora-api:objectType</code> of <code>knora-api:Date</code>, which is a subtype of <code>xsd:string</code> with a Knora-specific, human-readable format. In the <code>knora-api</code> simple ontology, there is a definition of this type:</p>
 <pre class="prettyprint"><code class="language-jsonld">{
-  &quot;@id&quot; : &quot;knora-api:Date&quot;,
-  &quot;@type&quot; : &quot;rdfs:Datatype&quot;,
-  &quot;rdfs:comment&quot; : &quot;Represents a date as a period with different possible precisions.&quot;,
-  &quot;rdfs:label&quot; : &quot;Date literal&quot;,
-  &quot;rdfs:subClassOf&quot; : {
+  &quot;@id&quot; : &quot;http://api.knora.org/ontology/knora-api/simple/v2&quot;,
+  &quot;@type&quot; : &quot;owl:Ontology&quot;,
+  &quot;rdfs:label&quot; : &quot;The knora-api ontology in the simple schema&quot;,
+  &quot;@graph&quot; : [ {
+    &quot;@id&quot; : &quot;knora-api:Date&quot;,
     &quot;@type&quot; : &quot;rdfs:Datatype&quot;,
-    &quot;owl:onDatatype&quot; : &quot;http://www.w3.org/2001/XMLSchema#string&quot;,
-    &quot;owl:withRestrictions&quot; : {
-      &quot;xsd:pattern&quot; : &quot;(GREGORIAN|JULIAN):\\d{1,4}(-\\d{1,2}(-\\d{1,2})?)?( BC| AD| BCE| CE)?(:\\d{1,4}(-\\d{1,2}(-\\d{1,2})?)?( BC| AD| BCE| CE)?)?&quot;
+    &quot;rdfs:comment&quot; : &quot;Represents a date as a period with different possible precisions.&quot;,
+    &quot;rdfs:label&quot; : &quot;Date literal&quot;,
+    &quot;rdfs:subClassOf&quot; : {
+      &quot;@type&quot; : &quot;rdfs:Datatype&quot;,
+      &quot;owl:onDatatype&quot; : {
+        &quot;@id&quot; : &quot;xsd:string&quot;
+      },
+      &quot;owl:withRestrictions&quot; : {
+        &quot;xsd:pattern&quot; : &quot;(GREGORIAN|JULIAN):\\d{1,4}(-\\d{1,2}(-\\d{1,2})?)?( BC| AD| BCE| CE)?(:\\d{1,4}(-\\d{1,2}(-\\d{1,2})?)?( BC| AD| BCE| CE)?)?&quot;
+      }
     }
+  } ],
+  &quot;@context&quot; : {
+    &quot;rdf&quot; : &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;,
+    &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/simple/v2#&quot;,
+    &quot;owl&quot; : &quot;http://www.w3.org/2002/07/owl#&quot;,
+    &quot;rdfs&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#&quot;,
+    &quot;xsd&quot; : &quot;http://www.w3.org/2001/XMLSchema#&quot;
   }
 }
 </code></pre>
-<h4><a href="#json-ld-representation-of-an-ontology-in-the-default-schema" name="json-ld-representation-of-an-ontology-in-the-default-schema" class="anchor"><span class="anchor-link"></span></a>JSON-LD Representation of an Ontology in the Default Schema</h4>
-<p>The default schema is suitable for client applications that need to update data in Knora. For example, here is the response for the <code>images</code> sample ontology in the default schema, <code>http://0.0.0.0:3333/ontology/00FF/images/v2</code> (simplified for clarity):</p>
+<h4><a href="#json-ld-representation-of-an-ontology-in-the-complex-schema" name="json-ld-representation-of-an-ontology-in-the-complex-schema" class="anchor"><span class="anchor-link"></span></a>JSON-LD Representation of an Ontology in the Complex Schema</h4>
+<p>The complex schema is suitable for client applications that need to update data in Knora. For example, here is the response for the <code>images</code> sample ontology in the complex schema, <code>http://0.0.0.0:3333/ontology/00FF/images/v2</code> (simplified for clarity):</p>
 <pre class="prettyprint"><code class="language-jsonld">{
-  &quot;knora-api:hasOntologies&quot; : {
-    &quot;@id&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2&quot;,
-    &quot;@type&quot; : &quot;owl:Ontology&quot;,
-    &quot;knora-api:hasClasses&quot; : {
-      &quot;p00FF-images:bild&quot; : {
-        &quot;@id&quot; : &quot;p00FF-images:bild&quot;,
-        &quot;@type&quot; : &quot;owl:Class&quot;,
-        &quot;knora-api:canBeInstantiated&quot; : true,
-        &quot;knora-api:isResourceClass&quot; : true,
-        &quot;knora-api:resourceIcon&quot; : &quot;bild.png&quot;,
-        &quot;rdfs:comment&quot; : &quot;An image of the demo image collection&quot;,
-        &quot;rdfs:label&quot; : &quot;Image&quot;,
-        &quot;rdfs:subClassOf&quot; : [ &quot;http://api.knora.org/ontology/knora-api/v2#StillImageRepresentation&quot;, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;knora-api:isInherited&quot; : true,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#creationDate&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;knora-api:isInherited&quot; : true,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#hasPermissions&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;knora-api:isInherited&quot; : true,
-          &quot;owl:minCardinality&quot; : 0,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#hasStandoffLinkTo&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;knora-api:isInherited&quot; : true,
-          &quot;owl:minCardinality&quot; : 0,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#hasStandoffLinkToValue&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;knora-api:isInherited&quot; : true,
-          &quot;owl:minCardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#hasStillImageFileValue&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;knora-api:isInherited&quot; : true,
-          &quot;owl:maxCardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#lastModificationDate&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;knora-api:isInherited&quot; : true,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#label&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;salsah-gui:guiOrder&quot; : 3,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2#description&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;salsah-gui:guiOrder&quot; : 8,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2#erfassungsdatum&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;salsah-gui:guiOrder&quot; : 12,
-          &quot;owl:maxCardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2#urheber&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;salsah-gui:guiOrder&quot; : 12,
-          &quot;owl:maxCardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2#urheberValue&quot;
-        } ]
-      },
-      &quot;p00FF-images:person&quot; : {
-        &quot;@id&quot; : &quot;p00FF-images:person&quot;,
-        &quot;@type&quot; : &quot;owl:Class&quot;,
-        &quot;knora-api:canBeInstantiated&quot; : true,
-        &quot;knora-api:isResourceClass&quot; : true,
-        &quot;knora-api:resourceIcon&quot; : &quot;person.png&quot;,
-        &quot;rdfs:comment&quot; : &quot;Person&quot;,
-        &quot;rdfs:label&quot; : &quot;Person&quot;,
-        &quot;rdfs:subClassOf&quot; : [ &quot;http://api.knora.org/ontology/knora-api/v2#Resource&quot;, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;knora-api:isInherited&quot; : true,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#creationDate&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;knora-api:isInherited&quot; : true,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#hasPermissions&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;knora-api:isInherited&quot; : true,
-          &quot;owl:minCardinality&quot; : 0,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#hasStandoffLinkTo&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;knora-api:isInherited&quot; : true,
-          &quot;owl:minCardinality&quot; : 0,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#hasStandoffLinkToValue&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;knora-api:isInherited&quot; : true,
-          &quot;owl:maxCardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#lastModificationDate&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;knora-api:isInherited&quot; : true,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#label&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;salsah-gui:guiOrder&quot; : 0,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2#lastname&quot;
-        }, {
-          &quot;@type&quot; : &quot;owl:Restriction&quot;,
-          &quot;salsah-gui:guiOrder&quot; : 1,
-          &quot;owl:cardinality&quot; : 1,
-          &quot;owl:onProperty&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2#firstname&quot;
-        } ]
-      }
-    },
-    &quot;knora-api:hasProperties&quot; : {
-      &quot;p00FF-images:description&quot; : {
-        &quot;@id&quot; : &quot;p00FF-images:description&quot;,
-        &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
-        &quot;knora-api:isEditable&quot; : true,
-        &quot;knora-api:isResourceProperty&quot; : true,
-        &quot;knora-api:objectType&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#TextValue&quot;,
-        &quot;knora-api:subjectType&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2#bild&quot;,
-        &quot;salsah-gui:guiAttribute&quot; : [ &quot;rows=10&quot;, &quot;width=95%&quot;, &quot;wrap=soft&quot; ],
-        &quot;salsah-gui:guiElement&quot; : &quot;http://api.knora.org/ontology/salsah-gui/v2#Textarea&quot;,
-        &quot;rdfs:label&quot; : &quot;Description&quot;,
-        &quot;rdfs:subPropertyOf&quot; : [ &quot;http://api.knora.org/ontology/knora-api/v2#hasValue&quot;, &quot;http://purl.org/dc/terms/description&quot; ]
-      },
-      &quot;p00FF-images:erfassungsdatum&quot; : {
-        &quot;@id&quot; : &quot;p00FF-images:erfassungsdatum&quot;,
-        &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
-        &quot;knora-api:isEditable&quot; : true,
-        &quot;knora-api:isResourceProperty&quot; : true,
-        &quot;knora-api:objectType&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#DateValue&quot;,
-        &quot;knora-api:subjectType&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2#bild&quot;,
-        &quot;salsah-gui:guiElement&quot; : &quot;http://api.knora.org/ontology/salsah-gui/v2#Date&quot;,
-        &quot;rdfs:label&quot; : &quot;Date of acquisition&quot;,
-        &quot;rdfs:subPropertyOf&quot; : [ &quot;http://api.knora.org/ontology/knora-api/v2#hasValue&quot;, &quot;http://purl.org/dc/terms/date&quot; ]
-      },
-      &quot;p00FF-images:firstname&quot; : {
-        &quot;@id&quot; : &quot;p00FF-images:firstname&quot;,
-        &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
-        &quot;knora-api:isEditable&quot; : true,
-        &quot;knora-api:isResourceProperty&quot; : true,
-        &quot;knora-api:objectType&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#TextValue&quot;,
-        &quot;knora-api:subjectType&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2#person&quot;,
-        &quot;salsah-gui:guiAttribute&quot; : [ &quot;maxlength=32&quot;, &quot;size=32&quot; ],
-        &quot;salsah-gui:guiElement&quot; : &quot;http://api.knora.org/ontology/salsah-gui/v2#SimpleText&quot;,
-        &quot;rdfs:comment&quot; : &quot;First name of a person&quot;,
-        &quot;rdfs:label&quot; : &quot;First name&quot;,
-        &quot;rdfs:subPropertyOf&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#hasValue&quot;
-      },
-      &quot;p00FF-images:lastname&quot; : {
-        &quot;@id&quot; : &quot;p00FF-images:lastname&quot;,
-        &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
-        &quot;knora-api:isEditable&quot; : true,
-        &quot;knora-api:isResourceProperty&quot; : true,
-        &quot;knora-api:objectType&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#TextValue&quot;,
-        &quot;knora-api:subjectType&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2#person&quot;,
-        &quot;salsah-gui:guiAttribute&quot; : [ &quot;maxlength=32&quot;, &quot;size=32&quot; ],
-        &quot;salsah-gui:guiElement&quot; : &quot;http://api.knora.org/ontology/salsah-gui/v2#SimpleText&quot;,
-        &quot;rdfs:comment&quot; : &quot;Last name of a person&quot;,
-        &quot;rdfs:label&quot; : &quot;Name&quot;,
-        &quot;rdfs:subPropertyOf&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#hasValue&quot;
-      },
-      &quot;p00FF-images:urheber&quot; : {
-        &quot;@id&quot; : &quot;p00FF-images:urheber&quot;,
-        &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
-        &quot;knora-api:isEditable&quot; : true,
-        &quot;knora-api:isLinkProperty&quot; : true,
-        &quot;knora-api:isResourceProperty&quot; : true,
-        &quot;knora-api:objectType&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2#person&quot;,
-        &quot;knora-api:subjectType&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2#bild&quot;,
-        &quot;salsah-gui:guiAttribute&quot; : &quot;numprops=2&quot;,
-        &quot;salsah-gui:guiElement&quot; : &quot;http://api.knora.org/ontology/salsah-gui/v2#Searchbox&quot;,
-        &quot;rdfs:comment&quot; : &quot;An entity primarily responsible for making the resource. Examples of a Creator include a person, an organization, or a service. Typically, the name of a Creator should be used to indicate the entity.&quot;,
-        &quot;rdfs:label&quot; : &quot;Creator&quot;,
-        &quot;rdfs:subPropertyOf&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#hasLinkTo&quot;
-      },
-      &quot;p00FF-images:urheberValue&quot; : {
-        &quot;@id&quot; : &quot;p00FF-images:urheberValue&quot;,
-        &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
-        &quot;knora-api:isEditable&quot; : true,
-        &quot;knora-api:isLinkValueProperty&quot; : true,
-        &quot;knora-api:isResourceProperty&quot; : true,
-        &quot;knora-api:objectType&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#LinkValue&quot;,
-        &quot;knora-api:subjectType&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2#bild&quot;,
-        &quot;salsah-gui:guiAttribute&quot; : &quot;numprops=2&quot;,
-        &quot;salsah-gui:guiElement&quot; : &quot;http://api.knora.org/ontology/salsah-gui/v2#Searchbox&quot;,
-        &quot;rdfs:comment&quot; : &quot;An entity primarily responsible for making the resource. Examples of a Creator include a person, an organization, or a service. Typically, the name of a Creator should be used to indicate the entity.&quot;,
-        &quot;rdfs:label&quot; : &quot;Creator&quot;,
-        &quot;rdfs:subPropertyOf&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#hasLinkToValue&quot;
-      }
-    },
-    &quot;rdfs:label&quot; : &quot;The images demo ontology&quot;
+  &quot;@id&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2&quot;,
+  &quot;@type&quot; : &quot;owl:Ontology&quot;,
+  &quot;knora-api:attachedToProject&quot; : {
+    &quot;@id&quot; : &quot;http://rdfh.ch/projects/00FF&quot;
   },
+  &quot;rdfs:label&quot; : &quot;The images demo ontology&quot;,
+  &quot;@graph&quot; : [ {
+    &quot;@id&quot; : &quot;images:bild&quot;,
+    &quot;@type&quot; : &quot;owl:Class&quot;,
+    &quot;knora-api:canBeInstantiated&quot; : true,
+    &quot;knora-api:isResourceClass&quot; : true,
+    &quot;knora-api:resourceIcon&quot; : &quot;bild.png&quot;,
+    &quot;rdfs:comment&quot; : &quot;An image of the demo image collection&quot;,
+    &quot;rdfs:label&quot; : &quot;Image&quot;,
+    &quot;rdfs:subClassOf&quot; : [ {
+      &quot;@id&quot; : &quot;knora-api:StillImageRepresentation&quot;
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:attachedToProject&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:attachedToUser&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:creationDate&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:minCardinality&quot; : 0,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:hasIncomingLink&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:hasPermissions&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:minCardinality&quot; : 0,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:hasStandoffLinkTo&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:minCardinality&quot; : 0,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:hasStandoffLinkToValue&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:minCardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:hasStillImageFileValue&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:maxCardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:lastModificationDate&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;rdfs:label&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;salsah-gui:guiOrder&quot; : 3,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;images:description&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;salsah-gui:guiOrder&quot; : 8,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;images:erfassungsdatum&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;salsah-gui:guiOrder&quot; : 12,
+      &quot;owl:maxCardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;images:urheber&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;salsah-gui:guiOrder&quot; : 12,
+      &quot;owl:maxCardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;images:urheberValue&quot;
+      }
+    } ]
+  }, {
+    &quot;@id&quot; : &quot;images:description&quot;,
+    &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
+    &quot;knora-api:isEditable&quot; : true,
+    &quot;knora-api:isResourceProperty&quot; : true,
+    &quot;knora-api:objectType&quot; : {
+      &quot;@id&quot; : &quot;knora-api:TextValue&quot;
+    },
+    &quot;knora-api:subjectType&quot; : {
+      &quot;@id&quot; : &quot;images:bild&quot;
+    },
+    &quot;salsah-gui:guiAttribute&quot; : [ &quot;rows=10&quot;, &quot;width=95%&quot;, &quot;wrap=soft&quot; ],
+    &quot;salsah-gui:guiElement&quot; : {
+      &quot;@id&quot; : &quot;salsah-gui:Textarea&quot;
+    },
+    &quot;rdfs:label&quot; : &quot;Description&quot;,
+    &quot;rdfs:subPropertyOf&quot; : [ {
+      &quot;@id&quot; : &quot;knora-api:hasValue&quot;
+    }, {
+      &quot;@id&quot; : &quot;http://purl.org/dc/terms/description&quot;
+    } ]
+  }, {
+    &quot;@id&quot; : &quot;images:erfassungsdatum&quot;,
+    &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
+    &quot;knora-api:isEditable&quot; : true,
+    &quot;knora-api:isResourceProperty&quot; : true,
+    &quot;knora-api:objectType&quot; : {
+      &quot;@id&quot; : &quot;knora-api:DateValue&quot;
+    },
+    &quot;knora-api:subjectType&quot; : {
+      &quot;@id&quot; : &quot;images:bild&quot;
+    },
+    &quot;salsah-gui:guiElement&quot; : {
+      &quot;@id&quot; : &quot;salsah-gui:Date&quot;
+    },
+    &quot;rdfs:label&quot; : &quot;Date of acquisition&quot;,
+    &quot;rdfs:subPropertyOf&quot; : [ {
+      &quot;@id&quot; : &quot;knora-api:hasValue&quot;
+    }, {
+      &quot;@id&quot; : &quot;http://purl.org/dc/terms/date&quot;
+    } ]
+  }, {
+    &quot;@id&quot; : &quot;images:firstname&quot;,
+    &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
+    &quot;knora-api:isEditable&quot; : true,
+    &quot;knora-api:isResourceProperty&quot; : true,
+    &quot;knora-api:objectType&quot; : {
+      &quot;@id&quot; : &quot;knora-api:TextValue&quot;
+    },
+    &quot;knora-api:subjectType&quot; : {
+      &quot;@id&quot; : &quot;images:person&quot;
+    },
+    &quot;salsah-gui:guiAttribute&quot; : [ &quot;maxlength=32&quot;, &quot;size=32&quot; ],
+    &quot;salsah-gui:guiElement&quot; : {
+      &quot;@id&quot; : &quot;salsah-gui:SimpleText&quot;
+    },
+    &quot;rdfs:comment&quot; : &quot;First name of a person&quot;,
+    &quot;rdfs:label&quot; : &quot;First name&quot;,
+    &quot;rdfs:subPropertyOf&quot; : {
+      &quot;@id&quot; : &quot;knora-api:hasValue&quot;
+    }
+  }, {
+    &quot;@id&quot; : &quot;images:lastname&quot;,
+    &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
+    &quot;knora-api:isEditable&quot; : true,
+    &quot;knora-api:isResourceProperty&quot; : true,
+    &quot;knora-api:objectType&quot; : {
+      &quot;@id&quot; : &quot;knora-api:TextValue&quot;
+    },
+    &quot;knora-api:subjectType&quot; : {
+      &quot;@id&quot; : &quot;images:person&quot;
+    },
+    &quot;salsah-gui:guiAttribute&quot; : [ &quot;maxlength=32&quot;, &quot;size=32&quot; ],
+    &quot;salsah-gui:guiElement&quot; : {
+      &quot;@id&quot; : &quot;salsah-gui:SimpleText&quot;
+    },
+    &quot;rdfs:comment&quot; : &quot;Last name of a person&quot;,
+    &quot;rdfs:label&quot; : &quot;Name&quot;,
+    &quot;rdfs:subPropertyOf&quot; : {
+      &quot;@id&quot; : &quot;knora-api:hasValue&quot;
+    }
+  }, {
+    &quot;@id&quot; : &quot;images:person&quot;,
+    &quot;@type&quot; : &quot;owl:Class&quot;,
+    &quot;knora-api:canBeInstantiated&quot; : true,
+    &quot;knora-api:isResourceClass&quot; : true,
+    &quot;knora-api:resourceIcon&quot; : &quot;person.png&quot;,
+    &quot;rdfs:comment&quot; : &quot;Person&quot;,
+    &quot;rdfs:label&quot; : &quot;Person&quot;,
+    &quot;rdfs:subClassOf&quot; : [ {
+      &quot;@id&quot; : &quot;knora-api:Resource&quot;
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:attachedToProject&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:attachedToUser&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:creationDate&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:minCardinality&quot; : 0,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:hasIncomingLink&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:hasPermissions&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:minCardinality&quot; : 0,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:hasStandoffLinkTo&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:minCardinality&quot; : 0,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:hasStandoffLinkToValue&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:maxCardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;knora-api:lastModificationDate&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;knora-api:isInherited&quot; : true,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;rdfs:label&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;salsah-gui:guiOrder&quot; : 0,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;images:lastname&quot;
+      }
+    }, {
+      &quot;@type&quot; : &quot;owl:Restriction&quot;,
+      &quot;salsah-gui:guiOrder&quot; : 1,
+      &quot;owl:cardinality&quot; : 1,
+      &quot;owl:onProperty&quot; : {
+        &quot;@id&quot; : &quot;images:firstname&quot;
+      }
+    } ]
+  }, {
+    &quot;@id&quot; : &quot;images:urheber&quot;,
+    &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
+    &quot;knora-api:isEditable&quot; : true,
+    &quot;knora-api:isLinkProperty&quot; : true,
+    &quot;knora-api:isResourceProperty&quot; : true,
+    &quot;knora-api:objectType&quot; : {
+      &quot;@id&quot; : &quot;images:person&quot;
+    },
+    &quot;knora-api:subjectType&quot; : {
+      &quot;@id&quot; : &quot;images:bild&quot;
+    },
+    &quot;salsah-gui:guiAttribute&quot; : &quot;numprops=2&quot;,
+    &quot;salsah-gui:guiElement&quot; : {
+      &quot;@id&quot; : &quot;salsah-gui:Searchbox&quot;
+    },
+    &quot;rdfs:comment&quot; : &quot;An entity primarily responsible for making the resource. Examples of a Creator include a person, an organization, or a service. Typically, the name of a Creator should be used to indicate the entity.&quot;,
+    &quot;rdfs:label&quot; : &quot;Creator&quot;,
+    &quot;rdfs:subPropertyOf&quot; : {
+      &quot;@id&quot; : &quot;knora-api:hasLinkTo&quot;
+    }
+  }, {
+    &quot;@id&quot; : &quot;images:urheberValue&quot;,
+    &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
+    &quot;knora-api:isEditable&quot; : true,
+    &quot;knora-api:isLinkValueProperty&quot; : true,
+    &quot;knora-api:isResourceProperty&quot; : true,
+    &quot;knora-api:objectType&quot; : {
+      &quot;@id&quot; : &quot;knora-api:LinkValue&quot;
+    },
+    &quot;knora-api:subjectType&quot; : {
+      &quot;@id&quot; : &quot;images:bild&quot;
+    },
+    &quot;salsah-gui:guiAttribute&quot; : &quot;numprops=2&quot;,
+    &quot;salsah-gui:guiElement&quot; : {
+      &quot;@id&quot; : &quot;salsah-gui:Searchbox&quot;
+    },
+    &quot;rdfs:comment&quot; : &quot;An entity primarily responsible for making the resource. Examples of a Creator include a person, an organization, or a service. Typically, the name of a Creator should be used to indicate the entity.&quot;,
+    &quot;rdfs:label&quot; : &quot;Creator&quot;,
+    &quot;rdfs:subPropertyOf&quot; : {
+      &quot;@id&quot; : &quot;knora-api:hasLinkToValue&quot;
+    }
+  } ],
   &quot;@context&quot; : {
     &quot;rdf&quot; : &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;,
-    &quot;p00FF-images&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2#&quot;,
+    &quot;images&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2#&quot;,
     &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
     &quot;owl&quot; : &quot;http://www.w3.org/2002/07/owl#&quot;,
     &quot;salsah-gui&quot; : &quot;http://api.knora.org/ontology/salsah-gui/v2#&quot;,
@@ -709,10 +943,10 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   }
 }
 </code></pre>
-<p>In the default schema, all Knora value properties are object properties, whose objects are IRIs, each of which uniquely identifies a value that contains metadata and can potentially be edited. The <code>knora-base:objectType</code> of a Knora value property such as <code>p00FF-images:description</code> is a Knora value class, in this case <code>knora-api:TextValue</code>. Similarly, <code>p00FF-images:erfassungsdatum</code> has a <code>knora-api:objectType</code> of <code>knora-api:DateValue</code>, which has a more complex structure than the <code>knora-api:Date</code> datatype shown in the previous section. A client can find out more about these value classes by requesting the <code>knora-api</code> ontology in the default schema, <code>http://api.knora.org/ontology/knora-api/v2</code>.</p>
-<p>Moreover, additional information is provided in the default schema, to help clients that wish to create or update resources and values. A Knora resource class that can be instantiated is identified with the boolean properties <code>knora-api:isResourceClass</code> and <code>knora-api:canBeInstantiated</code>, to distinguish it from built-in abstract classes. Knora resource properties whose values can be edited by clients are identified with <code>knora-api:isResourceProperty</code> and <code>knora-api:isEditable</code>, to distinguish them from properties whose values are maintained automatically by the Knora API server. Link value properties are shown along with link properties, because a client that updates links will need the IRIs of their link values. The predicate <code>salsah-gui:guiOrder</code> tells a GUI client in what order to display the properties of a class, and the predicates <code>salsah-gui:guiElement</code> and <code>salsah-gui:guiAttribute</code> specify how to configure a GUI element for editing the value of a property. For more information on the <code>salsah-gui</code> ontology, see <a href="../../02-knora-ontologies/salsah-gui.html">The SALSAH GUI Ontology</a>.</p>
+<p>In the complex schema, all Knora value properties are object properties, whose objects are IRIs, each of which uniquely identifies a value that contains metadata and can potentially be edited. The <code>knora-base:objectType</code> of a Knora value property such as <code>images:description</code> is a Knora value class, in this case <code>knora-api:TextValue</code>. Similarly, <code>images:erfassungsdatum</code> has a <code>knora-api:objectType</code> of <code>knora-api:DateValue</code>, which has a more complex structure than the <code>knora-api:Date</code> datatype shown in the previous section. A client can find out more about these value classes by requesting the <code>knora-api</code> ontology in the complex schema, <code>http://api.knora.org/ontology/knora-api/v2</code>.</p>
+<p>Moreover, additional information is provided in the complex schema, to help clients that wish to create or update resources and values. A Knora resource class that can be instantiated is identified with the boolean properties <code>knora-api:isResourceClass</code> and <code>knora-api:canBeInstantiated</code>, to distinguish it from built-in abstract classes. Knora resource properties whose values can be edited by clients are identified with <code>knora-api:isResourceProperty</code> and <code>knora-api:isEditable</code>, to distinguish them from properties whose values are maintained automatically by the Knora API server. Link value properties are shown along with link properties, because a client that updates links will need the IRIs of their link values. The predicate <code>salsah-gui:guiOrder</code> tells a GUI client in what order to display the properties of a class, and the predicates <code>salsah-gui:guiElement</code> and <code>salsah-gui:guiAttribute</code> specify how to configure a GUI element for editing the value of a property. For more information on the <code>salsah-gui</code> ontology, see <a href="../../02-knora-ontologies/salsah-gui.html">The SALSAH GUI Ontology</a>.</p>
 <h2><a href="#ontology-updates" name="ontology-updates" class="anchor"><span class="anchor-link"></span></a>Ontology Updates</h2>
-<p>The ontology update API must ensure that the ontologies it creates are valid and consistent, and that existing data is not invalidated by a change to an ontology. To make this easier to enforce, the ontology update API allows only one entity to be created or modified at a time. It is not possible to submit an entire ontology all at once. In most cases, an update request is a JSON-LD document containing <code>knora-api:hasOntologies</code>, providing only the information that is relevant to the update.</p>
+<p>The ontology update API must ensure that the ontologies it creates are valid and consistent, and that existing data is not invalidated by a change to an ontology. To make this easier to enforce, the ontology update API allows only one entity to be created or modified at a time. It is not possible to submit an entire ontology all at once. Each update request is a JSON-LD document providing only the information that is relevant to the update.</p>
 <p>Moreover, the API enforces the following rules:</p>
 <ul>
   <li>An entity (i.e. a class or property) cannot be referred to until it has been created.</li>
@@ -726,40 +960,40 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </ul>
 <p>When changing an existing ontology, the client must always supply the ontology&rsquo;s <code>knora-api:lastModificationDate</code>, which is returned in the response to each update. If user A attempts to update an ontology, but user B has already updated it since the last time user A received the ontology&rsquo;s <code>knora-api:lastModificationDate</code>, user A&rsquo;s update will be rejected with an HTTP 409 Conflict error. This means that it is possible for two different users to work concurrently on the same ontology, but this is discouraged since it is likely to lead to confusion.</p>
 <p>An ontology can be created or updated only by a system administrator, or by a project administrator in the ontology&rsquo;s project.</p>
-<p>Ontology updates always use the default schema.</p>
+<p>Ontology updates always use the complex schema.</p>
 <h3><a href="#creating-a-new-ontology" name="creating-a-new-ontology" class="anchor"><span class="anchor-link"></span></a>Creating a New Ontology</h3>
-<p>An ontology is always created within a particular project. This is the only ontology update request in which the client submits a JSON-LD document that does not contain <code>knora-api:hasOntologies</code>.</p>
+<p>An ontology is always created within a particular project.</p>
 <pre><code>HTTP POST to http://host/v2/ontologies
 </code></pre>
 <pre class="prettyprint"><code class="language-jsonld">{
-    &quot;knora-api:ontologyName&quot;: &quot;ONTOLOGY_NAME&quot;,
-    &quot;knora-api:attachedToProject&quot;: &quot;PROJECT_IRI&quot;,
-    &quot;rdfs:label&quot;: &quot;ONTOLOGY_NAME&quot;,
-    &quot;@context&quot;: {
-        &quot;rdfs&quot;: &quot;http://www.w3.org/2000/01/rdf-schema#&quot;,
-        &quot;knora-api&quot;: &quot;http://api.knora.org/ontology/knora-api/v2#&quot;
-    }
+  &quot;knora-api:ontologyName&quot; : &quot;ONTOLOGY_NAME&quot;,
+  &quot;knora-api:attachedToProject&quot; : {
+    &quot;@id&quot; : &quot;PROJECT_IRI&quot;,
+  },
+  &quot;rdfs:label&quot; : &quot;ONTOLOGY_NAME&quot;,
+  &quot;@context&quot; : {
+    &quot;rdfs&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#&quot;,
+    &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;
+  }
 }
 </code></pre>
 <p>The ontology name must follow the rules given in <a href="knora-iris.html">Knora IRIs</a>.</p>
-<p>A successful response will be a JSON-LD document containing <code>knora-api:hasOntologies</code>, providing only the ontology&rsquo;s metadata, which includes the ontology&rsquo;s IRI. When the client makes further requests to create entities (classes and properties) in the ontology, it must construct entity IRIs by concatenating the ontology IRI, a <code>#</code> character, and the entity name. An entity name must be a valid XML <a href="https://www.w3.org/TR/xml-names/#NT-NCName">NCName</a>.</p>
+<p>A successful response will be a JSON-LD document providing only the ontology&rsquo;s metadata, which includes the ontology&rsquo;s IRI. When the client makes further requests to create entities (classes and properties) in the ontology, it must construct entity IRIs by concatenating the ontology IRI, a <code>#</code> character, and the entity name. An entity name must be a valid XML <a href="https://www.w3.org/TR/xml-names/#NT-NCName">NCName</a>.</p>
 <h3><a href="#changing-an-ontologys-metadata" name="changing-an-ontologys-metadata" class="anchor"><span class="anchor-link"></span></a>Changing an Ontology&rsquo;s Metadata</h3>
 <p>Currently, the only modifiable ontology metadata is the ontology&rsquo;s <code>rdfs:label</code>.</p>
 <pre><code>HTTP PUT to http://host/v2/ontologies/metadata
 </code></pre>
 <pre class="prettyprint"><code class="language-jsonld">{
-  &quot;knora-api:hasOntologies&quot;: {
-    &quot;@id&quot;: &quot;ONTOLOGY_IRI&quot;,
-    &quot;rdfs:label&quot;: &quot;NEW_ONTOLOGY_LABEL&quot;,
-    &quot;knora-api:lastModificationDate&quot;: &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;
-  },
+  &quot;@id&quot;: &quot;ONTOLOGY_IRI&quot;,
+  &quot;rdfs:label&quot;: &quot;NEW_ONTOLOGY_LABEL&quot;,
+  &quot;knora-api:lastModificationDate&quot;: &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;,
   &quot;@context&quot;: {
     &quot;rdfs&quot;: &quot;http://www.w3.org/2000/01/rdf-schema#&quot;,
     &quot;knora-api&quot;: &quot;http://api.knora.org/ontology/knora-api/v2#&quot;
   }
 }
 </code></pre>
-<p>A successful response will be a JSON-LD document containing <code>knora-api:hasOntologies</code>, providing only the ontology&rsquo;s metadata.</p>
+<p>A successful response will be a JSON-LD document providing only the ontology&rsquo;s metadata.</p>
 <h3><a href="#deleting-an-ontology" name="deleting-an-ontology" class="anchor"><span class="anchor-link"></span></a>Deleting an Ontology</h3>
 <p>An ontology can be deleted only if it is not used in data.</p>
 <pre><code>HTTP DELETE to http://host/v2/ontologies/ONTOLOGY_IRI?lastModificationDate=ONTOLOGY_LAST_MODIFICATION_DATE
@@ -770,26 +1004,26 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <pre><code>HTTP POST to http://host/v2/ontologies/classes
 </code></pre>
 <pre class="prettyprint"><code class="language-jsonld">{
-  &quot;knora-api:hasOntologies&quot; : {
-    &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
-    &quot;@type&quot; : &quot;owl:Ontology&quot;,
-    &quot;knora-api:hasClasses&quot; : {
-      &quot;CLASS_IRI&quot; : {
-        &quot;@id&quot; : &quot;CLASS_IRI&quot;,
-        &quot;@type&quot; : &quot;owl:Class&quot;,
-        &quot;rdfs:label&quot; : {
-          &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
-          &quot;@value&quot; : &quot;LABEL&quot;
-        },
-        &quot;rdfs:comment&quot; : {
-          &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
-          &quot;@value&quot; : &quot;COMMENT&quot;
-        },
-        &quot;rdfs:subClassOf&quot; : &quot;BASE_CLASS_IRI&quot;
+  &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
+  &quot;@type&quot; : &quot;owl:Ontology&quot;,
+  &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;,
+  &quot;@graph&quot; : [ {
+    &quot;CLASS_IRI&quot; : {
+      &quot;@id&quot; : &quot;CLASS_IRI&quot;,
+      &quot;@type&quot; : &quot;owl:Class&quot;,
+      &quot;rdfs:label&quot; : {
+        &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
+        &quot;@value&quot; : &quot;LABEL&quot;
+      },
+      &quot;rdfs:comment&quot; : {
+        &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
+        &quot;@value&quot; : &quot;COMMENT&quot;
+      },
+      &quot;rdfs:subClassOf&quot; : {
+        &quot;@id&quot; : &quot;BASE_CLASS_IRI&quot;
       }
-    },
-    &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;
-  },
+    }
+  } ],
   &quot;@context&quot; : {
     &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
     &quot;owl&quot; : &quot;http://www.w3.org/2002/07/owl#&quot;,
@@ -800,39 +1034,38 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </code></pre>
 <p>Values for <code>rdfs:label</code> and <code>rdfs:comment</code> must be submitted in at least one language, either as an object or as an array of objects.</p>
 <p>At least one base class must be provided, which can be <code>knora-api:Resource</code> or any of its subclasses.</p>
-<p>A successful response will be a JSON-LD document containing <code>knora-api:hasOntologies</code>, providing the new class definition (but not any of the other entities in the ontology).</p>
+<p>A successful response will be a JSON-LD document providing the new class definition (but not any of the other entities in the ontology).</p>
 <h3><a href="#creating-a-class-with-cardinalities" name="creating-a-class-with-cardinalities" class="anchor"><span class="anchor-link"></span></a>Creating a Class With Cardinalities</h3>
 <p>This can work if the new class will have cardinalities for properties that have no <code>knora-api:subjectType</code>, or if the new class will be a subclass of their <code>knora-api:subjectType</code>.</p>
 <pre><code>HTTP POST to http://host/v2/ontologies/classes
 </code></pre>
 <pre class="prettyprint"><code class="language-jsonld">{
-  &quot;knora-api:hasOntologies&quot; : {
-    &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
-    &quot;@type&quot; : &quot;owl:Ontology&quot;,
-    &quot;knora-api:hasClasses&quot; : {
-      &quot;CLASS_IRI&quot; : {
-        &quot;@id&quot; : &quot;CLASS_IRI&quot;,
-        &quot;@type&quot; : &quot;owl:Class&quot;,
-        &quot;rdfs:label&quot; : {
-          &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
-          &quot;@value&quot; : &quot;LABEL&quot;
-        },
-        &quot;rdfs:comment&quot; : {
-          &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
-          &quot;@value&quot; : &quot;COMMENT&quot;
-        },
-        &quot;rdfs:subClassOf&quot; : [
-            &quot;BASE_CLASS_IRI&quot;,
-            {
-                &quot;@type&quot;: &quot;http://www.w3.org/2002/07/owl#Restriction&quot;,
-                &quot;OWL_CARDINALITY_PREDICATE&quot;: &quot;OWL_CARDINALITY_VALUE&quot;,
-                &quot;owl:onProperty&quot;: &quot;PROPERTY_IRI&quot;
-            }
-        ]
-      }
-    },
-    &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;
-  },
+  &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
+  &quot;@type&quot; : &quot;owl:Ontology&quot;,
+  &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;,
+  &quot;@graph&quot; : [ {
+    &quot;CLASS_IRI&quot; : {
+      &quot;@id&quot; : &quot;CLASS_IRI&quot;,
+      &quot;@type&quot; : &quot;owl:Class&quot;,
+      &quot;rdfs:label&quot; : {
+        &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
+        &quot;@value&quot; : &quot;LABEL&quot;
+      },
+      &quot;rdfs:comment&quot; : {
+        &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
+        &quot;@value&quot; : &quot;COMMENT&quot;
+      },
+      &quot;rdfs:subClassOf&quot; : [ {
+        &quot;@id&quot; : &quot;BASE_CLASS_IRI&quot;
+      }, {
+        &quot;@type&quot;: &quot;owl:Restriction&quot;,
+        &quot;OWL_CARDINALITY_PREDICATE&quot;: &quot;OWL_CARDINALITY_VALUE&quot;,
+        &quot;owl:onProperty&quot;: {
+          &quot;@id&quot; : &quot;PROPERTY_IRI&quot;
+        }
+      } ]
+    }
+  } ],
   &quot;@context&quot; : {
     &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
     &quot;owl&quot; : &quot;http://www.w3.org/2002/07/owl#&quot;,
@@ -844,27 +1077,25 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p><code>OWL_CARDINALITY_PREDICATE</code> and <code>OWL_CARDINALITY_VALUE</code> must correspond to the supported combinations given in <a href="../../02-knora-ontologies/knora-base.html#owl-cardinalities">OWL Cardinalities</a>. (The placeholder <code>OWL_CARDINALITY_VALUE</code> is shown here in quotes, but it should be an unquoted integer.)</p>
 <p>Values for <code>rdfs:label</code> and <code>rdfs:comment</code> must be submitted in at least one language, either as an object or as an array of objects.</p>
 <p>At least one base class must be provided.</p>
-<p>A successful response will be a JSON-LD document containing <code>knora-api:hasOntologies</code>, providing the new class definition (but not any of the other entities in the ontology).</p>
+<p>A successful response will be a JSON-LD document providing the new class definition (but not any of the other entities in the ontology).</p>
 <h3><a href="#changing-the-labels-of-a-class" name="changing-the-labels-of-a-class" class="anchor"><span class="anchor-link"></span></a>Changing the Labels of a Class</h3>
 <p>This operation is permitted even if the class is used in data.</p>
 <pre><code>HTTP PUT to http://host/v2/ontologies/classes
 </code></pre>
 <pre class="prettyprint"><code class="language-jsonld">{
-  &quot;knora-api:hasOntologies&quot; : {
-    &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
-    &quot;@type&quot; : &quot;owl:Ontology&quot;,
-    &quot;knora-api:hasClasses&quot; : {
-      &quot;CLASS_IRI&quot; : {
-        &quot;@id&quot; : &quot;CLASS_IRI&quot;,
-        &quot;@type&quot; : &quot;owl:Class&quot;,
-        &quot;rdfs:label&quot; : {
-          &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
-          &quot;@value&quot; : &quot;LABEL&quot;
-        }
+  &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
+  &quot;@type&quot; : &quot;owl:Ontology&quot;,
+  &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;,
+  &quot;@graph&quot; : [ {
+    &quot;CLASS_IRI&quot; : {
+      &quot;@id&quot; : &quot;CLASS_IRI&quot;,
+      &quot;@type&quot; : &quot;owl:Class&quot;,
+      &quot;rdfs:label&quot; : {
+        &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
+        &quot;@value&quot; : &quot;LABEL&quot;
       }
-    },
-    &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;
-  },
+    }
+  } ],
   &quot;@context&quot; : {
     &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
     &quot;owl&quot; : &quot;http://www.w3.org/2002/07/owl#&quot;,
@@ -879,21 +1110,19 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <pre><code>HTTP PUT to http://host/v2/ontologies/classes
 </code></pre>
 <pre class="prettyprint"><code class="language-jsonld">{
-  &quot;knora-api:hasOntologies&quot; : {
-    &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
-    &quot;@type&quot; : &quot;owl:Ontology&quot;,
-    &quot;knora-api:hasClasses&quot; : {
-      &quot;CLASS_IRI&quot; : {
-        &quot;@id&quot; : &quot;CLASS_IRI&quot;,
-        &quot;@type&quot; : &quot;owl:Class&quot;,
-        &quot;rdfs:comment&quot; : {
-          &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
-          &quot;@value&quot; : &quot;COMMENT&quot;
-        }
+  &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
+  &quot;@type&quot; : &quot;owl:Ontology&quot;,
+  &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;,
+  &quot;@graph&quot; : [ {
+    &quot;CLASS_IRI&quot; : {
+      &quot;@id&quot; : &quot;CLASS_IRI&quot;,
+      &quot;@type&quot; : &quot;owl:Class&quot;,
+      &quot;rdfs:comment&quot; : {
+        &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
+        &quot;@value&quot; : &quot;COMMENT&quot;
       }
-    },
-    &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;
-  },
+    }
+  } ],
   &quot;@context&quot; : {
     &quot;rdf&quot; : &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;,
     &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
@@ -908,30 +1137,36 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <pre><code>HTTP POST to http://host/v2/ontologies/properties
 </code></pre>
 <pre class="prettyprint"><code class="language-jsonld">{
-  &quot;knora-api:hasOntologies&quot; : {
-    &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
-    &quot;@type&quot; : &quot;owl:Ontology&quot;,
-    &quot;knora-api:hasProperties&quot; : {
-      &quot;PROPERTY_IRI&quot; : {
-        &quot;@id&quot; : &quot;PROPERTY_IRI&quot;,
-        &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
-        &quot;knora-api:subjectType&quot; : &quot;SUBJECT_TYPE&quot;,
-        &quot;knora-api:objectType&quot; : &quot;OBJECT_TYPE&quot;,
-        &quot;rdfs:label&quot; : {
-          &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
-          &quot;@value&quot; : &quot;LABEL&quot;
-        },
-        &quot;rdfs:comment&quot; : {
-          &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
-          &quot;@value&quot; : &quot;COMMENT&quot;
-        },
-        &quot;rdfs:subPropertyOf&quot; : &quot;BASE_PROPERTY_IRI&quot;,
-        &quot;salsah-gui:guiElement&quot; : &quot;GUI_ELEMENT_IRI&quot;,
-        &quot;salsah-gui:guiAttribute&quot; : [ &quot;GUI_ATTRIBUTE&quot; ]
+  &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
+  &quot;@type&quot; : &quot;owl:Ontology&quot;,
+  &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;,
+  &quot;@graph&quot; : [ {
+    &quot;PROPERTY_IRI&quot; : {
+      &quot;@id&quot; : &quot;PROPERTY_IRI&quot;,
+      &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
+      &quot;knora-api:subjectType&quot; : {
+        &quot;@id&quot; : &quot;SUBJECT_TYPE&quot;
+      },
+      &quot;knora-api:objectType&quot; : {
+        &quot;@id&quot; : &quot;OBJECT_TYPE&quot;
+      },
+      &quot;rdfs:label&quot; : {
+        &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
+        &quot;@value&quot; : &quot;LABEL&quot;
+      },
+      &quot;rdfs:comment&quot; : {
+        &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
+        &quot;@value&quot; : &quot;COMMENT&quot;
+      },
+      &quot;rdfs:subPropertyOf&quot; : {
+        &quot;@id&quot; : &quot;BASE_PROPERTY_IRI&quot;
+      },
+      &quot;salsah-gui:guiElement&quot; : {
+        &quot;@id&quot; : &quot;GUI_ELEMENT_IRI&quot;
       }
-    },
-    &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;
-  },
+      &quot;salsah-gui:guiAttribute&quot; : [ &quot;GUI_ATTRIBUTE&quot; ]
+    }
+  } ],
   &quot;@context&quot; : {
     &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
     &quot;salsah-gui&quot; : &quot;http://api.knora.org/ontology/salsah-gui/v2#&quot;,
@@ -943,30 +1178,28 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </code></pre>
 <p>Values for <code>rdfs:label</code> and <code>rdfs:comment</code> must be submitted in at least one language, either as an object or as an array of objects.</p>
 <p>At least one base property must be provided, which can be <code>knora-api:hasValue</code>, <code>knora-api:hasLinkTo</code>, or any of their subproperties, with the exception of file properties (subproperties of <code>knora-api:hasFileValue</code>) and link value properties (subproperties of <code>knora-api:hasLinkToValue</code>).</p>
-<p>The property definition must specify its <code>knora-api:objectType</code>. If the new property is a subproperty of <code>knora-api:hasValue</code>, its <code>knora-api:objectType</code> must be one of the built-in subclasses of <code>knora-api:Value</code>, which are defined in the <code>knora-api</code> ontology in the default schema. If the new property is a subproperty of <code>knora-base:hasLinkTo</code>, its <code>knora-api:objectType</code> must be a subclass of <code>knora-api:Resource</code>.</p>
+<p>The property definition must specify its <code>knora-api:objectType</code>. If the new property is a subproperty of <code>knora-api:hasValue</code>, its <code>knora-api:objectType</code> must be one of the built-in subclasses of <code>knora-api:Value</code>, which are defined in the <code>knora-api</code> ontology in the complex schema. If the new property is a subproperty of <code>knora-base:hasLinkTo</code>, its <code>knora-api:objectType</code> must be a subclass of <code>knora-api:Resource</code>.</p>
 <p>To improve consistency checking, it is recommended, but not required, to provide <code>knora-api:subjectType</code>, which must be a subclass of <code>knora-api:Resource</code>.</p>
 <p>The predicates <code>salsah-gui:guiElement</code> and <code>salsah-gui:guiAttribute</code> are optional. If provided, the object of <code>guiElement</code> must be one of the OWL named individuals defined in <a href="../../02-knora-ontologies/salsah-gui.html#individuals">The SALSAH GUI Ontology</a>. Some GUI elements take required or optional attributes, which are provided as objects of <code>salsah-gui:guiAttribute</code>; see <a href="../../02-knora-ontologies/salsah-gui.html">The SALSAH GUI Ontology</a> for details.</p>
-<p>A successful response will be a JSON-LD document containing <code>knora-api:hasOntologies</code>, providing the new property definition (but not any of the other entities in the ontology).</p>
+<p>A successful response will be a JSON-LD document providing the new property definition (but not any of the other entities in the ontology).</p>
 <h3><a href="#changing-the-labels-of-a-property" name="changing-the-labels-of-a-property" class="anchor"><span class="anchor-link"></span></a>Changing the Labels of a Property</h3>
 <p>This operation is permitted even if the property is used in data.</p>
 <pre><code>HTTP PUT to http://host/v2/ontologies/properties
 </code></pre>
 <pre class="prettyprint"><code class="language-jsonld">{
-  &quot;knora-api:hasOntologies&quot; : {
-    &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
-    &quot;@type&quot; : &quot;owl:Ontology&quot;,
-    &quot;knora-api:hasProperties&quot; : {
-      &quot;PROPERTY_IRI&quot; : {
-        &quot;@id&quot; : &quot;PROPERTY_IRI&quot;,
-        &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
-        &quot;rdfs:label&quot; : {
-          &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
-          &quot;@value&quot; : &quot;LABEL&quot;
-        }
+  &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
+  &quot;@type&quot; : &quot;owl:Ontology&quot;,
+  &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;,
+  &quot;@graph&quot; : [ {
+    &quot;PROPERTY_IRI&quot; : {
+      &quot;@id&quot; : &quot;PROPERTY_IRI&quot;,
+      &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
+      &quot;rdfs:label&quot; : {
+        &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
+        &quot;@value&quot; : &quot;LABEL&quot;
       }
-    },
-    &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;
-  },
+    }
+  } ],
   &quot;@context&quot; : {
     &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
     &quot;owl&quot; : &quot;http://www.w3.org/2002/07/owl#&quot;,
@@ -981,21 +1214,19 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <pre><code>HTTP PUT to http://host/v2/ontologies/properties
 </code></pre>
 <pre class="prettyprint"><code class="language-jsonld">{
-  &quot;knora-api:hasOntologies&quot; : {
-    &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
-    &quot;@type&quot; : &quot;owl:Ontology&quot;,
-    &quot;knora-api:hasProperties&quot; : {
-      &quot;PROPERTY_IRI&quot; : {
-        &quot;@id&quot; : &quot;PROPERTY_IRI&quot;,
-        &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
-        &quot;rdfs:comment&quot; : {
-          &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
-          &quot;@value&quot; : &quot;COMMENT&quot;
-        }
+  &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
+  &quot;@type&quot; : &quot;owl:Ontology&quot;,
+  &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;,
+  &quot;@graph&quot; : [ {
+    &quot;PROPERTY_IRI&quot; : {
+      &quot;@id&quot; : &quot;PROPERTY_IRI&quot;,
+      &quot;@type&quot; : &quot;owl:ObjectProperty&quot;,
+      &quot;rdfs:comment&quot; : {
+        &quot;@language&quot; : &quot;LANGUAGE_CODE&quot;,
+        &quot;@value&quot; : &quot;COMMENT&quot;
       }
-    },
-    &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;
-  },
+    }
+  } ],
   &quot;@context&quot; : {
     &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
     &quot;owl&quot; : &quot;http://www.w3.org/2002/07/owl#&quot;,
@@ -1010,24 +1241,22 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <pre><code>HTTP POST to http://host/v2/ontologies/cardinalities
 </code></pre>
 <pre class="prettyprint"><code class="language-jsonld">{
-  &quot;knora-api:hasOntologies&quot; : {
-    &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
-    &quot;@type&quot; : &quot;owl:Ontology&quot;,
-    &quot;knora-api:hasClasses&quot; : {
-      &quot;CLASS_IRI&quot; : {
-        &quot;@id&quot; : &quot;CLASS_IRI&quot;,
-        &quot;@type&quot; : &quot;owl:Class&quot;,
-        &quot;rdfs:subClassOf&quot; : [
-            {
-                &quot;@type&quot;: &quot;http://www.w3.org/2002/07/owl#Restriction&quot;,
-                &quot;OWL_CARDINALITY_PREDICATE&quot;: &quot;OWL_CARDINALITY_VALUE&quot;,
-                &quot;owl:onProperty&quot;: &quot;PROPERTY_IRI&quot;
-            }
-        ]
+  &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
+  &quot;@type&quot; : &quot;owl:Ontology&quot;,
+  &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;,
+  &quot;@graph&quot; : [ {
+    &quot;CLASS_IRI&quot; : {
+      &quot;@id&quot; : &quot;CLASS_IRI&quot;,
+      &quot;@type&quot; : &quot;owl:Class&quot;,
+      &quot;rdfs:subClassOf&quot; : {
+        &quot;@type&quot;: &quot;owl:Restriction&quot;,
+        &quot;OWL_CARDINALITY_PREDICATE&quot;: &quot;OWL_CARDINALITY_VALUE&quot;,
+        &quot;owl:onProperty&quot;: {
+          &quot;@id&quot; : &quot;PROPERTY_IRI&quot;
+        }
       }
-    },
-    &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;
-  },
+    }
+  } ],
   &quot;@context&quot; : {
     &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
     &quot;owl&quot; : &quot;http://www.w3.org/2002/07/owl#&quot;,
@@ -1038,31 +1267,29 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </code></pre>
 <p>At least one cardinality must be submitted.</p>
 <p><code>OWL_CARDINALITY_PREDICATE</code> and <code>OWL_CARDINALITY_VALUE</code> must correspond to the supported combinations given in <a href="../../02-knora-ontologies/knora-base.html#owl-cardinalities">OWL Cardinalities</a>. (The placeholder <code>OWL_CARDINALITY_VALUE</code> is shown here in quotes, but it should be an unquoted integer.)</p>
-<p>A successful response will be a JSON-LD document containing <code>knora-api:hasOntologies</code>, providing the new class definition (but not any of the other entities in the ontology).</p>
+<p>A successful response will be a JSON-LD document providing the new class definition (but not any of the other entities in the ontology).</p>
 <h3><a href="#replacing-the-cardinalities-of-a-class" name="replacing-the-cardinalities-of-a-class" class="anchor"><span class="anchor-link"></span></a>Replacing the Cardinalities of a Class</h3>
 <p>This removes all the cardinalities from the class and replaces them with the submitted cardinalities. If no cardinalities are submitted (i.e. the request contains no <code>rdfs:subClassOf</code>), the class is left with no cardinalities.</p>
 <p>This operation is not permitted if the class is used in data, or if it has a subclass.</p>
 <pre><code>HTTP PUT to http://host/v2/ontologies/cardinalities
 </code></pre>
 <pre class="prettyprint"><code class="language-jsonld">{
-  &quot;knora-api:hasOntologies&quot; : {
-    &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
-    &quot;@type&quot; : &quot;owl:Ontology&quot;,
-    &quot;knora-api:hasClasses&quot; : {
-      &quot;CLASS_IRI&quot; : {
-        &quot;@id&quot; : &quot;CLASS_IRI&quot;,
-        &quot;@type&quot; : &quot;owl:Class&quot;,
-        &quot;rdfs:subClassOf&quot; : [
-            {
-                &quot;@type&quot;: &quot;http://www.w3.org/2002/07/owl#Restriction&quot;,
-                &quot;OWL_CARDINALITY_PREDICATE&quot;: &quot;OWL_CARDINALITY_VALUE&quot;,
-                &quot;owl:onProperty&quot;: &quot;PROPERTY_IRI&quot;
-            }
-        ]
+  &quot;@id&quot; : &quot;ONTOLOGY_IRI&quot;,
+  &quot;@type&quot; : &quot;owl:Ontology&quot;,
+  &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;,
+  &quot;@graph&quot; : [ {
+    &quot;CLASS_IRI&quot; : {
+      &quot;@id&quot; : &quot;CLASS_IRI&quot;,
+      &quot;@type&quot; : &quot;owl:Class&quot;,
+      &quot;rdfs:subClassOf&quot; : {
+        &quot;@type&quot;: &quot;owl:Restriction&quot;,
+        &quot;OWL_CARDINALITY_PREDICATE&quot;: &quot;OWL_CARDINALITY_VALUE&quot;,
+        &quot;owl:onProperty&quot;: {
+          &quot;@id&quot; : &quot;PROPERTY_IRI&quot;
+        }
       }
-    },
-    &quot;knora-api:lastModificationDate&quot; : &quot;ONTOLOGY_LAST_MODIFICATION_DATE&quot;
-  },
+    }
+  } ],
   &quot;@context&quot; : {
     &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
     &quot;owl&quot; : &quot;http://www.w3.org/2002/07/owl#&quot;,
@@ -1072,19 +1299,19 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 }
 </code></pre>
 <p><code>OWL_CARDINALITY_PREDICATE</code> and <code>OWL_CARDINALITY_VALUE</code> must correspond to the supported combinations given in <a href="../../02-knora-ontologies/knora-base.html#owl-cardinalities">OWL Cardinalities</a>. (The placeholder <code>OWL_CARDINALITY_VALUE</code> is shown here in quotes, but it should be an unquoted integer.)</p>
-<p>A successful response will be a JSON-LD document containing <code>knora-api:hasOntologies</code>, providing the new class definition (but not any of the other entities in the ontology).</p>
+<p>A successful response will be a JSON-LD document providing the new class definition (but not any of the other entities in the ontology).</p>
 <h3><a href="#deleting-a-property" name="deleting-a-property" class="anchor"><span class="anchor-link"></span></a>Deleting a Property</h3>
 <p>A property can be deleted only if no other ontology entity refers to it, and if it is not used in data.</p>
 <pre><code>HTTP DELETE to http://host/v2/ontologies/properties/PROPERTY_IRI?lastModificationDate=ONTOLOGY_LAST_MODIFICATION_DATE
 </code></pre>
 <p>The property IRI and the ontology&rsquo;s last modification date must be URL-encoded.</p>
-<p>A successful response will be a JSON-LD document containing <code>knora-api:hasOntologies</code>, providing only the ontology&rsquo;s metadata.</p>
+<p>A successful response will be a JSON-LD document providing only the ontology&rsquo;s metadata.</p>
 <h3><a href="#deleting-a-class" name="deleting-a-class" class="anchor"><span class="anchor-link"></span></a>Deleting a Class</h3>
 <p>A class can be deleted only if no other ontology entity refers to it, and if it is not used in data.</p>
 <pre><code>HTTP DELETE to http://host/v2/ontologies/classes/CLASS_IRI?lastModificationDate=ONTOLOGY_LAST_MODIFICATION_DATE
 </code></pre>
 <p>The class IRI and the ontology&rsquo;s last modification date must be URL-encoded.</p>
-<p>A successful response will be a JSON-LD document containing <code>knora-api:hasOntologies</code>, providing only the ontology&rsquo;s metadata.</p>
+<p>A successful response will be a JSON-LD document providing only the ontology&rsquo;s metadata.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/03-webapi/api-v2/ontology-information.md" title="Edit this page" class="md-source-file md-edit">
@@ -1116,13 +1343,13 @@ KnarQL: Knora Query Language
 </span>
 </div>
 </a>
-<a href="../../03-webapi/api-v2/response-formats.html" title="Response Formats" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../03-webapi/api-admin/index.html" title="Knora Admin API" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Response Formats
+Knora Admin API
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

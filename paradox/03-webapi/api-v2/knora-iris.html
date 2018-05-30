@@ -281,26 +281,26 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>The name of an external ontology is the same as the name of the corresponding internal ontology, with one exception: the external form of <code>knora-base</code> is called <code>knora-api</code>.</p>
 <p>The API version identifier indicates not only the version of the API, but also an API &lsquo;schema&rsquo;. The Knora API v2 is available in two schemas:</p>
 <ul>
-  <li>A default schema, which is suitable both for reading and for editing data. The default schema represents values primarily as complex objects. Its version identifier is <code>v2</code>.</li>
+  <li>A complex schema, which is suitable both for reading and for editing data. The complex schema represents values primarily as complex objects. Its version identifier is <code>v2</code>.</li>
   <li>A simple schema, which is suitable for reading data but not for editing it. The simple schema facilitates interoperability between Knora ontologies and non-Knora ontologies, since it represents values primarily as literals. Its version identifier is <code>simple/v2</code>.</li>
 </ul>
 <p>Other schemas could be added in the future for more specific use cases.</p>
 <p>When requesting an ontology, the client requests a particular schema. (This will also be true of most Knora API v2 requests: the client will be able to specify which schema the response should be provided in.)</p>
 <p>For example, suppose a Knora API server is running at <code>knora.example.org</code> and hosts an ontology whose internal IRI is <code>http://www.knora.org/ontology/0001/example</code>. That ontology can then be requested using either of these IRIs:</p>
 <ul>
-  <li><code>http://knora.example.org/ontology/0001/example/v2</code> (for the default schema)</li>
+  <li><code>http://knora.example.org/ontology/0001/example/v2</code> (for the complex schema)</li>
   <li><code>http://knora.example.org/ontology/0001/example/simple/v2</code> (for the simple schema)</li>
 </ul>
 <p>While the internal <code>example</code> ontology refers to definitions in <code>knora-base</code>, the external <code>example</code> ontology that is served by the API refers instead to a <code>knora-api</code> ontology, whose IRI depends on the schema being used:</p>
 <ul>
-  <li><code>http://api.knora.org/ontology/knora-api/v2</code> (for the default schema)</li>
+  <li><code>http://api.knora.org/ontology/knora-api/v2</code> (for the complex schema)</li>
   <li><code>http://api.knora.org/ontology/knora-api/simple/v2</code> (for the simple schema)</li>
 </ul>
 <h3><a href="#ontology-entity-iris" name="ontology-entity-iris" class="anchor"><span class="anchor-link"></span></a>Ontology Entity IRIs</h3>
 <p>Knora ontologies use &lsquo;hash namespaces&rsquo; (see <a href="https://www.w3.org/2001/sw/BestPractices/VM/http-examples/2006-01-18/#naming">URI Namespaces</a>). This means that the IRI of an ontology entity (a class or property definition) is constructed by adding a hash character (<code>#</code>) to the ontology IRI, followed by the name of the entity. In Knora, an entity name must be a valid XML <a href="https://www.w3.org/TR/1999/REC-xml-names-19990114/#NT-NCName">NCName</a>. Thus, if there is a class called <code>ExampleThing</code> in an ontology whose internal IRI is <code>http://www.knora.org/ontology/0001/example</code>, that class has the following IRIs:</p>
 <ul>
   <li><code>http://www.knora.org/ontology/0001/example#ExampleThing</code> (in the internal ontology)</li>
-  <li><code>http://HOST[:PORT]/ontology/0001/example/v2#ExampleThing</code> (in the API v2 default schema)</li>
+  <li><code>http://HOST[:PORT]/ontology/0001/example/v2#ExampleThing</code> (in the API v2 complex schema)</li>
   <li><code>http://HOST[:PORT]/ontology/0001/example/simple/v2#ExampleThing</code> (in the API v2 simple schema)</li>
 </ul>
 <h2><a href="#iris-for-data" name="iris-for-data" class="anchor"><span class="anchor-link"></span></a>IRIs for Data</h2>
@@ -339,7 +339,7 @@ v1.4.0
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../../03-webapi/api-v2/introduction.html" title="Introduction: Using API V2" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../../03-webapi/api-v2/introduction.html" title="Introduction: Using API v2" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -348,7 +348,7 @@ v1.4.0
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Introduction: Using API V2
+Introduction: Using API v2
 </span>
 </div>
 </a>

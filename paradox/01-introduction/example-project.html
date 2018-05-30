@@ -316,7 +316,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   knora-base:objectClassConstraint knora-base:LinkValue .
 </code></pre>
 <p>As a link value property, <code>incunabula:partOfValue</code> must point to a <code>knora-base:LinkValue</code>. The <code>LinkValue</code> class is an RDF <em>reification</em> of a triple (in this case, the triple that links a page to a book). For more details about this, see knora-base-linkvalue.</p>
-<p>Note that the property <code>incunabula:hasAuthor</code> points to a <code>knora-base:TextValue</code>, because the <code>incunabula</code> project repåresents authors simply by their names. A more complex project could represent each author as a resource, in which case <code>incunabula:hasAuthor</code> would need to be a subproperty of <code>knora-base:hasLinkTo</code>.</p>
+<p>Note that the property <code>incunabula:hasAuthor</code> points to a <code>knora-base:TextValue</code>, because the <code>incunabula</code> project represents authors simply by their names. A more complex project could represent each author as a resource, in which case <code>incunabula:hasAuthor</code> would need to be a subproperty of <code>knora-base:hasLinkTo</code>.</p>
 <h3><a href="#resource-classes" name="resource-classes" class="anchor"><span class="anchor-link"></span></a>Resource Classes</h3>
 <p>The two main resource classes in the <code>incunabula</code> ontology are <code>book</code> and <code>page</code>. Here is <code>incunabula:book</code>:</p>
 <pre><code>:book rdf:type owl:Class ;

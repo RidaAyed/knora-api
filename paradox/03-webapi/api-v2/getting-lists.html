@@ -18,7 +18,7 @@
 
 <meta name="description" content="root">
 <link rel="shortcut icon" href="../../cloud">
-<title>Response Formats · Knora Documentation</title>
+<title>Getting Lists · Knora Documentation</title>
 <link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Response Formats
+Getting Lists
 </span>
 </div>
 </div>
@@ -173,9 +173,10 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../03-webapi/api-v2/response-formats.html#response-formats" class="header">Response Formats</a>
+  <li><a href="../../03-webapi/api-v2/getting-lists.html#getting-lists" class="header">Getting Lists</a>
   <ul>
-    <li><a href="../../03-webapi/api-v2/response-formats.html#resources-sequence" class="header">Resources Sequence</a></li>
+    <li><a href="../../03-webapi/api-v2/getting-lists.html#getting-a-complete-list" class="header">Getting a complete List</a></li>
+    <li><a href="../../03-webapi/api-v2/getting-lists.html#getting-a-single-node" class="header">Getting a single Node</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -194,9 +195,10 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../03-webapi/api-v2/response-formats.html#response-formats" class="header">Response Formats</a>
+  <li><a href="../../03-webapi/api-v2/getting-lists.html#getting-lists" class="header">Getting Lists</a>
   <ul>
-    <li><a href="../../03-webapi/api-v2/response-formats.html#resources-sequence" class="header">Resources Sequence</a></li>
+    <li><a href="../../03-webapi/api-v2/getting-lists.html#getting-a-complete-list" class="header">Getting a complete List</a></li>
+    <li><a href="../../03-webapi/api-v2/getting-lists.html#getting-a-single-node" class="header">Getting a single Node</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -225,16 +227,26 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#response-formats" name="response-formats" class="anchor"><span class="anchor-link"></span></a>Response Formats</h1>
-<h2><a href="#resources-sequence" name="resources-sequence" class="anchor"><span class="anchor-link"></span></a>Resources Sequence</h2>
-<p>For the sake of consistency, the same response format, <code>ResourcesSequence</code>, is used whenever one or more resources are returned in an API response. This means that different API operations give responses with the same structure, which represent different views on the data depending on which API route was used (context).</p>
-<p>For example, a resource request returns a resource and all its properties. In a full-text search, the resource is returned with the properties that matched the search criteria.</p>
-<p>A response to an extended search may represent a whole graph of interconnected resources.</p>
-<p>Basically, resources are returned in form of an ordered sequence, including information about how many elements the list has. Dependent resources, i.e. resources that are referred to by other resources on the top level, are nested in link values.</p>
-<p>See interface <code>ResourcesSequence</code> in module <code>ResourcesResponse</code> (exists for both API schemas: <code>ApiV2Simple</code> and <code>ApiV2WithValueObjects</code>).</p>
+<h1><a href="#getting-lists" name="getting-lists" class="anchor"><span class="anchor-link"></span></a>Getting Lists</h1>
+<div class="toc ">
+<ul>
+  <li><a href="../../03-webapi/api-v2/getting-lists.html#getting-a-complete-list" class="header">Getting a complete List</a></li>
+  <li><a href="../../03-webapi/api-v2/getting-lists.html#getting-a-single-node" class="header">Getting a single Node</a></li>
+</ul>
+</div>
+<h2><a href="#getting-a-complete-list" name="getting-a-complete-list" class="anchor"><span class="anchor-link"></span></a>Getting a complete List</h2>
+<p>In order to request a complete list, make a HTTP GET request to the <code>lists</code> route appending the Iri of the list&rsquo;s root node (URL-encoded):</p>
+<pre><code>HTTP GET to http://host/v2/lists/listRootNodeIri
+</code></pre>
+<p>Lists are only returned in the complex schema. The response to a list request is a <code>List</code> (see interface <code>List</code> in module <code>ListResponse</code>). </p>
+<h2><a href="#getting-a-single-node" name="getting-a-single-node" class="anchor"><span class="anchor-link"></span></a>Getting a single Node</h2>
+<p>In order to request a single node of a list, make a HTTP GET request to the <code>node</code> route appending the node&rsquo;s Iri (URL-encoded):</p>
+<pre><code>HTTP GET to http://host/v2/node/nodeIri
+</code></pre>
+<p>Nodes are only returned in the complex schema. The response to a node request is a <code>ListNode</code> (see interface <code>List</code> in module <code>ListResponse</code>).</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/03-webapi/api-v2/response-formats.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/03-webapi/api-v2/getting-lists.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -250,7 +262,7 @@ v1.4.0
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../../03-webapi/api-v2/ontology-information.html" title="Querying, Creating, and Updating Ontologies" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../../03-webapi/api-v2/reading-and-searching-resources.html" title="Reading and Searching Resources" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -259,17 +271,17 @@ v1.4.0
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Querying, Creating, and Updating Ontologies
+Reading and Searching Resources
 </span>
 </div>
 </a>
-<a href="../../03-webapi/api-admin/index.html" title="Knora Admin API" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../03-webapi/api-v2/xml-to-standoff-mapping.html" title="XML to Standoff Mapping" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Knora Admin API
+XML to Standoff Mapping
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

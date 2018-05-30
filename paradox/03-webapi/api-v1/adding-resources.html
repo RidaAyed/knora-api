@@ -352,6 +352,7 @@ r = requests.post(&quot;http://host/v1/resources&quot;,
         &lt;knoraXmlImport:label&gt;Niels Henrik Abel&lt;/knoraXmlImport:label&gt;
         &lt;p0801-beol:hasFamilyName knoraType=&quot;richtext_value&quot;&gt;Abel&lt;/p0801-beol:hasFamilyName&gt;
         &lt;p0801-beol:hasGivenName knoraType=&quot;richtext_value&quot;&gt;Niels Henrik&lt;/p0801-beol:hasGivenName&gt;
+        &lt;p0801-beol:personHasTitle knoraType=&quot;richtext_value&quot; lang=&quot;en&quot;&gt;Sir&lt;/p0801-beol:personHasTitle&gt;
     &lt;/p0801-beol:person&gt;
     &lt;p0801-beol:person id=&quot;holmes&quot;&gt;
         &lt;knoraXmlImport:label&gt;Sherlock Holmes&lt;/knoraXmlImport:label&gt;
@@ -379,7 +380,7 @@ r = requests.post(&quot;http://host/v1/resources&quot;,
             &lt;p0801-beol:person knoraType=&quot;link_value&quot; linkType=&quot;ref&quot; target=&quot;holmes&quot;/&gt;
         &lt;/p0802-biblio:publicationHasAuthor&gt;
         &lt;p0802-biblio:publicationHasDate knoraType=&quot;date_value&quot;&gt;GREGORIAN:1976&lt;/p0802-biblio:publicationHasDate&gt;
-        &lt;p0802-biblio:publicationHasTitle knoraType=&quot;richtext_value&quot;&gt;Strings in the 16th and 17th Centuries&lt;/p0802-biblio:publicationHasTitle&gt;
+        &lt;p0802-biblio:publicationHasTitle knoraType=&quot;richtext_value&quot; lang=&quot;en&quot;&gt;Strings in the 16th and 17th Centuries&lt;/p0802-biblio:publicationHasTitle&gt;
         &lt;p0802-biblio:publicationHasTitle knoraType=&quot;richtext_value&quot;&gt;An alternate title&lt;/p0802-biblio:publicationHasTitle&gt;
         &lt;p0802-biblio:startPage knoraType=&quot;richtext_value&quot;&gt;48&lt;/p0802-biblio:startPage&gt;
     &lt;/p0802-biblio:JournalArticle&gt;
@@ -422,6 +423,8 @@ r = requests.post(&quot;http://host/v1/resources&quot;,
       <li>In an XML tag that is mapped to a standoff link tag, the link target can refer either to the IRI of a resoruce that already exists in the triplestore, or to the ID of a resource described in the import. If a link points to a resource described in the import, the ID of the target resource must be prefixed with <code>ref:</code>. In the example above, using the standard mapping, the standoff link to <code>math_intelligencer</code> has the target <code>ref:math_intelligencer</code>.</li>
     </ul>
   </li>
+  <li>
+  <p>A text value can have a <code>lang</code> attribute, whose value is an ISO 639-1 code specifying the language of the text.</p></li>
 </ul>
 <p>To create these resources, we use the following route, specifying the IRI of the project in which the resources should be created:</p>
 <pre><code>HTTP POST to http://host/v1/resources/xmlimport/projectIRI

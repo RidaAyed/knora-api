@@ -175,6 +175,7 @@ dhlab-basel/Knora/docs
 <ul>
   <li><a href="../../03-webapi/api-v2/reading-and-searching-resources.html#reading-and-searching-resources" class="header">Reading and Searching Resources</a>
   <ul>
+    <li><a href="../../03-webapi/api-v2/reading-and-searching-resources.html#responses-describing-resources" class="header">Responses Describing Resources</a></li>
     <li><a href="../../03-webapi/api-v2/reading-and-searching-resources.html#get-the-representation-of-a-resource-by-its-iri" class="header">Get the Representation of a Resource by its IRI</a></li>
     <li><a href="../../03-webapi/api-v2/reading-and-searching-resources.html#search-for-resources" class="header">Search for Resources</a></li>
   </ul></li>
@@ -197,6 +198,7 @@ dhlab-basel/Knora/docs
 <ul>
   <li><a href="../../03-webapi/api-v2/reading-and-searching-resources.html#reading-and-searching-resources" class="header">Reading and Searching Resources</a>
   <ul>
+    <li><a href="../../03-webapi/api-v2/reading-and-searching-resources.html#responses-describing-resources" class="header">Responses Describing Resources</a></li>
     <li><a href="../../03-webapi/api-v2/reading-and-searching-resources.html#get-the-representation-of-a-resource-by-its-iri" class="header">Get the Representation of a Resource by its IRI</a></li>
     <li><a href="../../03-webapi/api-v2/reading-and-searching-resources.html#search-for-resources" class="header">Search for Resources</a></li>
   </ul></li>
@@ -230,6 +232,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h1><a href="#reading-and-searching-resources" name="reading-and-searching-resources" class="anchor"><span class="anchor-link"></span></a>Reading and Searching Resources</h1>
 <div class="toc ">
 <ul>
+  <li><a href="../../03-webapi/api-v2/reading-and-searching-resources.html#responses-describing-resources" class="header">Responses Describing Resources</a></li>
   <li><a href="../../03-webapi/api-v2/reading-and-searching-resources.html#get-the-representation-of-a-resource-by-its-iri" class="header">Get the Representation of a Resource by its IRI</a>
   <ul>
     <li><a href="../../03-webapi/api-v2/reading-and-searching-resources.html#get-a-full-representation-of-a-resource-by-its-iri" class="header">Get a Full Representation of a Resource by its IRI</a></li>
@@ -245,6 +248,13 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </ul>
 </div>
 <p>To retrieve an existing resource, the HTTP method <code>GET</code> has to be used. Reading resources may require authentication, since some resources may have restricted viewing permissions.</p>
+<h2><a href="#responses-describing-resources" name="responses-describing-resources" class="anchor"><span class="anchor-link"></span></a>Responses Describing Resources</h2>
+<p>Resources can be returned in <a href="https://json-ld.org/spec/latest/json-ld/">JSON-LD</a>, <a href="https://www.w3.org/TR/turtle/">Turtle</a>, or <a href="https://www.w3.org/TR/rdf-syntax-grammar/">RDF/XML</a>, using <a href="http://tools.ietf.org/html/rfc7231#section-5.3.2">HTTP content negotiation</a> (see <a href="introduction.html#response-formats">Response Formats</a>).</p>
+<p>Operations for reading and searching resources can return responses in either the simple or the complex ontology schema. The complex schema is used by default. To receive a response in the simple schema, use the HTTP request header or URL parameter described in <a href="introduction.html#api-schema">API Schema</a>.</p>
+<p>Each Knora API v2 response describing one or more resources returns a single RDF graph. For example, a request for a single resource returns that resource and all its values. In a full-text search, the resource is returned with the values that matched the search criteria. A response to an extended search may represent a whole graph of interconnected resources.</p>
+<p>In JSON-LD, if only one resource is returned, it is the top-level object; if more than one resource is returned, they are represented as an array of objects of the <code>@graph</code> member of the top-level object (see <a href="https://json-ld.org/spec/latest/json-ld/#named-graphs">Named Graphs</a> in the JSON-LD specification).</p>
+<p>In the complex schema, dependent resources, i.e. resources that are referred to by other resources on the top level, are nested in link value objects.</p>
+<p>See the interfaces <code>Resource</code> and <code>ResourcesSequence</code> in module <code>ResourcesResponse</code> (exists for both API schemas: <code>ApiV2Simple</code> and <code>ApiV2WithValueObjects</code>).</p>
 <h2><a href="#get-the-representation-of-a-resource-by-its-iri" name="get-the-representation-of-a-resource-by-its-iri" class="anchor"><span class="anchor-link"></span></a>Get the Representation of a Resource by its IRI</h2>
 <h3><a href="#get-a-full-representation-of-a-resource-by-its-iri" name="get-a-full-representation-of-a-resource-by-its-iri" class="anchor"><span class="anchor-link"></span></a>Get a Full Representation of a Resource by its IRI</h3>
 <p>A full representation of resource can be obtained by making a GET request to the API providing its IRI. Because a Knora IRI has the format of a URL, its IRI has to be URL-encoded.</p>
@@ -255,59 +265,54 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>More formally, the URL looks like this:</p>
 <pre><code>HTTP GET to http://host/v2/resources/resourceIRI(/anotherResourceIri)*
 </code></pre>
-<p>The response to a resource request is a <code>ResourcesSequence</code> (see <a href="response-formats.html">Response Formats</a>).</p>
 <h3><a href="#get-the-preview-of-a-resource-by-its-iri" name="get-the-preview-of-a-resource-by-its-iri" class="anchor"><span class="anchor-link"></span></a>Get the preview of a resource by its IRI</h3>
 <p>In some cases, the client may only want to request the preview of a resource, which just provides its <code>rdfs:label</code> and type.</p>
 <p>This works exactly like making a conventional resource request, using the path segment <code>resourcespreview</code>:</p>
 <pre><code>HTTP GET to http://host/v2/resourcespreview/resourceIRI(/anotherResourceIri)*
 </code></pre>
-<p>The response to a resource preview request is a <code>ResourcesSequence</code> (see <a href="response-formats.html">Response Formats</a>).</p>
 <h2><a href="#search-for-resources" name="search-for-resources" class="anchor"><span class="anchor-link"></span></a>Search for Resources</h2>
 <h3><a href="#search-for-a-resource-by-its-rdfs-label" name="search-for-a-resource-by-its-rdfs-label" class="anchor"><span class="anchor-link"></span></a>Search for a Resource by its <code>rdfs:label</code></h3>
 <p>Knora offers the possibility to search for resources by their <code>rdfs:label</code>. The use case for this search is to find a specific resource as you type. E.g., the user wants to get a list of resources whose <code>rdfs:label</code> contain some search terms separated by a whitespace character:</p>
-<blockquote>
-  <ul>
-    <li>Zeit</li>
-    <li>Zeitg</li>
-    <li>&hellip;</li>
-    <li>Zeitglöcklein d</li>
-    <li>&hellip;</li>
-    <li>Zeitglöcklein des Lebens</li>
-  </ul>
-</blockquote>
+<ul>
+  <li>Zeit</li>
+  <li>Zeitg</li>
+  <li>&hellip;</li>
+  <li>Zeitglöcklein d</li>
+  <li>&hellip;</li>
+  <li>Zeitglöcklein des Lebens</li>
+</ul>
 <p>With each character added to the last term, the selection gets more specific. The first term should at least contain four characters. To make this kind of &ldquo;search as you type&rdquo; possible, a wildcard character is automatically added to the last search  term.</p>
 <pre><code>HTTP GET to http://host/v2/searchbylabel/searchValue[limitToResourceClass=resourceClassIRI]
 [limitToProject=projectIRI][offset=Integer]
 </code></pre>
 <p>The first parameter must be preceded by a question mark <code>?</code>, any following parameter by an ampersand <code>&amp;</code>.</p>
 <p>The default value for the parameter <code>offset</code> is 0, which returns the first page of search results. Subsequent pages of results can be fetched by increasing <code>offset</code> by one. The amount of results per page is defined in <code>app/v2</code> in <code>application.conf</code>.</p>
-<p>The response to a label search request is a <code>ResourcesSequence</code> (see <a href="response-formats.html">Response Formats</a>).</p>
 <p>For performance reasons, standoff markup is not queried for this route.</p>
 <h3><a href="#full-text-search" name="full-text-search" class="anchor"><span class="anchor-link"></span></a>Full-text Search</h3>
 <p>Knora offers a full-text search that searches through all textual representations of values and <code>rdfs:label</code> of resources. You can separate search terms by a white space character and they will be combined using the Boolean <code>AND</code> operator. Please note that the search terms have to be URL-encoded.</p>
-<pre><code>HTTP GET to http://host/v2/search/searchValue[limitToResourceClass=resourceClassIRI][limitToProject=projectIRI][offset=Integer]
+<pre><code>HTTP GET to http://host/v2/search/searchValue[limitToResourceClass=resourceClassIRI]
+[limitToStandoffClass=standoffClassIri][limitToProject=projectIRI][offset=Integer]
 </code></pre>
 <p>Please note that the first parameter has to be preceded by a question mark <code>?</code>, any following parameter by an ampersand <code>&amp;</code>.</p>
 <p>The default value for the parameter <code>offset</code> is 0 which returns the first page of search results. Subsequent pages of results can be fetched by increasing <code>offset</code> by one. The amount of results per page is defined in <code>app/v2</code> in <code>application.conf</code>.</p>
-<p>The response to a full-text search request is a <code>ResourcesSequence</code> (see <a href="response-formats.html">Response Formats</a>).</p>
+<p>If the parameter <code>limitToStandoffClass</code> is provided, Knora will look for search terms that are marked up with the indicated standoff class.</p>
 <h3><a href="#extended-search" name="extended-search" class="anchor"><span class="anchor-link"></span></a>Extended Search</h3>
 <p>For more complex queries than a full-text search, Knora offers extended search possibilities, enabling clients to search for resources with arbitrary characteristics, as well as for a graph of resources that are interconnected in some particular way. To do this, the client submits a query in KnarQL (Knora Query Language), which is based on SPARQL (see <a href="query-language.html">KnarQL: Knora Query Language</a>). The Knora API server pages the results, filters them to ensure that permissions are respected, and returns them in a Knora API format (currently only JSON-LD).</p>
 <p>A KnarQL query can be URL-encoded and sent in a GET request to the extended search route.</p>
 <pre><code>HTTP GET to http://host/v2/searchextended/KnarQLQuery
 </code></pre>
 <p>In the future, POST requests will also be supported, to allow longer queries. See <a href="query-language.html">KnarQL: Knora Query Language</a> for detailed information about the query syntax and examples.</p>
-<p>The response to an extended search request is a <code>ResourcesSequence</code> (see <a href="response-formats.html">Response Formats</a>).</p>
 <h3><a href="#count-queries" name="count-queries" class="anchor"><span class="anchor-link"></span></a>Count Queries</h3>
 <p>For both full full-text and KnarQL searches, a count query can be performed. The answer of a count query is the number of resources (a number) that matched the indicated search criteria without taking into consideration permissions. This means that the client may not be able to access any of the resources matching the search criteria because of insufficient permissions. Insufficient permissions are intended to prevent a user from accessing a resource or any of its values, or even knowing about its IRI, but not to suppress information about the existence of such a resource.</p>
 <p>In order to perform a count query, just append the segment <code>count</code>:</p>
 <pre><code>HTTP GET to http://host/v2/searchbylabel/count/searchValue[limitToResourceClass=resourceClassIRI][limitToProject=projectIRI][offset=Integer]
 
-HTTP GET to http://host/v2/search/count/searchValue[limitToResourceClass=resourceClassIRI][limitToProject=projectIRI][offset=Integer]
+HTTP GET to http://host/v2/search/count/searchValue[limitToResourceClass=resourceClassIRI][limitToStandoffClass=standoffClassIri][limitToProject=projectIRI][offset=Integer]
 
 HTTP GET to http://host/v2/searchextended/count/KnarQLQuery
 </code></pre>
 <p>The first parameter has to be preceded by a question mark <code>?</code>, and any following parameter by an ampersand <code>&amp;</code>.</p>
-<p>The response to a count query request is a <code>ResourcesSequence</code> (see <a href="response-formats.html">Response Formats</a>).</p>
+<p>The response to a count query request is an object with one predicate, <code>http://schema.org/numberOfItems</code>, with an integer value.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/03-webapi/api-v2/reading-and-searching-resources.md" title="Edit this page" class="md-source-file md-edit">
@@ -339,13 +344,13 @@ Knora IRIs
 </span>
 </div>
 </a>
-<a href="../../03-webapi/api-v2/xml-to-standoff-mapping.html" title="XML to Standoff Mapping" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../03-webapi/api-v2/getting-lists.html" title="Getting Lists" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-XML to Standoff Mapping
+Getting Lists
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

@@ -354,7 +354,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>In this case, the compound resource is an <code>incunabula:book</code> identified by the IRI <code>http://data.knora.org/c5058f3a</code> and the components are of type <code>incunabula:page</code> (test data for the Incunabula project). Since inference is assumed, we can use <code>knora-api:StillImageRepresentation</code> (<code>incunabula:page</code> is one of its subclasses). This makes the query more generic and allows for reuse (for instance, a client would like to query different types of compound resources defined in different ontologies).</p>
 <p><code>ORDER BY</code> is used to sort the components by their sequence number.</p>
 <p><code>OFFSET</code> is set to 0 to get the first page of results.</p>
-<p>Note that in a KnarQL query, the prefix <code>knora-api</code> refers to the Knora-Api simple schema.</p>
+<p>Note that in a KnarQL query, the prefix <code>knora-api</code> refers to the Knora API v2 simple schema.</p>
 <pre><code>PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
 
 CONSTRUCT {

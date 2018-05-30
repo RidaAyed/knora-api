@@ -263,7 +263,7 @@ iri = &quot;&lt;&quot;, string, &quot;&gt;&quot; ;
 <dl>
   <dt><code>guiAttributeDefinition</code></dt>
   <dd>
-  <p>Used only in the <code>salsah-gui</code> ontology itself, as a predicate attached to instances of <code>Guielement</code> (see [salsah-gui-individuals]{role=&ldquo;ref&rdquo;}), to specify the attributes that can be given as objects of <code>guiAttribute</code> when a given <code>Guielement</code>. is used. The objects of this predicate are written in a DSL with the following syntax:</p></dd>
+  <p>Used only in the <code>salsah-gui</code> ontology itself, as a predicate attached to instances of <code>Guielement</code> (see <a href="salsah-gui.html#individuals">Individuals</a>), to specify the attributes that can be given as objects of <code>guiAttribute</code> when a given <code>Guielement</code>. is used. The objects of this predicate are written in a DSL with the following syntax:</p></dd>
 </dl>
 <pre class="prettyprint"><code class="language-ebnf">object = attribute name, [ &quot;(required)&quot; ], &quot;:&quot;, attribute type, [ enumerated values ] ;
 
@@ -306,26 +306,26 @@ value given via `guiAttribute` must be one of the enumerated values.
   <p>A GUI element for selecting a time interval in an audio or video recording.</p></dd>
   <dt><code>List</code></dt>
   <dd>
-    <p>A GUI element for selecting an item in a hierarchical list (see [knora-base-list-value]{role=&ldquo;ref&rdquo;}). A property definition that uses this element must also contain this <code>guiAttribute</code> predicate:</p>
+    <p>A GUI element for selecting an item in a hierarchical list (see <a href="knora-base.html#listvalue">ListValue</a>). A property definition that uses this element must also contain this <code>guiAttribute</code> predicate:</p>
     <ul>
       <li>
-      <p><code>&quot;hlist=&lt;LIST_IRI&gt;&quot;</code>, where <code>LIST_IRI</code> is the IRI of a <code>knora-base:ListNode</code>.</p></li>
+      <p><code>&quot;hlist=&lt;LIST_IRI&gt;&quot;</code>, where <code>LIST_IRI</code> is the IRI of a <code>knora-base:ListNode</code> that is the root node of a hierarchical list.</p></li>
     </ul>
   </dd>
   <dt><code>Pulldown</code></dt>
   <dd>
-    <p>A GUI element for selecting an item in a flat list (see [knora-base-list-value]{role=&ldquo;ref&rdquo;}) using a pull-down menu. A property definition that uses this element must also contain this <code>guiAttribute</code> predicate:</p>
+    <p>A GUI element for selecting an item in a flat list (see <a href="knora-base.html#listvalue">ListValue</a>) using a pull-down menu. A property definition that uses this element must also contain this <code>guiAttribute</code> predicate:</p>
     <ul>
       <li>
-      <p><code>&quot;hlist=&lt;LIST_IRI&gt;&quot;</code>, where <code>LIST_IRI</code> is the IRI of a <code>knora-base:ListNode</code>.</p></li>
+      <p><code>&quot;hlist=&lt;LIST_IRI&gt;&quot;</code>, where <code>LIST_IRI</code> is the IRI of a <code>knora-base:ListNode</code> that is the root node of a hierarchical list.</p></li>
     </ul>
   </dd>
   <dt><code>Radio</code></dt>
   <dd>
-    <p>A GUI element for selecting an item in a flat list (see [knora-base-list-value]{role=&ldquo;ref&rdquo;}) using radio buttons. A property definition that uses this element must also contain this <code>guiAttribute</code> predicate:</p>
+    <p>A GUI element for selecting an item in a flat list (see <a href="knora-base.html#listvalue">ListValue</a>) using radio buttons. A property definition that uses this element must also contain this <code>guiAttribute</code> predicate:</p>
     <ul>
       <li>
-      <p><code>&quot;hlist=&lt;LIST_IRI&gt;&quot;</code>, where <code>LIST_IRI</code> is the IRI of a <code>knora-base:ListNode</code>.</p></li>
+      <p><code>&quot;hlist=&lt;LIST_IRI&gt;&quot;</code>, where <code>LIST_IRI</code> is the IRI of a <code>knora-base:ListNode</code> that is the root node of a hierarchical list.</p></li>
     </ul>
   </dd>
   <dt><code>Richtext</code></dt>

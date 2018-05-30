@@ -440,6 +440,12 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <dd>
   <p>Points to the mapping used to create the standoff markup and to convert it back to the original XML. See <a href="knora-base.html#mapping-to-create-standoff-from-xml">Mapping to Create Standoff From XML</a>.</p></dd>
 </dl>
+<p>A text value can have a specified language:</p>
+<dl>
+  <dt><code>valueHasLanguage</code> (0-1)
+  </dt>
+  <dd>is an ISO 639-1 code as string specifying the language of the text.</dd>
+</dl>
 <h5><a href="#datevalue" name="datevalue" class="anchor"><span class="anchor-link"></span></a>DateValue</h5>
 <p>Humanities data includes many different types of dates. In Knora, a date has a specified calendar, and is always represented as a period with start and end points (which may be equal), each of which has a precision (<code>DAY</code>, <code>MONTH</code>, or <code>YEAR</code>). An optional ERA indicator term (<code>BCE</code>, <code>CE</code>, or <code>BC</code>, <code>AD</code>) can be added to the date, when no era is provided the default era <code>AD</code> will be considered. Internally, the start and end points are stored as two Julian Day Numbers. This calendar-independent representation makes it possible to compare and search for dates regardless of the calendar in which they were entered. Properties:</p>
 <dl>
