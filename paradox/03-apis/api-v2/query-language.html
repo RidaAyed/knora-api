@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="description" content="root">
+<meta name="generator" content="Paradox, paradox-material-theme=v1.4.0, mkdocs-material=2.2.2">
+
+<meta name="lang:clipboard.copy" content="Copy to clipboard">
+<meta name="lang:clipboard.copied" content="Copied to clipboard">
+<meta name="lang:search.result.none" content="No matching documents">
+<meta name="lang:search.result.one" content="1 matching document">
+<meta name="lang:search.result.other" content="# matching documents">
+<meta name="lang:search.language" content="">
+<meta name="lang:search.tokenizer" content="[\s\-]+">
+
+
+<meta name="description" content="root">
+<link rel="shortcut icon" href="../../cloud">
+<title>Gravsearch: Virtual Graph Search · Knora Documentation</title>
+<link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
+<link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
+<link rel="stylesheet" href="../../lib/material__tabs/dist/mdc.tabs.min.css">
+<link rel="stylesheet" href="../../lib/prettify/prettify.css">
+<script src="../../lib/modernizr/modernizr.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+<style>
+body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}
+code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../../assets/stylesheets/paradox-material-theme.css">
+</head>
+<body
+data-md-color-primary="blue"
+data-md-color-accent="yellow"
+>
+<input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+<input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+<label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+<header class="md-header" data-md-component="header">
+<nav class="md-header-nav md-grid">
+<div class="md-flex">
+<div class="md-flex__cell md-flex__cell--shrink">
+<a href="../../index.html" title="Knora Documentation" class="md-header-nav__button md-logo">
+<i class="md-icon">cloud</i>
+</a>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch">
+<div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+<span class="md-header-nav__topic">
+Knora Documentation
+</span>
+<span class="md-header-nav__topic">
+Gravsearch: Virtual Graph Search
+</span>
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="search"></label>
+<div class="md-search__inner">
+<form class="md-search__form" name="search">
+<input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+<label class="md-icon md-search__icon" for="search"></label>
+<button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix>
+<div class="md-search-result" data-md-component="result">
+<div class="md-search-result__meta">
+Type to start searching
+</div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<div class="md-header-nav__source">
+<a href="https://github.com/dhlab-basel/Knora/docs"
+title="Go to repository"
+class="md-source"
+data-md-source="github">
+<div class="md-source__icon">
+<i class="fa fa-github"></i>
+</div>
+<div class="md-source__repository">
+dhlab-basel/Knora/docs
+</div>
+</a>
+
+</div>
+</div>
+</div>
+</nav>
+</header>
+
+<div class="md-container">
+<main class="md-main">
+<div class="md-main__inner md-grid" data-md-component="container">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" data-md-level="0" style="visibility: hidden">
+<label class="md-nav__title md-nav__title--site" for="drawer">
+<span class="md-nav__button md-logo">
+<i class="md-icon">cloud</i>
+</span>
+<a href="../../index.html" title="Knora Documentation">
+Knora Documentation
+</a>
+</label>
+<div class="md-nav__source">
+<a href="https://github.com/dhlab-basel/Knora/docs"
+title="Go to repository"
+class="md-source"
+data-md-source="github">
+<div class="md-source__icon">
+<i class="fa fa-github"></i>
+</div>
+<div class="md-source__repository">
+dhlab-basel/Knora/docs
+</div>
+</a>
+
+</div>
+<ul>
+  <li><a href="../../00-release-notes/index.html" class="page">Release Notes</a>
+  <ul>
+    <li><a href="../../00-release-notes/v1.1.0.html" class="page">v1.1.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.2.0.html" class="page">v1.2.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.3.0.html" class="page">v1.3.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes (not released yet)</a></li>
+  </ul></li>
+  <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
+  <ul>
+    <li><a href="../../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../../01-introduction/example-project.html" class="page">An Example Project</a></li>
+  </ul></li>
+  <li><a href="../../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
+  <ul>
+    <li><a href="../../02-knora-ontologies/introduction.html" class="page">Introduction</a></li>
+    <li><a href="../../02-knora-ontologies/knora-base.html" class="page">The Knora Base Ontology</a></li>
+    <li><a href="../../02-knora-ontologies/salsah-gui.html" class="page">The SALSAH GUI Ontology</a></li>
+  </ul></li>
+  <li><a href="../../03-apis/index.html" class="page">The Knora APIs</a>
+  <ul>
+    <li><a href="../../03-apis/api-v1/index.html" class="page">Knora API v1</a></li>
+    <li><a href="../../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
+    <li><a href="../../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
+  </ul></li>
+  <li><a href="../../04-deployment/index.html" class="page">Deploying Knora</a>
+  <ul>
+    <li><a href="../../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+  </ul></li>
+  <li><a href="../../05-internals/index.html" class="page">Knora Internals</a>
+  <ul>
+    <li><a href="../../05-internals/design/index.html" class="page">Design</a></li>
+    <li><a href="../../05-internals/development/index.html" class="page">Development</a></li>
+  </ul></li>
+  <li><a href="../../06-salsah/index.html" class="page">The SALSAH 1 GUI</a></li>
+  <li><a href="../../07-sipi/index.html" class="page">The Sipi Media Server</a>
+  <ul>
+    <li><a href="../../07-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
+    <li><a href="../../07-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
+  </ul></li>
+</ul>
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-virtual-graph-search" class="header">Gravsearch: Virtual Graph Search</a>
+  <ul>
+    <li><a href="../../03-apis/api-v2/query-language.html#basic-concept" class="header">Basic Concept</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-syntax" class="header">Gravsearch Syntax</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-by-example" class="header">Gravsearch by Example</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+<div class="md-nav__title--site md-version" title="Version">
+<i class="md-icon">label_outline</i> v1.4.0
+</div>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-virtual-graph-search" class="header">Gravsearch: Virtual Graph Search</a>
+  <ul>
+    <li><a href="../../03-apis/api-v2/query-language.html#basic-concept" class="header">Basic Concept</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-syntax" class="header">Gravsearch Syntax</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-by-example" class="header">Gravsearch by Example</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset">
+<div class="md-content__searchable">
+<!---
+Copyright © 2015-2018 the contributors (see Contributors.md).
+
+This file is part of Knora.
+
+Knora is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Knora is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<h1><a href="#gravsearch-virtual-graph-search" name="gravsearch-virtual-graph-search" class="anchor"><span class="anchor-link"></span></a>Gravsearch: Virtual Graph Search</h1>
+<div class="toc ">
+<ul>
+  <li><a href="../../03-apis/api-v2/query-language.html#basic-concept" class="header">Basic Concept</a>
+  <ul>
+    <li><a href="../../03-apis/api-v2/query-language.html#main-and-dependent-resources" class="header">Main and Dependent Resources</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#graph-patterns-and-result-graphs" class="header">Graph Patterns and Result Graphs</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#permission-checking" class="header">Permission Checking</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#inference" class="header">Inference</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#api-schema" class="header">API Schema</a></li>
+  </ul></li>
+  <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-syntax" class="header">Gravsearch Syntax</a>
+  <ul>
+    <li><a href="../../03-apis/api-v2/query-language.html#where-clause" class="header">WHERE Clause</a>
+    <ul>
+      <li><a href="../../03-apis/api-v2/query-language.html#supported-sparql-syntax" class="header">Supported SPARQL Syntax</a></li>
+      <li><a href="../../03-apis/api-v2/query-language.html#resources" class="header">Resources</a></li>
+      <li><a href="../../03-apis/api-v2/query-language.html#properties" class="header">Properties</a></li>
+      <li><a href="../../03-apis/api-v2/query-language.html#values" class="header">Values</a></li>
+      <li><a href="../../03-apis/api-v2/query-language.html#required-type-annotations" class="header">Required Type Annotations</a></li>
+      <li><a href="../../03-apis/api-v2/query-language.html#property-types" class="header">Property Types</a>
+      <ul>
+        <li><a href="../../03-apis/api-v2/query-language.html#value-property-types" class="header">Value Property Types</a></li>
+        <li><a href="../../03-apis/api-v2/query-language.html#linking-property-types" class="header">Linking Property Types</a></li>
+      </ul></li>
+      <li><a href="../../03-apis/api-v2/query-language.html#value-types" class="header">Value Types</a></li>
+    </ul></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#construct-clause" class="header">CONSTRUCT Clause</a>
+    <ul>
+      <li><a href="../../03-apis/api-v2/query-language.html#marking-the-main-resource" class="header">Marking the Main Resource</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-by-example" class="header">Gravsearch by Example</a>
+  <ul>
+    <li><a href="../../03-apis/api-v2/query-language.html#getting-all-the-components-of-a-compound-resource" class="header">Getting all the Components of a Compound resource</a></li>
+  </ul></li>
+</ul>
+</div>
+<h2><a href="#basic-concept" name="basic-concept" class="anchor"><span class="anchor-link"></span></a>Basic Concept</h2>
+<p>Gravsearch is intended to offer the advantages of SPARQL endpoints (particularly the ability to perform queries using complex search criteria) while avoiding their drawbacks in terms of performance and security (see <a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/">The Enduring Myth of the SPARQL Endpoint</a>). It also has the benefit of enabling clients to work with a simpler RDF data model than the one Knora actually uses to store data in the triplestore, and makes it possible to provide better error-checking.</p>
+<p>Rather than being processed directly by the triplestore, a Gravsearch query is interpreted by Knora, which enforces certain restrictions on the query, and implements paging and permission checking. The API server generates SPARQL based on the Gravsearch query submitted, queries the triplestore, filters the results according to the user&rsquo;s permissions, and returns each page of query results as a Knora API response. Thus, Gravsearch is a hybrid between a RESTful API and a SPARQL endpoint.</p>
+<p>A Gravsearch query conforms to a subset of the syntax of a SPARQL <a href="https://www.w3.org/TR/sparql11-query/#construct">CONSTRUCT</a> query, with some additional restrictions and functionality. In particular, the variable representing the top-level (or &lsquo;main&rsquo;) resource that will appear in each search result must be identified, statements must be included to specify the types of the entities being queried, OFFSET is used to control paging, and <code>ORDER BY</code> is used to sort the results.</p>
+<p>It is certainly possible to write Gravsearch queries by hand, but we expect that in general, they will be automatically generated by client software, e.g. by a client user interface.</p>
+<h3><a href="#main-and-dependent-resources" name="main-and-dependent-resources" class="anchor"><span class="anchor-link"></span></a>Main and Dependent Resources</h3>
+<p>The main resource is the top-level resource in a search result. Other resources that are in some way connected to the main resource are referred to as dependent resources. If the client asks for a resource A relating to a resource B, then all matches for A will be presented as main resources and those for B as dependent resources.</p>
+<h3><a href="#graph-patterns-and-result-graphs" name="graph-patterns-and-result-graphs" class="anchor"><span class="anchor-link"></span></a>Graph Patterns and Result Graphs</h3>
+<p>The WHERE clause of a Gravsearch query specifies a graph pattern. Each query result will match this graph pattern, and will have the form of a graph whose starting point is a main resource. The query&rsquo;s graph pattern, and hence each query result graph, can span zero more levels of relations between resources. For example, a query could request articles by authors who were students of a particular professor. Or authors of texts that refer to events that took place within a certain date range.</p>
+<h3><a href="#permission-checking" name="permission-checking" class="anchor"><span class="anchor-link"></span></a>Permission Checking</h3>
+<p>Each matching resource is returned only if the client has permission to see all the values of that resource that matched the criteria given in the WHERE clause. If a matching resource contains a value that was mentioned in the WHERE clause, but the client does not have permission to see that value, the resource is not returned in the results, and is instead replaced by a proxy resource called <code>knora-api:ForbiddenResource</code>.</p>
+<h3><a href="#inference" name="inference" class="anchor"><span class="anchor-link"></span></a>Inference</h3>
+<p>Gravsearch queries are understood to imply RDFS reasoning. Depending on the triplestore being used, this may be implemented using the triplestore&rsquo;s own reasoner or by query expansion in Knora (using SPARQL property path syntax). This means that if a statement pattern specifies a property, the pattern will also match subproperties of that property.</p>
+<h3><a href="#api-schema" name="api-schema" class="anchor"><span class="anchor-link"></span></a>API Schema</h3>
+<p>A Gravsearch query must be written using the Knora API simple schema (see <a href="ontology-information.html">Querying, Creating, and Updating Ontologies</a>). However, results can be returned in the simple or complex schema. (The ability to choose the response schema is not yet implemented, so for now, results are always returned in the complex schema.)</p>
+<h2><a href="#gravsearch-syntax" name="gravsearch-syntax" class="anchor"><span class="anchor-link"></span></a>Gravsearch Syntax</h2>
+<p>Every Gravsearch query is a valid SPARQL 1.1 <a href="https://www.w3.org/TR/sparql11-query/#construct">CONSTRUCT</a> query. However, Gravsearch only supports a subset of the elements that can be used in a SPARQL Construct query. Additionally, Gravsearch requires the client to use explicit type annotations, explained below; these are valid SPARQL, but specific to the Knora API. Also, the main resource has to be marked.</p>
+<h3><a href="#where-clause" name="where-clause" class="anchor"><span class="anchor-link"></span></a>WHERE Clause</h3>
+<p>The WHERE clause specifies a graph pattern to be matched, i.e. the search criteria. Resources that match the given criteria, and that the client has permission to see, will be returned.</p>
+<h4><a href="#supported-sparql-syntax" name="supported-sparql-syntax" class="anchor"><span class="anchor-link"></span></a>Supported SPARQL Syntax</h4>
+<p>The current version of Gravsearch accepts <code>CONSTRUCT</code> queries whose <code>WHERE</code> clauses use the following patterns, with the specified restrictions:</p>
+<ul>
+  <li><code>OPTIONAL</code>: cannot be nested in an <code>OPTIONAL</code> or <code>UNION</code>.</li>
+  <li><code>UNION</code>: cannot be nested in an <code>OPTIONAL</code> or <code>UNION</code>.</li>
+  <li><code>FILTER</code>: may contain a complex expression using the Boolean operators AND and OR, as well as comparison operators. The left argument of a comparison operator must be a query variable.</li>
+  <li><code>FILTER NOT EXISTS</code></li>
+  <li><code>OFFSET</code>: the <code>OFFSET</code> is needed for paging. It does not actually refer to the number of triples to be returned, but to the requested page of results. The default value is 0, which refers to the first page of results. The number of results per page is defined in <code>app/v2</code> in <code>application.conf</code>.</li>
+  <li><code>ORDER BY</code>: In SPARQL, the result of a Construct query is an unordered set of triples. However, a Gravsearch query returns an ordered list of resources, which can be ordered by the values of specified properties.</li>
+</ul>
+<h4><a href="#resources" name="resources" class="anchor"><span class="anchor-link"></span></a>Resources</h4>
+<p>Resources can be represented by an IRI or a query variable.</p>
+<h4><a href="#properties" name="properties" class="anchor"><span class="anchor-link"></span></a>Properties</h4>
+<p>Properties can be represented by an IRI or a query variable. If a property is represented by a query variable, it can be restricted to certain property IRIs using a <code>FILTER</code>.</p>
+<h4><a href="#values" name="values" class="anchor"><span class="anchor-link"></span></a>Values</h4>
+<p>Values can only be represented by a query variable. Value literals are currently not supported as the objects of statement patterns in the query. To restrict a value, a FILTER must be used. Without a FILTER, all the instances of a value are returned.</p>
+<h4><a href="#required-type-annotations" name="required-type-annotations" class="anchor"><span class="anchor-link"></span></a>Required Type Annotations</h4>
+<p>Resources, properties, and values must be accompanied by explicit type annotation statements. (In a future version, this type information could be inferred rather than explicitly given in the query.)</p>
+<p>There are two type annotation properties:</p>
+<ul>
+  <li><code>knora-api:objectType</code>: indicates the type of value or resource that a property points to.</li>
+  <li><code>rdf:type</code>: indicates the type of a resource or value.</li>
+</ul>
+<h4><a href="#property-types" name="property-types" class="anchor"><span class="anchor-link"></span></a>Property Types</h4>
+<p>A property may point either to a value or to a resource. In the first case, it is called a value property, in the second case a linking property. The type annotation property <code>knora-api:objectType</code> indicates the type of value or resource the property points to.</p>
+<h5><a href="#value-property-types" name="value-property-types" class="anchor"><span class="anchor-link"></span></a>Value Property Types</h5>
+<p>Supported value property types:</p>
+<ul>
+  <li><code>xsd:string</code></li>
+  <li><code>xsd:integer</code></li>
+  <li><code>xsd:decimal</code></li>
+  <li><code>xsd:boolean</code></li>
+  <li><code>knora-api:Date</code></li>
+  <li><code>knora-api:StillImageFile</code></li>
+  <li><code>knora-api:Geom</code></li>
+</ul>
+<h5><a href="#linking-property-types" name="linking-property-types" class="anchor"><span class="anchor-link"></span></a>Linking Property Types</h5>
+<p>A linking property has to be annotated with the type <code>knora-api:Resource</code>. Since inference is assumed, this matches any resource. To restrict the types of resources, additional statements can be made using <code>rdfs:type</code>. The linking property can also be restricted using a FILTER in case a query variable is used.</p>
+<h4><a href="#value-types" name="value-types" class="anchor"><span class="anchor-link"></span></a>Value Types</h4>
+<p>Value types are used to indicate the type of a value (<code>rdf:type</code>). Gravsearch supports the following types of value instances:</p>
+<ul>
+  <li><code>xsd:string</code></li>
+  <li><code>xsd:integer</code></li>
+  <li><code>xsd:decimal</code></li>
+  <li><code>xsd:boolean</code></li>
+  <li><code>knora-api:Date</code></li>
+  <li><code>knora-api:StillImageFile</code></li>
+  <li><code>knora-api:Geom</code></li>
+</ul>
+<p>However, not all of these types are supported in FILTERs to restrict values. Supported value types in FILTERs:</p>
+<ul>
+  <li><code>xsd:string</code></li>
+  <li><code>xsd:integer</code></li>
+  <li><code>xsd:decimal</code></li>
+  <li><code>xsd:boolean</code></li>
+  <li><code>knora-api:Date</code></li>
+</ul>
+<h3><a href="#construct-clause" name="construct-clause" class="anchor"><span class="anchor-link"></span></a>CONSTRUCT Clause</h3>
+<p>The <code>CONSTRUCT</code> clause specifies which information the response should return. The CONSTRUCT clause must contain at least one statement, specifying <code>knora-api:isMainResource</code>. Any other statements in the <code>CONSTRUCT</code> clause must also be present in the WHERE clause.</p>
+<h4><a href="#marking-the-main-resource" name="marking-the-main-resource" class="anchor"><span class="anchor-link"></span></a>Marking the Main Resource</h4>
+<p>In the <code>CONSTRUCT</code> clause of a Gravsearch query, the variable representing the main resource that the user is interested in must be indicated with <code>knora-api:isMainResource true</code>. Exactly one variable representing a resource must be marked in this way.</p>
+<h2><a href="#gravsearch-by-example" name="gravsearch-by-example" class="anchor"><span class="anchor-link"></span></a>Gravsearch by Example</h2>
+<p>In this section, we provide some sample queries of different complexity to illustrate the usage of Gravsearch.</p>
+<h3><a href="#getting-all-the-components-of-a-compound-resource" name="getting-all-the-components-of-a-compound-resource" class="anchor"><span class="anchor-link"></span></a>Getting all the Components of a Compound resource</h3>
+<p>In order to get all the components of a compound resource, the following Gravsearch query can be sent to the API.</p>
+<p>In this case, the compound resource is an <code>incunabula:book</code> identified by the IRI <code>http://rdfh.ch/c5058f3a</code> and the components are of type <code>incunabula:page</code> (test data for the Incunabula project). Since inference is assumed, we can use <code>knora-api:StillImageRepresentation</code> (<code>incunabula:page</code> is one of its subclasses). This makes the query more generic and allows for reuse (for instance, a client would like to query different types of compound resources defined in different ontologies).</p>
+<p><code>ORDER BY</code> is used to sort the components by their sequence number.</p>
+<p><code>OFFSET</code> is set to 0 to get the first page of results.</p>
+<p>Note that in a Gravsearch query, the prefix <code>knora-api</code> refers to the Knora API v2 simple schema.</p>
+<pre><code>PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
+
+CONSTRUCT {
+   ?component knora-api:isMainResource true . # marking of the component searched for as the main resource, required
+   ?component knora-api:seqnum ?seqnum . # return the sequence number in the response
+   ?component knora-api:hasStillImageFileValue ?file . # return the StillImageFile in the response
+} WHERE {
+   ?component a knora-api:Resource . # explicit type annotation for the component searched for, required
+   ?component a knora-api:StillImageRepresentation . # additional restriction of the type of component, optional
+
+   ?component knora-api:isPartOf &lt;http://rdfh.ch/c5058f3a&gt; . # component relates to compound resource via this property
+   knora-api:isPartOf knora-api:objectType knora-api:Resource . # type annotation for linking property, required
+   &lt;http://rdfh.ch/c5058f3a&gt; a knora-api:Resource . # type annotation for compound resource, required
+
+   ?component knora-api:seqnum ?seqnum . # component must have a sequence number, no further restrictions given
+   knora-api:seqnum knora-api:objectType xsd:integer . # type annotation for the value property, required
+   ?seqnum a xsd:integer . # type annotation for the sequence number, required
+
+   ?component knora-api:hasStillImageFileValue ?file . # component must have a StillImageFile, no further restrictions given
+   knora-api:hasStillImageFileValue knora-api:objectType knora-api:StillImageFile . # type annotation for the value property, required
+   ?file a knora-api:StillImageFile . # type annotation for the StillImageFile, required
+}
+ORDER BY ASC(?seqnum) # order by sequence number, ascending
+OFFSET 0 #get first page of results
+</code></pre>
+<p>The <code>incunabula:book</code> with the IRI <code>http://rdfh.ch/c5058f3a</code> has 402 pages (this result can be obtained by doing a count query, see <a href="reading-and-searching-resources.html">Reading and Searching Resources</a>). However, with <code>OFFSET 0</code>, only the first page of results is returned. The same query can be sent again with <code>OFFSET 1</code> to get the next page of results, and so forth. When a page of results is not full (see settings in <code>app/v2</code> in <code>application.conf</code>) or is empty, no more results are available.</p>
+<p>By design, it is not possible for the client to get more than one page of results at a time; this is intended to prevent performance problems that would be caused by huge responses. A client that wants to download all the results of a query must request each page sequentially.</p>
+<p>Let&rsquo;s assume the client is not interested in all of the book&rsquo;s pages, but just in first ten of them. In that case, the sequence number can be restricted using a <code>FILTER</code> that is added to the query&rsquo;s <code>WHERE</code> clause:</p>
+<pre><code>FILTER (?seqnum &lt;= 10)
+</code></pre>
+<p>The first page starts with sequence number 1, so with this <code>FILTER</code> only the first ten pages are returned.</p>
+</div>
+<div>
+<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/03-apis/api-v2/query-language.md" title="Edit this page" class="md-source-file md-edit">
+Edit this page
+</a>
+</div>
+<div class="print-only">
+<span class="md-source-file md-version">
+v1.4.0
+</span>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav class="md-footer-nav__inner md-grid">
+<a href="../../03-apis/api-v2/xml-to-standoff-mapping.html" title="XML to Standoff Mapping in API v2" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Previous
+</span>
+XML to Standoff Mapping in API v2
+</span>
+</div>
+</a>
+<a href="../../03-apis/api-v2/ontology-information.html" title="Querying, Creating, and Updating Ontologies" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Next
+</span>
+Querying, Creating, and Updating Ontologies
+</span>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+<div class="md-footer-copyright__highlight">
+Copyright 2015-2018 the contributors (see Contributors.md)
+</div>
+Powered by
+<a href="https://github.com/lightbend/paradox">Paradox</a>
+and
+<a href="https://jonas.github.io/paradox-material-theme/">Paradox Material Theme</a>
+
+</div>
+<div class="md-footer-social">
+<a href="https://github.com/dhlab-basel" class="md-footer-social__link fa fa-github"></a><a href="https://twitter.com/dhlabbasel" class="md-footer-social__link fa fa-twitter"></a>
+</div>
+
+</div>
+</div>
+</footer>
+
+</div>
+<script src="../../assets/javascripts/application.5165553b.js"></script>
+<script src="../../assets/javascripts/paradox-material-theme.js"></script>
+<script>app.initialize({version:"0.17",url:{base:"../../."}})</script>
+<script type="text/javascript" src="../../lib/prettify/prettify.js"></script>
+<script type="text/javascript" src="../../lib/prettify/lang-scala.js"></script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+window.prettyPrint && prettyPrint();
+});
+</script>
+</body>
+</html>

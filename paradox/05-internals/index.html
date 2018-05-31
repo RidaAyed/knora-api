@@ -18,7 +18,7 @@
 
 <meta name="description" content="root">
 <link rel="shortcut icon" href="../cloud">
-<title>v1.5.0 Release Notes (not released yet) · Knora Documentation</title>
+<title>Knora Internals · Knora Documentation</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-v1.5.0 Release Notes (not released yet)
+Knora Internals
 </span>
 </div>
 </div>
@@ -141,7 +141,7 @@ dhlab-basel/Knora/docs
     <li><a href="../00-release-notes/v1.2.0.html" class="page">v1.2.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.3.0.html" class="page">v1.3.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
-    <li><a href="../00-release-notes/v1.5.0.html" class="active page">v1.5.0 Release Notes (not released yet)</a></li>
+    <li><a href="../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes (not released yet)</a></li>
   </ul></li>
   <li><a href="../01-introduction/index.html" class="page">Introduction</a>
   <ul>
@@ -164,7 +164,7 @@ dhlab-basel/Knora/docs
   <ul>
     <li><a href="../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
   </ul></li>
-  <li><a href="../05-internals/index.html" class="page">Knora Internals</a>
+  <li><a href="../05-internals/index.html" class="active page">Knora Internals</a>
   <ul>
     <li><a href="../05-internals/design/index.html" class="page">Design</a></li>
     <li><a href="../05-internals/development/index.html" class="page">Development</a></li>
@@ -177,15 +177,6 @@ dhlab-basel/Knora/docs
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="toc">Table of contents</label>
-<ul>
-  <li><a href="../00-release-notes/v1.5.0.html#v1-5-0-release-notes-not-released-yet-" class="header">v1.5.0 Release Notes (not released yet)</a>
-  <ul>
-    <li><a href="../00-release-notes/v1.5.0.html#required-changes-to-existing-data-" class="header">Required changes to existing data:</a></li>
-    <li><a href="../00-release-notes/v1.5.0.html#new-features-" class="header">New features:</a></li>
-    <li><a href="../00-release-notes/v1.5.0.html#bugfixes-" class="header">Bugfixes:</a></li>
-  </ul></li>
-</ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
@@ -196,44 +187,61 @@ dhlab-basel/Knora/docs
 </div>
 </div>
 </div>
-<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="toc">Table of contents</label>
-<ul>
-  <li><a href="../00-release-notes/v1.5.0.html#v1-5-0-release-notes-not-released-yet-" class="header">v1.5.0 Release Notes (not released yet)</a>
-  <ul>
-    <li><a href="../00-release-notes/v1.5.0.html#required-changes-to-existing-data-" class="header">Required changes to existing data:</a></li>
-    <li><a href="../00-release-notes/v1.5.0.html#new-features-" class="header">New features:</a></li>
-    <li><a href="../00-release-notes/v1.5.0.html#bugfixes-" class="header">Bugfixes:</a></li>
-  </ul></li>
-</ul>
-</nav>
-
-</div>
-</div>
-</div>
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
-<h1><a href="#v1-5-0-release-notes-not-released-yet-" name="v1-5-0-release-notes-not-released-yet-" class="anchor"><span class="anchor-link"></span></a>v1.5.0 Release Notes (not released yet)</h1>
-<p>See the <a href="https://github.com/dhlab-basel/Knora/releases/tag/v1.5.0">release</a> and closed tickets on the <a href="https://github.com/dhlab-basel/Knora/milestone/9">v1.5.0 milestone</a> on Github.</p>
-<h2><a href="#required-changes-to-existing-data-" name="required-changes-to-existing-data-" class="anchor"><span class="anchor-link"></span></a>Required changes to existing data:</h2>
-<h2><a href="#new-features-" name="new-features-" class="anchor"><span class="anchor-link"></span></a>New features:</h2>
+<!---
+Copyright © 2015-2018 the contributors (see Contributors.md).
+
+This file is part of Knora.
+
+Knora is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Knora is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<h1><a href="#knora-internals" name="knora-internals" class="anchor"><span class="anchor-link"></span></a>Knora Internals</h1>
+<div class="toc ">
 <ul>
-  <li>Resources can be returned in the simple ontology schema (#833).</li>
-  <li>Text values can specify the language of the text (#819).</li>
-  <li>Responses can be returned in Turtle and RDF/XML (#851).</li>
-</ul>
-<h2><a href="#bugfixes-" name="bugfixes-" class="anchor"><span class="anchor-link"></span></a>Bugfixes:</h2>
-<ul>
-  <li>Incorrect representation of IRI object values in JSON-LD (#835)</li>
-  <li>GenerateContributorsFile broken (#797)</li>
+  <li><a href="../05-internals/design/index.html" class="page">Design</a>
+  <ul>
+    <li><a href="../05-internals/design/design-overview.html" class="page">Knora API Server Design Overview</a></li>
+    <li><a href="../05-internals/design/futures-with-akka.html" class="page">Futures with Akka</a></li>
+    <li><a href="../05-internals/design/http-module.html" class="page">HTTP Module</a></li>
+    <li><a href="../05-internals/design/responders-module.html" class="page">Responders Module</a></li>
+    <li><a href="../05-internals/design/store-module.html" class="page">Store Module</a></li>
+    <li><a href="../05-internals/design/shared-packages.html" class="page">Shared Packages</a></li>
+    <li><a href="../05-internals/design/how-to-add-a-route.html" class="page">How to Add an API Route</a></li>
+    <li><a href="../05-internals/design/triplestore-updates.html" class="page">Triplestore Updates</a></li>
+    <li><a href="../05-internals/design/consistency-checking.html" class="page">Consistency Checking</a></li>
+    <li><a href="../05-internals/design/authentication.html" class="page">Authentication in Knora</a></li>
+    <li><a href="../05-internals/design/administration.html" class="page">Administration (Users, Projects, Groups, Institutions, Permissions)</a></li>
+    <li><a href="../05-internals/design/api-v2.html" class="page">Knora API v2 Design</a></li>
+  </ul></li>
+  <li><a href="../05-internals/development/index.html" class="page">Development</a>
+  <ul>
+    <li><a href="../05-internals/development/overview.html" class="page">Overview</a></li>
+    <li><a href="../05-internals/development/fuseki.html" class="page">Starting Fuseki 3</a></li>
+    <li><a href="../05-internals/development/graphdb.html" class="page">Starting GraphDB</a></li>
+    <li><a href="../05-internals/development/build-process.html" class="page">Build Process</a></li>
+    <li><a href="../05-internals/development/intellij-config.html" class="page">Setup IntelliJ for development of Knora</a></li>
+    <li><a href="../05-internals/development/testing.html" class="page">Testing</a></li>
+    <li><a href="../05-internals/development/docker-cheat-sheet.html" class="page">Docker Cheat Sheet</a></li>
+    <li><a href="../05-internals/development/monitoring.html" class="page">Monitoring Knora</a></li>
+  </ul></li>
 </ul>
 </div>
+</div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/00-release-notes/v1.5.0.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/05-internals/index.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -249,7 +257,7 @@ v1.4.0
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../00-release-notes/v1.4.0.html" title="v1.4.0 Release Notes" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../04-deployment/getting-started.html" title="Getting Started with Knora" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -258,17 +266,17 @@ v1.4.0
 <span class="md-footer-nav__direction">
 Previous
 </span>
-v1.4.0 Release Notes
+Getting Started with Knora
 </span>
 </div>
 </a>
-<a href="../01-introduction/index.html" title="Introduction" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../05-internals/design/index.html" title="Design" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Introduction
+Design
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

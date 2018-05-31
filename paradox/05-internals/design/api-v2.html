@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="description" content="root">
+<meta name="generator" content="Paradox, paradox-material-theme=v1.4.0, mkdocs-material=2.2.2">
+
+<meta name="lang:clipboard.copy" content="Copy to clipboard">
+<meta name="lang:clipboard.copied" content="Copied to clipboard">
+<meta name="lang:search.result.none" content="No matching documents">
+<meta name="lang:search.result.one" content="1 matching document">
+<meta name="lang:search.result.other" content="# matching documents">
+<meta name="lang:search.language" content="">
+<meta name="lang:search.tokenizer" content="[\s\-]+">
+
+
+<meta name="description" content="root">
+<link rel="shortcut icon" href="../../cloud">
+<title>Knora API v2 Design · Knora Documentation</title>
+<link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
+<link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
+<link rel="stylesheet" href="../../lib/material__tabs/dist/mdc.tabs.min.css">
+<link rel="stylesheet" href="../../lib/prettify/prettify.css">
+<script src="../../lib/modernizr/modernizr.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+<style>
+body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}
+code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../../assets/stylesheets/paradox-material-theme.css">
+</head>
+<body
+data-md-color-primary="blue"
+data-md-color-accent="yellow"
+>
+<input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+<input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+<label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+<header class="md-header" data-md-component="header">
+<nav class="md-header-nav md-grid">
+<div class="md-flex">
+<div class="md-flex__cell md-flex__cell--shrink">
+<a href="../../index.html" title="Knora Documentation" class="md-header-nav__button md-logo">
+<i class="md-icon">cloud</i>
+</a>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch">
+<div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+<span class="md-header-nav__topic">
+Knora Documentation
+</span>
+<span class="md-header-nav__topic">
+Knora API v2 Design
+</span>
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="search"></label>
+<div class="md-search__inner">
+<form class="md-search__form" name="search">
+<input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+<label class="md-icon md-search__icon" for="search"></label>
+<button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix>
+<div class="md-search-result" data-md-component="result">
+<div class="md-search-result__meta">
+Type to start searching
+</div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<div class="md-header-nav__source">
+<a href="https://github.com/dhlab-basel/Knora/docs"
+title="Go to repository"
+class="md-source"
+data-md-source="github">
+<div class="md-source__icon">
+<i class="fa fa-github"></i>
+</div>
+<div class="md-source__repository">
+dhlab-basel/Knora/docs
+</div>
+</a>
+
+</div>
+</div>
+</div>
+</nav>
+</header>
+
+<div class="md-container">
+<main class="md-main">
+<div class="md-main__inner md-grid" data-md-component="container">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" data-md-level="0" style="visibility: hidden">
+<label class="md-nav__title md-nav__title--site" for="drawer">
+<span class="md-nav__button md-logo">
+<i class="md-icon">cloud</i>
+</span>
+<a href="../../index.html" title="Knora Documentation">
+Knora Documentation
+</a>
+</label>
+<div class="md-nav__source">
+<a href="https://github.com/dhlab-basel/Knora/docs"
+title="Go to repository"
+class="md-source"
+data-md-source="github">
+<div class="md-source__icon">
+<i class="fa fa-github"></i>
+</div>
+<div class="md-source__repository">
+dhlab-basel/Knora/docs
+</div>
+</a>
+
+</div>
+<ul>
+  <li><a href="../../00-release-notes/index.html" class="page">Release Notes</a>
+  <ul>
+    <li><a href="../../00-release-notes/v1.1.0.html" class="page">v1.1.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.2.0.html" class="page">v1.2.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.3.0.html" class="page">v1.3.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes (not released yet)</a></li>
+  </ul></li>
+  <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
+  <ul>
+    <li><a href="../../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../../01-introduction/example-project.html" class="page">An Example Project</a></li>
+  </ul></li>
+  <li><a href="../../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
+  <ul>
+    <li><a href="../../02-knora-ontologies/introduction.html" class="page">Introduction</a></li>
+    <li><a href="../../02-knora-ontologies/knora-base.html" class="page">The Knora Base Ontology</a></li>
+    <li><a href="../../02-knora-ontologies/salsah-gui.html" class="page">The SALSAH GUI Ontology</a></li>
+  </ul></li>
+  <li><a href="../../03-apis/index.html" class="page">The Knora APIs</a>
+  <ul>
+    <li><a href="../../03-apis/api-v1/index.html" class="page">Knora API v1</a></li>
+    <li><a href="../../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
+    <li><a href="../../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
+  </ul></li>
+  <li><a href="../../04-deployment/index.html" class="page">Deploying Knora</a>
+  <ul>
+    <li><a href="../../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+  </ul></li>
+  <li><a href="../../05-internals/index.html" class="page">Knora Internals</a>
+  <ul>
+    <li><a href="../../05-internals/design/index.html" class="page">Design</a></li>
+    <li><a href="../../05-internals/development/index.html" class="page">Development</a></li>
+  </ul></li>
+  <li><a href="../../06-salsah/index.html" class="page">The SALSAH 1 GUI</a></li>
+  <li><a href="../../07-sipi/index.html" class="page">The Sipi Media Server</a>
+  <ul>
+    <li><a href="../../07-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
+    <li><a href="../../07-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
+  </ul></li>
+</ul>
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../05-internals/design/api-v2.html#knora-api-v2-design" class="header">Knora API v2 Design</a>
+  <ul>
+    <li><a href="../../05-internals/design/api-v2.html#general-principles" class="header">General Principles</a></li>
+    <li><a href="../../05-internals/design/api-v2.html#api-schemas" class="header">API Schemas</a></li>
+    <li><a href="../../05-internals/design/api-v2.html#implementation" class="header">Implementation</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+<div class="md-nav__title--site md-version" title="Version">
+<i class="md-icon">label_outline</i> v1.4.0
+</div>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../05-internals/design/api-v2.html#knora-api-v2-design" class="header">Knora API v2 Design</a>
+  <ul>
+    <li><a href="../../05-internals/design/api-v2.html#general-principles" class="header">General Principles</a></li>
+    <li><a href="../../05-internals/design/api-v2.html#api-schemas" class="header">API Schemas</a></li>
+    <li><a href="../../05-internals/design/api-v2.html#implementation" class="header">Implementation</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset">
+<div class="md-content__searchable">
+<!---
+Copyright © 2015-2018 the contributors (see Contributors.md).
+
+This file is part of Knora.
+
+Knora is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Knora is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<h1><a href="#knora-api-v2-design" name="knora-api-v2-design" class="anchor"><span class="anchor-link"></span></a>Knora API v2 Design</h1>
+<div class="toc ">
+<ul>
+  <li><a href="../../05-internals/design/api-v2.html#general-principles" class="header">General Principles</a></li>
+  <li><a href="../../05-internals/design/api-v2.html#api-schemas" class="header">API Schemas</a></li>
+  <li><a href="../../05-internals/design/api-v2.html#implementation" class="header">Implementation</a>
+  <ul>
+    <li><a href="../../05-internals/design/api-v2.html#json-ld-parsing-and-formatting" class="header">JSON-LD Parsing and Formatting</a></li>
+    <li><a href="../../05-internals/design/api-v2.html#generation-of-other-rdf-formats" class="header">Generation of Other RDF Formats</a></li>
+    <li><a href="../../05-internals/design/api-v2.html#operation-wrappers" class="header">Operation Wrappers</a></li>
+    <li><a href="../../05-internals/design/api-v2.html#smart-iris" class="header">Smart IRIs</a>
+    <ul>
+      <li><a href="../../05-internals/design/api-v2.html#usage" class="header">Usage</a></li>
+      <li><a href="../../05-internals/design/api-v2.html#implementation" class="header">Implementation</a></li>
+    </ul></li>
+  </ul></li>
+</ul>
+</div>
+<h2><a href="#general-principles" name="general-principles" class="anchor"><span class="anchor-link"></span></a>General Principles</h2>
+<ul>
+  <li>Knora API v2 requests and responses are RDF documents. Any API v2 response can be returned as <a href="https://json-ld.org/spec/latest/json-ld/">JSON-LD</a>, <a href="https://www.w3.org/TR/turtle/">Turtle</a>, or <a href="https://www.w3.org/TR/rdf-syntax-grammar/">RDF/XML</a>.</li>
+  <li>Each class or property used in a request or response has a definition in an ontology, which Knora can serve.</li>
+  <li>Response formats are reused for different requests whenever possible, to minimise the number of different response formats a client has to handle. For example, any request for one or more resources (such as a search result, or a request for one specific resource) returns a response in the same format.</li>
+  <li>Response size is limited by design. Large amounts of data must be retrieved by requesting small pages of data, one after the other.</li>
+  <li>Responses that provide data are distinct from responses that provide definitions (i.e. ontology entities). Data responses indicate which types are used, and the client can request information about these types separately.</li>
+</ul>
+<h2><a href="#api-schemas" name="api-schemas" class="anchor"><span class="anchor-link"></span></a>API Schemas</h2>
+<p>The types used in the triplestore are not exposed directly in the API. Instead, they are mapped onto API &lsquo;schemas&rsquo;. Two schemas are currently provided.</p>
+<ul>
+  <li>A complex schema, which is suitable both for reading and for editing data. The complex schema represents values primarily as complex objects.</li>
+  <li>A simple schema, which is suitable for reading data but not for editing it. The simple schema facilitates interoperability between Knora ontologies and non-Knora ontologies, since it represents values primarily as literals.</li>
+</ul>
+<p>Each schema has its own type IRIs, which are derived from the ones used in the triplestore. For details of these different IRI formats, see <a href="../../03-apis/api-v2/knora-iris.html">Knora IRIs</a>.</p>
+<h2><a href="#implementation" name="implementation" class="anchor"><span class="anchor-link"></span></a>Implementation</h2>
+<h3><a href="#json-ld-parsing-and-formatting" name="json-ld-parsing-and-formatting" class="anchor"><span class="anchor-link"></span></a>JSON-LD Parsing and Formatting</h3>
+<p>Each API response is represented by a class that extends <code>KnoraResponseV2</code>, which has a method <code>toJsonLDDocument</code> that specifies the target schema. It is currently up to each route to determine what the appropriate response schema should be. Some routes will support only one response schema. Others will allow the client to choose, and there will be one or more standard ways for the client to specify the desired response schema.</p>
+<p>A route calls <code>RouteUtilV2.runRdfRoute</code>, passing a request message and a response schema. When <code>RouteUtilV2</code> gets the response message from the responder, it calls <code>toJsonLDDocument</code> on it, specifying that schema. The response message returns a <code>JsonLDDocument</code>, which is a simple data structure that is then converted to Java objects and passed to the JSON-LD Java library for formatting. In general, <code>toJsonLDDocument</code> is implemented in two stages: first the object converts itself to the target schema, and then the resulting object is converted to a <code>JsonLDDocument</code>.</p>
+<p>A route that receives JSON-LD requests should use <code>JsonLDUtil.parseJsonLD</code> to convert each request to a <code>JsonLDDocument</code>.</p>
+<h3><a href="#generation-of-other-rdf-formats" name="generation-of-other-rdf-formats" class="anchor"><span class="anchor-link"></span></a>Generation of Other RDF Formats</h3>
+<p><code>RouteUtilV2.runRdfRoute</code> implements <a href="http://tools.ietf.org/html/rfc7231#section-5.3.2">HTTP content negotiation</a>, and converts JSON-LD responses into <a href="https://www.w3.org/TR/turtle/">Turtle</a> or <a href="https://www.w3.org/TR/rdf-syntax-grammar/">RDF/XML</a> as appropriate.</p>
+<h3><a href="#operation-wrappers" name="operation-wrappers" class="anchor"><span class="anchor-link"></span></a>Operation Wrappers</h3>
+<p>Whenever possible, the same data structures are used for input and output. Often more data is available in output than in input. For example, when a value is read from the triplestore, its IRI is available, but when it is being created, it does not yet have an IRI. In such cases, there is a class like <code>ValueContentV2</code>, which represents the data that is used both for input and for output. When a value is read, a <code>ValueContentV2</code> is wrapped in a <code>ReadValueV2</code>, which additionally contains the value&rsquo;s IRI. When a value is created, it is wrapped in a <code>CreateValueV2</code>, which has the resource IRI and the property IRI, but not the value IRI.</p>
+<p>A <code>Read*</code> wrapper can be wrapped in another <code>Read*</code> wrapper; for example, a <code>ReadResourceV2</code> contains <code>ReadValueV2</code> objects.</p>
+<p>Each <code>*Content*</code> class should extend <code>KnoraContentV2</code> and thus have a <code>toOntologySchema</code> method or converting itself between internal and external schemas, in either direction.</p>
+<p>Each <code>Read*</code> wrapper class should have a method for converting itself to JSON-LD in a particular external schema. If the <code>Read*</code> wrapper is a <code>KnoraResponseV2</code>, this method is <code>toJsonLDDocument</code>.</p>
+<h3><a href="#smart-iris" name="smart-iris" class="anchor"><span class="anchor-link"></span></a>Smart IRIs</h3>
+<h4><a href="#usage" name="usage" class="anchor"><span class="anchor-link"></span></a>Usage</h4>
+<p>The <code>SmartIri</code> trait can be used to parse and validate IRIs, and in particular for converting Knora type IRIs between internal and external schemas. It validates each IRI it parses. To use it, import the following:</p>
+<pre class="prettyprint"><code class="language-scala">import org.knora.webapi.util.{SmartIri, StringFormatter}
+import org.knora.webapi.util.IriConversions._
+</code></pre>
+<p>Ensure that an implicit instance of <code>StringFormatter</code> is in scope:</p>
+<pre class="prettyprint"><code class="language-scala">implicit val stringFormatter: StringFormatter = StringFormatter.getGeneralInstance
+</code></pre>
+<p>Then, if <code>iriStr</code> is a string representing an IRI, you can can convert it to a <code>SmartIri</code> like this:</p>
+<pre class="prettyprint"><code class="language-scala">val iri: SmartIri = iriStr.toSmartIri
+</code></pre>
+<p>If the IRI came from a request, use this method to throw a specific exception if the IRI is invalid:</p>
+<pre class="prettyprint"><code class="language-scala">val iri: SmartIri = iriStr.toSmartIriWithErr(
+    () =&gt; throw BadRequestException(s&quot;Invalid IRI: $iriStr&quot;)
+)
+</code></pre>
+<p>You can then use methods such as <code>SmartIri.isKnoraApiV2EntityIri</code> and <code>SmartIri.getProjectCode</code> to obtain information about the IRI. To convert it to another schema, call <code>SmartIri.toOntologySchema</code>. Converting a non-Knora IRI returns the same IRI.</p>
+<p>If the IRI represents a Knora internal value class such as <code>knora-base:TextValue</code>, converting it to the <code>ApiV2Simple</code> schema will return the corresponding simplified type, such as <code>xsd:string</code>. But this conversion is not performed in the other direction (external to internal), since this would require knowledge of the context in which the IRI is being used.</p>
+<p>The performance penalty for using a <code>SmartIri</code> instead of a string is very small. Instances are automatically cached once they are constructed. Parsing and caching a <code>SmartIri</code> instance takes about 10-20 µs, and retrieving a cached <code>SmartIri</code> takes about 1 µs.</p>
+<p>There is no advantage to using <code>SmartIri</code> for data IRIs, since they are not schema-specific (and are not cached). If a data IRI has been received from a client request, it is better just to validate it using <code>StringFormatter.validateAndEscapeIri</code>.</p>
+<h4><a href="#implementation" name="implementation" class="anchor"><span class="anchor-link"></span></a>Implementation</h4>
+<p>The smart IRI implementation, <code>SmartIriImpl</code>, is nested in the <code>StringFormatter</code> class, because it uses Knora&rsquo;s hostname, which isn&rsquo;t available until the Akka ActorSystem has started. However, this means that the type of a <code>SmartIriImpl</code> instance is dependent on the instance of <code>StringFormatter</code> that constructed it. Therefore, instances of <code>SmartIriImpl</code> created by different instances of <code>StringFormatter</code> can&rsquo;t be compared directly.</p>
+<p>There are in fact two instances of <code>StringFormatter</code>:</p>
+<ul>
+  <li>one returned by <code>StringFormatter.getGeneralInstance</code> which is available after Akka has started and has the API server&rsquo;s hostname (and can therefore provide <code>SmartIri</code> instances capable of parsing IRIs containing that hostname). This instance is used throughout the Knora API server.</li>
+  <li>one returned by <code>StringFormatter.getInstanceForConstantOntologies</code>, which is available before Akka has started, and is used only by the hard-coded constant <code>knora-api</code> ontologies.</li>
+</ul>
+<p>This is the reason for the existence of the <code>SmartIri</code> trait, which is a top-level definition and has its own <code>equals</code> and <code>hashCode</code> methods. Instances of <code>SmartIri</code> can thus be compared (e.g. to use them as unique keys in collections), regardless of which instance of <code>StringFormatter</code> created them.</p>
+</div>
+<div>
+<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/05-internals/design/api-v2.md" title="Edit this page" class="md-source-file md-edit">
+Edit this page
+</a>
+</div>
+<div class="print-only">
+<span class="md-source-file md-version">
+v1.4.0
+</span>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav class="md-footer-nav__inner md-grid">
+<a href="../../05-internals/design/administration.html" title="Administration (Users, Projects, Groups, Institutions, Permissions)" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Previous
+</span>
+Administration (Users, Projects, Groups, Institutions, Permissions)
+</span>
+</div>
+</a>
+<a href="../../05-internals/development/index.html" title="Development" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Next
+</span>
+Development
+</span>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+<div class="md-footer-copyright__highlight">
+Copyright 2015-2018 the contributors (see Contributors.md)
+</div>
+Powered by
+<a href="https://github.com/lightbend/paradox">Paradox</a>
+and
+<a href="https://jonas.github.io/paradox-material-theme/">Paradox Material Theme</a>
+
+</div>
+<div class="md-footer-social">
+<a href="https://github.com/dhlab-basel" class="md-footer-social__link fa fa-github"></a><a href="https://twitter.com/dhlabbasel" class="md-footer-social__link fa fa-twitter"></a>
+</div>
+
+</div>
+</div>
+</footer>
+
+</div>
+<script src="../../assets/javascripts/application.5165553b.js"></script>
+<script src="../../assets/javascripts/paradox-material-theme.js"></script>
+<script>app.initialize({version:"0.17",url:{base:"../../."}})</script>
+<script type="text/javascript" src="../../lib/prettify/prettify.js"></script>
+<script type="text/javascript" src="../../lib/prettify/lang-scala.js"></script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+window.prettyPrint && prettyPrint();
+});
+</script>
+</body>
+</html>

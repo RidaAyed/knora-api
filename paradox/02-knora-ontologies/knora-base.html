@@ -154,20 +154,26 @@ dhlab-basel/Knora/docs
     <li><a href="../02-knora-ontologies/knora-base.html" class="active page">The Knora Base Ontology</a></li>
     <li><a href="../02-knora-ontologies/salsah-gui.html" class="page">The SALSAH GUI Ontology</a></li>
   </ul></li>
-  <li><a href="../03-webapi/index.html" class="page">The Knora API Server</a>
+  <li><a href="../03-apis/index.html" class="page">The Knora APIs</a>
   <ul>
-    <li><a href="../03-webapi/deployment/index.html" class="page">Deployment</a></li>
-    <li><a href="../03-webapi/design/index.html" class="page">Design</a></li>
-    <li><a href="../03-webapi/development/index.html" class="page">Development</a></li>
-    <li><a href="../03-webapi/api-v1/index.html" class="page">Knora API v1</a></li>
-    <li><a href="../03-webapi/api-v2/index.html" class="page">Knora API v2</a></li>
-    <li><a href="../03-webapi/api-admin/index.html" class="page">Knora Admin API</a></li>
+    <li><a href="../03-apis/api-v1/index.html" class="page">Knora API v1</a></li>
+    <li><a href="../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
+    <li><a href="../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
   </ul></li>
-  <li><a href="../04-salsah/index.html" class="page">The SALSAH 1 GUI</a></li>
-  <li><a href="../05-sipi/index.html" class="page">The Sipi Media Server</a>
+  <li><a href="../04-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
-    <li><a href="../05-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
-    <li><a href="../05-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
+    <li><a href="../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+  </ul></li>
+  <li><a href="../05-internals/index.html" class="page">Knora Internals</a>
+  <ul>
+    <li><a href="../05-internals/design/index.html" class="page">Design</a></li>
+    <li><a href="../05-internals/development/index.html" class="page">Development</a></li>
+  </ul></li>
+  <li><a href="../06-salsah/index.html" class="page">The SALSAH 1 GUI</a></li>
+  <li><a href="../07-sipi/index.html" class="page">The Sipi Media Server</a>
+  <ul>
+    <li><a href="../07-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
+    <li><a href="../07-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
@@ -293,12 +299,12 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h3><a href="#ontologies" name="ontologies" class="anchor"><span class="anchor-link"></span></a>Ontologies</h3>
 <p>Each project-specific ontology must be defined as an <code>owl:Ontology</code> with the properties <code>rdfs:label</code> and <code>kb:attachedToProject</code>.</p>
 <h3><a href="#resources" name="resources" class="anchor"><span class="anchor-link"></span></a>Resources</h3>
-<p>All the content produced by a project (e.g. digitised primary source materials or research data) must be stored in objects that belong to subclasses of <code>kb:Resource</code>, so that the Knora API server can query and update that content. Each project using the Knora base ontology must define its own OWL classes, derived from <code>kb:Resource</code>, to represent the types of data it deals with. A subclass of <code>kb:Resource</code> may additionally be a subclass of any other class, e.g. an industry-standard class such as <code>foaf:Person</code>; this can facilitate searches across projects.</p>
+<p>All the content produced by a project (e.g. digitised primary source materials or research data) must be stored in objects that belong to subclasses of <code>kb:Resource</code>, so that Knora can query and update that content. Each project using the Knora base ontology must define its own OWL classes, derived from <code>kb:Resource</code>, to represent the types of data it deals with. A subclass of <code>kb:Resource</code> may additionally be a subclass of any other class, e.g. an industry-standard class such as <code>foaf:Person</code>; this can facilitate searches across projects.</p>
 <p>Resources have properties that point to different parts of the content they contain. For example, a resource representing a book could have a property called <code>hasAuthor</code>, pointing to the author of the book. There are two possible kinds of content in a Knora resource: Knora values (see <a href="knora-base.html#values">Values</a>) or links to other resources (see <a href="knora-base.html#links-between-resources">Links Between Resources</a>). Properties that point to Knora values must be subproperties of <code>kb:hasValue</code>, and properties that point to other resources must be subproperties of <code>kb:hasLinkTo</code>. Either of these two types of properties may also be a subproperty of any other property, e.g. an industry-standard property such as <code>foaf:name</code>; this can facilitate searches across projects. Each property definition must specify the types that its subjects and objects must belong to (see <a href="knora-base.html#constraints-on-the-types-of-property-subjects-and-objects">Constraints on the Types of Property Subjects and Objects</a> for details).</p>
 <p>Each project-specific resource class definition must use OWL cardinality restrictions to specify the properties that resources of that class can have (see <a href="knora-base.html#owl-cardinalities">OWL Cardinalities</a> for details).</p>
 <p>Resources are not versioned; only their values are versioned (see <a href="knora-base.html#values">Values</a>).</p>
 <p>Every resource is required to have an <code>rdfs:label</code>. The object of this property is an <code>xsd:string</code>, rather than a Knora value; hence it is not versioned. A user who has modify permission on a resource (see <a href="knora-base.html#authorisation">Authorisation</a>) can change its label.</p>
-<p>A resource can be marked as deleted; the Knora API server does this by adding the predicate <code>kb:isDeleted true</code> to the resource. An optional <code>kb:deleteComment</code> may be added to explain why the resource has been marked as deleted. Deleted resources are normally hidden. They cannot be undeleted, because even though resources are not versioned, it is necessary to be able to find out when a resource was deleted. If desired, a new resource can be created by copying data from a deleted resource.</p>
+<p>A resource can be marked as deleted; Knora does this by adding the predicate <code>kb:isDeleted true</code> to the resource. An optional <code>kb:deleteComment</code> may be added to explain why the resource has been marked as deleted. Deleted resources are normally hidden. They cannot be undeleted, because even though resources are not versioned, it is necessary to be able to find out when a resource was deleted. If desired, a new resource can be created by copying data from a deleted resource.</p>
 <h4><a href="#properties-of-resource" name="properties-of-resource" class="anchor"><span class="anchor-link"></span></a>Properties of Resource</h4>
 <dl>
   <dt><code>creationDate</code> (1)
@@ -575,11 +581,11 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <dt><code>internalFilename</code> (1)
   </dt>
   <dd>
-  <p>The name of the file as stored by the Knora API server.</p></dd>
+  <p>The name of the file as stored by Knora.</p></dd>
   <dt><code>internalMimeType</code> (1)
   </dt>
   <dd>
-  <p>The MIME type of the file as stored by the Knora API server.</p></dd>
+  <p>The MIME type of the file as stored by Knora.</p></dd>
   <dt><code>originalFilename</code> (0-1)
   </dt>
   <dd>
@@ -639,7 +645,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </dl>
 <p>For details about how links are created in Knora, see <a href="knora-base.html#links-between-resources">Links Between Resources</a>.</p>
 <h5><a href="#externalresvalue" name="externalresvalue" class="anchor"><span class="anchor-link"></span></a>ExternalResValue</h5>
-<p>Represents a resource that is not stored in the RDF triplestore managed by the Knora API server, but instead resides in an external repository managed by some other software. The <code>ExternalResValue</code> contains the information that the Knora API server needs in order to access the resource, assuming that a suitable gateway plugin is installed.</p>
+<p>Represents a resource that is not stored in the RDF triplestore managed by Knora, but instead resides in an external repository managed by some other software. The <code>ExternalResValue</code> contains the information that Knora needs in order to access the resource, assuming that a suitable gateway plugin is installed.</p>
 <dl>
   <dt><code>extResAccessInfo</code> (1)
   </dt>
@@ -741,7 +747,7 @@ data:value_D rdf:type kb:LinkValue ;
 </code></pre>
 <p>This creates a link (<code>paintings:isInCollection</code>) between the painting and the collection, along with a reification containing metadata about the link. We can visualise the result as the following graph:</p>
 <p><img src="knora-base-fig2.dot.png" alt="Figure 2" title="Figure 2" /></p>
-<p>The Knora API server allows a user to see a link if the requesting user has permission to see the source and target resources as well as the <code>kb:LinkValue</code>.</p>
+<p>Knora allows a user to see a link if the requesting user has permission to see the source and target resources as well as the <code>kb:LinkValue</code>.</p>
 <h3><a href="#text-with-standoff-markup" name="text-with-standoff-markup" class="anchor"><span class="anchor-link"></span></a>Text with Standoff Markup</h3>
 <p>Knora is designed to be able to store text with markup, which can indicate formatting and structure, as well as the complex observations involved in transcribing handwritten manuscripts. One popular way of representing text in the humanities is to encode it in XML using the Text Encoding Initiative (<a href="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/index.html">TEI</a>) guidelines. In Knora, a TEI/XML document can be stored as a file with attached metadata, but this is not recommended, because it does not allow Knora to perform searches across multiple documents.</p>
 <p>The recommended way to store text with markup in Knora is to use Knora&rsquo;s built-in support for &ldquo;standoff&rdquo; markup, which is stored separately from the text. This has some advantages over embedded markup such as XML. While XML requires markup to have a hierarchical structure, and does not allow overlapping tags, standoff nodes do not have these limitations (see <a href="http://ecdosis.net/papers/schmidt.d.2016.pdf">Using Standoff Properties for Marking-up Historical Documents in the Humanities</a>). A standoff tag can be attached to any substring in the text by giving its start and end positions. Unlike in corpus linguistics, we do not use any tokenisation resulting in a form of predefined segmentation, which would limit the user&rsquo;s ability to freely annotate any ranges in the text.</p>
@@ -807,8 +813,8 @@ data:value_D rdf:type kb:LinkValue ;
   <dd>
   <p>The IRI of the resource that is referred to.</p></dd>
 </dl>
-<p>One of the design goals of the Knora ontology is to make it easy and efficient to find out which resources contain references to a given resource. Direct links are easier and more efficient to query than indirect links. Therefore, when a text value contains a resource reference in its standoff nodes, the Knora API server automatically creates a direct link between the containing resource and the target resource, along with an RDF reification (a <code>kb:LinkValue</code>) describing the link, as discussed in <a href="knora-base.html#links-between-resources">Links Between Resources</a>. In this case, the link property is always <code>kb:hasStandoffLinkTo</code>, and the link value property (which points to the <code>LinkValue</code>) is always <code>kb:hasStandoffLinkToValue</code>.</p>
-<p>The Knora API server automatically updates direct links and reifications for standoff resource references when text values are updated. To do this, it keeps track of the number of text values in each resource that contain at least one standoff reference to a given target resource. It stores this number as the reference count of the <code>LinkValue</code> (see <a href="knora-base.html#linkvalue">LinkValue</a>) describing the direct link. Each time this number changes, it makes a new version of the <code>LinkValue</code>, with an updated reference count. When the reference count reaches zero, it removes the direct link and makes a new version of the <code>LinkValue</code>, marked with <code>kb:isDeleted</code>.</p>
+<p>One of the design goals of the Knora ontology is to make it easy and efficient to find out which resources contain references to a given resource. Direct links are easier and more efficient to query than indirect links. Therefore, when a text value contains a resource reference in its standoff nodes, Knora automatically creates a direct link between the containing resource and the target resource, along with an RDF reification (a <code>kb:LinkValue</code>) describing the link, as discussed in <a href="knora-base.html#links-between-resources">Links Between Resources</a>. In this case, the link property is always <code>kb:hasStandoffLinkTo</code>, and the link value property (which points to the <code>LinkValue</code>) is always <code>kb:hasStandoffLinkToValue</code>.</p>
+<p>Knora automatically updates direct links and reifications for standoff resource references when text values are updated. To do this, it keeps track of the number of text values in each resource that contain at least one standoff reference to a given target resource. It stores this number as the reference count of the <code>LinkValue</code> (see <a href="knora-base.html#linkvalue">LinkValue</a>) describing the direct link. Each time this number changes, it makes a new version of the <code>LinkValue</code>, with an updated reference count. When the reference count reaches zero, it removes the direct link and makes a new version of the <code>LinkValue</code>, marked with <code>kb:isDeleted</code>.</p>
 <p>For example, if <code>data:R1</code> is a resource with a text value in which the resource <code>data:R2</code> is referenced, the repository could contain the following triples:</p>
 <pre><code>data:R1 ex:hasComment data:V1 .
 
@@ -843,7 +849,7 @@ data:LV1 rdf:type kb:LinkValue ;
 </dl>
 <p>For links to a <code>kb:Resource</code>, see <a href="knora-base.html#standofflinktag">StandoffLinkTag</a>.</p>
 <h4><a href="#mapping-to-create-standoff-from-xml" name="mapping-to-create-standoff-from-xml" class="anchor"><span class="anchor-link"></span></a>Mapping to Create Standoff From XML</h4>
-<p>A mapping allows for the conversion of an XML document to RDF-standoff and back. A mapping defines one-to-one relations between XML elements (with or without a class) and attributes and standoff classes and properties (see <a href="../03-webapi/api-v1/xml-to-standoff-mapping.html">XML to Standoff Mapping</a>).</p>
+<p>A mapping allows for the conversion of an XML document to RDF-standoff and back. A mapping defines one-to-one relations between XML elements (with or without a class) and attributes and standoff classes and properties (see <a href="../03-apis/api-v1/xml-to-standoff-mapping.html">XML to Standoff Mapping</a>).</p>
 <p>A mapping is represented by a <code>kb:XMLToStandoffMapping</code> which contains one or more <code>kb:MappingElement</code>. A <code>kb:MappingElement</code> maps an XML element (including attributes) to a standoff class and standoff properties. It has the following properties:</p>
 <dl>
   <dt><code>mappingHasXMLTagname</code> (1)
@@ -916,7 +922,7 @@ data:LV1 rdf:type kb:LinkValue ;
   <p>A UUID that can be used to annotate a standoff tag that may be present in different versions of a text, or in different layers of a text (such as a diplomatic transcription and an edited critical text).</p></dd>
 </dl>
 <h4><a href="#querying-standoff-in-sparql" name="querying-standoff-in-sparql" class="anchor"><span class="anchor-link"></span></a>Querying Standoff in SPARQL</h4>
-<p>A future version of the Knora API server will provide an API for querying standoff markup. In the meantime, it is possible to query it directly in SPARQL. For example, here is a SPARQL query (using RDFS inference) that finds all the text values texts that have a standoff date tag referring to Christmas Eve 2016, contained in a <code>StandoffItalicTag</code>:</p>
+<p>A future version of Knora will provide an API for querying standoff markup. In the meantime, it is possible to query it directly in SPARQL. For example, here is a SPARQL query (using RDFS inference) that finds all the text values texts that have a standoff date tag referring to Christmas Eve 2016, contained in a <code>StandoffItalicTag</code>:</p>
 <pre class="prettyprint"><code class="language-sparql">PREFIX knora-base: &lt;http://www.knora.org/ontology/knora-base#&gt;
 PREFIX standoff: &lt;http://www.knora.org/ontology/standoff#&gt;
 
@@ -975,10 +981,10 @@ select * where {
 <dl>
   <dt><code>UnknownUser</code></dt>
   <dd>
-  <p>Any user who has not logged into the Knora API server is automatically assigned to this group.</p></dd>
+  <p>Any user who has not logged into Knora is automatically assigned to this group.</p></dd>
   <dt><code>KnownUser</code></dt>
   <dd>
-  <p>Any user who has logged into the Knora API server is automatically assigned to this group.</p></dd>
+  <p>Any user who has logged into Knora is automatically assigned to this group.</p></dd>
   <dt><code>ProjectMember</code></dt>
   <dd>
   <p>When checking a user&rsquo;s permissions on an object, the user is automatically assigned to this group if she is a member of the project that the object belongs to.</p></dd>
@@ -1065,7 +1071,7 @@ select * where {
   <p>Specifies the class that subjects of the property must belong to. This constraint is recommended but not required. Knora will attempt to enforce this constraint.</p></dd>
   <dt><code>objectClassConstraint</code></dt>
   <dd>
-  <p>If the property is an object property, specifies the class that objects of the property must belong to. Every subproperty of <code>kb:hasValue</code> or a <code>kb:hasLinkTo</code> (i.e. every property of a resource that points to a <code>kb:Value</code> or to another resource) is required to have this constraint, because the Knora API server relies on it to know what type of object to expect for the property. Knora will attempt to enforce this constraint.</p></dd>
+  <p>If the property is an object property, specifies the class that objects of the property must belong to. Every subproperty of <code>kb:hasValue</code> or a <code>kb:hasLinkTo</code> (i.e. every property of a resource that points to a <code>kb:Value</code> or to another resource) is required to have this constraint, because Knora relies on it to know what type of object to expect for the property. Knora will attempt to enforce this constraint.</p></dd>
   <dt><code>objectDatatypeConstraint</code></dt>
   <dd>
   <p>If the property is a datatype property, specifies the type of literals that can be objects of the property. Knora will not attempt to enforce this constraint, but it is useful for documentation purposes.</p></dd>
@@ -1110,7 +1116,7 @@ select * where {
   <li>Each of its base properties that has a Knora IRI must also be a Knora resource property.</li>
 </ul>
 <h2><a href="#standardisation" name="standardisation" class="anchor"><span class="anchor-link"></span></a>Standardisation</h2>
-<p>The <a href="http://dasch.swiss/">DaSCH</a> intends to coordinate the standardisation of generally useful entities proposed in project-specific ontologies. We envisage a process in which two or more projects would initiate the process by starting a public discussion on proposed entities to be shared. Once a consensus was reached, the <a href="http://dasch.swiss/">DaSCH</a> would publish these entities in an ontology that could be used by multiple projects, and would ensure that such ontologies are not subsequently modified in ways that break compatibility with existing data. Functionality may be added to the Knora API server to facilitate this process.</p>
+<p>The <a href="http://dasch.swiss/">DaSCH</a> intends to coordinate the standardisation of generally useful entities proposed in project-specific ontologies. We envisage a process in which two or more projects would initiate the process by starting a public discussion on proposed entities to be shared. Once a consensus was reached, the <a href="http://dasch.swiss/">DaSCH</a> would publish these entities in an ontology that could be used by multiple projects, and would ensure that such ontologies are not subsequently modified in ways that break compatibility with existing data. Functionality may be added to Knora to facilitate this process.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/02-knora-ontologies/knora-base.md" title="Edit this page" class="md-source-file md-edit">
