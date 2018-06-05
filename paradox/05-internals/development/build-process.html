@@ -246,14 +246,9 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <ul>
   <li><a href="../../05-internals/development/build-process.html#building-and-running" class="header">Building and Running</a>
   <ul>
-    <li><a href="../../05-internals/development/build-process.html#using-fuseki" class="header">Using Fuseki</a></li>
-    <li><a href="../../05-internals/development/build-process.html#using-graphdb" class="header">Using GraphDB</a></li>
+    <li><a href="../../05-internals/development/build-process.html#starting-a-triplestore" class="header">Starting a Triplestore</a></li>
   </ul></li>
-  <li><a href="../../05-internals/development/build-process.html#running-the-automated-tests" class="header">Running the automated tests</a>
-  <ul>
-    <li><a href="../../05-internals/development/build-process.html#running-tests-with-fuseki" class="header">Running Tests with Fuseki</a></li>
-    <li><a href="../../05-internals/development/build-process.html#running-tests-with-graphdb" class="header">Running Tests with GraphDB</a></li>
-  </ul></li>
+  <li><a href="../../05-internals/development/build-process.html#running-the-automated-tests" class="header">Running the automated tests</a></li>
   <li><a href="../../05-internals/development/build-process.html#load-testing-on-mac-os-x" class="header">Load Testing on Mac OS X</a></li>
   <li><a href="../../05-internals/development/build-process.html#continuous-integration" class="header">Continuous Integration</a></li>
   <li><a href="../../05-internals/development/build-process.html#sbt-build-configuration" class="header">SBT Build Configuration</a></li>
@@ -271,32 +266,13 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li>Using Fuseki for development</li>
 </ul>
 <h2><a href="#building-and-running" name="building-and-running" class="anchor"><span class="anchor-link"></span></a>Building and Running</h2>
-<h3><a href="#using-fuseki" name="using-fuseki" class="anchor"><span class="anchor-link"></span></a>Using Fuseki</h3>
-<p>Start the provided Fuseki triplestore:</p>
-<pre><code>$ cd KNORA_PROJECT_DIRECTORY/triplestores/fuseki
-$ ./fuseki-server
-</code></pre>
-<p>Then in another terminal, load some test data into the triplestore:</p>
-<pre><code>$ cd KNORA_PROJECT_DIRECTORY/webapi/scripts
-$ ./fuseki-load-test-data.sh
-</code></pre>
-<p>Then go back to the webapi root directory and use SBT to start the API server:</p>
-<pre><code>$ cd KNORA_PROJECT_DIRECTORY/webapi
-$ sbt
-&gt; compile
-&gt; re-start
-</code></pre>
-<p>To shut down Knora:</p>
-<pre><code>&gt; re-stop
-</code></pre>
-<h3><a href="#using-graphdb" name="using-graphdb" class="anchor"><span class="anchor-link"></span></a>Using GraphDB</h3>
-<p>The archive with the newest supported version of the GraphDB SE triplestore is provided under <code>triplestores/graphdb-se</code>. Please keep in mind that GraphDB-SE must be licensed separately by the user, and that no license file is provided in the repository. GraphDB SE will not run without a license file.</p>
-<p>Unzip <code>graphdb-se-x.x.x-dist.zip</code> to a place of your choosing and run the following, to start graphdb:</p>
+<h3><a href="#starting-a-triplestore" name="starting-a-triplestore" class="anchor"><span class="anchor-link"></span></a>Starting a Triplestore</h3>
+<p>Start a triplestore (GraphDB-Free or GraphDB-SE). Download distribution from <a href="http://ontotext.com">Ontotext</a>. Unzip distribution  to a place of your choosing and run the following:</p>
 <pre><code>$ cd /to/unziped/location
 $ ./bin/graphdb -Dgraphdb.license.file=/path/to/GRAPHDB_SE.license
 </code></pre>
-<p>After the GraphDB inside the docker container has started, you can find the GraphDB workbench here: <a href="http://localhost:7200">http://localhost:7200</a></p>
-<p>Then in another terminal, load some test data into the triplestore:</p>
+<p>Here we use GraphDB-SE which needs to be licensed separately.</p>
+<p>Then in another terminal, initialize the data repository and load some test data:</p>
 <pre><code>$ cd KNORA_PROJECT_DIRECTORY/webapi/scripts
 $ ./graphdb-se-local-init-knora-test.sh
 </code></pre>
@@ -304,18 +280,13 @@ $ ./graphdb-se-local-init-knora-test.sh
 <pre><code>$ cd KNORA_PROJECT_DIRECTORY/webapi
 $ sbt
 &gt; compile
-&gt; re-start
+&gt; reStart
 </code></pre>
 <p>To shut down Knora:</p>
 <pre><code>&gt; re-stop
 </code></pre>
 <h2><a href="#running-the-automated-tests" name="running-the-automated-tests" class="anchor"><span class="anchor-link"></span></a>Running the automated tests</h2>
-<h3><a href="#running-tests-with-fuseki" name="running-tests-with-fuseki" class="anchor"><span class="anchor-link"></span></a>Running Tests with Fuseki</h3>
-<p>Make sure you&rsquo;ve started Fuseki as shown above. Then at the SBT prompt:</p>
-<pre><code>&gt; fuseki:test
-</code></pre>
-<h3><a href="#running-tests-with-graphdb" name="running-tests-with-graphdb" class="anchor"><span class="anchor-link"></span></a>Running Tests with GraphDB</h3>
-<p>Make sure GraphDB is running (as described earlier).</p>
+<p>Make sure you&rsquo;ve started the triplestore as shown above.</p>
 <p>Then in another terminal, initialise the repository used for automated testing:</p>
 <pre><code>$ cd KNORA_PROJECT_DIRECTORY/webapi/scripts
 $ ./graphdb-se-local-init-knora-test-unit.sh
@@ -427,7 +398,7 @@ jobs:
         # install bundler
         - gem install bundler
         # install jekyll
-        - gem install jekyll -v 3.8.1
+        # - gem install jekyll -v 3.8.1
         # install typedoc
         - npm install --global typedoc
         # install jekyll dependencies
@@ -882,7 +853,7 @@ val customMergeStrategy: String =&gt; MergeStrategy = {
 &gt; reStart loadDemoData
 </code></pre>
 <h3><a href="#allowreloadoverhttp-flag" name="allowreloadoverhttp-flag" class="anchor"><span class="anchor-link"></span></a><code>allowReloadOverHTTP</code> - Flag</h3>
-<p>When the webapi.server is started with the <code>allowReloadOverHTTP</code> flag, then the <code>v1/store/ResetTriplestoreContent</code> route is activated. This route accepts a <code>POST</code> request, with a JSON payload consisting of the following example content:</p>
+<p>When the webapi.server is started with the <code>allowReloadOverHTTP</code> flag (<code>reStart -r</code>), then the <code>v1/store/ResetTriplestoreContent</code> route is activated. This route accepts a <code>POST</code> request, with a JSON payload consisting of the following example content:</p>
 <pre><code>[
   {
     &quot;path&quot;: &quot;../knora-ontologies/knora-base.ttl&quot;,

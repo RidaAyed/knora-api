@@ -285,13 +285,14 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h2><a href="#api-schema" name="api-schema" class="anchor"><span class="anchor-link"></span></a>API Schema</h2>
 <p>Knora API v2 offers the query and response format in a complex schema and a simple one. The main difference is that the complex schema exposes the complexity of value objects, while the simple version does not. A client that needs to edit values must use the complex schema in order to obtain the IRI of each value. A client that reads but does not update data can use the simplified schema. The simple schema is mainly intended to facilitate interoperability with other RDF-based systems in the context of Linked Open Data. It is therefore designed to use the simplest possible datatypes and to require minimal knowledge of Knora.</p>
 <p>In either case, the client deals only with data whose structure and semantics are defined by Knora API ontologies, which are distinct from the ontologies that are used to store date in the triplestore. The Knora API server automatically converts back and forth between these internal and external representations. This approach encapsulates the internals and adds a layer of abstraction to them.</p>
-<p>Some API operations inherently require the client to accept responses in the complex schema, while others can return data in either schema. In the latter case, the complex schema is used by default in the response, unless the request specifically asks for the simple schema. For example, if an ontology is requested using an IRI indicating the simple schema, the ontology will be returned in the simple schema (see <a href="ontology-information.html">Querying, Creating, and Updating Ontologies</a>). The client can also specify the desired schema by using an HTTP header or a URL parameter:</p>
+<p>IRIs representing ontologies and ontology entities are different in different schemas; see <a href="knora-iris.html">Knora IRIs</a>.</p>
+<p>Some API operations inherently require the client to accept responses in the complex schema. For example, if an ontology is requested using an IRI indicating the simple schema, the ontology will be returned in the simple schema (see <a href="ontology-information.html">Querying, Creating, and Updating Ontologies</a>).</p>
+<p>Other API operations can return data in either schema. In this case, the complex schema is used by default in the response, unless the request specifically asks for the simple schema. The client can specify the desired schema by using an HTTP header or a URL parameter:</p>
 <ul>
   <li>the HTTP header <code>X-Knora-Accept-Schema</code></li>
   <li>the URL parameter <code>schema</code></li>
 </ul>
 <p>Both the HTTP header and the URL parameter accept the values <code>simple</code> or <code>complex</code>.</p>
-<p>Although the Gravsearch query language (see <a href="query-language.html">Gravsearch: Virtual Graph Search</a>) requires the simple schema to be used in the request, search results are returned in the complex schema by default, unless the client requests the simple schema by using the HTTP header or the URL parameter.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/03-apis/api-v2/introduction.md" title="Edit this page" class="md-source-file md-edit">

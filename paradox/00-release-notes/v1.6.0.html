@@ -176,7 +176,20 @@ dhlab-basel/Knora/docs
 <p>See the <a href="https://github.com/dhlab-basel/Knora/releases/tag/v1.6.0">release</a> and closed tickets on the <a href="https://github.com/dhlab-basel/Knora/milestone/10">v1.6.0 milestone</a> on Github.</p>
 <h2><a href="#required-changes-to-existing-data-" name="required-changes-to-existing-data-" class="anchor"><span class="anchor-link"></span></a>Required changes to existing data:</h2>
 <h2><a href="#new-features-" name="new-features-" class="anchor"><span class="anchor-link"></span></a>New features:</h2>
+<p>Gravsearch enhancements:</p>
+<ul>
+  <li>Accept queries in POST requests (<a href="https://github.com/dhlab-basel/Knora/issues/650">#650</a>).</li>
+  <li>Allow a Gravsearch query to specify the IRI of the main resource (<a href="https://github.com/dhlab-basel/Knora/issues/871">#871</a>) (by allowing <code>BIND</code>).</li>
+  <li>Allow <code>lang</code> to be used with <code>!=</code>.</li>
+</ul>
 <h2><a href="#bugfixes-" name="bugfixes-" class="anchor"><span class="anchor-link"></span></a>Bugfixes:</h2>
+<p>Gravsearch fixes:</p>
+<ul>
+  <li>Allow the <code>lang</code> function to be used in a comparison inside AND/OR (<a href="https://github.com/dhlab-basel/Knora/issues/846">#846</a>).</li>
+  <li>Fix the processing of resources with multiple incoming links that use the same property (<a href="https://github.com/dhlab-basel/Knora/issues/878">#878</a>).</li>
+  <li>Fix the parsing of a FILTER inside an OPTIONAL (<a href="https://github.com/dhlab-basel/Knora/issues/879">#879</a>).</li>
+  <li>Require the <code>match</code> function to be the top-level expression in a <code>FILTER</code>.</li>
+</ul>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/00-release-notes/v1.6.0.md" title="Edit this page" class="md-source-file md-edit">
