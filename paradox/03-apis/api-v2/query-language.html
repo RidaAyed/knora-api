@@ -312,8 +312,8 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h4><a href="#supported-sparql-syntax" name="supported-sparql-syntax" class="anchor"><span class="anchor-link"></span></a>Supported SPARQL Syntax</h4>
 <p>The current version of Gravsearch accepts <code>CONSTRUCT</code> queries whose <code>WHERE</code> clauses use the following patterns, with the specified restrictions:</p>
 <ul>
-  <li><code>OPTIONAL</code>: cannot be nested in an <code>OPTIONAL</code> or <code>UNION</code>.</li>
-  <li><code>UNION</code>: cannot be nested in an <code>OPTIONAL</code> or <code>UNION</code>.</li>
+  <li><code>OPTIONAL</code>: cannot be nested in a <code>UNION</code>.</li>
+  <li><code>UNION</code>: cannot be nested in a <code>UNION</code>.</li>
   <li><code>FILTER</code>: may contain a complex expression using the Boolean operators AND and OR, as well as comparison operators. The left argument of a comparison operator must be a query variable.</li>
   <li><code>FILTER NOT EXISTS</code></li>
   <li><code>OFFSET</code>: the <code>OFFSET</code> is needed for paging. It does not actually refer to the number of triples to be returned, but to the requested page of results. The default value is 0, which refers to the first page of results. The number of results per page is defined in <code>app/v2</code> in <code>application.conf</code>.</li>
