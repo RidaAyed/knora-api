@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<meta name="description" content="root">
+<meta name="description" content="docs">
 <meta name="generator" content="Paradox, paradox-material-theme=v1.5.0, mkdocs-material=2.2.2">
 
 <meta name="lang:clipboard.copy" content="Copy to clipboard">
@@ -16,7 +16,7 @@
 <meta name="lang:search.tokenizer" content="[\s\-]+">
 
 
-<meta name="description" content="root">
+<meta name="description" content="docs">
 <link rel="shortcut icon" href="../../cloud">
 <title>Gravsearch: Virtual Graph Search · Knora Documentation</title>
 <link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
@@ -142,6 +142,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v1.3.0.html" class="page">v1.3.0 Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes (not released yet)</a></li>
   </ul></li>
   <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
   <ul>
@@ -175,6 +176,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../07-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
     <li><a href="../../07-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
   </ul></li>
+  <li><a href="../../faq.html" class="page">Frequently Asked Questions</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
@@ -184,6 +186,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v2/query-language.html#basic-concept" class="header">Basic Concept</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-syntax" class="header">Gravsearch Syntax</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-by-example" class="header">Gravsearch by Example</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#type-inference" class="header">Type Inference</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -207,6 +210,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v2/query-language.html#basic-concept" class="header">Basic Concept</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-syntax" class="header">Gravsearch Syntax</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-by-example" class="header">Gravsearch by Example</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#type-inference" class="header">Type Inference</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -256,13 +260,6 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
       <li><a href="../../03-apis/api-v2/query-language.html#properties" class="header">Properties</a></li>
       <li><a href="../../03-apis/api-v2/query-language.html#values" class="header">Values</a></li>
       <li><a href="../../03-apis/api-v2/query-language.html#functions-in-filter-expressions" class="header">Functions in FILTER Expressions</a></li>
-      <li><a href="../../03-apis/api-v2/query-language.html#required-type-annotations" class="header">Required Type Annotations</a></li>
-      <li><a href="../../03-apis/api-v2/query-language.html#resource-classes" class="header">Resource Classes</a></li>
-      <li><a href="../../03-apis/api-v2/query-language.html#property-types" class="header">Property Types</a>
-      <ul>
-        <li><a href="../../03-apis/api-v2/query-language.html#value-property-types" class="header">Value Property Types</a></li>
-        <li><a href="../../03-apis/api-v2/query-language.html#linking-property-types" class="header">Linking Property Types</a></li>
-      </ul></li>
       <li><a href="../../03-apis/api-v2/query-language.html#value-types" class="header">Value Types</a></li>
     </ul></li>
     <li><a href="../../03-apis/api-v2/query-language.html#construct-clause" class="header">CONSTRUCT Clause</a>
@@ -272,7 +269,14 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   </ul></li>
   <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-by-example" class="header">Gravsearch by Example</a>
   <ul>
-    <li><a href="../../03-apis/api-v2/query-language.html#getting-all-the-components-of-a-compound-resource" class="header">Getting all the Components of a Compound resource</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#getting-all-the-components-of-a-compound-resource" class="header">Getting All the Components of a Compound Resource</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#traversing-multiple-links" class="header">Traversing Multiple Links</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#requesting-a-graph-starting-with-a-known-resource" class="header">Requesting a Graph Starting with a Known Resource</a></li>
+  </ul></li>
+  <li><a href="../../03-apis/api-v2/query-language.html#type-inference" class="header">Type Inference</a>
+  <ul>
+    <li><a href="../../03-apis/api-v2/query-language.html#type-annotations" class="header">Type Annotations</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#inconsistent-types" class="header">Inconsistent Types</a></li>
   </ul></li>
 </ul>
 </div>
@@ -314,11 +318,11 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <ul>
   <li><code>OPTIONAL</code>: cannot be nested in a <code>UNION</code>.</li>
   <li><code>UNION</code>: cannot be nested in a <code>UNION</code>.</li>
-  <li><code>FILTER</code>: may contain a complex expression using the Boolean operators AND and OR, as well as comparison operators. The left argument of a comparison operator must be a query variable.</li>
+  <li><code>FILTER</code>: may contain a complex expression using the Boolean operators AND and OR, as well as comparison operators. The left argument of a comparison operator must be a query variable. A Knora ontology entity IRI used in a <code>FILTER</code> must be a property IRI.</li>
   <li><code>FILTER NOT EXISTS</code></li>
   <li><code>OFFSET</code>: the <code>OFFSET</code> is needed for paging. It does not actually refer to the number of triples to be returned, but to the requested page of results. The default value is 0, which refers to the first page of results. The number of results per page is defined in <code>app/v2</code> in <code>application.conf</code>.</li>
   <li><code>ORDER BY</code>: In SPARQL, the result of a Construct query is an unordered set of triples. However, a Gravsearch query returns an ordered list of resources, which can be ordered by the values of specified properties.</li>
-  <li><code>BIND</code>: The value assigned must be a Knora data IRI.</li>
+  <li><code>BIND</code>: The value assigned must be a Knora resource IRI.</li>
 </ul>
 <h4><a href="#resources" name="resources" class="anchor"><span class="anchor-link"></span></a>Resources</h4>
 <p>Resources can be represented either by an IRI or by a variable, except for the main resource, which must be represented by a variable.</p>
@@ -336,32 +340,8 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <pre><code>FILTER(lang(?text) = &quot;fr&quot;)
 </code></pre>
 <p>The <a href="https://www.w3.org/TR/2013/REC-sparql11-query-20130321/#func-regex">SPARQL <code>regex</code> function</a> is also supported.</p>
-<h4><a href="#required-type-annotations" name="required-type-annotations" class="anchor"><span class="anchor-link"></span></a>Required Type Annotations</h4>
-<p>Resources, properties, and values must be accompanied by explicit type annotation statements. (In a future version, this type information could be inferred rather than explicitly given in the query.)</p>
-<p>There are two type annotation properties:</p>
-<ul>
-  <li><code>knora-api:objectType</code>: indicates the type of value or resource that a property points to.</li>
-  <li><code>rdf:type</code>: indicates the type of a resource or value.</li>
-</ul>
-<h4><a href="#resource-classes" name="resource-classes" class="anchor"><span class="anchor-link"></span></a>Resource Classes</h4>
-<p>Each variable representing a resource must be annotated with <code>rdf:type knora-api:Resource</code>. To restrict the types of resources, additional statements can be made using <code>rdfs:type</code>.</p>
-<h4><a href="#property-types" name="property-types" class="anchor"><span class="anchor-link"></span></a>Property Types</h4>
-<p>A property may point either to a value or to a resource. In the first case, it is called a value property, in the second case a linking property. The type annotation property <code>knora-api:objectType</code> indicates the type of value or resource the property points to.</p>
-<h5><a href="#value-property-types" name="value-property-types" class="anchor"><span class="anchor-link"></span></a>Value Property Types</h5>
-<p>Supported value property types:</p>
-<ul>
-  <li><code>xsd:string</code></li>
-  <li><code>xsd:integer</code></li>
-  <li><code>xsd:decimal</code></li>
-  <li><code>xsd:boolean</code></li>
-  <li><code>knora-api:Date</code></li>
-  <li><code>knora-api:StillImageFile</code></li>
-  <li><code>knora-api:Geom</code></li>
-</ul>
-<h5><a href="#linking-property-types" name="linking-property-types" class="anchor"><span class="anchor-link"></span></a>Linking Property Types</h5>
-<p>A linking property must be annotated with <code>knora-api:objectType knora-api:Resource</code>.</p>
 <h4><a href="#value-types" name="value-types" class="anchor"><span class="anchor-link"></span></a>Value Types</h4>
-<p>Value types are used to indicate the type of a value (<code>rdf:type</code>). Gravsearch supports the following types of value instances:</p>
+<p>Gravsearch supports the following value types:</p>
 <ul>
   <li><code>xsd:string</code></li>
   <li><code>xsd:integer</code></li>
@@ -386,7 +366,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>In the <code>CONSTRUCT</code> clause of a Gravsearch query, the variable representing the main resource must be indicated with <code>knora-api:isMainResource true</code>. Exactly one variable representing a resource must be marked in this way.</p>
 <h2><a href="#gravsearch-by-example" name="gravsearch-by-example" class="anchor"><span class="anchor-link"></span></a>Gravsearch by Example</h2>
 <p>In this section, we provide some sample queries of different complexity to illustrate the usage of Gravsearch.</p>
-<h3><a href="#getting-all-the-components-of-a-compound-resource" name="getting-all-the-components-of-a-compound-resource" class="anchor"><span class="anchor-link"></span></a>Getting all the Components of a Compound resource</h3>
+<h3><a href="#getting-all-the-components-of-a-compound-resource" name="getting-all-the-components-of-a-compound-resource" class="anchor"><span class="anchor-link"></span></a>Getting All the Components of a Compound Resource</h3>
 <p>In order to get all the components of a compound resource, the following Gravsearch query can be sent to the API.</p>
 <p>In this case, the compound resource is an <code>incunabula:book</code> identified by the IRI <code>http://rdfh.ch/c5058f3a</code> and the components are of type <code>incunabula:page</code> (test data for the Incunabula project). Since inference is assumed, we can use <code>knora-api:StillImageRepresentation</code> (<code>incunabula:page</code> is one of its subclasses). This makes the query more generic and allows for reuse (for instance, a client would like to query different types of compound resources defined in different ontologies).</p>
 <p><code>ORDER BY</code> is used to sort the components by their sequence number.</p>
@@ -399,23 +379,13 @@ CONSTRUCT {
    ?component knora-api:seqnum ?seqnum . # return the sequence number in the response
    ?component knora-api:hasStillImageFileValue ?file . # return the StillImageFile in the response
 } WHERE {
-   ?component a knora-api:Resource . # explicit type annotation for the component searched for, required
-   ?component a knora-api:StillImageRepresentation . # additional restriction of the type of component, optional
-
-   ?component knora-api:isPartOf &lt;http://rdfh.ch/c5058f3a&gt; . # component relates to compound resource via this property
-   knora-api:isPartOf knora-api:objectType knora-api:Resource . # type annotation for linking property, required
-   &lt;http://rdfh.ch/c5058f3a&gt; a knora-api:Resource . # type annotation for compound resource, required
-
-   ?component knora-api:seqnum ?seqnum . # component must have a sequence number, no further restrictions given
-   knora-api:seqnum knora-api:objectType xsd:integer . # type annotation for the value property, required
-   ?seqnum a xsd:integer . # type annotation for the sequence number, required
-
-   ?component knora-api:hasStillImageFileValue ?file . # component must have a StillImageFile, no further restrictions given
-   knora-api:hasStillImageFileValue knora-api:objectType knora-api:StillImageFile . # type annotation for the value property, required
-   ?file a knora-api:StillImageFile . # type annotation for the StillImageFile, required
+   ?component a knora-api:StillImageRepresentation . # restriction of the type of component
+   ?component knora-api:isPartOf &lt;http://rdfh.ch/c5058f3a&gt; . # component relates to a compound resource via this property
+   ?component knora-api:seqnum ?seqnum . # component must have a sequence number
+   ?component knora-api:hasStillImageFileValue ?file . # component must have a StillImageFile
 }
 ORDER BY ASC(?seqnum) # order by sequence number, ascending
-OFFSET 0 #get first page of results
+OFFSET 0 # get first page of results
 </code></pre>
 <p>The <code>incunabula:book</code> with the IRI <code>http://rdfh.ch/c5058f3a</code> has 402 pages (this result can be obtained by doing a count query, see <a href="reading-and-searching-resources.html">Reading and Searching Resources</a>). However, with <code>OFFSET 0</code>, only the first page of results is returned. The same query can be sent again with <code>OFFSET 1</code> to get the next page of results, and so forth. When a page of results is not full (see settings in <code>app/v2</code> in <code>application.conf</code>) or is empty, no more results are available.</p>
 <p>By design, it is not possible for the client to get more than one page of results at a time; this is intended to prevent performance problems that would be caused by huge responses. A client that wants to download all the results of a query must request each page sequentially.</p>
@@ -423,6 +393,181 @@ OFFSET 0 #get first page of results
 <pre><code>FILTER (?seqnum &lt;= 10)
 </code></pre>
 <p>The first page starts with sequence number 1, so with this <code>FILTER</code> only the first ten pages are returned.</p>
+<h3><a href="#traversing-multiple-links" name="traversing-multiple-links" class="anchor"><span class="anchor-link"></span></a>Traversing Multiple Links</h3>
+<p>Here we are looking for regions of pages that are part of books that have a particular title:</p>
+<pre><code>PREFIX incunabula: &lt;http://0.0.0.0:3333/ontology/0803/incunabula/simple/v2#&gt;
+PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
+
+CONSTRUCT {
+  ?region knora-api:isMainResource true ;
+    knora-api:isRegionOf ?page .
+
+  ?page incunabula:partOf ?book .
+
+  ?book incunabula:title ?title .
+} WHERE {
+  ?region a knora-api:Region ;
+    knora-api:isRegionOf ?page .
+
+  ?page a incunabula:page ;
+    incunabula:partOf ?book .
+
+  ?book incunabula:title ?title .
+
+  FILTER(?title = &quot;Zeitglöcklein des Lebens und Leidens Christi&quot;)
+}
+</code></pre>
+<h3><a href="#requesting-a-graph-starting-with-a-known-resource" name="requesting-a-graph-starting-with-a-known-resource" class="anchor"><span class="anchor-link"></span></a>Requesting a Graph Starting with a Known Resource</h3>
+<p>Here the IRI of the main resource is already known, and we want specific information about it, as well as about related resources. In this case, the IRI of the main resource must be assigned to a variable using <code>BIND</code>:</p>
+<pre><code>PREFIX beol: &lt;http://0.0.0.0:3333/ontology/0801/beol/simple/v2#&gt;
+PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
+
+CONSTRUCT {
+  ?letter knora-api:isMainResource true ;
+    beol:creationDate ?date ;
+    ?linkingProp1 ?person1 .
+
+  ?person1 beol:hasFamilyName ?familyName .
+} WHERE {
+  BIND(&lt;http://rdfh.ch/0801/_B3lQa6tSymIq7_7SowBsA&gt; AS ?letter)
+
+  ?letter a beol:letter ;
+    beol:creationDate ?date ;
+    ?linkingProp1 ?person1 .
+
+  FILTER(?linkingProp1 = beol:hasAuthor || ?linkingProp1 = beol:hasRecipient)
+
+  ?person1 beol:hasFamilyName ?familyName .
+} ORDER BY ?date
+</code></pre>
+<h2><a href="#type-inference" name="type-inference" class="anchor"><span class="anchor-link"></span></a>Type Inference</h2>
+<p>Gravsearch needs to be able to determine the types of the entities that query variables and IRIs refer to in the <code>WHERE</code> clause. In most cases, it can infer these from context and from the ontologies used. In particular, it needs to know:</p>
+<ul>
+  <li>The type of the subject and object of each statement.</li>
+  <li>The type that is expected as the object of each predicate.</li>
+</ul>
+<h3><a href="#type-annotations" name="type-annotations" class="anchor"><span class="anchor-link"></span></a>Type Annotations</h3>
+<p>When one or more types cannot be inferred, Gravsearch will return an error message indicating the entities for which it could not determine types. The missing information must then be given by adding type annotations to the query. This can always done by adding statements with the predicate <code>rdf:type</code>. The subject must be a resource or value, and the object must either be <code>knora-api:Resource</code> (if the subject is a resource) or the subject&rsquo;s specific type (if it is a value).</p>
+<p>For example, consider this query that uses a non-Knora property:</p>
+<pre><code>PREFIX incunabula: &lt;http://0.0.0.0:3333/ontology/0803/incunabula/simple/v2#&gt;
+PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
+PREFIX dcterms: &lt;http://purl.org/dc/terms/&gt;
+
+CONSTRUCT {
+    ?book knora-api:isMainResource true ;
+        dcterms:title ?title .
+
+} WHERE {
+    ?book dcterms:title ?title .
+}
+</code></pre>
+<p>This produces the error message:</p>
+<pre><code>The types of one or more entities could not be determined:
+  ?book, &lt;http://purl.org/dc/terms/title&gt;, ?title
+</code></pre>
+<p>To solve this problem, it is enough to specify the types of <code>?book</code> and <code>?title</code>; the type of the expected object of <code>dcterms:title</code> can then be inferred from the type of <code>?title</code>.</p>
+<pre><code>PREFIX incunabula: &lt;http://0.0.0.0:3333/ontology/0803/incunabula/simple/v2#&gt;
+PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
+PREFIX dcterms: &lt;http://purl.org/dc/terms/&gt;
+
+CONSTRUCT {
+    ?book knora-api:isMainResource true ;
+        dcterms:title ?title .
+
+} WHERE {
+
+    ?book rdf:type incunabula:book ;
+        dcterms:title ?title .
+
+    ?title rdf:type xsd:string .
+
+}
+</code></pre>
+<p>It would also be possible to annotate the property itself, using the predicate <code>knora-api:objectType</code>; then the type of <code>?title</code> would be inferred:</p>
+<pre><code>PREFIX incunabula: &lt;http://0.0.0.0:3333/ontology/0803/incunabula/simple/v2#&gt;
+PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
+PREFIX dcterms: &lt;http://purl.org/dc/terms/&gt;
+
+CONSTRUCT {
+    ?book knora-api:isMainResource true ;
+        dcterms:title ?title .
+
+} WHERE {
+
+    ?book rdf:type incunabula:book ;
+        dcterms:title ?title .
+
+    dcterms:title knora-api:objectType xsd:string .
+
+}
+</code></pre>
+<p>Here is another example, using a non-Knora class:</p>
+<pre><code>PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
+PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
+
+CONSTRUCT {
+    ?person knora-api:isMainResource true .
+} WHERE {
+    ?person a foaf:Person .
+    ?person foaf:familyName ?familyName .
+    FILTER(?familyName = &quot;Meier&quot;)
+}
+</code></pre>
+<p>This produces the error message:</p>
+<pre><code>Types could not be determined for one or more entities: ?person
+</code></pre>
+<p>The solution is to specify that <code>?person</code> is a <code>knora-api:Resource</code>:</p>
+<pre><code>PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
+PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
+
+CONSTRUCT {
+    ?person knora-api:isMainResource true .
+} WHERE {
+    ?person a foaf:Person .
+    ?person a knora-api:Resource .
+    ?person foaf:familyName ?familyName .
+    FILTER(?familyName = &quot;Meier&quot;)
+}
+</code></pre>
+<h3><a href="#inconsistent-types" name="inconsistent-types" class="anchor"><span class="anchor-link"></span></a>Inconsistent Types</h3>
+<p>Gravsearch will also reject a query if an entity is used with inconsistent types. For example:</p>
+<pre><code>PREFIX incunabula: &lt;http://0.0.0.0:3333/ontology/0803/incunabula/simple/v2#&gt;
+PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
+
+CONSTRUCT {
+    ?book knora-api:isMainResource true ;
+        incunabula:pubdate ?pubdate .
+} WHERE {
+    ?book a incunabula:book ;
+        incunabula:pubdate ?pubdate .
+
+  FILTER(?pubdate = &quot;JULIAN:1497-03-01&quot;) .
+}
+</code></pre>
+<p>This returns the error message:</p>
+<pre><code>One or more entities have inconsistent types:
+
+&lt;http://0.0.0.0:3333/ontology/0803/incunabula/simple/v2#pubdate&gt;
+  knora-api:objectType &lt;http://api.knora.org/ontology/knora-api/simple/v2#Date&gt; ;
+  knora-api:objectType &lt;http://www.w3.org/2001/XMLSchema#string&gt; .
+
+?pubdate rdf:type &lt;http://api.knora.org/ontology/knora-api/simple/v2#Date&gt; ;
+  rdf:type &lt;http://www.w3.org/2001/XMLSchema#string&gt; .
+</code></pre>
+<p>This is because the <code>incunabula</code> ontology says that the object of <code>incunabula:pubdate</code> must be a <code>knora-api:Date</code>, but the <code>FILTER</code> expression compares <code>?pubdate</code> with an <code>xsd:string</code>. The solution is to specify the type of the literal in the <code>FILTER</code>:</p>
+<pre><code>PREFIX incunabula: &lt;http://0.0.0.0:3333/ontology/0803/incunabula/simple/v2#&gt;
+PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
+
+CONSTRUCT {
+    ?book knora-api:isMainResource true ;
+        incunabula:pubdate ?pubdate .
+} WHERE {
+    ?book a incunabula:book ;
+        incunabula:pubdate ?pubdate .
+
+  FILTER(?pubdate = &quot;JULIAN:1497-03-01&quot;^^knora-api:Date) .
+}
+</code></pre>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/03-apis/api-v2/query-language.md" title="Edit this page" class="md-source-file md-edit">

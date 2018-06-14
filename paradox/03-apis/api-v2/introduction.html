@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<meta name="description" content="root">
+<meta name="description" content="docs">
 <meta name="generator" content="Paradox, paradox-material-theme=v1.5.0, mkdocs-material=2.2.2">
 
 <meta name="lang:clipboard.copy" content="Copy to clipboard">
@@ -16,7 +16,7 @@
 <meta name="lang:search.tokenizer" content="[\s\-]+">
 
 
-<meta name="description" content="root">
+<meta name="description" content="docs">
 <link rel="shortcut icon" href="../../cloud">
 <title>Introduction: Using API v2 · Knora Documentation</title>
 <link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
@@ -142,6 +142,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v1.3.0.html" class="page">v1.3.0 Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes (not released yet)</a></li>
   </ul></li>
   <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
   <ul>
@@ -175,6 +176,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../07-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
     <li><a href="../../07-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
   </ul></li>
+  <li><a href="../../faq.html" class="page">Frequently Asked Questions</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
@@ -283,8 +285,9 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h2><a href="#knora-iris" name="knora-iris" class="anchor"><span class="anchor-link"></span></a>Knora IRIs</h2>
 <p>Resources and entities are identified by IRIs. The format of these IRIs is explained in <a href="knora-iris.html">Knora IRIs</a>.</p>
 <h2><a href="#api-schema" name="api-schema" class="anchor"><span class="anchor-link"></span></a>API Schema</h2>
-<p>Knora API v2 offers the query and response format in a complex schema and a simple one. The main difference is that the complex schema exposes the complexity of value objects, while the simple version does not. A client that needs to edit values must use the complex schema in order to obtain the IRI of each value. A client that reads but does not update data can use the simplified schema. The simple schema is mainly intended to facilitate interoperability with other RDF-based systems in the context of Linked Open Data. It is therefore designed to use the simplest possible datatypes and to require minimal knowledge of Knora.</p>
-<p>In either case, the client deals only with data whose structure and semantics are defined by Knora API ontologies, which are distinct from the ontologies that are used to store date in the triplestore. The Knora API server automatically converts back and forth between these internal and external representations. This approach encapsulates the internals and adds a layer of abstraction to them.</p>
+<p>Knora API v2 uses RDF data structures that are simpler than the ones actually stored in the triplestore, and more suitable for the development of client software. Thus we refer to the <em>internal</em> schema of data as it is stored in the triplestore, and to <em>external</em> schemas which are used to represent that data in API v2.</p>
+<p>Knora API v2 offers a complex schema and a simple one. The main difference is that the complex schema exposes the complexity of value objects, while the simple version does not. A client that needs to edit values must use the complex schema in order to obtain the IRI of each value. A client that reads but does not update data can use the simplified schema. The simple schema is mainly intended to facilitate interoperability with other RDF-based systems in the context of Linked Open Data. It is therefore designed to use the simplest possible datatypes and to require minimal knowledge of Knora.</p>
+<p>In either case, the client deals only with data whose structure and semantics are defined by external Knora API ontologies, which are distinct from the internal ontologies that are used to store date in the triplestore. The Knora API server automatically converts back and forth between these internal and external representations. This approach encapsulates the internals and adds a layer of abstraction to them.</p>
 <p>IRIs representing ontologies and ontology entities are different in different schemas; see <a href="knora-iris.html">Knora IRIs</a>.</p>
 <p>Some API operations inherently require the client to accept responses in the complex schema. For example, if an ontology is requested using an IRI indicating the simple schema, the ontology will be returned in the simple schema (see <a href="ontology-information.html">Querying, Creating, and Updating Ontologies</a>).</p>
 <p>Other API operations can return data in either schema. In this case, the complex schema is used by default in the response, unless the request specifically asks for the simple schema. The client can specify the desired schema by using an HTTP header or a URL parameter:</p>

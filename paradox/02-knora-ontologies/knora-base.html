@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<meta name="description" content="root">
+<meta name="description" content="docs">
 <meta name="generator" content="Paradox, paradox-material-theme=v1.5.0, mkdocs-material=2.2.2">
 
 <meta name="lang:clipboard.copy" content="Copy to clipboard">
@@ -16,7 +16,7 @@
 <meta name="lang:search.tokenizer" content="[\s\-]+">
 
 
-<meta name="description" content="root">
+<meta name="description" content="docs">
 <link rel="shortcut icon" href="../cloud">
 <title>The Knora Base Ontology · Knora Documentation</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.7a4cdee3.css">
@@ -142,6 +142,7 @@ dhlab-basel/Knora/docs
     <li><a href="../00-release-notes/v1.3.0.html" class="page">v1.3.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes</a></li>
+    <li><a href="../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes (not released yet)</a></li>
   </ul></li>
   <li><a href="../01-introduction/index.html" class="page">Introduction</a>
   <ul>
@@ -175,6 +176,7 @@ dhlab-basel/Knora/docs
     <li><a href="../07-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
     <li><a href="../07-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
   </ul></li>
+  <li><a href="../faq.html" class="page">Frequently Asked Questions</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
@@ -286,7 +288,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   </dt>
   <dd>
   <p>A hexadecimal code that uniquely identifies the project. These codes are assigned to projects by the <a href="http://dasch.swiss/">DaSCH</a>.</p></dd>
-  <dt><code>projectDescription</code> (0-1)
+  <dt><code>projectDescription</code> (1-n)
   </dt>
   <dd>
   <p>A description of the project.</p></dd>
@@ -1077,6 +1079,7 @@ select * where {
   <p>If the property is a datatype property, specifies the type of literals that can be objects of the property. Knora will not attempt to enforce this constraint, but it is useful for documentation purposes.</p></dd>
 </dl>
 <p>Note that it is possible for a subproperty to have a more restrictive contraint than its base property, by specifing a subject or object class that is a subclass of the one specified in the base property. However, it is not possible for the subproperty to make the base property&rsquo;s constraint less restrictive.</p>
+<p>See also <a href="../faq.html#why-doesnt-knora-use-rdfs-domain-and-rdfs-range-for-consistency-checking-">Why doesn’t Knora use rdfs:domain and rdfs:range for consistency checking?</a></p>
 <h3><a href="#consistency-constraint-example" name="consistency-constraint-example" class="anchor"><span class="anchor-link"></span></a>Consistency Constraint Example</h3>
 <p>A project-specific ontology could define consistency constraints as in this simplified example:</p>
 <pre><code>:book rdf:type owl:Class ;

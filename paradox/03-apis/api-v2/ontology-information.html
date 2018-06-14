@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<meta name="description" content="root">
+<meta name="description" content="docs">
 <meta name="generator" content="Paradox, paradox-material-theme=v1.5.0, mkdocs-material=2.2.2">
 
 <meta name="lang:clipboard.copy" content="Copy to clipboard">
@@ -16,7 +16,7 @@
 <meta name="lang:search.tokenizer" content="[\s\-]+">
 
 
-<meta name="description" content="root">
+<meta name="description" content="docs">
 <link rel="shortcut icon" href="../../cloud">
 <title>Querying, Creating, and Updating Ontologies · Knora Documentation</title>
 <link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
@@ -142,6 +142,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v1.3.0.html" class="page">v1.3.0 Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes (not released yet)</a></li>
   </ul></li>
   <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
   <ul>
@@ -175,6 +176,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../07-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
     <li><a href="../../07-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
   </ul></li>
+  <li><a href="../../faq.html" class="page">Frequently Asked Questions</a></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
@@ -241,6 +243,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     <li><a href="../../03-apis/api-v2/ontology-information.html#querying-ontology-metadata" class="header">Querying Ontology Metadata</a></li>
     <li><a href="../../03-apis/api-v2/ontology-information.html#querying-an-ontology" class="header">Querying an Ontology</a>
     <ul>
+      <li><a href="../../03-apis/api-v2/ontology-information.html#differences-between-internal-and-external-ontologies" class="header">Differences Between Internal and External Ontologies</a></li>
       <li><a href="../../03-apis/api-v2/ontology-information.html#json-ld-representation-of-an-ontology-in-the-simple-schema" class="header">JSON-LD Representation of an Ontology in the Simple Schema</a></li>
       <li><a href="../../03-apis/api-v2/ontology-information.html#json-ld-representation-of-an-ontology-in-the-complex-schema" class="header">JSON-LD Representation of an Ontology in the Complex Schema</a></li>
     </ul></li>
@@ -265,7 +268,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </ul>
 </div>
 <h2><a href="#querying-ontology-information" name="querying-ontology-information" class="anchor"><span class="anchor-link"></span></a>Querying Ontology Information</h2>
-<p>Before reading this document, you should have a basic understanding of Knora API v2 external ontology schemas (see <a href="knora-iris.html">Knora IRIs</a>).</p>
+<p>Before reading this document, you should have a basic understanding of Knora API v2 external ontology schemas (see <a href="introduction.html#api-schema">API Schema</a>).</p>
 <p>Each request returns a single RDF graph, which can be represented in <a href="https://json-ld.org/spec/latest/json-ld/">JSON-LD</a>, <a href="https://www.w3.org/TR/turtle/">Turtle</a>, or <a href="https://www.w3.org/TR/rdf-syntax-grammar/">RDF/XML</a>, using <a href="http://tools.ietf.org/html/rfc7231#section-5.3.2">HTTP content negotiation</a> (see <a href="introduction.html#response-formats">Response Formats</a>).</p>
 <p>The response format uses prefixes to shorten IRIs, making them more human-readable. A client may wish to convert these to full IRIs for processing. This can be done with responses in JSON-LD by using a library that implements the <a href="https://www.w3.org/TR/json-ld-api/">JSON-LD API</a> to compact the document with an empty JSON-LD <code>@context</code>.</p>
 <h3><a href="#querying-ontology-metadata" name="querying-ontology-metadata" class="anchor"><span class="anchor-link"></span></a>Querying Ontology Metadata</h3>
@@ -339,9 +342,15 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>An ontology can be queried either by using an API route directly or by simply dereferencing the ontology IRI. The API route is as follows:</p>
 <pre><code>HTTP GET to http://host/v2/ontologies/allentities/ONTOLOGY_IRI
 </code></pre>
-<p>The ontology IRI must be URL-encoded, and may be in either the complex or the simple schema. The response will be in the same schema.</p>
+<p>The ontology IRI must be URL-encoded, and may be in either the complex or the simple schema. The response will be in the same schema. For example, if the server is running on <code>0.0.0.0:3333</code>, you can request the <code>knora-api</code> ontology in the complex schema as follows:</p>
+<pre><code>HTTP GET to http://0.0.0.0:3333/v2/ontologies/allentities/http%3A%2F%2Fapi.knora.org%2Fontology%2Fknora-api%2Fv2
+</code></pre>
+<p>By default, this returns the ontology in JSON-LD; to request Turtle or RDF/XML, add an HTTP <code>Accept</code> header (see <a href="introduction.html#response-formats">Response Formats</a>).</p>
 <p>If the client dereferences a project-specific ontology IRI as a URL, the Knora API server running on the hostname in the IRI will serve the ontology. For example, if the server is running on <code>0.0.0.0:3333</code>, the IRI <code>http://0.0.0.0:3333/ontology/00FF/images/simple/v2</code> can be dereferenced to request the <code>images</code> sample ontology in the simple schema.</p>
 <p>If the client dereferences a built-in Knora ontology, such as <code>http://api.knora.org/ontology/knora-api/simple/v2</code>, there must be a Knora API server running at <code>api.knora.org</code> that can serve the ontology. The <a href="http://dasch.swiss/">DaSCH</a> intends to run such as server. For testing, you can configure your local <code>/etc/hosts</code> file to resolve <code>api.knora.org</code> as <code>localhost</code>.</p>
+<h4><a href="#differences-between-internal-and-external-ontologies" name="differences-between-internal-and-external-ontologies" class="anchor"><span class="anchor-link"></span></a>Differences Between Internal and External Ontologies</h4>
+<p>The external ontologies used by Knora API v2 are different to the internal ontologies that are actually stored in the triplestore (see <a href="introduction.html#api-schema">API Schema</a>). In general, the external ontologies use simpler data structures, but they also provide additional information to make it easier for clients to use them. This is illustrated in the examples in the next sections.</p>
+<p>The internal predicates <code>knora-base:subjectClassConstraint</code> and <code>knora-base:objectClassConstraint</code> (see <a href="../../02-knora-ontologies/knora-base.html#constraints-on-the-types-of-property-subjects-and-objects">Constraints on the Types of Property Subjects and Objects</a>) are represented as <code>knora-api:subjectType</code> and <code>knora-api:objectType</code> in external ontologies.</p>
 <h4><a href="#json-ld-representation-of-an-ontology-in-the-simple-schema" name="json-ld-representation-of-an-ontology-in-the-simple-schema" class="anchor"><span class="anchor-link"></span></a>JSON-LD Representation of an Ontology in the Simple Schema</h4>
 <p>The simple schema is suitable for client applications that need to read but not update data in Knora. For example, here is the response for the <code>images</code> sample ontology in the simple schema, <code>http://0.0.0.0:3333/ontology/00FF/images/simple/v2</code> (simplified for clarity):</p>
 <pre class="prettyprint"><code class="language-jsonld">{
@@ -1349,13 +1358,13 @@ Gravsearch: Virtual Graph Search
 </span>
 </div>
 </a>
-<a href="../../03-apis/api-admin/index.html" title="Knora Admin API" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../03-apis/api-v2/tei-xml.html" title="TEI/XML: Converting Standoff to TEI/XML" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Knora Admin API
+TEI/XML: Converting Standoff to TEI/XML
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">
