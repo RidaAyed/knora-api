@@ -237,7 +237,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h2><a href="#running-the-automated-tests" name="running-the-automated-tests" class="anchor"><span class="anchor-link"></span></a>Running the automated tests</h2>
 <p>In order to run the tests, the Selenium driver for Chrome has to be installed.</p>
 <p>It is architecture-dependent, so go to the <code>salsah1/lib/chromedriver</code> directory and unzip the distribution that matches your architecture, or download it from <a href="https://sites.google.com/a/chromium.org/chromedriver/downloads">here</a> and install it in this directory.</p>
-<p>Then, launch the services as described above; the triple store with the test data, the Knora server with <code>reStart -r</code> (<code>allowReloadOverHTTP</code>-flag) from SBT (from <code>KNORA_PROJECT_DIRECTORY/webapi</code>), Sipi with the test configuration (<code>--config=config/sipi.knora-test-docker-config.lua</code>) and SALSAH 1 where you can run the tests in the same SBT session:</p>
+<p>Then, launch the services as described above; the triple store with the test data, the Knora server with <code>reStart -r</code> (<code>allowReloadOverHTTP</code>-flag) from SBT (from <code>KNORA_PROJECT_DIRECTORY/webapi</code>), Sipi with the test configuration (<code>--config=config/sipi.knora-docker-test-config.lua</code>) and SALSAH 1 where you can run the tests in the same SBT session:</p>
 <pre><code>$ cd KNORA_PROJECT_DIRECTORY/salsah1
 $ sbt
 &gt; compile

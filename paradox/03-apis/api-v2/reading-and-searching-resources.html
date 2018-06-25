@@ -306,6 +306,13 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 [limitToStandoffClass=standoffClassIri][limitToProject=projectIRI][offset=Integer]
 </code></pre>
 <p>Please note that the first parameter has to be preceded by a question mark <code>?</code>, any following parameter by an ampersand <code>&amp;</code>.</p>
+<p>A search value must have a minimal length of three characters (default value) as defined in <code>app/v2</code> in <code>application.conf</code>.</p>
+<p>A search term may contain wildcards. A <code>?</code> represents a single character. It has to be URL-encoded as <code>%3F</code> since it has a special meaning in the URL syntax. For example, the term <code>Uniform</code> can be search for like this: </p>
+<pre><code>HTTP GET to http://host/v2/search/Unif%3Frm
+</code></pre>
+<p>A <code>*</code> represents zero, one or multiple characters. For example, the term <code>Uniform</code> can be searched for like this:</p>
+<pre><code>HTTP GET to http://host/v2/search/Uni*m
+</code></pre>
 <p>The default value for the parameter <code>offset</code> is 0 which returns the first page of search results. Subsequent pages of results can be fetched by increasing <code>offset</code> by one. The amount of results per page is defined in <code>app/v2</code> in <code>application.conf</code>.</p>
 <p>If the parameter <code>limitToStandoffClass</code> is provided, Knora will look for search terms that are marked up with the indicated standoff class.</p>
 <p>To request the number of results rather than the results themselves, you can do a count query:</p>

@@ -184,6 +184,12 @@ dhlab-basel/Knora/docs
   <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-virtual-graph-search" class="header">Gravsearch: Virtual Graph Search</a>
   <ul>
     <li><a href="../../03-apis/api-v2/query-language.html#basic-concept" class="header">Basic Concept</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#submitting-gravsearch-queries" class="header">Submitting Gravsearch Queries</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-and-api-schemas" class="header">Gravsearch and API Schemas</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#main-and-dependent-resources" class="header">Main and Dependent Resources</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#graph-patterns-and-result-graphs" class="header">Graph Patterns and Result Graphs</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#permission-checking" class="header">Permission Checking</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#inference" class="header">Inference</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-syntax" class="header">Gravsearch Syntax</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-by-example" class="header">Gravsearch by Example</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#type-inference" class="header">Type Inference</a></li>
@@ -208,6 +214,12 @@ dhlab-basel/Knora/docs
   <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-virtual-graph-search" class="header">Gravsearch: Virtual Graph Search</a>
   <ul>
     <li><a href="../../03-apis/api-v2/query-language.html#basic-concept" class="header">Basic Concept</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#submitting-gravsearch-queries" class="header">Submitting Gravsearch Queries</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-and-api-schemas" class="header">Gravsearch and API Schemas</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#main-and-dependent-resources" class="header">Main and Dependent Resources</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#graph-patterns-and-result-graphs" class="header">Graph Patterns and Result Graphs</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#permission-checking" class="header">Permission Checking</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#inference" class="header">Inference</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-syntax" class="header">Gravsearch Syntax</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-by-example" class="header">Gravsearch by Example</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#type-inference" class="header">Type Inference</a></li>
@@ -242,36 +254,38 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h1><a href="#gravsearch-virtual-graph-search" name="gravsearch-virtual-graph-search" class="anchor"><span class="anchor-link"></span></a>Gravsearch: Virtual Graph Search</h1>
 <div class="toc ">
 <ul>
-  <li><a href="../../03-apis/api-v2/query-language.html#basic-concept" class="header">Basic Concept</a>
+  <li><a href="../../03-apis/api-v2/query-language.html#basic-concept" class="header">Basic Concept</a></li>
+  <li><a href="../../03-apis/api-v2/query-language.html#submitting-gravsearch-queries" class="header">Submitting Gravsearch Queries</a></li>
+  <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-and-api-schemas" class="header">Gravsearch and API Schemas</a>
   <ul>
-    <li><a href="../../03-apis/api-v2/query-language.html#submitting-gravsearch-queries" class="header">Submitting Gravsearch Queries</a></li>
-    <li><a href="../../03-apis/api-v2/query-language.html#main-and-dependent-resources" class="header">Main and Dependent Resources</a></li>
-    <li><a href="../../03-apis/api-v2/query-language.html#graph-patterns-and-result-graphs" class="header">Graph Patterns and Result Graphs</a></li>
-    <li><a href="../../03-apis/api-v2/query-language.html#permission-checking" class="header">Permission Checking</a></li>
-    <li><a href="../../03-apis/api-v2/query-language.html#inference" class="header">Inference</a></li>
-    <li><a href="../../03-apis/api-v2/query-language.html#api-schema" class="header">API Schema</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#using-the-simple-schema" class="header">Using the Simple Schema</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#using-the-complex-schema" class="header">Using the Complex Schema</a></li>
   </ul></li>
+  <li><a href="../../03-apis/api-v2/query-language.html#main-and-dependent-resources" class="header">Main and Dependent Resources</a></li>
+  <li><a href="../../03-apis/api-v2/query-language.html#graph-patterns-and-result-graphs" class="header">Graph Patterns and Result Graphs</a></li>
+  <li><a href="../../03-apis/api-v2/query-language.html#permission-checking" class="header">Permission Checking</a></li>
+  <li><a href="../../03-apis/api-v2/query-language.html#inference" class="header">Inference</a></li>
   <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-syntax" class="header">Gravsearch Syntax</a>
   <ul>
-    <li><a href="../../03-apis/api-v2/query-language.html#where-clause" class="header">WHERE Clause</a>
+    <li><a href="../../03-apis/api-v2/query-language.html#supported-sparql-syntax" class="header">Supported SPARQL Syntax</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#resources-properties-and-values" class="header">Resources, Properties, and Values</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#filtering-on-values" class="header">Filtering on Values</a>
     <ul>
-      <li><a href="../../03-apis/api-v2/query-language.html#supported-sparql-syntax" class="header">Supported SPARQL Syntax</a></li>
-      <li><a href="../../03-apis/api-v2/query-language.html#resources" class="header">Resources</a></li>
-      <li><a href="../../03-apis/api-v2/query-language.html#properties" class="header">Properties</a></li>
-      <li><a href="../../03-apis/api-v2/query-language.html#values" class="header">Values</a></li>
-      <li><a href="../../03-apis/api-v2/query-language.html#functions-in-filter-expressions" class="header">Functions in FILTER Expressions</a></li>
-      <li><a href="../../03-apis/api-v2/query-language.html#value-types" class="header">Value Types</a></li>
+      <li><a href="../../03-apis/api-v2/query-language.html#filtering-on-values-in-the-simple-schema" class="header">Filtering on Values in the Simple Schema</a></li>
+      <li><a href="../../03-apis/api-v2/query-language.html#filtering-on-values-in-the-complex-schema" class="header">Filtering on Values in the Complex Schema</a></li>
+      <li><a href="../../03-apis/api-v2/query-language.html#date-comparisons" class="header">Date Comparisons</a></li>
+      <li><a href="../../03-apis/api-v2/query-language.html#searching-for-matching-words" class="header">Searching for Matching Words</a></li>
+      <li><a href="../../03-apis/api-v2/query-language.html#filtering-text-by-language" class="header">Filtering Text by Language</a></li>
+      <li><a href="../../03-apis/api-v2/query-language.html#regular-expressions" class="header">Regular Expressions</a></li>
     </ul></li>
-    <li><a href="../../03-apis/api-v2/query-language.html#construct-clause" class="header">CONSTRUCT Clause</a>
-    <ul>
-      <li><a href="../../03-apis/api-v2/query-language.html#marking-the-main-resource" class="header">Marking the Main Resource</a></li>
-    </ul></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#construct-clause" class="header">CONSTRUCT Clause</a></li>
   </ul></li>
   <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-by-example" class="header">Gravsearch by Example</a>
   <ul>
     <li><a href="../../03-apis/api-v2/query-language.html#getting-all-the-components-of-a-compound-resource" class="header">Getting All the Components of a Compound Resource</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#traversing-multiple-links" class="header">Traversing Multiple Links</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#requesting-a-graph-starting-with-a-known-resource" class="header">Requesting a Graph Starting with a Known Resource</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#searching-for-a-list-value-referring-to-a-particular-list-node" class="header">Searching for a List Value Referring to a Particular List Node</a></li>
   </ul></li>
   <li><a href="../../03-apis/api-v2/query-language.html#type-inference" class="header">Type Inference</a>
   <ul>
@@ -285,7 +299,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>Rather than being processed directly by the triplestore, a Gravsearch query is interpreted by Knora, which enforces certain restrictions on the query, and implements paging and permission checking. The API server generates SPARQL based on the Gravsearch query submitted, queries the triplestore, filters the results according to the user&rsquo;s permissions, and returns each page of query results as a Knora API response. Thus, Gravsearch is a hybrid between a RESTful API and a SPARQL endpoint.</p>
 <p>A Gravsearch query conforms to a subset of the syntax of a SPARQL <a href="https://www.w3.org/TR/sparql11-query/#construct">CONSTRUCT</a> query, with some additional restrictions and functionality. In particular, the variable representing the top-level (or &lsquo;main&rsquo;) resource that will appear in each search result must be identified, statements must be included to specify the types of the entities being queried, OFFSET is used to control paging, and <code>ORDER BY</code> is used to sort the results.</p>
 <p>It is certainly possible to write Gravsearch queries by hand, but we expect that in general, they will be automatically generated by client software, e.g. by a client user interface.</p>
-<h3><a href="#submitting-gravsearch-queries" name="submitting-gravsearch-queries" class="anchor"><span class="anchor-link"></span></a>Submitting Gravsearch Queries</h3>
+<h2><a href="#submitting-gravsearch-queries" name="submitting-gravsearch-queries" class="anchor"><span class="anchor-link"></span></a>Submitting Gravsearch Queries</h2>
 <p>The recommended way to submit a Gravsearch query is via HTTP POST:</p>
 <pre><code>HTTP POST to http://host/v2/searchextended
 </code></pre>
@@ -298,22 +312,33 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <pre><code>HTTP POST to http://host/v2/searchextended/count
 </code></pre>
 <p>The response to a count query request is an object with one predicate, <code>http://schema.org/numberOfItems</code>, with an integer value.</p>
-<h3><a href="#main-and-dependent-resources" name="main-and-dependent-resources" class="anchor"><span class="anchor-link"></span></a>Main and Dependent Resources</h3>
+<h2><a href="#gravsearch-and-api-schemas" name="gravsearch-and-api-schemas" class="anchor"><span class="anchor-link"></span></a>Gravsearch and API Schemas</h2>
+<p>A Gravsearch query can be written in either of the two <a href="introduction.html#api-schema">Knora API v2 schemas</a>. The simple schema is easier to work with, and is sufficient if you don&rsquo;t need to query anything below the level of a Knora value. If your query needs to refer to list nodes, you must use the complex schema. Each query must use a single schema, with one exception (see <a href="query-language.html#date-comparisons">Date Comparisons</a>).</p>
+<p>Gravsearch query results can be requested in the simple or complex schema; see <a href="introduction.html#api-schema">API Schema</a>.</p>
+<h3><a href="#using-the-simple-schema" name="using-the-simple-schema" class="anchor"><span class="anchor-link"></span></a>Using the Simple Schema</h3>
+<p>To write a query in the simple schema, use the <code>knora-api</code> ontology in the simple schema, and use the simple schema for any other Knora ontologies the query refers to, e.g.:</p>
+<pre><code>PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
+PREFIX incunabula: &lt;http://0.0.0.0:3333/ontology/0803/incunabula/simple/v2#&gt;
+</code></pre>
+<p>In the simple schema, Knora values are represented as literals, which can be used <code>FILTER</code> expressions (see <a href="query-language.html#filtering-on-values-in-the-simple-schema">Filtering on Values in the Simple Schema</a>).</p>
+<h3><a href="#using-the-complex-schema" name="using-the-complex-schema" class="anchor"><span class="anchor-link"></span></a>Using the Complex Schema</h3>
+<p>To write a query in the complex schema, use the <code>knora-api</code> ontology in the complex schema, and use the complex schema for any other Knora ontologies the query refers to, e.g.:</p>
+<pre><code>PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/v2#&gt;
+PREFIX incunabula: &lt;http://0.0.0.0:3333/ontology/0803/simple/v2#&gt;
+</code></pre>
+<p>In the complex schema, Knora values are represented as objects belonging to subclasses of <code>knora-api:Value</code>, e.g. <code>knora-api:TextValue</code>, and have predicates of their own, which can be used in <code>FILTER</code> expressions (see <a href="query-language.html#filtering-on-values-in-the-complex-schema">Filtering on Values in the Complex Schema</a>).</p>
+<h2><a href="#main-and-dependent-resources" name="main-and-dependent-resources" class="anchor"><span class="anchor-link"></span></a>Main and Dependent Resources</h2>
 <p>The main resource is the top-level resource in a search result. Other resources that are in some way connected to the main resource are referred to as dependent resources. If the client asks for a resource A relating to a resource B, then all matches for A will be presented as main resources and those for B as dependent resources. The main resource must be represented by a variable, marked with <code>knora-api:isMainResource</code>, as explained under <a href="query-language.html#construct-clause">CONSTRUCT Clause</a>.</p>
-<h3><a href="#graph-patterns-and-result-graphs" name="graph-patterns-and-result-graphs" class="anchor"><span class="anchor-link"></span></a>Graph Patterns and Result Graphs</h3>
+<h2><a href="#graph-patterns-and-result-graphs" name="graph-patterns-and-result-graphs" class="anchor"><span class="anchor-link"></span></a>Graph Patterns and Result Graphs</h2>
 <p>The WHERE clause of a Gravsearch query specifies a graph pattern. Each query result will match this graph pattern, and will have the form of a graph whose starting point is a main resource. The query&rsquo;s graph pattern, and hence each query result graph, can span zero more levels of relations between resources. For example, a query could request regions in images on pages of books written by a certain author, articles by authors who were students of a particular professor, or authors of texts that refer to events that took place within a certain date range.</p>
-<h3><a href="#permission-checking" name="permission-checking" class="anchor"><span class="anchor-link"></span></a>Permission Checking</h3>
+<h2><a href="#permission-checking" name="permission-checking" class="anchor"><span class="anchor-link"></span></a>Permission Checking</h2>
 <p>Each matching resource is returned only if the client has permission to see all the values of that resource that matched the criteria given in the WHERE clause. If a matching resource contains a value that was mentioned in the WHERE clause, but the client does not have permission to see that value, the resource is not returned in the results, and is instead replaced by a proxy resource called <code>knora-api:ForbiddenResource</code>.</p>
-<h3><a href="#inference" name="inference" class="anchor"><span class="anchor-link"></span></a>Inference</h3>
+<h2><a href="#inference" name="inference" class="anchor"><span class="anchor-link"></span></a>Inference</h2>
 <p>Gravsearch queries are understood to imply <a href="https://www.w3.org/TR/rdf11-mt/">RDFS reasoning</a>. Depending on the triplestore being used, this may be implemented using the triplestore&rsquo;s own reasoner or by query expansion in Knora.</p>
 <p>This means that if a statement pattern specifies a property, the pattern will also match subproperties of that property, and if a statement specifies that a subject has a particular <code>rdf:type</code>, the statement will also match subjects belonging to subclasses of that type.</p>
-<h3><a href="#api-schema" name="api-schema" class="anchor"><span class="anchor-link"></span></a>API Schema</h3>
-<p>A Gravsearch query must be written using the Knora API simple schema, but results can be returned in the simple or complex schema; see <a href="introduction.html#api-schema">API Schema</a>.</p>
 <h2><a href="#gravsearch-syntax" name="gravsearch-syntax" class="anchor"><span class="anchor-link"></span></a>Gravsearch Syntax</h2>
 <p>Every Gravsearch query is a valid SPARQL 1.1 <a href="https://www.w3.org/TR/sparql11-query/#construct">CONSTRUCT</a> query. However, Gravsearch only supports a subset of the elements that can be used in a SPARQL Construct query. Additionally, Gravsearch requires the client to use explicit type annotations, explained below; these are valid SPARQL, but specific to the Knora API. Also, the main resource has to be marked.</p>
-<h3><a href="#where-clause" name="where-clause" class="anchor"><span class="anchor-link"></span></a>WHERE Clause</h3>
-<p>The WHERE clause specifies a graph pattern to be matched, i.e. the search criteria. Resources that match the given criteria, and that the client has permission to see, will be returned.</p>
-<h4><a href="#supported-sparql-syntax" name="supported-sparql-syntax" class="anchor"><span class="anchor-link"></span></a>Supported SPARQL Syntax</h4>
+<h3><a href="#supported-sparql-syntax" name="supported-sparql-syntax" class="anchor"><span class="anchor-link"></span></a>Supported SPARQL Syntax</h3>
 <p>The current version of Gravsearch accepts <code>CONSTRUCT</code> queries whose <code>WHERE</code> clauses use the following patterns, with the specified restrictions:</p>
 <ul>
   <li><code>OPTIONAL</code>: cannot be nested in a <code>UNION</code>.</li>
@@ -321,49 +346,93 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li><code>FILTER</code>: may contain a complex expression using the Boolean operators AND and OR, as well as comparison operators. The left argument of a comparison operator must be a query variable. A Knora ontology entity IRI used in a <code>FILTER</code> must be a property IRI.</li>
   <li><code>FILTER NOT EXISTS</code></li>
   <li><code>OFFSET</code>: the <code>OFFSET</code> is needed for paging. It does not actually refer to the number of triples to be returned, but to the requested page of results. The default value is 0, which refers to the first page of results. The number of results per page is defined in <code>app/v2</code> in <code>application.conf</code>.</li>
-  <li><code>ORDER BY</code>: In SPARQL, the result of a Construct query is an unordered set of triples. However, a Gravsearch query returns an ordered list of resources, which can be ordered by the values of specified properties.</li>
+  <li><code>ORDER BY</code>: In SPARQL, the result of a <code>CONSTRUCT</code> query is an unordered set of triples. However, a Gravsearch query returns an ordered list of resources, which can be ordered by the values of specified properties. If the query is written in the complex schema, items below the level of Knora values may not be used in <code>ORDER BY</code>.</li>
   <li><code>BIND</code>: The value assigned must be a Knora resource IRI.</li>
 </ul>
-<h4><a href="#resources" name="resources" class="anchor"><span class="anchor-link"></span></a>Resources</h4>
+<h3><a href="#resources-properties-and-values" name="resources-properties-and-values" class="anchor"><span class="anchor-link"></span></a>Resources, Properties, and Values</h3>
 <p>Resources can be represented either by an IRI or by a variable, except for the main resource, which must be represented by a variable.</p>
 <p>It is possible to do a Gravsearch query in which the IRI of the main resource is already known, e.g. to request specific information about that resource and perhaps about linked resources. In this case, the IRI of the main resource must be assigned to a variable using <code>BIND</code>.</p>
-<h4><a href="#properties" name="properties" class="anchor"><span class="anchor-link"></span></a>Properties</h4>
 <p>Properties can be represented by an IRI or a query variable. If a property is represented by a query variable, it can be restricted to certain property IRIs using a <code>FILTER</code>.</p>
-<h4><a href="#values" name="values" class="anchor"><span class="anchor-link"></span></a>Values</h4>
-<p>Values can only be represented by a query variable. Value literals are currently not supported as the objects of statement patterns in the query. To restrict a value, a FILTER must be used. Without a FILTER, all the instances of a value are returned.</p>
-<h4><a href="#functions-in-filter-expressions" name="functions-in-filter-expressions" class="anchor"><span class="anchor-link"></span></a>Functions in FILTER Expressions</h4>
-<p>The function <code>knora-api:match</code> searches for matching words anywhere in a text value, and is implemented using a full-text search index if available. The words to be matched are separated by spaces in a string literal. For example, to search for titles that contain the words &lsquo;Zeitglöcklein&rsquo; and &lsquo;Lebens&rsquo;:</p>
+<p>A Knora value (i.e. a value attached to a <code>knora-api:Resource</code>) must be represented as a query variable.</p>
+<h3><a href="#filtering-on-values" name="filtering-on-values" class="anchor"><span class="anchor-link"></span></a>Filtering on Values</h3>
+<h4><a href="#filtering-on-values-in-the-simple-schema" name="filtering-on-values-in-the-simple-schema" class="anchor"><span class="anchor-link"></span></a>Filtering on Values in the Simple Schema</h4>
+<p>In the simple schema, a variable representing a Knora value can be used directly in a <code>FILTER</code> expression. For example:</p>
+<pre><code>?book incunabula:title ?title .
+FILTER(?title = &quot;Zeitglöcklein des Lebens und Leidens Christi&quot;)
+</code></pre>
+<p>Here the type of <code>?title</code> is <code>xsd:string</code>.</p>
+<p>The following Knora value types can be compared with literals in <code>FILTER</code> expressions in the simple schema:</p>
+<ul>
+  <li>Text values (<code>xsd:string</code>)</li>
+  <li>Integer values (<code>xsd:integer</code>)</li>
+  <li>Decimal values (<code>xsd:decimal</code>)</li>
+  <li>Boolean values (<code>xsd:boolean</code>)</li>
+  <li>Date values (<code>knora-api:Date</code>)</li>
+</ul>
+<p>A Knora value may not be represented as the literal object of a predicate; for example, this is not allowed:</p>
+<pre><code>?book incunabula:title &quot;Zeitglöcklein des Lebens und Leidens Christi&quot; .
+</code></pre>
+<h4><a href="#filtering-on-values-in-the-complex-schema" name="filtering-on-values-in-the-complex-schema" class="anchor"><span class="anchor-link"></span></a>Filtering on Values in the Complex Schema</h4>
+<p>In the complex schema, variables representing Knora values are not literals. You must add something to the query (generally a statement) to get a literal from a Knora value. For example:</p>
+<pre><code>?book incunabula:title ?title .
+?title knora-api:valueAsString &quot;Zeitglöcklein des Lebens und Leidens Christi&quot; .
+</code></pre>
+<p>Here the type of <code>?title</code> is <code>knora-api:TextValue</code>. Note that no <code>FILTER</code> is needed in this example. But if you want to use a different comparison operator, you need a <code>FILTER</code>:</p>
+<pre><code>?page incunabula:seqnum ?seqnum .
+?seqnum knora-api:intValueAsInt ?seqnumInt .
+FILTER(?seqnumInt &lt;= 10)
+</code></pre>
+<p>To match a date value in the complex schema, you must use the <code>knora-api:toSimpleDate</code> function in a <code>FILTER</code> (see <a href="query-language.html#date-comparisons">Date Comparisons</a>). The predicates of <code>knora-api:DateValue</code> (<code>knora-api:dateValueHasStartYear</code>, etc.) are not available in Gravsearch.</p>
+<h4><a href="#date-comparisons" name="date-comparisons" class="anchor"><span class="anchor-link"></span></a>Date Comparisons</h4>
+<p>In the simple schema, you can compare a date value directly with a <code>knora-api:Date</code> in a <code>FILTER</code>:</p>
+<pre><code>?book incunabula:pubdate ?pubdate .
+FILTER(?pubdate &lt; &quot;JULIAN:1497&quot;^^knora-api:Date)
+</code></pre>
+<p>In the complex schema, you must use the function <code>knora-api:toSimpleDate</code>, passing it the variable representing the date value. The date literal used in the comparison must still be a <code>knora-api:Date</code> in the simple schema. This is the only case in which you can use both schemas in a single query:</p>
+<pre><code>PREFIX incunabula: &lt;http://0.0.0.0:3333/ontology/0803/incunabula/v2#&gt;
+PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/v2#&gt;
+PREFIX knora-api-simple: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
+
+CONSTRUCT {
+    ?book knora-api:isMainResource true .
+    ?book incunabula:pubdate ?pubdate .
+} WHERE {
+    ?book a incunabula:book .
+    ?book incunabula:pubdate ?pubdate .
+    FILTER(knora-api:toSimpleDate(?pubdate) &lt; &quot;JULIAN:1497&quot;^^knora-api-simple:Date)
+} ORDER BY ?pubdate
+</code></pre>
+<h4><a href="#searching-for-matching-words" name="searching-for-matching-words" class="anchor"><span class="anchor-link"></span></a>Searching for Matching Words</h4>
+<p>The function <code>knora-api:match</code> searches for matching words anywhere in a text value, and is implemented using a full-text search index if available. The first argument must be a variable of type <code>xsd:string</code>, and the second argument is a string containing the words to be matched, separated by spaces. The words to be matched are separated by spaces in a string literal. For example, to search for titles that contain the words &lsquo;Zeitglöcklein&rsquo; and &lsquo;Lebens&rsquo; in the simple schema:</p>
 <pre><code>FILTER knora-api:match(?title, &quot;Zeitglöcklein Lebens&quot;)
 </code></pre>
+<p>In the complex schema:</p>
+<pre><code>?title knora-api:valueAsString ?titleStr .
+FILTER knora-api:match(?titleStr, &quot;Zeitglöcklein Lebens&quot;)
+</code></pre>
 <p>If <code>knora-api:match</code> is used in a <code>FILTER</code>, it must be the only expression in the <code>FILTER</code>.</p>
-<p>To filter a text value by language, use the SPARQL <code>lang</code> function, e.g.:</p>
+<h4><a href="#filtering-text-by-language" name="filtering-text-by-language" class="anchor"><span class="anchor-link"></span></a>Filtering Text by Language</h4>
+<p>To filter a text value by language in the simple schema, use the SPARQL <code>lang</code> function on the text value, e.g.:</p>
 <pre><code>FILTER(lang(?text) = &quot;fr&quot;)
 </code></pre>
-<p>The <a href="https://www.w3.org/TR/2013/REC-sparql11-query-20130321/#func-regex">SPARQL <code>regex</code> function</a> is also supported.</p>
-<h4><a href="#value-types" name="value-types" class="anchor"><span class="anchor-link"></span></a>Value Types</h4>
-<p>Gravsearch supports the following value types:</p>
-<ul>
-  <li><code>xsd:string</code></li>
-  <li><code>xsd:integer</code></li>
-  <li><code>xsd:decimal</code></li>
-  <li><code>xsd:boolean</code></li>
-  <li><code>knora-api:Date</code></li>
-  <li><code>knora-api:StillImageFile</code></li>
-  <li><code>knora-api:Geom</code></li>
-</ul>
-<p>However, not all of these types are supported in FILTERs to restrict values. Supported value types in FILTERs:</p>
-<ul>
-  <li><code>xsd:string</code></li>
-  <li><code>xsd:integer</code></li>
-  <li><code>xsd:decimal</code></li>
-  <li><code>xsd:boolean</code></li>
-  <li><code>knora-api:Date</code></li>
-</ul>
+<p>In the complex schema, the <code>lang</code> function is not supported. Use the text value&rsquo;s <code>knora-api:textValueHasLanguage</code> predicate instead:</p>
+<pre><code>?text knora-api:textValueHasLanguage &quot;fr&quot; .
+</code></pre>
+<h4><a href="#regular-expressions" name="regular-expressions" class="anchor"><span class="anchor-link"></span></a>Regular Expressions</h4>
+<p>The <a href="https://www.w3.org/TR/2013/REC-sparql11-query-20130321/#func-regex">SPARQL <code>regex</code> function</a> is supported. In the simple schema, you can use it directly on the text value, e.g.</p>
+<pre><code>?book incunabula:title ?title .
+FILTER regex(?title, &quot;Zeit&quot;, &quot;i&quot;)
+</code></pre>
+<p>In the complex schema, use it on the object of the text value&rsquo;s <code>knora-api:valueAsString</code> predicate:</p>
+<pre><code>?book incunabula:title ?title .
+?title knora-api:valueAsString ?titleStr .
+FILTER regex(?titleStr, &quot;Zeit&quot;, &quot;i&quot;)
+</code></pre>
 <h3><a href="#construct-clause" name="construct-clause" class="anchor"><span class="anchor-link"></span></a>CONSTRUCT Clause</h3>
-<p>The <code>CONSTRUCT</code> clause specifies which information the response should return. The CONSTRUCT clause must contain at least one statement whose subject is a variable and whose predicate is <code>knora-api:isMainResource true</code>. Any other statements in the <code>CONSTRUCT</code> clause must also be present in the WHERE clause.</p>
-<p>The <code>rdfs:label</code> of each matching resource is always returned, so there is no need to mention it in the query.</p>
-<h4><a href="#marking-the-main-resource" name="marking-the-main-resource" class="anchor"><span class="anchor-link"></span></a>Marking the Main Resource</h4>
 <p>In the <code>CONSTRUCT</code> clause of a Gravsearch query, the variable representing the main resource must be indicated with <code>knora-api:isMainResource true</code>. Exactly one variable representing a resource must be marked in this way.</p>
+<p>Any other statements in the <code>CONSTRUCT</code> clause must also be present in the WHERE clause. If a variable representing a resource or value is used in the <code>WHERE</code> clause but not in the <code>CONSTRUCT</code> clause, the matching resources or values will not be included in the results.</p>
+<p>If the query is written in the complex schema, all variables in the <code>CONSTRUCT</code> clause must refer to Knora resources, Knora values, or properties. Data below the level of Knora values may not be mentioned in the <code>CONSTRUCT</code> clause.</p>
+<p>Predicates from the <code>rdf</code>, <code>rdfs</code>, and <code>owl</code> ontologies may not be used in the <code>CONSTRUCT</code> clause. The <code>rdfs:label</code> of each matching resource is always returned, so there is no need to mention it in the query.</p>
 <h2><a href="#gravsearch-by-example" name="gravsearch-by-example" class="anchor"><span class="anchor-link"></span></a>Gravsearch by Example</h2>
 <p>In this section, we provide some sample queries of different complexity to illustrate the usage of Gravsearch.</p>
 <h3><a href="#getting-all-the-components-of-a-compound-resource" name="getting-all-the-components-of-a-compound-resource" class="anchor"><span class="anchor-link"></span></a>Getting All the Components of a Compound Resource</h3>
@@ -371,7 +440,6 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>In this case, the compound resource is an <code>incunabula:book</code> identified by the IRI <code>http://rdfh.ch/c5058f3a</code> and the components are of type <code>incunabula:page</code> (test data for the Incunabula project). Since inference is assumed, we can use <code>knora-api:StillImageRepresentation</code> (<code>incunabula:page</code> is one of its subclasses). This makes the query more generic and allows for reuse (for instance, a client would like to query different types of compound resources defined in different ontologies).</p>
 <p><code>ORDER BY</code> is used to sort the components by their sequence number.</p>
 <p><code>OFFSET</code> is set to 0 to get the first page of results.</p>
-<p>Note that in a Gravsearch query, the prefix <code>knora-api</code> refers to the Knora API v2 simple schema.</p>
 <pre><code>PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
 
 CONSTRUCT {
@@ -387,14 +455,17 @@ CONSTRUCT {
 ORDER BY ASC(?seqnum) # order by sequence number, ascending
 OFFSET 0 # get first page of results
 </code></pre>
-<p>The <code>incunabula:book</code> with the IRI <code>http://rdfh.ch/c5058f3a</code> has 402 pages (this result can be obtained by doing a count query, see <a href="reading-and-searching-resources.html">Reading and Searching Resources</a>). However, with <code>OFFSET 0</code>, only the first page of results is returned. The same query can be sent again with <code>OFFSET 1</code> to get the next page of results, and so forth. When a page of results is not full (see settings in <code>app/v2</code> in <code>application.conf</code>) or is empty, no more results are available.</p>
+<p>The <code>incunabula:book</code> with the IRI <code>http://rdfh.ch/c5058f3a</code> has 402 pages. (This result can be obtained by doing a count query; see <a href="query-language.html#submitting-gravsearch-queries">Submitting Gravsearch Queries</a>.) However, with <code>OFFSET 0</code>, only the first page of results is returned. The same query can be sent again with <code>OFFSET 1</code> to get the next page of results, and so forth. When a page of results is not full (see settings in <code>app/v2</code> in <code>application.conf</code>) or is empty, no more results are available.</p>
 <p>By design, it is not possible for the client to get more than one page of results at a time; this is intended to prevent performance problems that would be caused by huge responses. A client that wants to download all the results of a query must request each page sequentially.</p>
 <p>Let&rsquo;s assume the client is not interested in all of the book&rsquo;s pages, but just in first ten of them. In that case, the sequence number can be restricted using a <code>FILTER</code> that is added to the query&rsquo;s <code>WHERE</code> clause:</p>
 <pre><code>FILTER (?seqnum &lt;= 10)
 </code></pre>
 <p>The first page starts with sequence number 1, so with this <code>FILTER</code> only the first ten pages are returned.</p>
+<p>This query would be exactly the same in the complex schema, except for the expansion of the <code>knora-api</code> prefix:</p>
+<pre><code>PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/v2#&gt;
+</code></pre>
 <h3><a href="#traversing-multiple-links" name="traversing-multiple-links" class="anchor"><span class="anchor-link"></span></a>Traversing Multiple Links</h3>
-<p>Here we are looking for regions of pages that are part of books that have a particular title:</p>
+<p>Here we are looking for regions of pages that are part of books that have a particular title. In the simple schema:</p>
 <pre><code>PREFIX incunabula: &lt;http://0.0.0.0:3333/ontology/0803/incunabula/simple/v2#&gt;
 PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
 
@@ -417,6 +488,30 @@ CONSTRUCT {
   FILTER(?title = &quot;Zeitglöcklein des Lebens und Leidens Christi&quot;)
 }
 </code></pre>
+<p>In the complex schema:</p>
+<pre><code>PREFIX incunabula: &lt;http://0.0.0.0:3333/ontology/0803/incunabula/v2#&gt;
+PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/v2#&gt;
+
+CONSTRUCT {
+  ?region knora-api:isMainResource true ;
+    knora-api:isRegionOf ?page .
+
+  ?page incunabula:partOf ?book .
+
+  ?book incunabula:title ?title .
+} WHERE {
+  ?region a knora-api:Region ;
+    knora-api:isRegionOf ?page .
+
+  ?page a incunabula:page ;
+    incunabula:partOf ?book .
+
+  ?book incunabula:title ?title .
+
+  ?title knora-api:valueAsString &quot;Zeitglöcklein des Lebens und Leidens Christi&quot; .
+}
+</code></pre>
+<p>If we remove the line <code>?book incunabula:title ?title .</code> from the <code>CONSTRUCT</code> clause, so that the <code>CONSTRUCT</code> clause no longer mentions <code>?title</code>, the response will contain the same matching resources, but the titles of those resources will not be included in the response.</p>
 <h3><a href="#requesting-a-graph-starting-with-a-known-resource" name="requesting-a-graph-starting-with-a-known-resource" class="anchor"><span class="anchor-link"></span></a>Requesting a Graph Starting with a Known Resource</h3>
 <p>Here the IRI of the main resource is already known, and we want specific information about it, as well as about related resources. In this case, the IRI of the main resource must be assigned to a variable using <code>BIND</code>:</p>
 <pre><code>PREFIX beol: &lt;http://0.0.0.0:3333/ontology/0801/beol/simple/v2#&gt;
@@ -439,6 +534,23 @@ CONSTRUCT {
 
   ?person1 beol:hasFamilyName ?familyName .
 } ORDER BY ?date
+</code></pre>
+<p>This query would be the same in the complex schema, except for the prefix expansions:</p>
+<pre><code>PREFIX beol: &lt;http://0.0.0.0:3333/ontology/0801/beol/v2#&gt;
+PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/v2#&gt;
+</code></pre>
+<h3><a href="#searching-for-a-list-value-referring-to-a-particular-list-node" name="searching-for-a-list-value-referring-to-a-particular-list-node" class="anchor"><span class="anchor-link"></span></a>Searching for a List Value Referring to a Particular List Node</h3>
+<p>This is possible only in the complex schema:</p>
+<pre><code>PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/v2#&gt;
+PREFIX anything: &lt;http://0.0.0.0:3333/ontology/0001/anything/v2#&gt;
+
+CONSTRUCT {
+    ?thing knora-api:isMainResource true .
+    ?thing anything:hasListItem ?listItem .
+} WHERE {
+    ?thing anything:hasListItem ?listItem .
+    ?listItem knora-api:listValueAsListNode &lt;http://rdfh.ch/lists/0001/treeList02&gt; .
+}
 </code></pre>
 <h2><a href="#type-inference" name="type-inference" class="anchor"><span class="anchor-link"></span></a>Type Inference</h2>
 <p>Gravsearch needs to be able to determine the types of the entities that query variables and IRIs refer to in the <code>WHERE</code> clause. In most cases, it can infer these from context and from the ontologies used. In particular, it needs to know:</p>
@@ -501,6 +613,7 @@ CONSTRUCT {
 
 }
 </code></pre>
+<p>Note that it only makes sense to use <code>dcterms:title</code> in the simple schema, because its object is supposed to be a literal.</p>
 <p>Here is another example, using a non-Knora class:</p>
 <pre><code>PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
 PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;

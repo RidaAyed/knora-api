@@ -233,6 +233,7 @@ dhlab-basel/Knora/docs
   <li>Allow <code>lang</code> to be used with <code>!=</code>.</li>
   <li>A <code>UNION</code> or <code>OPTIONAL</code> can now be nested in an <code>OPTIONAL</code> (<a href="https://github.com/dhlab-basel/Knora/issues/882">#882</a>).</li>
   <li>Gravsearch now does type inference (<a href="https://github.com/dhlab-basel/Knora/issues/884">#884</a>).</li>
+  <li>The Knora API v2 complex schema can now be used in Gravsearch, making it possible to search  for list nodes (<a href="https://github.com/dhlab-basel/Knora/issues/899">#899</a>).</li>
 </ul>
 <p>Admin API:</p>
 <ul>
@@ -243,9 +244,15 @@ dhlab-basel/Knora/docs
   <li>Conversion of standard standoff entities to TEI</li>
   <li>Custom conversion of project specific standoff entities and metadata to TEI</li>
 </ul>
+<p>Sipi integration:</p>
+<ul>
+  <li>The Knora specific Sipi configuration and scripts can now be found under the <code>sipi/</code> directory (<a href="https://github.com/dhlab-basel/Knora/issues/404">#404</a>).</li>
+  <li>Documentation on how Sipi can be started changed (<a href="https://github.com/dhlab-basel/Knora/issues/404">#404</a>).</li>
+</ul>
 <h2><a href="#bugfixes-" name="bugfixes-" class="anchor"><span class="anchor-link"></span></a>Bugfixes:</h2>
 <ul>
   <li>Allow a class or property definition to have more than one object for <code>rdf:type</code> (<a href="https://github.com/dhlab-basel/Knora/issues/885">#885</a>).</li>
+  <li>Exclude list values from v2 fulltext search (<a href="https://github.com/dhlab-basel/Knora/issues/906">#906</a>).</li>
 </ul>
 <p>Gravsearch fixes:</p>
 <ul>
