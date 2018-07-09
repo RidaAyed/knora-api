@@ -290,7 +290,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li>&hellip;</li>
   <li>Zeitglöcklein des Lebens</li>
 </ul>
-<p>With each character added to the last term, the selection gets more specific. The first term should at least contain four characters. To make this kind of &ldquo;search as you type&rdquo; possible, a wildcard character is automatically added to the last search  term.</p>
+<p>With each character added to the last term, the selection gets more specific. The first term should at least contain four characters. To make this kind of &ldquo;search as you type&rdquo; possible, a wildcard character is automatically added to the last search term.</p>
 <pre><code>HTTP GET to http://host/v2/searchbylabel/searchValue[limitToResourceClass=resourceClassIRI]
 [limitToProject=projectIRI][offset=Integer]
 </code></pre>
@@ -306,9 +306,9 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <pre><code>HTTP GET to http://host/v2/search/searchValue[limitToResourceClass=resourceClassIRI]
 [limitToStandoffClass=standoffClassIri][limitToProject=projectIRI][offset=Integer]
 </code></pre>
-<p>Please note that the first parameter has to be preceded by a question mark <code>?</code>, any following parameter by an ampersand <code>&amp;</code>.</p>
+<p>The first parameter has to be preceded by a question mark <code>?</code>, any following parameter by an ampersand <code>&amp;</code>.</p>
 <p>A search value must have a minimal length of three characters (default value) as defined in <code>app/v2</code> in <code>application.conf</code>.</p>
-<p>A search term may contain wildcards. A <code>?</code> represents a single character. It has to be URL-encoded as <code>%3F</code> since it has a special meaning in the URL syntax. For example, the term <code>Uniform</code> can be search for like this: </p>
+<p>A search term may contain wildcards. A <code>?</code> represents a single character. It has to be URL-encoded as <code>%3F</code> since it has a special meaning in the URL syntax. For example, the term <code>Uniform</code> can be search for like this:</p>
 <pre><code>HTTP GET to http://host/v2/search/Unif%3Frm
 </code></pre>
 <p>A <code>*</code> represents zero, one or multiple characters. For example, the term <code>Uniform</code> can be searched for like this:</p>
@@ -319,6 +319,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>To request the number of results rather than the results themselves, you can do a count query:</p>
 <pre><code>HTTP GET to http://host/v2/search/count/searchValue[limitToResourceClass=resourceClassIRI][limitToStandoffClass=standoffClassIri][limitToProject=projectIRI][offset=Integer]
 </code></pre>
+<p>The first parameter has to be preceded by a question mark <code>?</code>, any following parameter by an ampersand <code>&amp;</code>.</p>
 <p>The response to a count query request is an object with one predicate, <code>http://schema.org/numberOfItems</code>, with an integer value.</p>
 <h3><a href="#gravsearch" name="gravsearch" class="anchor"><span class="anchor-link"></span></a>Gravsearch</h3>
 <p>For more complex queries than a full-text search, Knora offers a query language called <a href="query-language.html">Gravsearch: Virtual Graph Search</a>).</p>

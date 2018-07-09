@@ -279,6 +279,13 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
       <li><a href="../../03-apis/api-v2/query-language.html#filtering-text-by-language" class="header">Filtering Text by Language</a></li>
       <li><a href="../../03-apis/api-v2/query-language.html#regular-expressions" class="header">Regular Expressions</a></li>
     </ul></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#searching-for-text-markup" class="header">Searching for Text Markup</a>
+    <ul>
+      <li><a href="../../03-apis/api-v2/query-language.html#matching-text-in-a-standoff-tag" class="header">Matching Text in a Standoff Tag</a></li>
+      <li><a href="../../03-apis/api-v2/query-language.html#matching-standoff-links" class="header">Matching Standoff Links</a></li>
+      <li><a href="../../03-apis/api-v2/query-language.html#matching-standoff-dates" class="header">Matching Standoff Dates</a></li>
+      <li><a href="../../03-apis/api-v2/query-language.html#matching-ancestor-tags" class="header">Matching Ancestor Tags</a></li>
+    </ul></li>
     <li><a href="../../03-apis/api-v2/query-language.html#construct-clause" class="header">CONSTRUCT Clause</a></li>
   </ul></li>
   <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-by-example" class="header">Gravsearch by Example</a>
@@ -314,7 +321,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </code></pre>
 <p>The response to a count query request is an object with one predicate, <code>http://schema.org/numberOfItems</code>, with an integer value.</p>
 <h2><a href="#gravsearch-and-api-schemas" name="gravsearch-and-api-schemas" class="anchor"><span class="anchor-link"></span></a>Gravsearch and API Schemas</h2>
-<p>A Gravsearch query can be written in either of the two <a href="introduction.html#api-schema">Knora API v2 schemas</a>. The simple schema is easier to work with, and is sufficient if you don&rsquo;t need to query anything below the level of a Knora value. If your query needs to refer to list nodes, you must use the complex schema. Each query must use a single schema, with one exception (see <a href="query-language.html#date-comparisons">Date Comparisons</a>).</p>
+<p>A Gravsearch query can be written in either of the two <a href="introduction.html#api-schema">Knora API v2 schemas</a>. The simple schema is easier to work with, and is sufficient if you don&rsquo;t need to query anything below the level of a Knora value. If your query needs to refer to list nodes or standoff markup, you must use the complex schema. Each query must use a single schema, with one exception (see <a href="query-language.html#date-comparisons">Date Comparisons</a>).</p>
 <p>Gravsearch query results can be requested in the simple or complex schema; see <a href="introduction.html#api-schema">API Schema</a>.</p>
 <h3><a href="#using-the-simple-schema" name="using-the-simple-schema" class="anchor"><span class="anchor-link"></span></a>Using the Simple Schema</h3>
 <p>To write a query in the simple schema, use the <code>knora-api</code> ontology in the simple schema, and use the simple schema for any other Knora ontologies the query refers to, e.g.:</p>
@@ -338,7 +345,7 @@ PREFIX incunabula: &lt;http://0.0.0.0:3333/ontology/0803/simple/v2#&gt;
 <p>Gravsearch queries are understood to imply <a href="https://www.w3.org/TR/rdf11-mt/">RDFS reasoning</a>. Depending on the triplestore being used, this may be implemented using the triplestore&rsquo;s own reasoner or by query expansion in Knora.</p>
 <p>This means that if a statement pattern specifies a property, the pattern will also match subproperties of that property, and if a statement specifies that a subject has a particular <code>rdf:type</code>, the statement will also match subjects belonging to subclasses of that type.</p>
 <h2><a href="#gravsearch-syntax" name="gravsearch-syntax" class="anchor"><span class="anchor-link"></span></a>Gravsearch Syntax</h2>
-<p>Every Gravsearch query is a valid SPARQL 1.1 <a href="https://www.w3.org/TR/sparql11-query/#construct">CONSTRUCT</a> query. However, Gravsearch only supports a subset of the elements that can be used in a SPARQL Construct query. Additionally, Gravsearch requires the client to use explicit type annotations, explained below; these are valid SPARQL, but specific to the Knora API. Also, the main resource has to be marked.</p>
+<p>Every Gravsearch query is a valid SPARQL 1.1 <a href="https://www.w3.org/TR/sparql11-query/#construct">CONSTRUCT</a> query. However, Gravsearch only supports a subset of the elements that can be used in a SPARQL Construct query, and a Gravsearch <a href="query-language.html#construct-clause">CONSTRUCT Clause</a> has to indicate which variable is to be used for the main resource in each search result.</p>
 <h3><a href="#supported-sparql-syntax" name="supported-sparql-syntax" class="anchor"><span class="anchor-link"></span></a>Supported SPARQL Syntax</h3>
 <p>The current version of Gravsearch accepts <code>CONSTRUCT</code> queries whose <code>WHERE</code> clauses use the following patterns, with the specified restrictions:</p>
 <ul>
@@ -365,6 +372,7 @@ FILTER(?title = &quot;Zeitglöcklein des Lebens und Leidens Christi&quot;)
 <p>The following Knora value types can be compared with literals in <code>FILTER</code> expressions in the simple schema:</p>
 <ul>
   <li>Text values (<code>xsd:string</code>)</li>
+  <li>Uri values (<code>xsd:anyURI</code>)</li>
   <li>Integer values (<code>xsd:integer</code>)</li>
   <li>Decimal values (<code>xsd:decimal</code>)</li>
   <li>Boolean values (<code>xsd:boolean</code>)</li>
@@ -403,6 +411,7 @@ CONSTRUCT {
     FILTER(knora-api:toSimpleDate(?pubdate) &lt; &quot;JULIAN:1497&quot;^^knora-api-simple:Date)
 } ORDER BY ?pubdate
 </code></pre>
+<p>You can also use <code>knora-api:toSimpleDate</code> with to search for date tags in standoff text markup (see <a href="query-language.html#matching-standoff-dates">Matching Standoff Dates</a>).</p>
 <h4><a href="#searching-for-matching-words" name="searching-for-matching-words" class="anchor"><span class="anchor-link"></span></a>Searching for Matching Words</h4>
 <p>The function <code>knora-api:match</code> searches for matching words anywhere in a text value, and is implemented using a full-text search index if available. The first argument must be a variable of type <code>xsd:string</code>, and the second argument is a string containing the words to be matched, separated by spaces. The words to be matched are separated by spaces in a string literal. For example, to search for titles that contain the words &lsquo;Zeitglöcklein&rsquo; and &lsquo;Lebens&rsquo; in the simple schema:</p>
 <pre><code>FILTER knora-api:match(?title, &quot;Zeitglöcklein Lebens&quot;)
@@ -428,6 +437,140 @@ FILTER regex(?title, &quot;Zeit&quot;, &quot;i&quot;)
 <pre><code>?book incunabula:title ?title .
 ?title knora-api:valueAsString ?titleStr .
 FILTER regex(?titleStr, &quot;Zeit&quot;, &quot;i&quot;)
+</code></pre>
+<h3><a href="#searching-for-text-markup" name="searching-for-text-markup" class="anchor"><span class="anchor-link"></span></a>Searching for Text Markup</h3>
+<p>To refer to standoff markup in text values, you must write your query in the complex schema.</p>
+<p>A <code>knora-api:TextValue</code> can have the property <code>knora-api:textValueHasStandoff</code>, whose objects are the standoff markup tags in the text. You can match the tags you&rsquo;re interested in using <code>rdf:type</code> or other properties of each tag.</p>
+<h4><a href="#matching-text-in-a-standoff-tag" name="matching-text-in-a-standoff-tag" class="anchor"><span class="anchor-link"></span></a>Matching Text in a Standoff Tag</h4>
+<p>The function <code>knora-api:matchInStandoff</code> searches for standoff tags containing certain terms. The implementation is optimised using the full-text search index if available. The function takes three arguments:</p>
+<ol>
+  <li>A variable representing the string literal value of a text value.</li>
+  <li>A variable representing a standoff tag.</li>
+  <li>A string literal containing space-separated search terms.</li>
+</ol>
+<p>This function can only be used as the top-level expression in a <code>FILTER</code>. For example:</p>
+<pre><code>PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/v2#&gt;
+PREFIX standoff: &lt;http://api.knora.org/ontology/standoff/v2#&gt;
+PREFIX beol: &lt;http://0.0.0.0:3333/ontology/0801/beol/v2#&gt;
+
+CONSTRUCT {
+    ?letter knora-api:isMainResource true .
+    ?letter beol:hasText ?text .
+} WHERE {
+    ?letter a beol:letter .
+    ?letter beol:hasText ?text .
+    ?text knora-api:valueAsString ?textStr .
+    ?text knora-api:textValueHasStandoff ?standoffParagraphTag .
+    ?standoffParagraphTag a standoff:StandoffParagraphTag .
+    FILTER knora-api:matchInStandoff(?textStr, ?standoffParagraphTag, &quot;Grund Richtigkeit&quot;)
+}
+</code></pre>
+<p>Here we are looking for letters containing the words &ldquo;Grund&rdquo; and &ldquo;Richtigkeit&rdquo; within a single paragraph.</p>
+<h4><a href="#matching-standoff-links" name="matching-standoff-links" class="anchor"><span class="anchor-link"></span></a>Matching Standoff Links</h4>
+<p>If you are only interested in specifying that a resource has some text value containing a standoff link to another resource, the most efficient way is to use the property <code>knora-api:hasStandoffLinkTo</code>, whose subjects and objects are resources. This property is automatically maintained by Knora. For example:</p>
+<pre><code>PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/v2#&gt;
+PREFIX beol: &lt;http://0.0.0.0:3333/ontology/0801/beol/v2#&gt;
+
+CONSTRUCT {
+    ?letter knora-api:isMainResource true .
+    ?letter beol:hasText ?text .
+} WHERE {
+    ?letter a beol:letter .
+    ?letter beol:hasText ?text .
+    ?letter knora-api:hasStandoffLinkTo ?person .
+    ?person a beol:person .
+    ?person beol:hasIAFIdentifier ?iafIdentifier .
+    ?iafIdentifier knora-api:valueAsString &quot;(VIAF)271899510&quot; .
+}
+</code></pre>
+<p>Here we are looking for letters containing a link to the historian Claude Jordan, who is identified by his Integrated Authority File identifier, <code>(VIAF)271899510</code>.</p>
+<p>However, if you need to specify the context in which the link tag occurs, you must use the function <code>knora-api:standoffLink</code>. It takes three arguments:</p>
+<ol>
+  <li>A variable or IRI representing the resource that is the source of the link.</li>
+  <li>A variable representing the standoff link tag.</li>
+  <li>A variable or IRI representing the resource that is the target of the link.</li>
+</ol>
+<p>This function can only be used as the top-level expression in a <code>FILTER</code>. For example:</p>
+<pre><code>PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/v2#&gt;
+PREFIX standoff: &lt;http://api.knora.org/ontology/standoff/v2#&gt;
+PREFIX beol: &lt;http://0.0.0.0:3333/ontology/0801/beol/v2#&gt;
+
+CONSTRUCT {
+    ?letter knora-api:isMainResource true .
+    ?letter beol:hasText ?text .
+} WHERE {
+    ?letter a beol:letter .
+    ?letter beol:hasText ?text .
+    ?text knora-api:textValueHasStandoff ?standoffLinkTag .
+    ?standoffLinkTag a knora-api:StandoffLinkTag .
+    FILTER knora-api:standoffLink(?letter, ?standoffLinkTag, ?person)
+    ?person a beol:person .
+    ?person beol:hasIAFIdentifier ?iafIdentifier .
+    ?iafIdentifier knora-api:valueAsString &quot;(VIAF)271899510&quot; .
+    ?standoffLinkTag knora-api:standoffTagHasStartParent ?standoffItalicTag .
+    ?standoffItalicTag a standoff:StandoffItalicTag .
+}
+</code></pre>
+<p>This has the same effect as the previous example, except that because we are matching the link tag itself, we can specify that its immediate parent is a <code>StandoffItalicTag</code>.</p>
+<p>If you actually want to get the target of the link (in this example, <code>?person</code>) in the search results, you need to add a statement like <code>?letter knora-api:hasStandoffLinkTo ?person .</code> to the <code>WHERE</code> clause and to the <code>CONSTRUCT</code> clause:</p>
+<pre><code>PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/v2#&gt;
+PREFIX standoff: &lt;http://api.knora.org/ontology/standoff/v2#&gt;
+PREFIX beol: &lt;http://0.0.0.0:3333/ontology/0801/beol/v2#&gt;
+
+CONSTRUCT {
+    ?letter knora-api:isMainResource true .
+    ?letter beol:hasText ?text .
+    ?letter knora-api:hasStandoffLinkTo ?person .
+} WHERE {
+    ?letter a beol:letter .
+    ?letter beol:hasText ?text .
+    ?text knora-api:textValueHasStandoff ?standoffLinkTag .
+    ?standoffLinkTag a knora-api:StandoffLinkTag .
+    FILTER knora-api:standoffLink(?letter, ?standoffLinkTag, ?person)
+    ?person a beol:person .
+    ?person beol:hasIAFIdentifier ?iafIdentifier .
+    ?iafIdentifier knora-api:valueAsString &quot;(VIAF)271899510&quot; .
+    ?standoffLinkTag knora-api:standoffTagHasStartParent ?standoffItalicTag .
+    ?standoffItalicTag a standoff:StandoffItalicTag .
+    ?letter knora-api:hasStandoffLinkTo ?person .
+}
+</code></pre>
+<h4><a href="#matching-standoff-dates" name="matching-standoff-dates" class="anchor"><span class="anchor-link"></span></a>Matching Standoff Dates</h4>
+<p>You can use the <code>knora-api:toSimpleDate</code> function (see <a href="query-language.html#date-comparisons">Date Comparisons</a>) to match dates in standoff date tags, i.e. instances of <code>knora-api:StandoffDateTag</code> or of one of its subclasses. For example, here we are looking for a text containing an <code>anything:StandoffEventTag</code> (which is a project-specific subclass of <code>knora-api:StandoffDateTag</code>) representing an event that occurred sometime during the month of December 2016:</p>
+<pre><code>PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/v2#&gt;
+PREFIX anything: &lt;http://0.0.0.0:3333/ontology/0001/anything/v2#&gt;
+PREFIX knora-api-simple: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
+
+CONSTRUCT {
+    ?thing knora-api:isMainResource true .
+    ?thing anything:hasText ?text .
+} WHERE {
+    ?thing a anything:Thing .
+    ?thing anything:hasText ?text .
+    ?text knora-api:textValueHasStandoff ?standoffEventTag .
+    ?standoffEventTag a anything:StandoffEventTag .
+    FILTER(knora-api:toSimpleDate(?standoffEventTag) = &quot;GREGORIAN:2016-12 CE&quot;^^knora-api-simple:Date)
+}
+</code></pre>
+<h4><a href="#matching-ancestor-tags" name="matching-ancestor-tags" class="anchor"><span class="anchor-link"></span></a>Matching Ancestor Tags</h4>
+<p>Suppose we want to search for a standoff date in a paragraph, but we know that the paragraph tag might not be the immediate parent of the date tag. For example, the date tag might be in an italics tag, which is in a paragraph tag. In that case, we can use the inferred property <code>knora-api:standoffTagHasStartAncestor</code>. We can modify the previous example to do this:</p>
+<pre><code>PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/v2#&gt;
+PREFIX standoff: &lt;http://api.knora.org/ontology/standoff/v2#&gt;
+PREFIX anything: &lt;http://0.0.0.0:3333/ontology/0001/anything/v2#&gt;
+PREFIX knora-api-simple: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
+
+CONSTRUCT {
+    ?thing knora-api:isMainResource true .
+    ?thing anything:hasText ?text .
+} WHERE {
+    ?thing a anything:Thing .
+    ?thing anything:hasText ?text .
+    ?text knora-api:textValueHasStandoff ?standoffDateTag .
+    ?standoffDateTag a knora-api:StandoffDateTag .
+    FILTER(knora-api:toSimpleDate(?standoffDateTag) = &quot;GREGORIAN:2016-12-24 CE&quot;^^knora-api-simple:Date)
+    ?standoffDateTag knora-api:standoffTagHasStartAncestor ?standoffParagraphTag .
+    ?standoffParagraphTag a standoff:StandoffParagraphTag .
+}
 </code></pre>
 <h3><a href="#construct-clause" name="construct-clause" class="anchor"><span class="anchor-link"></span></a>CONSTRUCT Clause</h3>
 <p>In the <code>CONSTRUCT</code> clause of a Gravsearch query, the variable representing the main resource must be indicated with <code>knora-api:isMainResource true</code>. Exactly one variable representing a resource must be marked in this way.</p>

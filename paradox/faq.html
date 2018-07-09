@@ -247,6 +247,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <ul>
     <li><a href="faq.html#can-a-project-use-classes-or-properties-defined-in-another-projects-ontology-" class="header">Can a project use classes or properties defined in another project&rsquo;s ontology?</a></li>
     <li><a href="faq.html#why-doesnt-knora-use-rdfs-domain-and-rdfs-range-for-consistency-checking-" class="header">Why doesn&rsquo;t Knora use <code>rdfs:domain</code> and <code>rdfs:range</code> for consistency checking?</a></li>
+    <li><a href="faq.html#can-a-project-specific-property-be-an-owl-transitiveproperty-" class="header">Can a project-specific property be an <code>owl:TransitiveProperty</code>?</a></li>
   </ul></li>
 </ul>
 </div>
@@ -268,6 +269,15 @@ data:book1 example:hasAuthor data:oxygen .
 <p>Therefore, <code>rdfs:domain</code> and <code>rdfs:range</code> are not suitable for consistency checking.</p>
 <p>Knora therefore uses its own properties, along with OWL cardinalities, which it interprets according to a &ldquo;closed world&rdquo; assumption. Knora performs its own consistency checks to enforce these restrictions. Knora repositories can also take advantage of triplestore-specific consistency checking mechanisms.</p>
 <p>The constraint language <a href="https://www.w3.org/TR/shacl/">SHACL</a> may someday provide a standard, triplestore-independent way to implement consistency checks, if the obstacles to its adoption can be overcome (see <a href="https://research.nuance.com/diverging-views-of-shacl/">Diverging views of SHACL</a>). For further discussion of these issues, see <a href="http://spinrdf.org/shacl-and-owl.html">SHACL and OWL Compared</a>.</p>
+<h3><a href="#can-a-project-specific-property-be-an-owl-transitiveproperty-" name="can-a-project-specific-property-be-an-owl-transitiveproperty-" class="anchor"><span class="anchor-link"></span></a>Can a project-specific property be an <code>owl:TransitiveProperty</code>?</h3>
+<p>No, because in Knora, a resource controls its properties. This basic assumption is what allows Knora to enforce permissions and transaction integrity. The concept of a transitive property would break this assumption.</p>
+<p>Consider a link property <code>hasLinkToFoo</code> that is defined as an <code>owl:TransitiveProperty</code>, and is used to link resource <code>Foo1</code> to resource <code>Foo2</code>:</p>
+<p><img src="faq-fig1.dot.png" alt="Figure 1" title="Figure 1" /></p>
+<p>Suppose that <code>Foo1</code> and <code>Foo2</code> are owned by different users, and that the owner of <code>Foo2</code> does not have permission to change <code>Foo1</code>. Now suppose that the owner of <code>Foo2</code> adds a link from <code>Foo2</code> to <code>Foo3</code>, using the transitive property:</p>
+<p><img src="faq-fig2.dot.png" alt="Figure 2" title="Figure 2" /></p>
+<p>Since the property is transitive, a link from <code>Foo1</code> to <code>Foo3</code> is now inferred. But this should not be allowed, because the owner of <code>Foo2</code> does not have permission to add a link to <code>Foo1</code>.</p>
+<p>Moreover, even if the owner of <code>Foo2</code> did have that permission, the inferred link would not have a <code>knora-base:LinkValue</code> (a reification), which every Knora link must have. The <code>LinkValue</code> is what stores metadata about the creator of the link, its creation date, its permissions, and so on (see <a href="02-knora-ontologies/knora-base.html#linkvalue">LinkValue</a>).</p>
+<p>Finally, if an update to one resource could modify another resource, this would violate Knora&rsquo;s model of transaction integrity, in which each transaction can modify only one resource (see <a href="05-internals/design/triplestore-updates.html#application-level-locking">Application-level Locking</a>). Knora would then be unable to ensure that concurrent transactions do not interfere with each other.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/faq.md" title="Edit this page" class="md-source-file md-edit">
