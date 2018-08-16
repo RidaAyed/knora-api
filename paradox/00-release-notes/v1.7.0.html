@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="description" content="docs">
-<meta name="generator" content="Paradox, paradox-material-theme=v1.6.0, mkdocs-material=2.2.2">
+<meta name="generator" content="Paradox, paradox-material-theme=v1.7.0, mkdocs-material=2.2.2">
 
 <meta name="lang:clipboard.copy" content="Copy to clipboard">
 <meta name="lang:clipboard.copied" content="Copied to clipboard">
@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../cloud">
-<title>v1.7.0 Release Notes (not released yet) · Knora Documentation</title>
+<title>v1.7.0 Release Notes · Knora Documentation</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-v1.7.0 Release Notes (not released yet)
+v1.7.0 Release Notes
 </span>
 </div>
 </div>
@@ -143,7 +143,8 @@ dhlab-basel/Knora/docs
     <li><a href="../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes</a></li>
-    <li><a href="../00-release-notes/v1.7.0.html" class="active page">v1.7.0 Release Notes (not released yet)</a></li>
+    <li><a href="../00-release-notes/v1.7.0.html" class="active page">v1.7.0 Release Notes</a></li>
+    <li><a href="../00-release-notes/v1.8.0.html" class="page">v1.8.0 Release Notes (not released yet)</a></li>
   </ul></li>
   <li><a href="../01-introduction/index.html" class="page">Introduction</a>
   <ul>
@@ -165,6 +166,7 @@ dhlab-basel/Knora/docs
   <li><a href="../04-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
     <li><a href="../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+    <li><a href="../04-deployment/configuration.html" class="page">Configuration</a></li>
   </ul></li>
   <li><a href="../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -182,7 +184,7 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../00-release-notes/v1.7.0.html#v1-7-0-release-notes-not-released-yet-" class="header">v1.7.0 Release Notes (not released yet)</a>
+  <li><a href="../00-release-notes/v1.7.0.html#v1-7-0-release-notes" class="header">v1.7.0 Release Notes</a>
   <ul>
     <li><a href="../00-release-notes/v1.7.0.html#required-changes-to-existing-data-" class="header">Required changes to existing data:</a></li>
     <li><a href="../00-release-notes/v1.7.0.html#new-features-" class="header">New features:</a></li>
@@ -192,7 +194,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> v1.6.0
+<i class="md-icon">label_outline</i> v1.7.0
 </div>
 </nav>
 
@@ -205,7 +207,7 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../00-release-notes/v1.7.0.html#v1-7-0-release-notes-not-released-yet-" class="header">v1.7.0 Release Notes (not released yet)</a>
+  <li><a href="../00-release-notes/v1.7.0.html#v1-7-0-release-notes" class="header">v1.7.0 Release Notes</a>
   <ul>
     <li><a href="../00-release-notes/v1.7.0.html#required-changes-to-existing-data-" class="header">Required changes to existing data:</a></li>
     <li><a href="../00-release-notes/v1.7.0.html#new-features-" class="header">New features:</a></li>
@@ -220,7 +222,7 @@ dhlab-basel/Knora/docs
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
-<h1><a href="#v1-7-0-release-notes-not-released-yet-" name="v1-7-0-release-notes-not-released-yet-" class="anchor"><span class="anchor-link"></span></a>v1.7.0 Release Notes (not released yet)</h1>
+<h1><a href="#v1-7-0-release-notes" name="v1-7-0-release-notes" class="anchor"><span class="anchor-link"></span></a>v1.7.0 Release Notes</h1>
 <p>See the <a href="https://github.com/dhlab-basel/Knora/releases/tag/v1.7.0">release</a> and closed tickets on the <a href="https://github.com/dhlab-basel/Knora/milestone/11">v1.7.0 milestone</a> on Github.</p>
 <h2><a href="#required-changes-to-existing-data-" name="required-changes-to-existing-data-" class="anchor"><span class="anchor-link"></span></a>Required changes to existing data:</h2>
 <ul>
@@ -229,8 +231,16 @@ dhlab-basel/Knora/docs
 <h2><a href="#new-features-" name="new-features-" class="anchor"><span class="anchor-link"></span></a>New features:</h2>
 <ul>
   <li>Gravsearch queries can now match standoff markup (<a href="https://github.com/dhlab-basel/Knora/issues/910">#910</a>).</li>
+  <li>Add Graphdb-Free initialization scripts for local and docker installation (<a href="https://github.com/dhlab-basel/Knora/issues/955">#955</a>).</li>
+  <li>Create temp dirs at startup (<a href="https://github.com/dhlab-basel/Knora/issues/951">#951</a>)</li>
+  <li>Update versions of monitoring tools (<a href="https://github.com/dhlab-basel/Knora/issues/951">#951</a>)</li>
 </ul>
 <h2><a href="#bugfixes-" name="bugfixes-" class="anchor"><span class="anchor-link"></span></a>Bugfixes:</h2>
+<ul>
+  <li>timeout or java.lang.OutOfMemoryError when using /v1/resources/xmlimportschemas/ for some ontologies (<a href="https://github.com/dhlab-basel/Knora/issues/944">#944</a>)</li>
+  <li>Timeout cleanup (<a href="https://github.com/dhlab-basel/Knora/issues/951">#951</a>)</li>
+  <li>Add separate dispatchers (<a href="https://github.com/dhlab-basel/Knora/issues/945">#945</a>)</li>
+</ul>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/00-release-notes/v1.7.0.md" title="Edit this page" class="md-source-file md-edit">
@@ -239,7 +249,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-v1.6.0
+v1.7.0
 </span>
 </div>
 </article>
@@ -262,13 +272,13 @@ v1.6.0 Release Notes
 </span>
 </div>
 </a>
-<a href="../01-introduction/index.html" title="Introduction" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../00-release-notes/v1.8.0.html" title="v1.8.0 Release Notes (not released yet)" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Introduction
+v1.8.0 Release Notes (not released yet)
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

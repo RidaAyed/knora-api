@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="description" content="docs">
-<meta name="generator" content="Paradox, paradox-material-theme=v1.6.0, mkdocs-material=2.2.2">
+<meta name="generator" content="Paradox, paradox-material-theme=v1.7.0, mkdocs-material=2.2.2">
 
 <meta name="lang:clipboard.copy" content="Copy to clipboard">
 <meta name="lang:clipboard.copied" content="Copied to clipboard">
@@ -143,7 +143,8 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes</a></li>
-    <li><a href="../../00-release-notes/v1.7.0.html" class="page">v1.7.0 Release Notes (not released yet)</a></li>
+    <li><a href="../../00-release-notes/v1.7.0.html" class="page">v1.7.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.8.0.html" class="page">v1.8.0 Release Notes (not released yet)</a></li>
   </ul></li>
   <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
   <ul>
@@ -165,6 +166,7 @@ dhlab-basel/Knora/docs
   <li><a href="../../04-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
     <li><a href="../../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+    <li><a href="../../04-deployment/configuration.html" class="page">Configuration</a></li>
   </ul></li>
   <li><a href="../../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -195,7 +197,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> v1.6.0
+<i class="md-icon">label_outline</i> v1.7.0
 </div>
 </nav>
 
@@ -317,7 +319,7 @@ scala:
   - 2.12.1
 
 jdk:
-  - oraclejdk8
+  - openjdk8
 
 services:
   - docker
@@ -347,48 +349,55 @@ before_install:
   - sudo apt-get install -y expect
 
 stages:
+  - compile and stage
   - test
   - name: publish # generally, only publish if we are on &#39;develop&#39; or tagged
     if: branch = develop OR tag IS present
 
 jobs:
   include:
-    # unit and e2e tests
-    - stage: test
+    # test sbt compile and stage
+    - stage: compile and stage
       script:
-        # prepare needed graphdb-se files
-        - mkdir -p $TRAVIS_BUILD_DIR/data/conf
-        - cp $TRAVIS_BUILD_DIR/private/graphdb.license $TRAVIS_BUILD_DIR/data/conf/graphdb.license
-        - mkdir -p $TRAVIS_BUILD_DIR/graphdb
-        - cp $TRAVIS_BUILD_DIR/webapi/scripts/KnoraRules.pie $TRAVIS_BUILD_DIR/graphdb
-        # start and initialize graphdb-se
-        - docker run -d -p 127.0.0.1:7200:7200 -v $TRAVIS_BUILD_DIR/data:/opt/graphdb/home -v $TRAVIS_BUILD_DIR/graphdb:/graphdb -e GDB_HEAP_SIZE=$GDB_HEAP_SIZE ontotext/graphdb:$GRAPHDB_VERSION
-        - sleep 15
-        - cd $TRAVIS_BUILD_DIR/webapi/scripts &amp;&amp; ./graphdb-se-docker-init-knora-test-unit.sh
-        # start the built-in webapi server tests
-        - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt graphdb:test
-        # test sbt stage
-        - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt stage
+        - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt compile stage
         # only uncomment if docker image is needed for this branch. remove before merging into develop
         # - docker login -u $DOCKER_USER -p $DOCKER_PASS
         # - docker build $TRAVIS_BUILD_DIR/webapi/ -t $WEBAPI_REPO:$TAG
         # - docker push $WEBAPI_REPO
+    # unit and e2e tests
+    - stage: test
+      script:
+        # prepare needed graphdb-se files
+        - mkdir -p $TRAVIS_BUILD_DIR/graphdb
+        - cp $TRAVIS_BUILD_DIR/private/graphdb.license $TRAVIS_BUILD_DIR/graphdb/graphdb.license
+        - cp $TRAVIS_BUILD_DIR/webapi/scripts/KnoraRules.pie $TRAVIS_BUILD_DIR/graphdb
+        # start and initialize graphdb-se
+        - docker run -d -p 127.0.0.1:7200:7200 -v $TRAVIS_BUILD_DIR/graphdb:/graphdb -e GDB_HEAP_SIZE=$GDB_HEAP_SIZE ontotext/graphdb:$GRAPHDB_VERSION -Dgraphdb.license.file=/graphdb/graphdb.license
+        - sleep 15
+        - cd $TRAVIS_BUILD_DIR/webapi/scripts &amp;&amp; ./graphdb-se-docker-init-knora-test-unit.sh
+        # hit graphdb with a request &quot;waking-it-up&quot;
+        - curl http://localhost:7200/rest/repositories
+        # start the built-in webapi server tests
+        - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt coverage test coverageReport
+        # upload code coverage report
+        - bash &lt;(curl -s https://codecov.io/bash) -F unit_e2e
     # integration tests
     - stage: test
       script:
         # prepare needed graphdb-se files
-        - mkdir -p $TRAVIS_BUILD_DIR/data/conf
-        - cp $TRAVIS_BUILD_DIR/private/graphdb.license $TRAVIS_BUILD_DIR/data/conf/graphdb.license
         - mkdir -p $TRAVIS_BUILD_DIR/graphdb
+        - cp $TRAVIS_BUILD_DIR/private/graphdb.license $TRAVIS_BUILD_DIR/graphdb/graphdb.license
         - cp $TRAVIS_BUILD_DIR/webapi/scripts/KnoraRules.pie $TRAVIS_BUILD_DIR/graphdb
         # start and initialize graphdb-se
-        - docker run -d -p 127.0.0.1:7200:7200 -v $TRAVIS_BUILD_DIR/data:/opt/graphdb/home -v $TRAVIS_BUILD_DIR/graphdb:/graphdb -e GDB_HEAP_SIZE=$GDB_HEAP_SIZE ontotext/graphdb:$GRAPHDB_VERSION
+        - docker run -d -p 127.0.0.1:7200:7200 -v $TRAVIS_BUILD_DIR/graphdb:/graphdb -e GDB_HEAP_SIZE=$GDB_HEAP_SIZE ontotext/graphdb:$GRAPHDB_VERSION -Dgraphdb.license.file=/graphdb/graphdb.license
         - sleep 15
         - cd $TRAVIS_BUILD_DIR/webapi/scripts &amp;&amp; ./graphdb-se-docker-init-knora-test-unit.sh
         # start the sipi container (with production config)
         - cd $TRAVIS_BUILD_DIR/sipi/ &amp;&amp; docker run -d --add-host webapihost:$DOCKERHOST -v $PWD/config:/sipi/config -v $PWD/scripts:/sipi/scripts -v /tmp:/tmp -v $HOME:$HOME -p 1024:1024 dhlabbasel/sipi:develop --config=/sipi/config/sipi.knora-docker-it-config.lua
         # start the integration tests
-        - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt it:test
+        - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt coverage it:test coverageReport
+        # upload code coverage report
+        - bash &lt;(curl -s https://codecov.io/bash) -F integration
     # testing docs generation
     - stage: test
       script:
@@ -452,7 +461,6 @@ jobs:
         - docker pull $SIPI_REPO:develop
         - docker tag $SIPI_REPO:develop $SIPI_REPO:knora-$TRAVIS_BRANCH
         - docker push $SIPI_REPO
-
 notifications:
   slack:
     secure: gaazomUbAB4q7bH2XOiZXqHvU2gd/X/jIRLAJW9vjcRbY6o48eiEdNXF2umraHG0q+5UUEJ5dfvxiPtC4PiUq8uD6J+R0fEWrWznYoIeEWEXjKxRxWplrWJ9Ke+PJb3wCV6cXBGMfxDpvYQbVjsy7n0aQmjNs4Drz+llqL5SilTdswTylwvUdufad0QaovXklL+p0w9vRHRKzQkYKa9phL10VcJa8TPI74tuFcTHnK6TcMNW6p0vzAaF6JVgzoRPzUgXnEPCw4pI8zqOF1ghPpQByNXKiYofPWt1yTFgb60LQarDEiHXunXAA/sf2gx616pWLVjDFGziXVzhiGUDUjM5I1p7hPyA2rTB63AAZustFcGeD+jbHNHIFhcvvCHVHjJfp8M7LrUR+MBqz5mJNi/9KgxyZ8I9Df28TxmKxGFaGW8t4PZdA75/49Hos0TqtIp5m+eo8mTksUJogEJJokRZUKraMBhC0cNCry0kp+EQ06F4usLoDyZTUar4OSuNSiymf+zwz6jZo8dF/cluRYellwewE9NJiNWGN4DiBhk2vGJ7OtWMDPkl1tqkG8npoqbT4s38esjxfa/XcworGfeqE+9mzugVzkIKIX2lB6QxZp0AKQVOiy7JwwdtcjVMLvceiNPEWfe8fhLMX02oqYz2uoibRmHMxKPa5CpmUIg=</code></pre>
@@ -476,104 +484,121 @@ import sbt.librarymanagement.Resolver
 
 connectInput in run := true
 
-// Bring the sbt-aspectj settings into this build
-//aspectjSettings
+lazy val webApiCommonSettings = Seq(
+    organization := &quot;org.knora&quot;,
+    name := &quot;webapi&quot;,
+    version := &quot;1.7.0&quot;,
+    scalaVersion := &quot;2.12.4&quot;
+)
+
+// custom test and it settings
+lazy val GDBSE = config(&quot;gdbse&quot;) extend Test
+lazy val GDBSEIt = config(&quot;gdbse-it&quot;) extend IntegrationTest
+lazy val GDBFree = config(&quot;gdbfree&quot;) extend Test
+lazy val GDBFreeIt = config(&quot;gdbfree-it&quot;) extend IntegrationTest
+lazy val FusekiTest = config(&quot;fuseki&quot;) extend Test
+lazy val FusekiIt = config(&quot;fuseki-it&quot;) extend IntegrationTest
+lazy val EmbeddedJenaTDBTest = config(&quot;tdb&quot;) extend Test
 
 lazy val webapi = (project in file(&quot;.&quot;)).
         configs(
+            IntegrationTest,
+            Gatling,
+            GatlingIt,
+            GDBSE,
+            GDBSEIt,
+            GDBFree,
+            GDBFreeIt,
             FusekiTest,
-            FusekiIntegrationTest,
-            GraphDBTest,
-            EmbeddedJenaTDBTest,
-            IntegrationTest
+            FusekiIt,
+            EmbeddedJenaTDBTest
         ).
-        settings(webApiCommonSettings:  _*).
-        settings(inConfig(Test)(
-            Defaults.testTasks ++ baseAssemblySettings
-        ): _*).
-        settings(inConfig(Gatling)( // add our settings to the gatling config
-            Defaults.testTasks ++ Seq(
-                fork := true,
-                javaOptions ++= javaTestOptions
-            )
-        ): _*).
-        settings(inConfig(GatlingIt)( // add our settings to the gatling it config
-            Defaults.testTasks ++ Seq(
-                fork := true,
-                javaOptions ++= javaTestOptions
-            )
-        ): _*).
-        settings(inConfig(FusekiTest)(
-            Defaults.testTasks ++ Seq(
-                fork := true,
-                javaOptions ++= javaFusekiTestOptions,
-                testOptions += Tests.Argument(&quot;-oDF&quot;) // show full stack traces and test case durations
-            )
-        ): _*).
-        settings(inConfig(FusekiIntegrationTest)(
-            Defaults.testTasks ++ Seq(
-                fork := true,
-                javaOptions ++= javaFusekiIntegrationTestOptions,
-                testOptions += Tests.Argument(&quot;-oDF&quot;) // show full stack traces and test case durations
-            )
-        ): _*).
-        settings(inConfig(GraphDBTest)(
-            Defaults.testTasks ++ Seq(
-                fork := true,
-                javaOptions ++= javaGraphDBTestOptions,
-                testOptions += Tests.Argument(&quot;-oDF&quot;) // show full stack traces and test case durations
-            )
-        ): _*).
-        settings(inConfig(EmbeddedJenaTDBTest)(
-            Defaults.testTasks ++ Seq(
-                fork := true,
-                javaOptions ++= javaEmbeddedJenaTDBTestOptions,
-                testOptions += Tests.Argument(&quot;-oDF&quot;) // show full stack traces and test case durations
-            )
-        ): _*).
-        settings(inConfig(IntegrationTest)(
-            Defaults.itSettings ++ Seq(
-                fork := true,
-                javaOptions ++= javaIntegrationTestOptions,
-                testOptions += Tests.Argument(&quot;-oDF&quot;) // show full stack traces and test case durations
-            ) ++ baseAssemblySettings
-        ): _*).
         settings(
+            webApiCommonSettings,
             resolvers ++= Seq(
                 Resolver.bintrayRepo(&quot;hseeberger&quot;, &quot;maven&quot;)
             ),
-            libraryDependencies ++= webApiLibs,
+            libraryDependencies ++= webApiLibs
+        ).
+        settings(
+            inConfig(Test)(Defaults.testTasks ++ baseAssemblySettings),
+            inConfig(IntegrationTest)(Defaults.testSettings),
+            inConfig(Gatling)(Defaults.testTasks ++ Seq(forkOptions := Defaults.forkOptionsTask.value)),
+            inConfig(GatlingIt)(Defaults.testTasks ++ Seq(forkOptions := Defaults.forkOptionsTask.value)),
+            inConfig(GDBSE)(Defaults.testTasks ++ Seq(forkOptions := Defaults.forkOptionsTask.value)),
+            inConfig(GDBSEIt)(Defaults.testTasks ++ Seq(forkOptions := Defaults.forkOptionsTask.value)),
+            inConfig(GDBFree)(Defaults.testTasks ++ Seq(forkOptions := Defaults.forkOptionsTask.value)),
+            inConfig(GDBFreeIt)(Defaults.testTasks ++ Seq(forkOptions := Defaults.forkOptionsTask.value)),
+            inConfig(FusekiTest)(Defaults.testTasks ++ Seq(forkOptions := Defaults.forkOptionsTask.value)),
+            inConfig(FusekiIt)(Defaults.testTasks ++ Seq(forkOptions := Defaults.forkOptionsTask.value)),
+            inConfig(EmbeddedJenaTDBTest)(Defaults.testTasks ++ Seq(forkOptions := Defaults.forkOptionsTask.value))
+        ).
+        settings(
             scalacOptions ++= Seq(&quot;-feature&quot;, &quot;-unchecked&quot;, &quot;-deprecation&quot;, &quot;-Yresolve-term-conflict:package&quot;),
+
             logLevel := Level.Info,
-            fork in run := true,
-            javaOptions in run ++= javaRunOptions,
-            javaOptions in reStart ++= javaRunOptions,
-            javaOptions in Test ++= javaTestOptions,
-            javaOptions in reStart ++= resolvedJavaAgents.value map { resolved =&gt;
+
+            fork := true, // always fork
+
+            cancelable in Global := true, // use Ctrl-c to stop current task and not quit SBT
+
+            run / javaOptions := javaRunOptions,
+
+            reStart / javaOptions ++= resolvedJavaAgents.value map { resolved =&gt;
                 &quot;-javaagent:&quot; + resolved.artifact.absolutePath + resolved.agent.arguments
             },// allows sbt-javaagent to work with sbt-revolver
+            reStart / javaOptions ++= javaRunOptions,
+
             javaAgents += library.aspectJWeaver,
-            mainClass in (Compile, run) := Some(&quot;org.knora.webapi.Main&quot;),
-            fork in Test := true,
-            parallelExecution in Test := false,
+
+            Test / parallelExecution := false,
+            Test / javaOptions ++= Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ javaTestOptions,
+            // Test / javaOptions ++= Seq(&quot;-Dakka.log-config-on-start=on&quot;), // prints out akka config
+            // Test / javaOptions ++= Seq(&quot;-Dconfig.trace=loads&quot;), // prints out config locations
+            Test / testOptions += Tests.Argument(&quot;-oDF&quot;), // show full stack traces and test case durations
+
+            IntegrationTest / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ javaTestOptions,
+            IntegrationTest / testOptions += Tests.Argument(&quot;-oDF&quot;), // show full stack traces and test case durations
+
+            Gatling / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ javaTestOptions,
+            Gatling / testOptions := Seq(),
+            GatlingIt / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ javaTestOptions,
+            GatlingIt / testOptions := Seq(),
+
+            GDBSE / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ javaTestOptions,
+            GDBSEIt / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ javaTestOptions,
+
+            GDBFree / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-free.conf&quot;) ++ javaTestOptions,
+            GDBFreeIt / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-free.conf&quot;) ++ javaTestOptions,
+
+            FusekiTest / javaOptions := Seq(&quot;-Dconfig.resource=fuseki.conf&quot;) ++ javaTestOptions,
+            FusekiIt / javaOptions := Seq(&quot;-Dconfig.resource=fuseki.conf&quot;) ++ javaTestOptions,
+
+            EmbeddedJenaTDBTest / javaOptions := Seq(&quot;-Dconfig.resource=jenatdb.conf&quot;) ++ javaTestOptions,
+
             // enable publishing the jar produced by `sbt test:package` and `sbt it:package`
-            publishArtifact in (Test, packageBin) := true,
-            publishArtifact in (IntegrationTest, packageBin) := true
+            Test / packageBin / publishArtifact := true,
+            IntegrationTest / packageBin / publishArtifact := true
         ).
-        settings( // enable deployment staging with `sbt stage`. uses fat jar assembly.
+        settings(
+            // enabled deployment staging with `sbt stage`. uses fat jar assembly.
             // we specify the name for our fat jars (main, test, it)
-            assemblyJarName in assembly := s&quot;assembly-${name.value}-main-${version.value}.jar&quot;,
-            assemblyJarName in (Test, assembly) := s&quot;assembly-${name.value}-test-${version.value}.jar&quot;,
-            assemblyJarName in (IntegrationTest, assembly) := s&quot;assembly-${name.value}-it-${version.value}.jar&quot;,
+            assembly / assemblyJarName := s&quot;assembly-${name.value}-main-${version.value}.jar&quot;,
+            Test / assembly / assemblyJarName := s&quot;assembly-${name.value}-test-${version.value}.jar&quot;,
+            IntegrationTest / assembly / assemblyJarName := s&quot;assembly-${name.value}-it-${version.value}.jar&quot;,
+
             // disable running of tests before fat jar assembly!
-            test in assembly := {},
-            test in (Test, assembly) := {},
-            test in (IntegrationTest, assembly) := {},
+            assembly / test := {},
+            // test in (Test, assembly) := {},
+            // test in (IntegrationTest, assembly) := {},
+
             // need to use our custom merge strategy because of aop.xml (AspectJ)
-            assemblyMergeStrategy in assembly := customMergeStrategy,
+            assembly / assemblyMergeStrategy := customMergeStrategy,
+
             // Skip packageDoc task on stage
-            mappings in (Compile, packageDoc) := Seq(),
-            mappings in Universal := {
+            Compile / packageDoc / mappings := Seq(),
+
+            Universal / mappings := {
                 // removes all jar mappings in universal and appends the fat jar
                 // universalMappings: Seq[(File,String)]
                 val universalMappings = (mappings in Universal).value
@@ -585,7 +610,8 @@ lazy val webapi = (project in file(&quot;.&quot;)).
                 // add the fat jar
                 filtered :+ (fatJar -&gt; (&quot;lib/&quot; + fatJar.getName))
             },
-            mappings in Universal ++= {
+
+            Universal / mappings ++= {
                 // copy the scripts folder
                 directory(&quot;scripts&quot;) ++
                 // copy the configuration files to config directory
@@ -595,16 +621,21 @@ lazy val webapi = (project in file(&quot;.&quot;)).
                 // copy the aspectj weaver jar
                 contentOf(&quot;vendor&quot;).toMap.mapValues(&quot;aspectjweaver/&quot; + _)
             },
+
             // the bash scripts classpath only needs the fat jar
             scriptClasspath := Seq( (assemblyJarName in assembly).value ),
+
             // add &#39;config&#39; directory first in the classpath of the start script,
             scriptClasspath := Seq(&quot;../config/&quot;) ++ scriptClasspath.value,
+
             // add license
             licenses := Seq((&quot;GNU AGPL&quot;, url(&quot;https://www.gnu.org/licenses/agpl-3.0&quot;))),
+
             // need this here, so that the Manifest inside the jars has the correct main class set.
-            mainClass in Compile := Some(&quot;org.knora.webapi.Main&quot;),
-            mainClass in Test := Some(&quot;org.scalatest.tools.Runner&quot;),
-            mainClass in IntegrationTest := Some(&quot;org.scalatest.tools.Runner&quot;)
+            Compile / mainClass := Some(&quot;org.knora.webapi.Main&quot;),
+            Compile / run / mainClass := Some(&quot;org.knora.webapi.Main&quot;),
+            Test / mainClass := Some(&quot;org.scalatest.tools.Runner&quot;),
+            IntegrationTest / mainClass := Some(&quot;org.scalatest.tools.Runner&quot;)
         ).
         enablePlugins(SbtTwirl). // Enable the sbt-twirl plugin
         enablePlugins(JavaAppPackaging). // Enable the sbt-native-packager plugin
@@ -612,12 +643,7 @@ lazy val webapi = (project in file(&quot;.&quot;)).
         enablePlugins(JavaAgent). // Adds AspectJ Weaver configuration
         enablePlugins(RevolverPlugin)
 
-lazy val webApiCommonSettings = Seq(
-    organization := &quot;org.knora&quot;,
-    name := &quot;webapi&quot;,
-    version := &quot;1.6.0&quot;,
-    scalaVersion := &quot;2.12.4&quot;
-)
+
 
 lazy val webApiLibs = Seq(
     library.aspectJWeaver,
@@ -654,6 +680,7 @@ lazy val webApiLibs = Seq(
     library.jwt,
     library.kamonCore,
     library.kamonAkka,
+    library.kamonAkkaHttp,
     library.kamonPrometheus,
     library.kamonZipkin,
     library.kamonJaeger,
@@ -668,15 +695,17 @@ lazy val webApiLibs = Seq(
     library.scallop,
     library.springSecurityCore,
     library.swaggerAkkaHttp,
+    library.typesafeConfig,
     library.xmlunitCore
 )
 
 lazy val library =
     new {
         object Version {
-            val akkaBase = &quot;2.5.11&quot;
-            val akkaHttp = &quot;10.1.0&quot;
+            val akkaBase = &quot;2.5.13&quot;
+            val akkaHttp = &quot;10.1.3&quot;
             val jena = &quot;3.4.0&quot;
+            val metrics = &quot;4.0.1&quot;
         }
 
         // akka
@@ -684,20 +713,22 @@ lazy val library =
         val akkaAgent              = &quot;com.typesafe.akka&quot;            %% &quot;akka-agent&quot;               % Version.akkaBase
         val akkaStream             = &quot;com.typesafe.akka&quot;            %% &quot;akka-stream&quot;              % Version.akkaBase
         val akkaSlf4j              = &quot;com.typesafe.akka&quot;            %% &quot;akka-slf4j&quot;               % Version.akkaBase
-        val akkaTestkit            = &quot;com.typesafe.akka&quot;            %% &quot;akka-testkit&quot;             % Version.akkaBase    % &quot;test, fuseki, graphdb, tdb, it, fuseki-it&quot;
-        val akkaStreamTestkit      = &quot;com.typesafe.akka&quot;            %% &quot;akka-stream-testkit&quot;      % Version.akkaBase    % &quot;test, fuseki, graphdb, tdb, it, fuseki-it&quot;
+        val akkaTestkit            = &quot;com.typesafe.akka&quot;            %% &quot;akka-testkit&quot;             % Version.akkaBase    % &quot;test, it, gdbse, gdbse-it, gdbfree, gdbfree-it, tdb, fuseki, fuseki-it&quot;
+        val akkaStreamTestkit      = &quot;com.typesafe.akka&quot;            %% &quot;akka-stream-testkit&quot;      % Version.akkaBase    % &quot;test, it, gdbse, gdbse-it, gdbfree, gdbfree-it, tdb, fuseki, fuseki-it&quot;
 
         // akka http
         val akkaHttp               = &quot;com.typesafe.akka&quot;            %% &quot;akka-http&quot;                % Version.akkaHttp
         val akkaHttpXml            = &quot;com.typesafe.akka&quot;            %% &quot;akka-http-xml&quot;            % Version.akkaHttp
         val akkaHttpSprayJson      = &quot;com.typesafe.akka&quot;            %% &quot;akka-http-spray-json&quot;     % Version.akkaHttp
         val akkaHttpJacksonJava    = &quot;com.typesafe.akka&quot;            %% &quot;akka-http-jackson&quot;        % Version.akkaHttp
-        val akkaHttpTestkit        = &quot;com.typesafe.akka&quot;            %% &quot;akka-http-testkit&quot;        % Version.akkaHttp    % &quot;test, fuseki, graphdb, tdb, it, fuseki-it&quot;
+        val akkaHttpTestkit        = &quot;com.typesafe.akka&quot;            %% &quot;akka-http-testkit&quot;        % Version.akkaHttp    % &quot;test, it, gdbse, gdbse-it, gdbfree, gdbfree-it, tdb, fuseki, fuseki-it&quot;
+
+        val typesafeConfig         = &quot;com.typesafe&quot;                  % &quot;config&quot;                   % &quot;1.3.3&quot;
 
         // testing
-        val scalaTest              = &quot;org.scalatest&quot;                %% &quot;scalatest&quot;                % &quot;3.0.4&quot;             % &quot;test, fuseki, graphdb, tdb, it, fuseki-it&quot;
-        val gatlingHighcharts      = &quot;io.gatling.highcharts&quot;         % &quot;gatling-charts-highcharts&quot;% &quot;2.3.1&quot;             % &quot;test, fuseki, graphdb, tdb, it, fuseki-it&quot;
-        val gatlingTestFramework   = &quot;io.gatling&quot;                    % &quot;gatling-test-framework&quot;   % &quot;2.3.1&quot;             % &quot;test, fuseki, graphdb, tdb, it, fuseki-it&quot;
+        val scalaTest              = &quot;org.scalatest&quot;                %% &quot;scalatest&quot;                % &quot;3.0.4&quot;             % &quot;test, it, gdbse, gdbse-it, gdbfree, gdbfree-it, tdb, fuseki, fuseki-it&quot;
+        val gatlingHighcharts      = &quot;io.gatling.highcharts&quot;         % &quot;gatling-charts-highcharts&quot;% &quot;2.3.1&quot;             % &quot;test, it, gdbse, gdbse-it, gdbfree, gdbfree-it, tdb, fuseki, fuseki-it&quot;
+        val gatlingTestFramework   = &quot;io.gatling&quot;                    % &quot;gatling-test-framework&quot;   % &quot;2.3.1&quot;             % &quot;test, it, gdbse, gdbse-it, gdbfree, gdbfree-it, tdb, fuseki, fuseki-it&quot;
 
         //CORS support
         val akkaHttpCors           = &quot;ch.megard&quot;                    %% &quot;akka-http-cors&quot;           % &quot;0.3.0&quot;
@@ -723,12 +754,13 @@ lazy val library =
         val ehcache                = &quot;net.sf.ehcache&quot;                % &quot;ehcache&quot;                  % &quot;2.10.0&quot;
 
         // monitoring
-        val kamonCore              = &quot;io.kamon&quot;                     %% &quot;kamon-core&quot;               % &quot;1.1.0&quot;
-        val kamonAkka              = &quot;io.kamon&quot;                     %% &quot;kamon-akka-2.5&quot;           % &quot;1.0.0&quot;
-        val kamonPrometheus        = &quot;io.kamon&quot;                     %% &quot;kamon-prometheus&quot;         % &quot;1.0.0&quot;
+        val kamonCore              = &quot;io.kamon&quot;                     %% &quot;kamon-core&quot;               % &quot;1.1.3&quot;
+        val kamonAkka              = &quot;io.kamon&quot;                     %% &quot;kamon-akka-2.5&quot;           % &quot;1.1.1&quot;
+        val kamonAkkaHttp          = &quot;io.kamon&quot;                     %% &quot;kamon-akka-http-2.5&quot;      % &quot;1.1.0&quot;
+        val kamonPrometheus        = &quot;io.kamon&quot;                     %% &quot;kamon-prometheus&quot;         % &quot;1.1.1&quot;
         val kamonZipkin            = &quot;io.kamon&quot;                     %% &quot;kamon-zipkin&quot;             % &quot;1.0.0&quot;
-        val kamonJaeger            = &quot;io.kamon&quot;                     %% &quot;kamon-jaeger&quot;             % &quot;1.0.1&quot;
-        val aspectJWeaver          = &quot;org.aspectj&quot;                   % &quot;aspectjweaver&quot;            % &quot;1.8.13&quot;
+        val kamonJaeger            = &quot;io.kamon&quot;                     %% &quot;kamon-jaeger&quot;             % &quot;1.0.2&quot;
+        val aspectJWeaver          = &quot;org.aspectj&quot;                   % &quot;aspectjweaver&quot;            % &quot;1.9.1&quot;
 
         // other
         //&quot;javax.transaction&quot; % &quot;transaction-api&quot; % &quot;1.1-rev-1&quot;,
@@ -763,54 +795,26 @@ lazy val library =
 
 lazy val javaRunOptions = Seq(
     // &quot;-showversion&quot;,
-    &quot;-Xms2G&quot;,
-    &quot;-Xmx2G&quot;
+    &quot;-Xms1G&quot;,
+    &quot;-Xmx1G&quot;,
     // &quot;-verbose:gc&quot;,
     //&quot;-XX:+UseG1GC&quot;,
     //&quot;-XX:MaxGCPauseMillis=500&quot;
+    &quot;-Dcom.sun.management.jmxremote&quot;,
+    &quot;-Dcom.sun.management.jmxremote.port=1617&quot;,
+    &quot;-Dcom.sun.management.jmxremote.authenticate=false&quot;,
+    &quot;-Dcom.sun.management.jmxremote.ssl=false&quot;
 )
 
-lazy val javaBaseTestOptions = Seq(
+lazy val javaTestOptions = Seq(
     // &quot;-showversion&quot;,
-    &quot;-Xms2G&quot;,
-    &quot;-Xmx2G&quot;
+    &quot;-Xms1G&quot;,
+    &quot;-Xmx1G&quot;
     // &quot;-verbose:gc&quot;,
     //&quot;-XX:+UseG1GC&quot;,
     //&quot;-XX:MaxGCPauseMillis=500&quot;,
     //&quot;-XX:MaxMetaspaceSize=4096m&quot;
 )
-
-lazy val javaTestOptions = Seq(
-    &quot;-Dconfig.resource=graphdb.conf&quot;
-) ++ javaBaseTestOptions
-
-lazy val FusekiTest = config(&quot;fuseki&quot;) extend(Test)
-lazy val javaFusekiTestOptions = Seq(
-    &quot;-Dconfig.resource=fuseki.conf&quot;
-) ++ javaBaseTestOptions
-
-lazy val FusekiIntegrationTest = config(&quot;fuseki-it&quot;) extend(IntegrationTest)
-lazy val javaFusekiIntegrationTestOptions = Seq(
-    &quot;-Dconfig.resource=fuseki.conf&quot;
-) ++ javaBaseTestOptions
-
-lazy val GraphDBTest = config(&quot;graphdb&quot;) extend(Test)
-lazy val javaGraphDBTestOptions = Seq(
-    &quot;-Dconfig.resource=graphdb.conf&quot;
-) ++ javaBaseTestOptions
-
-lazy val EmbeddedJenaTDBTest = config(&quot;tdb&quot;) extend(Test)
-lazy val javaEmbeddedJenaTDBTestOptions = Seq(
-    &quot;-Dconfig.resource=jenatdb.conf&quot;
-) ++ javaBaseTestOptions
-
-// The &#39;IntegrationTest&#39; config does not need to be created here, as it is a built-in config!
-// The standard testing tasks are available, but must be prefixed with &#39;it:&#39;, e.g., &#39;it:test&#39;
-// The test need to be stored in the &#39;it&#39; (and not &#39;test&#39;) folder. The standard source hierarchy is used, e.g., &#39;src/it/scala&#39;
-lazy val javaIntegrationTestOptions = Seq(
-    &quot;-Dconfig.resource=graphdb.conf&quot;
-) ++ javaBaseTestOptions
-
 
 // Create a new MergeStrategy for aop.xml files, as the aop.xml file is present in more than one package.
 // When we create a fat JAR (assembly task), then we need to resolve this conflict.
@@ -896,7 +900,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-v1.6.0
+v1.7.0
 </span>
 </div>
 </article>
