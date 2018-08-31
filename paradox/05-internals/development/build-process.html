@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="description" content="docs">
-<meta name="generator" content="Paradox, paradox-material-theme=v1.7.0, mkdocs-material=2.2.2">
+<meta name="generator" content="Paradox, paradox-material-theme=v1.7.1, mkdocs-material=2.2.2">
 
 <meta name="lang:clipboard.copy" content="Copy to clipboard">
 <meta name="lang:clipboard.copied" content="Copied to clipboard">
@@ -143,7 +143,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes</a></li>
-    <li><a href="../../00-release-notes/v1.7.0.html" class="page">v1.7.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.8.0.html" class="page">v1.8.0 Release Notes (not released yet)</a></li>
   </ul></li>
   <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
@@ -197,7 +197,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> v1.7.0
+<i class="md-icon">label_outline</i> v1.7.1
 </div>
 </nav>
 
@@ -338,7 +338,7 @@ env:
 
 before_cache:
     - sudo chown -R travis:travis $HOME/.ivy2
-    
+
 cache:
   directories:
     - $HOME/.ivy2
@@ -393,7 +393,7 @@ jobs:
         - sleep 15
         - cd $TRAVIS_BUILD_DIR/webapi/scripts &amp;&amp; ./graphdb-se-docker-init-knora-test-unit.sh
         # start the sipi container (with production config)
-        - cd $TRAVIS_BUILD_DIR/sipi/ &amp;&amp; docker run -d --add-host webapihost:$DOCKERHOST -v $PWD/config:/sipi/config -v $PWD/scripts:/sipi/scripts -v /tmp:/tmp -v $HOME:$HOME -p 1024:1024 dhlabbasel/sipi:develop --config=/sipi/config/sipi.knora-docker-it-config.lua
+        - cd $TRAVIS_BUILD_DIR/sipi/ &amp;&amp; docker-compose up -d
         # start the integration tests
         - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt coverage it:test coverageReport
         # upload code coverage report
@@ -487,7 +487,7 @@ connectInput in run := true
 lazy val webApiCommonSettings = Seq(
     organization := &quot;org.knora&quot;,
     name := &quot;webapi&quot;,
-    version := &quot;1.7.0&quot;,
+    version := &quot;1.7.1&quot;,
     scalaVersion := &quot;2.12.4&quot;
 )
 
@@ -900,7 +900,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-v1.7.0
+v1.7.1
 </span>
 </div>
 </article>

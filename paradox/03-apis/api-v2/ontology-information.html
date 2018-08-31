@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="description" content="docs">
-<meta name="generator" content="Paradox, paradox-material-theme=v1.7.0, mkdocs-material=2.2.2">
+<meta name="generator" content="Paradox, paradox-material-theme=v1.7.1, mkdocs-material=2.2.2">
 
 <meta name="lang:clipboard.copy" content="Copy to clipboard">
 <meta name="lang:clipboard.copied" content="Copied to clipboard">
@@ -143,7 +143,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes</a></li>
-    <li><a href="../../00-release-notes/v1.7.0.html" class="page">v1.7.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.8.0.html" class="page">v1.8.0 Release Notes (not released yet)</a></li>
   </ul></li>
   <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
@@ -193,7 +193,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> v1.7.0
+<i class="md-icon">label_outline</i> v1.7.1
 </div>
 </nav>
 
@@ -1095,6 +1095,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p><code>OWL_CARDINALITY_PREDICATE</code> and <code>OWL_CARDINALITY_VALUE</code> must correspond to the supported combinations given in <a href="../../02-knora-ontologies/knora-base.html#owl-cardinalities">OWL Cardinalities</a>. (The placeholder <code>OWL_CARDINALITY_VALUE</code> is shown here in quotes, but it should be an unquoted integer.)</p>
 <p>Values for <code>rdfs:label</code> and <code>rdfs:comment</code> must be submitted in at least one language, either as an object or as an array of objects.</p>
 <p>At least one base class must be provided.</p>
+<p>For each cardinality for a link property, there must also be a cardinality for the corresponding link value property, and vice versa (see <a href="../../02-knora-ontologies/knora-base.html#links-between-resources">Links Between Resources</a>).</p>
 <p>A successful response will be a JSON-LD document providing the new class definition (but not any of the other entities in the ontology).</p>
 <h3><a href="#changing-the-labels-of-a-class" name="changing-the-labels-of-a-class" class="anchor"><span class="anchor-link"></span></a>Changing the Labels of a Class</h3>
 <p>This operation is permitted even if the class is used in data.</p>
@@ -1196,6 +1197,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </code></pre>
 <p>Values for <code>rdfs:label</code> and <code>rdfs:comment</code> must be submitted in at least one language, either as an object or as an array of objects.</p>
 <p>At least one base property must be provided, which can be <code>knora-api:hasValue</code>, <code>knora-api:hasLinkTo</code>, or any of their subproperties, with the exception of file properties (subproperties of <code>knora-api:hasFileValue</code>) and link value properties (subproperties of <code>knora-api:hasLinkToValue</code>).</p>
+<p>If the property is a link property, the corresponding link value property (see <a href="../../02-knora-ontologies/knora-base.html#links-between-resources">Links Between Resources</a>) will automatically be created.</p>
 <p>The property definition must specify its <code>knora-api:objectType</code>. If the new property is a subproperty of <code>knora-api:hasValue</code>, its <code>knora-api:objectType</code> must be one of the built-in subclasses of <code>knora-api:Value</code>, which are defined in the <code>knora-api</code> ontology in the complex schema. If the new property is a subproperty of <code>knora-base:hasLinkTo</code>, its <code>knora-api:objectType</code> must be a subclass of <code>knora-api:Resource</code>.</p>
 <p>To improve consistency checking, it is recommended, but not required, to provide <code>knora-api:subjectType</code>, which must be a subclass of <code>knora-api:Resource</code>.</p>
 <p>The predicates <code>salsah-gui:guiElement</code> and <code>salsah-gui:guiAttribute</code> are optional. If provided, the object of <code>guiElement</code> must be one of the OWL named individuals defined in <a href="../../02-knora-ontologies/salsah-gui.html#individuals">The SALSAH GUI Ontology</a>. Some GUI elements take required or optional attributes, which are provided as objects of <code>salsah-gui:guiAttribute</code>; see <a href="../../02-knora-ontologies/salsah-gui.html">The SALSAH GUI Ontology</a> for details.</p>
@@ -1285,6 +1287,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </code></pre>
 <p>At least one cardinality must be submitted.</p>
 <p><code>OWL_CARDINALITY_PREDICATE</code> and <code>OWL_CARDINALITY_VALUE</code> must correspond to the supported combinations given in <a href="../../02-knora-ontologies/knora-base.html#owl-cardinalities">OWL Cardinalities</a>. (The placeholder <code>OWL_CARDINALITY_VALUE</code> is shown here in quotes, but it should be an unquoted integer.)</p>
+<p>For each cardinality for a link property, there must also be a cardinality for the corresponding link value property, and vice versa (see <a href="../../02-knora-ontologies/knora-base.html#links-between-resources">Links Between Resources</a>).</p>
 <p>A successful response will be a JSON-LD document providing the new class definition (but not any of the other entities in the ontology).</p>
 <h3><a href="#replacing-the-cardinalities-of-a-class" name="replacing-the-cardinalities-of-a-class" class="anchor"><span class="anchor-link"></span></a>Replacing the Cardinalities of a Class</h3>
 <p>This removes all the cardinalities from the class and replaces them with the submitted cardinalities. If no cardinalities are submitted (i.e. the request contains no <code>rdfs:subClassOf</code>), the class is left with no cardinalities.</p>
@@ -1317,12 +1320,14 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 }
 </code></pre>
 <p><code>OWL_CARDINALITY_PREDICATE</code> and <code>OWL_CARDINALITY_VALUE</code> must correspond to the supported combinations given in <a href="../../02-knora-ontologies/knora-base.html#owl-cardinalities">OWL Cardinalities</a>. (The placeholder <code>OWL_CARDINALITY_VALUE</code> is shown here in quotes, but it should be an unquoted integer.)</p>
+<p>For each cardinality for a link property, there must also be a cardinality for the corresponding link value property, and vice versa (see <a href="../../02-knora-ontologies/knora-base.html#links-between-resources">Links Between Resources</a>).</p>
 <p>A successful response will be a JSON-LD document providing the new class definition (but not any of the other entities in the ontology).</p>
 <h3><a href="#deleting-a-property" name="deleting-a-property" class="anchor"><span class="anchor-link"></span></a>Deleting a Property</h3>
 <p>A property can be deleted only if no other ontology entity refers to it, and if it is not used in data.</p>
 <pre><code>HTTP DELETE to http://host/v2/ontologies/properties/PROPERTY_IRI?lastModificationDate=ONTOLOGY_LAST_MODIFICATION_DATE
 </code></pre>
 <p>The property IRI and the ontology&rsquo;s last modification date must be URL-encoded.</p>
+<p>If the property is a link property, the corresponding link value property (see <a href="../../02-knora-ontologies/knora-base.html#links-between-resources">Links Between Resources</a>) will automatically be deleted.</p>
 <p>A successful response will be a JSON-LD document providing only the ontology&rsquo;s metadata.</p>
 <h3><a href="#deleting-a-class" name="deleting-a-class" class="anchor"><span class="anchor-link"></span></a>Deleting a Class</h3>
 <p>A class can be deleted only if no other ontology entity refers to it, and if it is not used in data.</p>
@@ -1338,7 +1343,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-v1.7.0
+v1.7.1
 </span>
 </div>
 </article>

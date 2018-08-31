@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="description" content="docs">
-<meta name="generator" content="Paradox, paradox-material-theme=v1.7.0, mkdocs-material=2.2.2">
+<meta name="generator" content="Paradox, paradox-material-theme=v1.7.1, mkdocs-material=2.2.2">
 
 <meta name="lang:clipboard.copy" content="Copy to clipboard">
 <meta name="lang:clipboard.copied" content="Copied to clipboard">
@@ -143,7 +143,7 @@ dhlab-basel/Knora/docs
     <li><a href="../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes</a></li>
-    <li><a href="../00-release-notes/v1.7.0.html" class="page">v1.7.0 Release Notes</a></li>
+    <li><a href="../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
     <li><a href="../00-release-notes/v1.8.0.html" class="page">v1.8.0 Release Notes (not released yet)</a></li>
   </ul></li>
   <li><a href="../01-introduction/index.html" class="page">Introduction</a>
@@ -195,7 +195,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> v1.7.0
+<i class="md-icon">label_outline</i> v1.7.1
 </div>
 </nav>
 
@@ -1064,6 +1064,7 @@ select * where {
           owl:onProperty :hasStillImageFileValue ;
           owl:minCardinality &quot;1&quot;^^xsd:nonNegativeInteger ] .
 </code></pre>
+<p>The cardinality of a link property must be the same as the cardinality of the corresponding link value property.</p>
 <p>Each <code>owl:Restriction</code> may have the predicate <code>salsah-gui:guiOrder</code> to indicate the order in which properties should be displayed in a GUI (see <a href="salsah-gui.html">The SALSAH GUI Ontology</a>).</p>
 <p>A resource class inherits cardinalities from its superclasses. This follows from the rules of <a href="http://www.w3.org/TR/2014/REC-rdf-schema-20140225/">RDFS</a> inference. Also, in Knora, cardinalities in the subclass can override cardinalities that would otherwise be inherited from the superclass. Specifically, if a superclass has a cardinality on a property P, and a subclass has a cardinality on a subproperty of P, the subclass&rsquo;s cardinality overrides the superclass&rsquo;s cardinality. In the example above, <code>hasStillImageFileValue</code> is a subproperty of <code>hasFileValue</code>. Therefore, the cardinality on <code>hasStillImageFileValue</code> overrides (i.e. replaces) the one on <code>hasFileValue</code>.</p>
 <p>Note that, unlike cardinalities, predicates of properties are not inherited. If <code>:foo rdfs:subPropertyOf :bar</code>, this does not mean that <code>:foo</code> inherits anything from <code>:bar</code>. Any predicates of <code>:foo</code> that are also needed by <code>:bar</code> must be defined explicitly on <code>:bar</code>. This design decision was made because property predicate inheritance is not provided by RDFS inference, and would make it more difficult to check the correctness of ontologies, while providing little practical benefit.</p>
@@ -1108,9 +1109,12 @@ select * where {
   <li>Each class must be a subclass of either <code>kb:Resource</code> or <code>kb:StandoffTag</code>, but not both (note that this forbids project-specific subclasses of <code>kb:Value</code>).</li>
   <li>All the cardinalities that a class defines directly (i.e. does not inherit from <code>kb:Resource</code>) must be on properties that are defined in the triplestore.</li>
   <li>Within the cardinalities of a class, there must be a link value property for each link property and vice versa.</li>
+  <li>The cardinality of a link property must be the same as the cardinality of the corresponding link value property.</li>
+  <li>A cardinality on a property with a boolean value must be <code>owl:cardinality 1</code> or <code>owl:maxCardinality 1</code>.</li>
   <li>Each class must be a subclass of all the classes that are subject class constraints of the properties in its cardinalities.</li>
   <li>If it&rsquo;s a resource class, all its directly defined cardinalities must be on Knora resource properties (subproperties of <code>kb:hasValue</code> or <code>kb:hasLinkTo</code>), and all its base classes with Knora IRIs must also be resource classes. A cardinality on <code>kb:resourceProperty</code> or <code>kb:hasValue</code> is forbidden. It must also have an <code>rdfs:label</code>.</li>
   <li>If it&rsquo;s a standoff class, none of its cardinalities may be on Knora resource properties, and all its base classes with Knora IRIs must also be standoff classes.</li>
+  <li>A class cannot have a cardinality on property P as well as a cardinality on a subproperty of P.</li>
 </ul>
 <h3><a href="#restrictions-on-properties" name="restrictions-on-properties" class="anchor"><span class="anchor-link"></span></a>Restrictions on properties</h3>
 <ul>
@@ -1131,7 +1135,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-v1.7.0
+v1.7.1
 </span>
 </div>
 </article>
