@@ -251,6 +251,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     <li><a href="../../03-apis/api-v2/knora-iris.html#internal-ontology-iris" class="header">Internal Ontology IRIs</a></li>
     <li><a href="../../03-apis/api-v2/knora-iris.html#external-ontology-iris" class="header">External Ontology IRIs</a></li>
     <li><a href="../../03-apis/api-v2/knora-iris.html#ontology-entity-iris" class="header">Ontology Entity IRIs</a></li>
+    <li><a href="../../03-apis/api-v2/knora-iris.html#shared-ontologies" class="header">Shared Ontologies</a></li>
   </ul></li>
   <li><a href="../../03-apis/api-v2/knora-iris.html#iris-for-data" class="header">IRIs for Data</a></li>
   <li><a href="../../03-apis/api-v2/knora-iris.html#knora-resource-permalinks" class="header">Knora Resource Permalinks</a></li>
@@ -258,16 +259,18 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </div>
 <p>The IRIs used in Knora repositories and in the Knora API v2 follow certain conventions.</p>
 <h2><a href="#project-short-codes" name="project-short-codes" class="anchor"><span class="anchor-link"></span></a>Project Short-Codes</h2>
-<p>A project short-code is a hexadecimal number of at least four digits, assigned by the <a href="http://dasch.swiss/">DaSCH</a> to uniquely identify a Knora project regardless of where it is hosted. Project short-codes are currently optional. It is recommended that new projects request a project code and use it in their ontology IRIs, to avoid possible future naming conflicts.</p>
-<p>The range of project IDs from <code>0001</code> to <code>00FF</code> inclusive is reserved for local testing, and also the ID <code>0000</code> is reserved for future use by the system. Thus, the first useful project will be <code>0100</code>.</p>
+<p>A project short-code is a hexadecimal number of at least four digits, assigned by the <a href="http://dasch.swiss/">DaSCH</a> to uniquely identify a Knora project regardless of where it is hosted. The IRIs of ontologies that are built into Knora do not contain shortcodes; these ontologies implicitly belong to the Knora system project.</p>
+<p>A project-specific ontology IRI must always include its project shortcode.</p>
+<p>Project ID <code>0000</code> is reserved for shared ontologies (see <a href="knora-iris.html#shared-ontologies">Shared Ontologies</a>).</p>
+<p>The range of project IDs from <code>0001</code> to <code>00FF</code> inclusive is reserved for local testing. Thus, the first useful project will be <code>0100</code>.</p>
 <p>In the beginning, Unil will use the IDs <code>0100</code> to <code>07FF</code>, and Unibas <code>0800</code> to <code>08FF</code>.</p>
 <h2><a href="#iris-for-ontologies-and-ontology-entities" name="iris-for-ontologies-and-ontology-entities" class="anchor"><span class="anchor-link"></span></a>IRIs for Ontologies and Ontology Entities</h2>
 <h3><a href="#internal-ontology-iris" name="internal-ontology-iris" class="anchor"><span class="anchor-link"></span></a>Internal Ontology IRIs</h3>
 <p>Knora makes a distinction between internal and external ontologies. Internal ontologies are used in the triplestore, while external ontologies are used in API v2. For each internal ontology, there is a corresponding external ontology. Some internal ontologies are built into Knora, while others are project-specific. Knora automatically generates external ontologies based on project-specific internal ontologies.</p>
-<p>Each internal ontology has an IRI, which is also the IRI of the named graph that contains the ontology in the triplestore. An internal project-specific ontology IRI has the form:</p>
+<p>Each internal ontology has an IRI, which is also the IRI of the named graph that contains the ontology in the triplestore. An internal ontology IRI has the form:</p>
 <pre><code>http://www.knora.org/ontology/PROJECT_SHORTCODE/ONTOLOGY_NAME
 </code></pre>
-<p>For example, the ontology IRI based on project code <code>0001</code> and ontology name <code>example</code> would be:</p>
+<p>For example, the internal ontology IRI based on project code <code>0001</code> and ontology name <code>example</code> would be:</p>
 <pre><code>http://www.knora.org/ontology/0001/example
 </code></pre>
 <p>An ontology name must be a valid XML <a href="https://www.w3.org/TR/xml-names/#NT-NCName">NCName</a>. The following names are reserved for built-in internal Knora ontologies:</p>
@@ -281,14 +284,15 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li><code>knora</code></li>
   <li><code>ontology</code></li>
   <li><code>simple</code></li>
+  <li><code>shared</code></li>
 </ul>
 <h3><a href="#external-ontology-iris" name="external-ontology-iris" class="anchor"><span class="anchor-link"></span></a>External Ontology IRIs</h3>
 <p>Unlike internal ontology IRIs, external ontology IRIs are meant to be dereferenced as URLs. When an ontology IRI is dereferenced, the ontology itself can be served either in a machine-readable format or as human-readable documentation.</p>
 <p>The IRI of an external Knora ontology has the form:</p>
 <pre><code>http://HOST[:PORT]/ontology/PROJECT_SHORTCODE/ONTOLOGY_NAME/API_VERSION
 </code></pre>
-<p>For built-in ontologies, the host is always <code>api.knora.org</code>. Otherwise, the hostname and port configured in <code>application.conf</code> under <code>app.http.knora-api.host</code> and <code>app.http.knora-api.http-port</code> are used (the port is omitted if it is 80).</p>
-<p>This means that when a built-in external ontology IRI is dereferenced, the ontology can be served by a Knora API server running at <code>api.knora.org</code>. When a project-specific external ontology IRI is dereferenced, the ontology can be served by Knora that hosts the project. During development and testing, this could be <code>localhost</code>.</p>
+<p>For built-in and shared ontologies, the host is always <code>api.knora.org</code>. Otherwise, the hostname and port configured in <code>application.conf</code> under <code>app.http.knora-api.host</code> and <code>app.http.knora-api.http-port</code> are used (the port is omitted if it is 80).</p>
+<p>This means that when a built-in or shared external ontology IRI is dereferenced, the ontology can be served by a Knora API server running at <code>api.knora.org</code>. When the external IRI of a non-shared, project-specific ontology is dereferenced, the ontology can be served by Knora that hosts the project. During development and testing, this could be <code>localhost</code>.</p>
 <p>The name of an external ontology is the same as the name of the corresponding internal ontology, with one exception: the external form of <code>knora-base</code> is called <code>knora-api</code>.</p>
 <p>The API version identifier indicates not only the version of the API, but also an API &lsquo;schema&rsquo;. The Knora API v2 is available in two schemas:</p>
 <ul>
@@ -299,13 +303,13 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>When requesting an ontology, the client requests a particular schema. (This will also be true of most Knora API v2 requests: the client will be able to specify which schema the response should be provided in.)</p>
 <p>For example, suppose a Knora API server is running at <code>knora.example.org</code> and hosts an ontology whose internal IRI is <code>http://www.knora.org/ontology/0001/example</code>. That ontology can then be requested using either of these IRIs:</p>
 <ul>
-  <li><code>http://knora.example.org/ontology/0001/example/v2</code> (for the complex schema)</li>
-  <li><code>http://knora.example.org/ontology/0001/example/simple/v2</code> (for the simple schema)</li>
+  <li><code>http://knora.example.org/ontology/0001/example/v2</code> (in the complex schema)</li>
+  <li><code>http://knora.example.org/ontology/0001/example/simple/v2</code> (in the simple schema)</li>
 </ul>
 <p>While the internal <code>example</code> ontology refers to definitions in <code>knora-base</code>, the external <code>example</code> ontology that is served by the API refers instead to a <code>knora-api</code> ontology, whose IRI depends on the schema being used:</p>
 <ul>
-  <li><code>http://api.knora.org/ontology/knora-api/v2</code> (for the complex schema)</li>
-  <li><code>http://api.knora.org/ontology/knora-api/simple/v2</code> (for the simple schema)</li>
+  <li><code>http://api.knora.org/ontology/knora-api/v2</code> (in the complex schema)</li>
+  <li><code>http://api.knora.org/ontology/knora-api/simple/v2</code> (in the simple schema)</li>
 </ul>
 <h3><a href="#ontology-entity-iris" name="ontology-entity-iris" class="anchor"><span class="anchor-link"></span></a>Ontology Entity IRIs</h3>
 <p>Knora ontologies use &lsquo;hash namespaces&rsquo; (see <a href="https://www.w3.org/2001/sw/BestPractices/VM/http-examples/2006-01-18/#naming">URI Namespaces</a>). This means that the IRI of an ontology entity (a class or property definition) is constructed by adding a hash character (<code>#</code>) to the ontology IRI, followed by the name of the entity. In Knora, an entity name must be a valid XML <a href="https://www.w3.org/TR/xml-names/#NT-NCName">NCName</a>. Thus, if there is a class called <code>ExampleThing</code> in an ontology whose internal IRI is <code>http://www.knora.org/ontology/0001/example</code>, that class has the following IRIs:</p>
@@ -313,6 +317,20 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li><code>http://www.knora.org/ontology/0001/example#ExampleThing</code> (in the internal ontology)</li>
   <li><code>http://HOST[:PORT]/ontology/0001/example/v2#ExampleThing</code> (in the API v2 complex schema)</li>
   <li><code>http://HOST[:PORT]/ontology/0001/example/simple/v2#ExampleThing</code> (in the API v2 simple schema)</li>
+</ul>
+<h3><a href="#shared-ontologies" name="shared-ontologies" class="anchor"><span class="anchor-link"></span></a>Shared Ontologies</h3>
+<p>Knora does not normally allow a project to use classes or properties defined in an ontology that belongs to another project. Each project must be free to change its own ontologies, but this is not possible if they have been used in ontologies or data created by other projects.</p>
+<p>However, an ontology can be defined as shared, meaning that it can be used by multiple projects, and that its creators will not change it in ways that could affect other ontologies or data that are based on it. Specifically, in a shared ontology, existing classes and properties cannot safely be changed, but new ones can be added. (It is not even safe to add an optional cardinality to an existing class, because this could cause subclasses to violate the rule that a class cannot have a cardinality on property P as well as a cardinality on a subproperty of P; see <a href="../../02-knora-ontologies/knora-base.html#restrictions-on-classes">Restrictions on Classes</a>.)</p>
+<p>A standardisation process for shared ontologies is planned (issue <a href="https://github.com/dhlab-basel/Knora/issues/523">#523</a>).</p>
+<p>There is currently one project for shared ontologies:</p>
+<pre><code>http://www.knora.org/ontology/knora-base#DefaultSharedOntologiesProject
+</code></pre>
+<p>Its project code is <code>0000</code>. Additional projects for shared ontologies may be supported in future.</p>
+<p>The internal and external IRIs of shared ontologies always use the hostname <code>api.knora.org</code>, and have an additional segment, <code>shared</code>, after <code>ontology</code>. The project code can be omitted, in which case the default shared ontology project, <code>0000</code>, is assumed. The sample shared ontology, <code>example-box</code>, has these IRIs:</p>
+<ul>
+  <li><code>http://www.knora.org/ontology/shared/example-box</code> (internal)</li>
+  <li><code>http://api.knora.org/ontology/shared/example-box/v2</code> (external, complex schema)</li>
+  <li><code>http://api.knora.org/ontology/shared/example-box/simple/v2</code> (external, simple schema)</li>
 </ul>
 <h2><a href="#iris-for-data" name="iris-for-data" class="anchor"><span class="anchor-link"></span></a>IRIs for Data</h2>
 <p>Knora generates IRIs for data that it creates in the triplestore. Each generated data IRI contains one or more <a href="http://tools.ietf.org/html/rfc4122">UUID</a> identifiers to make it unique. To keep data IRIs relatively short, each UUID is <a href="http://tools.ietf.org/html/rfc4648">Base64</a> encoded, using the &lsquo;URL and Filename safe Base64 Alphabet&rsquo; specified in Table 2 of <a href="http://tools.ietf.org/html/rfc4648">RFC 4648</a>, without padding; thus each UUID is a 22-character string.</p>

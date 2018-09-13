@@ -1104,6 +1104,7 @@ select * where {
     knora-base:objectClassConstraint knora-base:TextValue .
 </code></pre>
 <h2><a href="#summary-of-restrictions-on-project-specific-ontologies" name="summary-of-restrictions-on-project-specific-ontologies" class="anchor"><span class="anchor-link"></span></a>Summary of Restrictions on Project-Specific Ontologies</h2>
+<p>An ontology can refer to a Knora ontology in another project only if the other ontology is built-in or shared (see <a href="../03-apis/api-v2/knora-iris.html#shared-ontologies">Shared Ontologies</a>).</p>
 <h3><a href="#restrictions-on-classes" name="restrictions-on-classes" class="anchor"><span class="anchor-link"></span></a>Restrictions on Classes</h3>
 <ul>
   <li>Each class must be a subclass of either <code>kb:Resource</code> or <code>kb:StandoffTag</code>, but not both (note that this forbids project-specific subclasses of <code>kb:Value</code>).</li>

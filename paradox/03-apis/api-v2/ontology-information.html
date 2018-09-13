@@ -996,6 +996,10 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 }
 </code></pre>
 <p>The ontology name must follow the rules given in <a href="knora-iris.html">Knora IRIs</a>.</p>
+<p>If the ontology is to be shared by multiple projects, it must be created in the default shared ontologies project, <code>http://www.knora.org/ontology/knora-base#DefaultSharedOntologiesProject</code>, and the request must have this additional boolean property:</p>
+<pre><code>&quot;knora-api:isShared&quot; : true
+</code></pre>
+<p>See <a href="knora-iris.html#shared-ontologies">Shared Ontologies</a> for details about shared ontologies.</p>
 <p>A successful response will be a JSON-LD document providing only the ontology&rsquo;s metadata, which includes the ontology&rsquo;s IRI. When the client makes further requests to create entities (classes and properties) in the ontology, it must construct entity IRIs by concatenating the ontology IRI, a <code>#</code> character, and the entity name. An entity name must be a valid XML <a href="https://www.w3.org/TR/xml-names/#NT-NCName">NCName</a>.</p>
 <h3><a href="#changing-an-ontologys-metadata" name="changing-an-ontologys-metadata" class="anchor"><span class="anchor-link"></span></a>Changing an Ontology&rsquo;s Metadata</h3>
 <p>Currently, the only modifiable ontology metadata is the ontology&rsquo;s <code>rdfs:label</code>.</p>
@@ -1095,7 +1099,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p><code>OWL_CARDINALITY_PREDICATE</code> and <code>OWL_CARDINALITY_VALUE</code> must correspond to the supported combinations given in <a href="../../02-knora-ontologies/knora-base.html#owl-cardinalities">OWL Cardinalities</a>. (The placeholder <code>OWL_CARDINALITY_VALUE</code> is shown here in quotes, but it should be an unquoted integer.)</p>
 <p>Values for <code>rdfs:label</code> and <code>rdfs:comment</code> must be submitted in at least one language, either as an object or as an array of objects.</p>
 <p>At least one base class must be provided.</p>
-<p>For each cardinality for a link property, there must also be a cardinality for the corresponding link value property, and vice versa (see <a href="../../02-knora-ontologies/knora-base.html#links-between-resources">Links Between Resources</a>).</p>
+<p>When a cardinality on a link property is submitted, an identical cardinality on the corresponding link value property is automatically added (see <a href="../../02-knora-ontologies/knora-base.html#links-between-resources">Links Between Resources</a>).</p>
 <p>A successful response will be a JSON-LD document providing the new class definition (but not any of the other entities in the ontology).</p>
 <h3><a href="#changing-the-labels-of-a-class" name="changing-the-labels-of-a-class" class="anchor"><span class="anchor-link"></span></a>Changing the Labels of a Class</h3>
 <p>This operation is permitted even if the class is used in data.</p>
@@ -1287,7 +1291,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </code></pre>
 <p>At least one cardinality must be submitted.</p>
 <p><code>OWL_CARDINALITY_PREDICATE</code> and <code>OWL_CARDINALITY_VALUE</code> must correspond to the supported combinations given in <a href="../../02-knora-ontologies/knora-base.html#owl-cardinalities">OWL Cardinalities</a>. (The placeholder <code>OWL_CARDINALITY_VALUE</code> is shown here in quotes, but it should be an unquoted integer.)</p>
-<p>For each cardinality for a link property, there must also be a cardinality for the corresponding link value property, and vice versa (see <a href="../../02-knora-ontologies/knora-base.html#links-between-resources">Links Between Resources</a>).</p>
+<p>When a cardinality on a link property is submitted, an identical cardinality on the corresponding link value property is automatically added (see <a href="../../02-knora-ontologies/knora-base.html#links-between-resources">Links Between Resources</a>).</p>
 <p>A successful response will be a JSON-LD document providing the new class definition (but not any of the other entities in the ontology).</p>
 <h3><a href="#replacing-the-cardinalities-of-a-class" name="replacing-the-cardinalities-of-a-class" class="anchor"><span class="anchor-link"></span></a>Replacing the Cardinalities of a Class</h3>
 <p>This removes all the cardinalities from the class and replaces them with the submitted cardinalities. If no cardinalities are submitted (i.e. the request contains no <code>rdfs:subClassOf</code>), the class is left with no cardinalities.</p>
@@ -1320,7 +1324,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 }
 </code></pre>
 <p><code>OWL_CARDINALITY_PREDICATE</code> and <code>OWL_CARDINALITY_VALUE</code> must correspond to the supported combinations given in <a href="../../02-knora-ontologies/knora-base.html#owl-cardinalities">OWL Cardinalities</a>. (The placeholder <code>OWL_CARDINALITY_VALUE</code> is shown here in quotes, but it should be an unquoted integer.)</p>
-<p>For each cardinality for a link property, there must also be a cardinality for the corresponding link value property, and vice versa (see <a href="../../02-knora-ontologies/knora-base.html#links-between-resources">Links Between Resources</a>).</p>
+<p>When a cardinality on a link property is submitted, an identical cardinality on the corresponding link value property is automatically added (see <a href="../../02-knora-ontologies/knora-base.html#links-between-resources">Links Between Resources</a>).</p>
 <p>A successful response will be a JSON-LD document providing the new class definition (but not any of the other entities in the ontology).</p>
 <h3><a href="#deleting-a-property" name="deleting-a-property" class="anchor"><span class="anchor-link"></span></a>Deleting a Property</h3>
 <p>A property can be deleted only if no other ontology entity refers to it, and if it is not used in data.</p>

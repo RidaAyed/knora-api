@@ -319,7 +319,7 @@ scala:
   - 2.12.1
 
 jdk:
-  - openjdk8
+  - openjdk10
 
 services:
   - docker
@@ -359,6 +359,8 @@ jobs:
     # test sbt compile and stage
     - stage: compile and stage
       script:
+        - rm -rf $HOME/.sbt
+        - rm -rf $HOME/.ivy2
         - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt compile stage
         # only uncomment if docker image is needed for this branch. remove before merging into develop
         # - docker login -u $DOCKER_USER -p $DOCKER_PASS
@@ -443,6 +445,11 @@ jobs:
     #    - cd $TRAVIS_BUILD_DIR/salsah1/lib/chromedriver/ &amp;&amp; unzip chromedriver_linux64.zip
     #    # start built-in salsah1 browser tests
     #    - cd $TRAVIS_BUILD_DIR/salsah1/ &amp;&amp; sbt headless:test
+    # testing docker images
+    - stage: test
+      script:
+        - docker build $TRAVIS_BUILD_DIR/webapi/
+        - docker build $TRAVIS_BUILD_DIR/salsah1/
     - stage: publish
       script:
         # login into docker hub, build image, and push but only when on the &quot;develop&quot; branch or tagged
@@ -581,35 +588,35 @@ lazy val webapi = (project in file(&quot;.&quot;)).
             IntegrationTest / packageBin / publishArtifact := true
         ).
         settings(
-            // enabled deployment staging with `sbt stage`. uses fat jar assembly.
-            // we specify the name for our fat jars (main, test, it)
-            assembly / assemblyJarName := s&quot;assembly-${name.value}-main-${version.value}.jar&quot;,
-            Test / assembly / assemblyJarName := s&quot;assembly-${name.value}-test-${version.value}.jar&quot;,
-            IntegrationTest / assembly / assemblyJarName := s&quot;assembly-${name.value}-it-${version.value}.jar&quot;,
-
-            // disable running of tests before fat jar assembly!
-            assembly / test := {},
-            // test in (Test, assembly) := {},
-            // test in (IntegrationTest, assembly) := {},
-
-            // need to use our custom merge strategy because of aop.xml (AspectJ)
-            assembly / assemblyMergeStrategy := customMergeStrategy,
-
-            // Skip packageDoc task on stage
+//            // enabled deployment staging with `sbt stage`. uses fat jar assembly.
+//            // we specify the name for our fat jars (main, test, it)
+//            assembly / assemblyJarName := s&quot;assembly-${name.value}-main-${version.value}.jar&quot;,
+//            Test / assembly / assemblyJarName := s&quot;assembly-${name.value}-test-${version.value}.jar&quot;,
+//            IntegrationTest / assembly / assemblyJarName := s&quot;assembly-${name.value}-it-${version.value}.jar&quot;,
+//
+//            // disable running of tests before fat jar assembly!
+//            assembly / test := {},
+//            // test in (Test, assembly) := {},
+//            // test in (IntegrationTest, assembly) := {},
+//
+//            // need to use our custom merge strategy because of aop.xml (AspectJ)
+//            assembly / assemblyMergeStrategy := customMergeStrategy,
+//
+//            // Skip packageDoc task on stage
             Compile / packageDoc / mappings := Seq(),
-
-            Universal / mappings := {
-                // removes all jar mappings in universal and appends the fat jar
-                // universalMappings: Seq[(File,String)]
-                val universalMappings = (mappings in Universal).value
-                val fatJar = (assembly in Compile).value
-                // removing means filtering
-                val filtered = universalMappings filter {
-                    case (file, name) =&gt;  ! name.endsWith(&quot;.jar&quot;)
-                }
-                // add the fat jar
-                filtered :+ (fatJar -&gt; (&quot;lib/&quot; + fatJar.getName))
-            },
+//
+//            Universal / mappings := {
+//                // removes all jar mappings in universal and appends the fat jar
+//                // universalMappings: Seq[(File,String)]
+//                val universalMappings = (mappings in Universal).value
+//                val fatJar = (assembly in Compile).value
+//                // removing means filtering
+//                val filtered = universalMappings filter {
+//                    case (file, name) =&gt;  ! name.endsWith(&quot;.jar&quot;)
+//                }
+//                // add the fat jar
+//                filtered :+ (fatJar -&gt; (&quot;lib/&quot; + fatJar.getName))
+//            },
 
             Universal / mappings ++= {
                 // copy the scripts folder
@@ -617,13 +624,13 @@ lazy val webapi = (project in file(&quot;.&quot;)).
                 // copy the configuration files to config directory
                 contentOf(&quot;configs&quot;).toMap.mapValues(&quot;config/&quot; + _) ++
                 // copy configuration files to config directory
-                contentOf(&quot;src/main/resources&quot;).toMap.mapValues(&quot;config/&quot; + _) ++
+                contentOf(&quot;src/main/resources&quot;).toMap.mapValues(&quot;config/&quot; + _)
                 // copy the aspectj weaver jar
-                contentOf(&quot;vendor&quot;).toMap.mapValues(&quot;aspectjweaver/&quot; + _)
+//                contentOf(&quot;vendor&quot;).toMap.mapValues(&quot;aspectjweaver/&quot; + _)
             },
 
             // the bash scripts classpath only needs the fat jar
-            scriptClasspath := Seq( (assemblyJarName in assembly).value ),
+//            scriptClasspath := Seq( (assemblyJarName in assembly).value ),
 
             // add &#39;config&#39; directory first in the classpath of the start script,
             scriptClasspath := Seq(&quot;../config/&quot;) ++ scriptClasspath.value,
@@ -671,6 +678,7 @@ lazy val webApiLibs = Seq(
     library.gatlingTestFramework,
     library.gwtServlet,
     library.jacksonScala,
+    library.jaxbApi,
     library.jsonldJava,
     library.jodd,
     library.jodaTime,
@@ -678,12 +686,12 @@ lazy val webApiLibs = Seq(
     library.jenaLibs,
     library.jenaText,
     library.jwt,
-    library.kamonCore,
-    library.kamonAkka,
-    library.kamonAkkaHttp,
-    library.kamonPrometheus,
-    library.kamonZipkin,
-    library.kamonJaeger,
+    //library.kamonCore,
+    //library.kamonAkka,
+    //library.kamonAkkaHttp,
+    //library.kamonPrometheus,
+    //library.kamonZipkin,
+    //library.kamonJaeger,
     library.logbackClassic,
     library.rdf4jRuntime,
     library.saxonHE,
@@ -751,7 +759,7 @@ lazy val library =
         val jwt                    = &quot;io.igl&quot;                       %% &quot;jwt&quot;                      % &quot;1.2.2&quot; exclude(&quot;commons-codec&quot;, &quot;commons-codec&quot;)
 
         // caching
-        val ehcache                = &quot;net.sf.ehcache&quot;                % &quot;ehcache&quot;                  % &quot;2.10.0&quot;
+        val ehcache                = &quot;net.sf.ehcache&quot;                % &quot;ehcache&quot;                  % &quot;2.10.3&quot;
 
         // monitoring
         val kamonCore              = &quot;io.kamon&quot;                     %% &quot;kamon-core&quot;               % &quot;1.1.3&quot;
@@ -782,7 +790,7 @@ lazy val library =
         val scalaXml               = &quot;org.scala-lang.modules&quot;       %% &quot;scala-xml&quot;                % &quot;1.1.0&quot;
         val scalaArm               = &quot;com.jsuereth&quot;                  % &quot;scala-arm_2.12&quot;           % &quot;2.0&quot;
         val scalaJava8Compat       = &quot;org.scala-lang.modules&quot;        % &quot;scala-java8-compat_2.12&quot;  % &quot;0.8.0&quot;
-
+        
         // provides akka jackson (json) support
         val akkaHttpCirce          = &quot;de.heikoseeberger&quot;            %% &quot;akka-http-circe&quot;          % &quot;1.21.0&quot;
         val jacksonScala           = &quot;com.fasterxml.jackson.module&quot; %% &quot;jackson-module-scala&quot;     % &quot;2.9.4&quot;
@@ -791,6 +799,9 @@ lazy val library =
 
         // swagger (api documentation)
         val swaggerAkkaHttp        = &quot;com.github.swagger-akka-http&quot; %% &quot;swagger-akka-http&quot;        % &quot;0.14.0&quot;
+
+        // Java EE modules which are deprecated in Java SE 9, 10 and will be removed in Java SE 11
+        val jaxbApi                = &quot;javax.xml.bind&quot;                % &quot;jaxb-api&quot;                 % &quot;2.2.12&quot;
     }
 
 lazy val javaRunOptions = Seq(
@@ -803,7 +814,8 @@ lazy val javaRunOptions = Seq(
     &quot;-Dcom.sun.management.jmxremote&quot;,
     &quot;-Dcom.sun.management.jmxremote.port=1617&quot;,
     &quot;-Dcom.sun.management.jmxremote.authenticate=false&quot;,
-    &quot;-Dcom.sun.management.jmxremote.ssl=false&quot;
+    &quot;-Dcom.sun.management.jmxremote.ssl=false&quot;,
+    //&quot;-agentpath:/Applications/YourKit-Java-Profiler-2018.04.app/Contents/Resources/bin/mac/libyjpagent.jnilib&quot;
 )
 
 lazy val javaTestOptions = Seq(

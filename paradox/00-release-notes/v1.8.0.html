@@ -226,9 +226,23 @@ dhlab-basel/Knora/docs
 <p>See the <a href="https://github.com/dhlab-basel/Knora/releases/tag/v1.8.0">release</a> and closed tickets on the <a href="https://github.com/dhlab-basel/Knora/milestone/12">v1.8.0 milestone</a> on Github.</p>
 <h2><a href="#required-changes-to-existing-data-" name="required-changes-to-existing-data-" class="anchor"><span class="anchor-link"></span></a>Required changes to existing data:</h2>
 <h2><a href="#new-features-" name="new-features-" class="anchor"><span class="anchor-link"></span></a>New features:</h2>
+<ul>
+  <li>add developer-centric docker-compose.yml for starting the Knora / GraphDB / Sipi / Salsah1 (<a href="https://github.com/dhlab-basel/Knora/issues/979">#979</a>)</li>
+  <li>configure <code>webapi</code> and <code>salsah1</code> thorough environment variables (<a href="https://github.com/dhlab-basel/Knora/issues/979">#979</a>)</li>
+  <li>update for Java 10 (<a href="https://github.com/dhlab-basel/Knora/issues/979">#979</a>)</li>
+  <li>comment out the generation of fat jars from <code>KnoraBuild.sbt</code> (for now) (<a href="https://github.com/dhlab-basel/Knora/issues/979">#979</a>)</li>
+  <li>update ehcache (<a href="https://github.com/dhlab-basel/Knora/issues/979">#979</a>)</li>
+  <li>update sbt to 1.2.1 (<a href="https://github.com/dhlab-basel/Knora/issues/979">#979</a>)</li>
+  <li>remove Kamon monitoring (for now) since we don&rsquo;t see anything meaningful there. We probably will have to instrument Knora by hand and then use Kamon for access. (<a href="https://github.com/dhlab-basel/Knora/issues/979">#979</a>)</li>
+  <li>update Dockerfiles for <code>webapi</code> and <code>salsah1</code> (<a href="https://github.com/dhlab-basel/Knora/issues/979">#979</a>)</li>
+  <li>Follow subClassOf when including ontologies in XML import schemas (<a href="https://github.com/dhlab-basel/Knora/issues/991">#991</a>)</li>
+  <li>add support for adding list child nodes (<a href="https://github.com/dhlab-basel/Knora/issues/990">#991</a>)</li>
+  <li>Add support for shared ontologies (<a href="https://github.com/dhlab-basel/Knora/issues/987">#987</a>)</li>
+</ul>
 <h2><a href="#bugfixes-" name="bugfixes-" class="anchor"><span class="anchor-link"></span></a>Bugfixes:</h2>
 <ul>
   <li>trouble with xml-checker and/or consistency-checker during bulk import (<a href="https://github.com/dhlab-basel/Knora/issues/978">#978</a>)</li>
+  <li>Ontology API error with link values (<a href="https://github.com/dhlab-basel/Knora/issues/988">#988</a>)</li>
 </ul>
 </div>
 <div>
