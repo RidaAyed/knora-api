@@ -135,17 +135,6 @@ dhlab-basel/Knora/docs
 
 </div>
 <ul>
-  <li><a href="../../00-release-notes/index.html" class="page">Release Notes</a>
-  <ul>
-    <li><a href="../../00-release-notes/v1.1.0.html" class="page">v1.1.0 Release Notes</a></li>
-    <li><a href="../../00-release-notes/v1.2.0.html" class="page">v1.2.0 Release Notes</a></li>
-    <li><a href="../../00-release-notes/v1.3.0.html" class="page">v1.3.0 Release Notes</a></li>
-    <li><a href="../../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
-    <li><a href="../../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes</a></li>
-    <li><a href="../../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes</a></li>
-    <li><a href="../../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
-    <li><a href="../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
-  </ul></li>
   <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
   <ul>
     <li><a href="../../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
@@ -180,6 +169,17 @@ dhlab-basel/Knora/docs
     <li><a href="../../07-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
   </ul></li>
   <li><a href="../../faq.html" class="page">Frequently Asked Questions</a></li>
+  <li><a href="../../00-release-notes/index.html" class="page">Release Notes</a>
+  <ul>
+    <li><a href="../../00-release-notes/v1.1.0.html" class="page">v1.1.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.2.0.html" class="page">v1.2.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.3.0.html" class="page">v1.3.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes</a></li>
+    <li><a href="../../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
+  </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
@@ -335,6 +335,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h2><a href="#iris-for-data" name="iris-for-data" class="anchor"><span class="anchor-link"></span></a>IRIs for Data</h2>
 <p>Knora generates IRIs for data that it creates in the triplestore. Each generated data IRI contains one or more <a href="http://tools.ietf.org/html/rfc4122">UUID</a> identifiers to make it unique. To keep data IRIs relatively short, each UUID is <a href="http://tools.ietf.org/html/rfc4648">Base64</a> encoded, using the &lsquo;URL and Filename safe Base64 Alphabet&rsquo; specified in Table 2 of <a href="http://tools.ietf.org/html/rfc4648">RFC 4648</a>, without padding; thus each UUID is a 22-character string.</p>
 <p>Data IRIs are not currently intended to be dereferenced as URLs. Instead, each Knora resource will have a corresponding <a href="https://tools.ietf.org/html/draft-kunze-ark-18">ARK</a> URL, which will be handled by a server that redirects requests to the relevant Knora API server (see <a href="knora-iris.html#knora-resource-permalinks">Knora Resource Permalinks</a>). However, every generated data IRI begins with <code>http://rdfh.ch</code>. This domain is not currently used, but it is owned by the <a href="http://dasch.swiss/">DaSCH</a>, so it would be possible to make resource IRIs directly dereferenceable in the future.</p>
+<p>A Knora value does not have a stable IRI throughout its version history. Each time a new version of a value is made, the new version gets a new IRI. Therefore, it would not make sense to publish Knora value IRIs. When designing ontologies for Knora projects, keep in mind that if you want something be directly citable, it needs to be a resource, not a value.</p>
 <p>The formats of generated data IRIs for different types of objects are as follows:</p>
 <ul>
   <li>Resource: <code>http://rdfh.ch/PROJECT_SHORTCODE/RESOURCE_UUID</code>.</li>
