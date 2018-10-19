@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../../cloud">
-<title>Editing Values · Knora Documentation</title>
+<title>Editing Resources · Knora Documentation</title>
 <link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Editing Values
+Editing Resources
 </span>
 </div>
 </div>
@@ -184,11 +184,9 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../03-apis/api-v2/editing-values.html#editing-values" class="header">Editing Values</a>
+  <li><a href="../../03-apis/api-v2/editing-resources.html#editing-resources" class="header">Editing Resources</a>
   <ul>
-    <li><a href="../../03-apis/api-v2/editing-values.html#creating-a-value" class="header">Creating a Value</a></li>
-    <li><a href="../../03-apis/api-v2/editing-values.html#updating-a-value" class="header">Updating a Value</a></li>
-    <li><a href="../../03-apis/api-v2/editing-values.html#deleting-a-value" class="header">Deleting a Value</a></li>
+    <li><a href="../../03-apis/api-v2/editing-resources.html#creating-a-resource" class="header">Creating a Resource</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -207,11 +205,9 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../03-apis/api-v2/editing-values.html#editing-values" class="header">Editing Values</a>
+  <li><a href="../../03-apis/api-v2/editing-resources.html#editing-resources" class="header">Editing Resources</a>
   <ul>
-    <li><a href="../../03-apis/api-v2/editing-values.html#creating-a-value" class="header">Creating a Value</a></li>
-    <li><a href="../../03-apis/api-v2/editing-values.html#updating-a-value" class="header">Updating a Value</a></li>
-    <li><a href="../../03-apis/api-v2/editing-values.html#deleting-a-value" class="header">Deleting a Value</a></li>
+    <li><a href="../../03-apis/api-v2/editing-resources.html#creating-a-resource" class="header">Creating a Resource</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -240,164 +236,142 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#editing-values" name="editing-values" class="anchor"><span class="anchor-link"></span></a>Editing Values</h1>
+<h1><a href="#editing-resources" name="editing-resources" class="anchor"><span class="anchor-link"></span></a>Editing Resources</h1>
 <div class="toc ">
 <ul>
-  <li><a href="../../03-apis/api-v2/editing-values.html#creating-a-value" class="header">Creating a Value</a>
-  <ul>
-    <li><a href="../../03-apis/api-v2/editing-values.html#creating-a-link-between-resources" class="header">Creating a Link Between Resources</a></li>
-    <li><a href="../../03-apis/api-v2/editing-values.html#creating-a-text-value-without-standoff-markup" class="header">Creating a Text Value Without Standoff Markup</a></li>
-    <li><a href="../../03-apis/api-v2/editing-values.html#creating-a-text-value-with-standoff-markup" class="header">Creating a Text Value with Standoff Markup</a></li>
-  </ul></li>
-  <li><a href="../../03-apis/api-v2/editing-values.html#updating-a-value" class="header">Updating a Value</a></li>
-  <li><a href="../../03-apis/api-v2/editing-values.html#deleting-a-value" class="header">Deleting a Value</a></li>
+  <li><a href="../../03-apis/api-v2/editing-resources.html#creating-a-resource" class="header">Creating a Resource</a></li>
 </ul>
 </div>
-<h2><a href="#creating-a-value" name="creating-a-value" class="anchor"><span class="anchor-link"></span></a>Creating a Value</h2>
-<p>To create a value in an existing resource, use this route:</p>
-<pre><code>HTTP POST to http://host/v2/values
+<h2><a href="#creating-a-resource" name="creating-a-resource" class="anchor"><span class="anchor-link"></span></a>Creating a Resource</h2>
+<p>To create a new resources, use this route:</p>
+<pre><code>HTTP POST to http://host/v2/resources
 </code></pre>
-<p>The body of the request is a JSON-LD document in the <a href="introduction.html#api-schema">complex API schema</a>, specifying the resource&rsquo;s IRI and type, the resource property, and the content of the value. The representation of the value is the same as when it is returned in a <code>GET</code> request, except that its IRI and <code>knora-api:attachedToUser</code> are not given. For example, to create an integer value:</p>
+<p>The body of the request is a JSON-LD document in the <a href="introduction.html#api-schema">complex API schema</a>, specifying the resource&rsquo;s IRI, type, and <code>rdfs:label</code>, along with its Knora resource properties and their values. The representation of the resource is the same as when it is returned in a <code>GET</code> request, except that its IRI and <code>knora-api:attachedToUser</code>, and those of its values, are not given. The format of the values submitted is described in <a href="editing-values.html">Editing Values</a>. If there are multiple values for a property, these must be given in an array.</p>
+<p>For example, here is a request to create a resource with various value types:</p>
 <pre class="prettyprint"><code class="language-jsonld">{
-  &quot;@id&quot; : &quot;http://rdfh.ch/0001/a-thing&quot;,
   &quot;@type&quot; : &quot;anything:Thing&quot;,
-  &quot;anything:hasInteger&quot; : {
-    &quot;@type&quot; : &quot;knora-api:IntValue&quot;,
-    &quot;knora-api:intValueAsInt&quot; : 4
+  &quot;anything:hasBoolean&quot; : {
+    &quot;@type&quot; : &quot;knora-api:BooleanValue&quot;,
+    &quot;knora-api:booleanValueAsBoolean&quot; : true
   },
+  &quot;anything:hasColor&quot; : {
+    &quot;@type&quot; : &quot;knora-api:ColorValue&quot;,
+    &quot;knora-api:colorValueAsColor&quot; : &quot;#ff3333&quot;
+  },
+  &quot;anything:hasDate&quot; : {
+    &quot;@type&quot; : &quot;knora-api:DateValue&quot;,
+    &quot;knora-api:dateValueHasCalendar&quot; : &quot;GREGORIAN&quot;,
+    &quot;knora-api:dateValueHasEndEra&quot; : &quot;CE&quot;,
+    &quot;knora-api:dateValueHasEndYear&quot; : 1489,
+    &quot;knora-api:dateValueHasStartEra&quot; : &quot;CE&quot;,
+    &quot;knora-api:dateValueHasStartYear&quot; : 1489
+  },
+  &quot;anything:hasDecimal&quot; : {
+    &quot;@type&quot; : &quot;knora-api:DecimalValue&quot;,
+    &quot;knora-api:decimalValueAsDecimal&quot; : {
+      &quot;@type&quot; : &quot;xsd:decimal&quot;,
+      &quot;@value&quot; : &quot;100000000000000.000000000000001&quot;
+    }
+  },
+  &quot;anything:hasGeometry&quot; : {
+    &quot;@type&quot; : &quot;knora-api:GeomValue&quot;,
+    &quot;knora-api:geometryValueAsGeometry&quot; : &quot;{\&quot;status\&quot;:\&quot;active\&quot;,\&quot;lineColor\&quot;:\&quot;#ff3333\&quot;,\&quot;lineWidth\&quot;:2,\&quot;points\&quot;:[{\&quot;x\&quot;:0.08098591549295775,\&quot;y\&quot;:0.16741071428571427},{\&quot;x\&quot;:0.7394366197183099,\&quot;y\&quot;:0.7299107142857143}],\&quot;type\&quot;:\&quot;rectangle\&quot;,\&quot;original_index\&quot;:0}&quot;
+  },
+  &quot;anything:hasGeoname&quot; : {
+    &quot;@type&quot; : &quot;knora-api:GeonameValue&quot;,
+    &quot;knora-api:geonameValueAsGeonameCode&quot; : &quot;2661604&quot;
+  },
+  &quot;anything:hasInteger&quot; : [ {
+    &quot;@type&quot; : &quot;knora-api:IntValue&quot;,
+    &quot;knora-api:hasPermissions&quot; : &quot;CR knora-base:Creator|V http://rdfh.ch/groups/0001/thing-searcher&quot;,
+    &quot;knora-api:intValueAsInt&quot; : 5,
+    &quot;knora-api:valueHasComment&quot; : &quot;this is the number five&quot;
+  }, {
+    &quot;@type&quot; : &quot;knora-api:IntValue&quot;,
+    &quot;knora-api:intValueAsInt&quot; : 6
+  } ],
+  &quot;anything:hasInterval&quot; : {
+    &quot;@type&quot; : &quot;knora-api:IntervalValue&quot;,
+    &quot;knora-api:intervalValueHasEnd&quot; : {
+      &quot;@type&quot; : &quot;xsd:decimal&quot;,
+      &quot;@value&quot; : &quot;3.4&quot;
+    },
+    &quot;knora-api:intervalValueHasStart&quot; : {
+      &quot;@type&quot; : &quot;xsd:decimal&quot;,
+      &quot;@value&quot; : &quot;1.2&quot;
+    }
+  },
+  &quot;anything:hasListItem&quot; : {
+    &quot;@type&quot; : &quot;knora-api:ListValue&quot;,
+    &quot;knora-api:listValueAsListNode&quot; : {
+      &quot;@id&quot; : &quot;http://rdfh.ch/lists/0001/treeList03&quot;
+    }
+  },
+  &quot;anything:hasOtherThingValue&quot; : {
+    &quot;@type&quot; : &quot;knora-api:LinkValue&quot;,
+    &quot;knora-api:linkValueHasTargetIri&quot; : {
+      &quot;@id&quot; : &quot;http://rdfh.ch/0001/a-thing&quot;
+    }
+  },
+  &quot;anything:hasRichtext&quot; : {
+    &quot;@type&quot; : &quot;knora-api:TextValue&quot;,
+    &quot;knora-api:textValueAsXml&quot; : &quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;\n&lt;text&gt;&lt;p&gt;&lt;strong&gt;this is&lt;/strong&gt; text&lt;/p&gt; with standoff&lt;/text&gt;&quot;,
+    &quot;knora-api:textValueHasMapping&quot; : {
+      &quot;@id&quot; : &quot;http://rdfh.ch/standoff/mappings/StandardMapping&quot;
+    }
+  },
+  &quot;anything:hasText&quot; : {
+    &quot;@type&quot; : &quot;knora-api:TextValue&quot;,
+    &quot;knora-api:valueAsString&quot; : &quot;this is text without standoff&quot;
+  },
+  &quot;anything:hasUri&quot; : {
+    &quot;@type&quot; : &quot;knora-api:UriValue&quot;,
+    &quot;knora-api:uriValueAsUri&quot; : {
+      &quot;@type&quot; : &quot;xsd:anyURI&quot;,
+      &quot;@value&quot; : &quot;https://www.knora.org&quot;
+    }
+  },
+  &quot;knora-api:attachedToProject&quot; : {
+    &quot;@id&quot; : &quot;http://rdfh.ch/projects/0001&quot;
+  },
+  &quot;rdfs:label&quot; : &quot;test thing&quot;,
   &quot;@context&quot; : {
+    &quot;rdf&quot; : &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;,
     &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
+    &quot;rdfs&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#&quot;,
+    &quot;xsd&quot; : &quot;http://www.w3.org/2001/XMLSchema#&quot;,
     &quot;anything&quot; : &quot;http://0.0.0.0:3333/ontology/0001/anything/v2#&quot;
   }
 }
 </code></pre>
-<p>Each value can have a comment, given in <code>knora-api:valueHasComment</code>. For example:</p>
+<p>Permissions for the new resource can be given by adding <code>knora-api:hasPermissions</code>. For example:</p>
 <pre class="prettyprint"><code class="language-jsonld">{
-  &quot;@id&quot; : &quot;http://rdfh.ch/0001/a-thing&quot;,
   &quot;@type&quot; : &quot;anything:Thing&quot;,
-  &quot;anything:hasInteger&quot; : {
-    &quot;@type&quot; : &quot;knora-api:IntValue&quot;,
-    &quot;knora-api:intValueAsInt&quot; : 4,
-    &quot;knora-api:valueHasComment&quot; : &quot;This is a comment.&quot;
+  &quot;anything:hasBoolean&quot; : {
+    &quot;@type&quot; : &quot;knora-api:BooleanValue&quot;,
+    &quot;knora-api:booleanValueAsBoolean&quot; : true
   },
-  &quot;@context&quot; : {
-    &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
-    &quot;anything&quot; : &quot;http://0.0.0.0:3333/ontology/0001/anything/v2#&quot;
-  }
-}
-</code></pre>
-<p>Permissions for the new value can be given by adding <code>knora-api:hasPermissions</code>. For example:</p>
-<pre class="prettyprint"><code class="language-jsonld">{
-  &quot;@id&quot; : &quot;http://rdfh.ch/0001/a-thing&quot;,
-  &quot;@type&quot; : &quot;anything:Thing&quot;,
-  &quot;anything:hasInteger&quot; : {
-    &quot;@type&quot; : &quot;knora-api:IntValue&quot;,
-    &quot;knora-api:intValueAsInt&quot; : 4,
-    &quot;knora-api:hasPermissions&quot; : &quot;CR knora-base:Creator|V http://rdfh.ch/groups/0001/thing-searcher&quot;
+  &quot;knora-api:attachedToProject&quot; : {
+    &quot;@id&quot; : &quot;http://rdfh.ch/projects/0001&quot;
   },
+  &quot;rdfs:label&quot; : &quot;test thing&quot;,
+  &quot;knora-api:hasPermissions&quot; : &quot;CR knora-base:Creator|V http://rdfh.ch/groups/0001/thing-searcher&quot;
   &quot;@context&quot; : {
+    &quot;rdf&quot; : &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;,
     &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
+    &quot;rdfs&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#&quot;,
+    &quot;xsd&quot; : &quot;http://www.w3.org/2001/XMLSchema#&quot;,
     &quot;anything&quot; : &quot;http://0.0.0.0:3333/ontology/0001/anything/v2#&quot;
   }
 }
 </code></pre>
 <p>The format of the object of <code>knora-api:hasPermissions</code> is described in <a href="../../02-knora-ontologies/knora-base.html#permissions">Permissions</a>.</p>
 <p>If permissions are not given, configurable default permissions are used (see <a href="../../05-internals/design/administration.html#default-object-access-permissions">Default Object Access Permissions</a>).</p>
-<p>To create a value, the user must have <strong>modify permission</strong> on the containing resource.</p>
-<p>The response is a JSON-LD document containing only <code>@id</code> and <code>@type</code>, returning the IRI and type of the value that was created.</p>
-<h3><a href="#creating-a-link-between-resources" name="creating-a-link-between-resources" class="anchor"><span class="anchor-link"></span></a>Creating a Link Between Resources</h3>
-<p>To create a link, you must create a <code>knora-api:LinkValue</code>, which represents metadata about the link. The property that connects the resource to the <code>LinkValue</code> is a link value property, whose name is constructed by adding <code>Value</code> to the name of the link property (see <a href="../../02-knora-ontologies/knora-base.html#links-between-resources">Links Between Resources</a>). The triple representing the direct link between the resources is created automatically. For example, if the link property that should connect the resources is <code>anything:hasOtherThing</code>, we can create a link like this:</p>
-<pre class="prettyprint"><code class="language-jsonld">{
-  &quot;@id&quot; : &quot;http://rdfh.ch/0001/a-thing&quot;,
-  &quot;@type&quot; : &quot;anything:Thing&quot;,
-  &quot;anything:hasOtherThingValue&quot; : {
-    &quot;@type&quot; : &quot;knora-api:LinkValue&quot;,
-    &quot;knora-api:linkValueHasTargetIri&quot; : {
-      &quot;@id&quot; : &quot;http://rdfh.ch/0001/tPfZeNMvRVujCQqbIbvO0A&quot;
-    }
-  },
-  &quot;@context&quot; : {
-    &quot;xsd&quot; : &quot;http://www.w3.org/2001/XMLSchema#&quot;,
-    &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
-    &quot;anything&quot; : &quot;http://0.0.0.0:3333/ontology/0001/anything/v2#&quot;
-  }
-}
-</code></pre>
-<p>As with ordinary values, permissions on links can be specified by adding <code>knora-api:hasPermissions</code>.</p>
-<h3><a href="#creating-a-text-value-without-standoff-markup" name="creating-a-text-value-without-standoff-markup" class="anchor"><span class="anchor-link"></span></a>Creating a Text Value Without Standoff Markup</h3>
-<p>Use the predicate <code>knora-api:valueAsString</code> of <code>knora-api:TextValue</code>:</p>
-<pre class="prettyprint"><code class="language-jsonld">{
-  &quot;@id&quot; : &quot;http://rdfh.ch/0001/a-thing&quot;,
-  &quot;@type&quot; : &quot;anything:Thing&quot;,
-  &quot;anything:hasText&quot; : {
-    &quot;@type&quot; : &quot;knora-api:TextValue&quot;,
-    &quot;knora-api:valueAsString&quot; : &quot;This is a text without markup.&quot;
-  },
-  &quot;@context&quot; : {
-    &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
-    &quot;anything&quot; : &quot;http://0.0.0.0:3333/ontology/0001/anything/v2#&quot;
-  }
-}
-</code></pre>
-<h3><a href="#creating-a-text-value-with-standoff-markup" name="creating-a-text-value-with-standoff-markup" class="anchor"><span class="anchor-link"></span></a>Creating a Text Value with Standoff Markup</h3>
-<p>Currently, the only way to create a text value with standoff markup is to submit it in XML format using an <a href="xml-to-standoff-mapping.html">XML-to-standoff mapping</a>. For example, suppose we use the standard mapping, <code>http://rdfh.ch/standoff/mappings/StandardMapping</code>. We can then make an XML document like this:</p>
-<pre class="prettyprint"><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;text&gt;
-   This text links to another &lt;a class=&quot;salsah-link&quot; href=&quot;http://rdfh.ch/0001/another-thing&quot;&gt;resource&lt;/a&gt;.
-&lt;/text&gt;
-</code></pre>
-<p>This document can then be embedded in a JSON-LD request, using the predicate <code>knora-api:textValueAsXml</code>:</p>
-<pre class="prettyprint"><code class="language-jsonld">{
-  &quot;@id&quot; : &quot;http://rdfh.ch/0001/a-thing&quot;,
-  &quot;@type&quot; : &quot;anything:Thing&quot;,
-  &quot;anything:hasText&quot; : {
-    &quot;@type&quot; : &quot;knora-api:TextValue&quot;,
-    &quot;knora-api:textValueAsXml&quot; : &quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;\n&lt;text&gt;\n   This text links to another &lt;a class=\&quot;salsah-link\&quot; href=\&quot;http://rdfh.ch/0001/another-thing\&quot;&gt;resource&lt;/a&gt;.\n&lt;/text&gt;&quot;,
-    &quot;knora-api:textValueHasMapping&quot; : {
-      &quot;@id&quot;: &quot;http://rdfh.ch/standoff/mappings/StandardMapping&quot;
-    }
-  },
-  &quot;@context&quot; : {
-    &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
-    &quot;anything&quot; : &quot;http://0.0.0.0:3333/ontology/0001/anything/v2#&quot;
-  }
-}
-</code></pre>
-<p>Note that quotation marks and line breaks in the XML must be escaped, and that the IRI of the mapping must be provided.</p>
-<h2><a href="#updating-a-value" name="updating-a-value" class="anchor"><span class="anchor-link"></span></a>Updating a Value</h2>
-<p>To update a value, use this route:</p>
-<pre><code>HTTP PUT to http://host/v2/values
-</code></pre>
-<p>Updating a value means creating a new version of an existing value. The new version will have a different IRI. The request is the same as for creating a value, except that the <code>@id</code> of the current value version is given. For example, to update an integer value:</p>
-<pre class="prettyprint"><code class="language-jsonld">{
-  &quot;@id&quot; : &quot;http://rdfh.ch/0001/a-thing&quot;,
-  &quot;@type&quot; : &quot;anything:Thing&quot;,
-  &quot;anything:hasInteger&quot; : {
-    &quot;@id&quot; : &quot;http://rdfh.ch/0001/a-thing/values/vp96riPIRnmQcbMhgpv_Rg&quot;,
-    &quot;@type&quot; : &quot;knora-api:IntValue&quot;,
-    &quot;knora-api:intValueAsInt&quot; : 5
-  },
-  &quot;@context&quot; : {
-    &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
-    &quot;anything&quot; : &quot;http://0.0.0.0:3333/ontology/0001/anything/v2#&quot;
-  }
-}
-</code></pre>
-<p>The value can be given a comment by using <code>knora-api:valueHasComment</code>. To change only the comment of a value, you can resubmit the existing value with the updated comment.</p>
-<p>Permissions can be specified by adding <code>knora-api:hasPermissions</code>. Otherwise, the new version has the same permissions as the previous one. To change the permissions on a value, the user must have <strong>change rights permission</strong> on the value.</p>
-<p>To update a link, the user must have <strong>modify permission</strong> on the containing resource as well as on the value.</p>
-<p>The response is a JSON-LD document containing only <code>@id</code> and <code>@type</code>, returning the IRI and type of the new value version.</p>
-<p>If you submit an outdated value ID in a request to update a value, the response will be an HTTP 404 (Not Found) error.</p>
-<h2><a href="#deleting-a-value" name="deleting-a-value" class="anchor"><span class="anchor-link"></span></a>Deleting a Value</h2>
-<p>Knora does not normally delete values; instead, it marks them as deleted, which means that they do not appear in normal query results.</p>
-<p>To mark a value as deleted, use this route:</p>
-<pre><code>HTTP DELETE to http://host/v2/values/RESOURCE_IRI/PROPERTY_IRI/VALUE_IRI[?deleteComment=DELETE_COMMENT]
-</code></pre>
-<p>The resource IRI, property IRI, and value IRI must be URL-encoded. If the value is a link value, the property must be a link value property.</p>
-<p>The optional URL parameter <code>deleteComment</code> specifies a comment to be attached to the value, explaining why it has been marked as deleted. The comment must also be URL-encoded.</p>
+<p>To create a resource, the user must have permission to create resources in the specified project.</p>
+<p>The response is a JSON-LD document containing a <a href="reading-and-searching-resources.html#get-the-preview-of-a-resource-by-its-iri">preview</a> of the resource.</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/03-apis/api-v2/editing-values.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/03-apis/api-v2/editing-resources.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -413,7 +387,7 @@ v2.0.0
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../../03-apis/api-v2/editing-resources.html" title="Editing Resources" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../../03-apis/api-v2/query-language.html" title="Gravsearch: Virtual Graph Search" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -422,17 +396,17 @@ v2.0.0
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Editing Resources
+Gravsearch: Virtual Graph Search
 </span>
 </div>
 </a>
-<a href="../../03-apis/api-v2/ontology-information.html" title="Querying, Creating, and Updating Ontologies" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../03-apis/api-v2/editing-values.html" title="Editing Values" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Querying, Creating, and Updating Ontologies
+Editing Values
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

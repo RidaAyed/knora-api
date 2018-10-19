@@ -395,7 +395,7 @@ jobs:
         - sleep 15
         - cd $TRAVIS_BUILD_DIR/webapi/scripts &amp;&amp; ./graphdb-se-docker-init-knora-test-unit.sh
         # start the sipi container (with production config)
-        - cd $TRAVIS_BUILD_DIR/sipi/ &amp;&amp; docker-compose up -d
+        - cd $TRAVIS_BUILD_DIR/sipi/ &amp;&amp; docker-compose up -d sipi
         # start the integration tests
         - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt coverage it:test coverageReport
         # upload code coverage report
@@ -704,7 +704,8 @@ lazy val webApiLibs = Seq(
     library.springSecurityCore,
     library.swaggerAkkaHttp,
     library.typesafeConfig,
-    library.xmlunitCore
+    library.xmlunitCore,
+    library.icu4j
 )
 
 lazy val library =
@@ -802,6 +803,8 @@ lazy val library =
 
         // Java EE modules which are deprecated in Java SE 9, 10 and will be removed in Java SE 11
         val jaxbApi                = &quot;javax.xml.bind&quot;                % &quot;jaxb-api&quot;                 % &quot;2.2.12&quot;
+
+        val icu4j                  = &quot;com.ibm.icu&quot;                   % &quot;icu4j&quot;                    % &quot;62.1&quot;
     }
 
 lazy val javaRunOptions = Seq(

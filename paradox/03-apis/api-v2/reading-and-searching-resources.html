@@ -188,6 +188,7 @@ dhlab-basel/Knora/docs
   <ul>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#responses-describing-resources" class="header">Responses Describing Resources</a></li>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-the-representation-of-a-resource-by-its-iri" class="header">Get the Representation of a Resource by its IRI</a></li>
+    <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-a-graph-of-resources" class="header">Get a Graph of Resources</a></li>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#search-for-resources" class="header">Search for Resources</a></li>
   </ul></li>
 </ul>
@@ -211,6 +212,7 @@ dhlab-basel/Knora/docs
   <ul>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#responses-describing-resources" class="header">Responses Describing Resources</a></li>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-the-representation-of-a-resource-by-its-iri" class="header">Get the Representation of a Resource by its IRI</a></li>
+    <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-a-graph-of-resources" class="header">Get a Graph of Resources</a></li>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#search-for-resources" class="header">Search for Resources</a></li>
   </ul></li>
 </ul>
@@ -249,6 +251,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-a-full-representation-of-a-resource-by-its-iri" class="header">Get a Full Representation of a Resource by its IRI</a></li>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-the-preview-of-a-resource-by-its-iri" class="header">Get the preview of a resource by its IRI</a></li>
   </ul></li>
+  <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-a-graph-of-resources" class="header">Get a Graph of Resources</a></li>
   <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#search-for-resources" class="header">Search for Resources</a>
   <ul>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#search-for-a-resource-by-its-rdfs-label" class="header">Search for a Resource by its <code>rdfs:label</code></a></li>
@@ -277,9 +280,69 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <pre><code>HTTP GET to http://host/v2/resources/resourceIRI(/anotherResourceIri)*
 </code></pre>
 <h3><a href="#get-the-preview-of-a-resource-by-its-iri" name="get-the-preview-of-a-resource-by-its-iri" class="anchor"><span class="anchor-link"></span></a>Get the preview of a resource by its IRI</h3>
-<p>In some cases, the client may only want to request the preview of a resource, which just provides its <code>rdfs:label</code> and type.</p>
+<p>In some cases, the client may only want to request the preview of a resource, which just provides its metadata (e.g. its IRI, <code>rdfs:label</code>, and type), without its values.</p>
 <p>This works exactly like making a conventional resource request, using the path segment <code>resourcespreview</code>:</p>
 <pre><code>HTTP GET to http://host/v2/resourcespreview/resourceIRI(/anotherResourceIri)*
+</code></pre>
+<h2><a href="#get-a-graph-of-resources" name="get-a-graph-of-resources" class="anchor"><span class="anchor-link"></span></a>Get a Graph of Resources</h2>
+<p>Knora can return a graph of connections between resources, e.g. for generating a network diagram.</p>
+<pre><code>HTTP GET to http://host/v2/graph/resourceIRI[depth=Integer]
+[direction=outbound|inbound|both][excludeProperty=propertyIri]
+</code></pre>
+<p>The first parameter must be preceded by a question mark <code>?</code>, any following parameter by an ampersand <code>&amp;</code>.</p>
+<ul>
+  <li><code>depth</code> must be at least 1. The maximum depth is an Knora configuration setting.  The default is 4.</li>
+  <li><code>direction</code> specifies the direction of the links to be queried, i.e. links to  and/or from the given resource. The default is <code>outbound</code>.</li>
+  <li><code>excludeProperty</code> is an optional link property to be excluded from the  results.</li>
+</ul>
+<p>To accommodate large graphs, the graph response format is very concise, and is therefore simpler than the usual resources response format. Each resource represented only by its IRI, class, and label. Direct links are shown instead of link values. For example:</p>
+<pre class="prettyprint"><code class="language-jsonld">{
+  &quot;@graph&quot; : [ {
+    &quot;@id&quot; : &quot;http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ&quot;,
+    &quot;@type&quot; : &quot;anything:Thing&quot;,
+    &quot;rdfs:label&quot; : &quot;Sierra&quot;
+  }, {
+    &quot;@id&quot; : &quot;http://rdfh.ch/0001/A67ka6UQRHWf313tbhQBjw&quot;,
+    &quot;@type&quot; : &quot;anything:Thing&quot;,
+    &quot;rdfs:label&quot; : &quot;Victor&quot;
+  }, {
+    &quot;@id&quot; : &quot;http://rdfh.ch/0001/Lz7WEqJETJqqsUZQYexBQg&quot;,
+    &quot;@type&quot; : &quot;anything:Thing&quot;,
+    &quot;rdfs:label&quot; : &quot;Foxtrot&quot;
+  }, {
+    &quot;@id&quot; : &quot;http://rdfh.ch/0001/WLSHxQUgTOmG1T0lBU2r5w&quot;,
+    &quot;@type&quot; : &quot;anything:Thing&quot;,
+    &quot;anything:hasOtherThing&quot; : {
+      &quot;@id&quot; : &quot;http://rdfh.ch/0001/A67ka6UQRHWf313tbhQBjw&quot;
+    },
+    &quot;rdfs:label&quot; : &quot;Tango&quot;
+  }, {
+    &quot;@id&quot; : &quot;http://rdfh.ch/0001/start&quot;,
+    &quot;@type&quot; : &quot;anything:Thing&quot;,
+    &quot;anything:hasOtherThing&quot; : [ {
+      &quot;@id&quot; : &quot;http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ&quot;
+    }, {
+      &quot;@id&quot; : &quot;http://rdfh.ch/0001/WLSHxQUgTOmG1T0lBU2r5w&quot;
+    }, {
+      &quot;@id&quot; : &quot;http://rdfh.ch/0001/tPfZeNMvRVujCQqbIbvO0A&quot;
+    } ],
+    &quot;rdfs:label&quot; : &quot;Romeo&quot;
+  }, {
+    &quot;@id&quot; : &quot;http://rdfh.ch/0001/tPfZeNMvRVujCQqbIbvO0A&quot;,
+    &quot;@type&quot; : &quot;anything:Thing&quot;,
+    &quot;anything:hasOtherThing&quot; : {
+      &quot;@id&quot; : &quot;http://rdfh.ch/0001/Lz7WEqJETJqqsUZQYexBQg&quot;
+    },
+    &quot;rdfs:label&quot; : &quot;Echo&quot;
+  } ],
+  &quot;@context&quot; : {
+    &quot;rdf&quot; : &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;,
+    &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
+    &quot;rdfs&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#&quot;,
+    &quot;xsd&quot; : &quot;http://www.w3.org/2001/XMLSchema#&quot;,
+    &quot;anything&quot; : &quot;http://0.0.0.0:3333/ontology/0001/anything/v2#&quot;
+  }
+}
 </code></pre>
 <h2><a href="#search-for-resources" name="search-for-resources" class="anchor"><span class="anchor-link"></span></a>Search for Resources</h2>
 <h3><a href="#search-for-a-resource-by-its-rdfs-label" name="search-for-a-resource-by-its-rdfs-label" class="anchor"><span class="anchor-link"></span></a>Search for a Resource by its <code>rdfs:label</code></h3>
