@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="description" content="docs">
-<meta name="generator" content="Paradox, paradox-material-theme=v2.0.0, mkdocs-material=2.2.2">
+<meta name="generator" content="Paradox, paradox-material-theme=v2.1.0, mkdocs-material=2.2.2">
 
 <meta name="lang:clipboard.copy" content="Copy to clipboard">
 <meta name="lang:clipboard.copied" content="Copied to clipboard">
@@ -185,7 +185,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> v2.0.0
+<i class="md-icon">label_outline</i> v2.1.0
 </div>
 </nav>
 
@@ -226,6 +226,159 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li><code>knora-v2-dispatcher</code></li>
   <li><code>knora-admin-dispatcher</code></li>
 </ul>
+<p>## System Environment Variables</p>
+<p>A number of core settings is additionally configurable through system environment variables. These are:</p>
+<table>
+  <thead>
+    <tr>
+      <th>key in application.conf </th>
+      <th>environment variable </th>
+      <th>default value </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>akka.log-config-on-start </td>
+      <td>KNORA_AKKA_LOG_CONFIG_ON_START </td>
+      <td>off </td>
+    </tr>
+    <tr>
+      <td>akka.loglevel </td>
+      <td>KNORA_AKKA_LOGLEVEL </td>
+      <td>INFO </td>
+    </tr>
+    <tr>
+      <td>akka.stdout-loglevel </td>
+      <td>KNORA_AKKA_STDOUT_LOGLEVEL </td>
+      <td>INFO </td>
+    </tr>
+    <tr>
+      <td>app.print-short-config </td>
+      <td>KNORA_WEBAPI_PRINT_SHORT_CONFIG </td>
+      <td>true </td>
+    </tr>
+    <tr>
+      <td>app.print-extended-config </td>
+      <td>KNORA_WEBAPI_PRINT_EXTENDED_CONFIG </td>
+      <td>false </td>
+    </tr>
+    <tr>
+      <td>app.jwt-secret-key </td>
+      <td>KNORA_WEBAPI_JWT_SECRET_KEY </td>
+      <td>super-secret-key </td>
+    </tr>
+    <tr>
+      <td>app.jwt-longevity </td>
+      <td>KNORA_WEBAPI_JWT_LONGEVITY </td>
+      <td>30 days </td>
+    </tr>
+    <tr>
+      <td>app.knora-api.internal-host </td>
+      <td>KNORA_WEBAPI_KNORA_API_INTERNAL_HOST </td>
+      <td>0.0.0.0 </td>
+    </tr>
+    <tr>
+      <td>app.knora-api.internal-port </td>
+      <td>KNORA_WEBAPI_KNORA_API_INTERNAL_PORT </td>
+      <td>3333 </td>
+    </tr>
+    <tr>
+      <td>app.knora-api.external-protocol </td>
+      <td>KNORA_WEBAPI_KNORA_API_EXTERNAL_PROTOCOL </td>
+      <td>http </td>
+    </tr>
+    <tr>
+      <td>app.knora-api.external-host </td>
+      <td>KNORA_WEBAPI_KNORA_API_EXTERNAL_HOST </td>
+      <td>0.0.0.0 </td>
+    </tr>
+    <tr>
+      <td>app.knora-api.external-port </td>
+      <td>KNORA_WEBAPI_KNORA_API_EXTERNAL_PORT </td>
+      <td>3333 </td>
+    </tr>
+    <tr>
+      <td>app.sipi.internal-protocol </td>
+      <td>KNORA_WEBAPI_SIPI_INTERNAL_PROTOCOL </td>
+      <td>http </td>
+    </tr>
+    <tr>
+      <td>app.sipi.internal-host </td>
+      <td>KNORA_WEBAPI_SIPI_INTERNAL_HOST </td>
+      <td>localhost </td>
+    </tr>
+    <tr>
+      <td>app.sipi.internal-port </td>
+      <td>KNORA_WEBAPI_SIPI_INTERNAL_PORT </td>
+      <td>1024 </td>
+    </tr>
+    <tr>
+      <td>app.sipi.external-protocol </td>
+      <td>KNORA_WEBAPI_SIPI_EXTERNAL_PROTOCOL </td>
+      <td>http </td>
+    </tr>
+    <tr>
+      <td>app.sipi.external-host </td>
+      <td>KNORA_WEBAPI_SIPI_EXTERNAL_HOST </td>
+      <td>localhost </td>
+    </tr>
+    <tr>
+      <td>app.sipi.external-port </td>
+      <td>KNORA_WEBAPI_SIPI_EXTERNAL_PORT </td>
+      <td>443 </td>
+    </tr>
+    <tr>
+      <td>app.salsah1.base-url </td>
+      <td>KNORA_WEBAPI_SALSAH1_BASE_URL </td>
+      <td><a href="http://localhost:3335|">http://localhost:3335|</a></td>
+    </tr>
+    <tr>
+      <td>app.triplestore.dbtype </td>
+      <td>KNORA_WEBAPI_TRIPLESTORE_DBTYPE </td>
+      <td>graphdb-se </td>
+    </tr>
+    <tr>
+      <td>app.triplestore.use-https </td>
+      <td>KNORA_WEBAPI_TRIPLESTORE_USE_HTTPS </td>
+      <td>false </td>
+    </tr>
+    <tr>
+      <td>app.triplestore.host </td>
+      <td>KNORA_WEBAPI_TRIPLESTORE_HOST </td>
+      <td>localhost </td>
+    </tr>
+    <tr>
+      <td>app.triplestore.graphdb.port </td>
+      <td>KNORA_WEBAPI_TRIPLESTORE_GRAPHDB_PORT </td>
+      <td>7200 </td>
+    </tr>
+    <tr>
+      <td>app.triplestore.graphdb.repository-name </td>
+      <td>KNORA_WEBAPI_TRIPLESTORE_GRAPHDB_REPOSITORY_NAME </td>
+      <td>knora-test </td>
+    </tr>
+    <tr>
+      <td>app.triplestore.graphdb.username </td>
+      <td>KNORA_WEBAPI_TRIPLESTORE_GRAPHDB_USERNAME </td>
+      <td>admin </td>
+    </tr>
+    <tr>
+      <td>app.triplestore.graphdb.password </td>
+      <td>KNORA_WEBAPI_TRIPLESTORE_GRAPHDB_PASSWORD </td>
+      <td>root </td>
+    </tr>
+    <tr>
+      <td>app.triplestore.fuseki.port </td>
+      <td>KNORA_WEBAPI_TRIPLESTORE_FUSEKI_PORT </td>
+      <td>3030 </td>
+    </tr>
+    <tr>
+      <td>app.triplestore.fuseki.repository-name </td>
+      <td>KNORA_WEBAPI_TRIPLESTORE_FUSEKI_REPOSITORY_NAME </td>
+      <td>knora-test </td>
+    </tr>
+  </tbody>
+</table>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/04-deployment/configuration.md" title="Edit this page" class="md-source-file md-edit">
@@ -234,7 +387,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-v2.0.0
+v2.1.0
 </span>
 </div>
 </article>

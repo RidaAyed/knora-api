@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="description" content="docs">
-<meta name="generator" content="Paradox, paradox-material-theme=v2.0.0, mkdocs-material=2.2.2">
+<meta name="generator" content="Paradox, paradox-material-theme=v2.1.0, mkdocs-material=2.2.2">
 
 <meta name="lang:clipboard.copy" content="Copy to clipboard">
 <meta name="lang:clipboard.copied" content="Copied to clipboard">
@@ -197,7 +197,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> v2.0.0
+<i class="md-icon">label_outline</i> v2.1.0
 </div>
 </nav>
 
@@ -380,9 +380,9 @@ jobs:
         # hit graphdb with a request &quot;waking-it-up&quot;
         - curl http://localhost:7200/rest/repositories
         # start the built-in webapi server tests
-        - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt coverage test coverageReport
+        - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt clean coverage test coverageReport
         # upload code coverage report
-        - bash &lt;(curl -s https://codecov.io/bash) -F unit_e2e
+        - sbt codacyCoverage
     # integration tests
     - stage: test
       script:
@@ -397,9 +397,9 @@ jobs:
         # start the sipi container (with production config)
         - cd $TRAVIS_BUILD_DIR/sipi/ &amp;&amp; docker-compose up -d sipi
         # start the integration tests
-        - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt coverage it:test coverageReport
+        - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt clean coverage it:test coverageReport
         # upload code coverage report
-        - bash &lt;(curl -s https://codecov.io/bash) -F integration
+        - sbt codacyCoverage
     # testing docs generation
     - stage: test
       script:
@@ -494,7 +494,7 @@ connectInput in run := true
 lazy val webApiCommonSettings = Seq(
     organization := &quot;org.knora&quot;,
     name := &quot;webapi&quot;,
-    version := &quot;2.0.0&quot;,
+    version := &quot;2.1.0&quot;,
     scalaVersion := &quot;2.12.4&quot;
 )
 
@@ -915,7 +915,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-v2.0.0
+v2.1.0
 </span>
 </div>
 </article>
