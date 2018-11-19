@@ -382,7 +382,7 @@ jobs:
         # start the built-in webapi server tests
         - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt clean coverage test coverageReport
         # upload code coverage report
-        - sbt codacyCoverage
+        # - sbt codacyCoverage
     # integration tests
     - stage: test
       script:
@@ -399,7 +399,7 @@ jobs:
         # start the integration tests
         - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt clean coverage it:test coverageReport
         # upload code coverage report
-        - sbt codacyCoverage
+        # - sbt codacyCoverage
     # testing docs generation
     - stage: test
       script:
@@ -494,7 +494,7 @@ connectInput in run := true
 lazy val webApiCommonSettings = Seq(
     organization := &quot;org.knora&quot;,
     name := &quot;webapi&quot;,
-    version := &quot;2.1.0&quot;,
+    version := &quot;v2.2.0-snapshot&quot;,
     scalaVersion := &quot;2.12.4&quot;
 )
 
@@ -644,11 +644,20 @@ lazy val webapi = (project in file(&quot;.&quot;)).
             Test / mainClass := Some(&quot;org.scalatest.tools.Runner&quot;),
             IntegrationTest / mainClass := Some(&quot;org.scalatest.tools.Runner&quot;)
         ).
+        settings(
+            buildInfoKeys ++= Seq[BuildInfoKey](
+                name,
+                version,
+                &quot;akkaHttp&quot; -&gt; library.Version.akkaHttp
+            ),
+            buildInfoPackage := &quot;org.knora.webapi&quot;
+        ).
         enablePlugins(SbtTwirl). // Enable the sbt-twirl plugin
         enablePlugins(JavaAppPackaging). // Enable the sbt-native-packager plugin
         enablePlugins(GatlingPlugin). // load testing
         enablePlugins(JavaAgent). // Adds AspectJ Weaver configuration
-        enablePlugins(RevolverPlugin)
+        enablePlugins(RevolverPlugin).
+        enablePlugins(BuildInfoPlugin) // allows generation of scala code with version information
 
 
 
@@ -773,7 +782,7 @@ lazy val library =
 
         // other
         //&quot;javax.transaction&quot; % &quot;transaction-api&quot; % &quot;1.1-rev-1&quot;,
-        val commonsText            = &quot;org.apache.commons&quot;            % &quot;commons-text&quot;             % &quot;1.3&quot;
+        val commonsText            = &quot;org.apache.commons&quot;            % &quot;commons-text&quot;             % &quot;1.6&quot;
         val commonsIo              = &quot;commons-io&quot;                    % &quot;commons-io&quot;               % &quot;2.6&quot;
         val commonsBeanUtil        = &quot;commons-beanutils&quot;             % &quot;commons-beanutils&quot;        % &quot;1.9.3&quot; exclude(&quot;commons-logging&quot;, &quot;commons-logging&quot;) // not used by us, but need newest version to prevent this problem: http://stackoverflow.com/questions/14402745/duplicate-classes-in-commons-collections-and-commons-beanutils
         val jodd                   = &quot;org.jodd&quot;                      % &quot;jodd&quot;                     % &quot;3.2.6&quot;
