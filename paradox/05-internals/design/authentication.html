@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="description" content="docs">
-<meta name="generator" content="Paradox, paradox-material-theme=v2.1.0, mkdocs-material=2.2.2">
+<meta name="generator" content="Paradox, paradox-material-theme=0.4.0, mkdocs-material=2.2.2">
 
 <meta name="lang:clipboard.copy" content="Copy to clipboard">
 <meta name="lang:clipboard.copied" content="Copied to clipboard">
@@ -179,6 +179,9 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
+    <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
@@ -198,7 +201,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> v2.1.0
+<i class="md-icon">label_outline</i> 3.0.0-0-d71e52b7-20181130-1525
 </div>
 </nav>
 
@@ -299,22 +302,23 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </ol>
 <h2><a href="#usage-v2" name="usage-v2" class="anchor"><span class="anchor-link"></span></a>Usage V2</h2>
 <h3><a href="#login-and-logout" name="login-and-logout" class="anchor"><span class="anchor-link"></span></a>Login and Logout</h3>
-<p>A client sends a POST request (e.g., <code>{&quot;email&quot;:&quot;usersemail&quot;,
-&quot;password&quot;:&quot;userspassword&quot;}</code>) to the <strong>/v2/authentication</strong> route with <em>email</em> and <em>password</em> in the body. If the credentials are valid, a <a href="https://jwt.io">JSON WEB Token</a> (JWT) will be sent back in the response (e.g., <code>{&quot;token&quot;: &quot;eyJ0eXAiOiJ...&quot;}</code>). On all subsequent calls to any route, this token can be sent with each request (instead of <em>email</em>/*password*). If the token is successfully validated, then the user is deemed authenticated.</p>
-<p>To <strong>logout</strong> the client sends a DELETE request to the same route <strong>/v2/authentication</strong> and the token (either as an URL parameter or authorization header). This will invalidate the token.</p>
+<p>A client sends a POST request (e.g., <code>{&quot;identifier&quot;:&quot;usersemail&quot;,
+&quot;password&quot;:&quot;userspassword&quot;}</code>) to the <strong>/v2/authentication</strong> route with <em>identifier</em> and <em>password</em> in the body. The identifier can be the user&rsquo;s IRI, username, or email. If the credentials are valid, a <a href="https://jwt.io">JSON WEB Token</a> (JWT) will be sent back in the response (e.g., <code>{&quot;token&quot;: &quot;eyJ0eXAiOiJ...&quot;}</code>). On all subsequent calls to any route, this token can be sent with each request (instead of <em>identifier</em>/*password*). If the token is successfully validated, then the user is deemed authenticated.</p>
+<p>To <strong>logout</strong>, the client sends a DELETE request to the same route <strong>/v2/authentication</strong> and the token (either as an URL parameter or authorization header). This will invalidate the token.</p>
 <h3><a href="#submitting-credentials" name="submitting-credentials" class="anchor"><span class="anchor-link"></span></a>Submitting Credentials</h3>
-<p>When accessing any route and <em>email</em>/*password* credentials would need to be sent, we support two options to do so:</p>
+<p>When accessing any route and <em>identifier</em>/*password* credentials would need to be sent, we support two options to do so:</p>
 <ul>
-  <li>in the URL submitting the parameters <code>email</code> and <code>password</code>  (e.g., <a href="http://knora-host/v1/resources/resIri?email=userUrlEncodedEmail&password=pw">http://knora-host/v1/resources/resIri?email=userUrlEncodedEmail&password=pw</a>)</li>
-  <li>in the HTTP header (<a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP basic  authentication</a>)  when doing a HTTP request to the API When using Python&rsquo;s module  <code>requests</code>, the credentials can simply be submitted as a tuple  with each request using the param <code>auth</code> (<a href="http://docs.python-requests.org/en/master/user/authentication/#basic-authentication">python  requests</a>).</li>
+  <li>in the URL submitting the parameters <code>identifier</code> and <code>password</code>  (e.g., <a href="http://knora-host/v1/resources/resIri?identifier=userUrlEncodedEmail&password=pw">http://knora-host/v1/resources/resIri?identifier=userUrlEncodedEmail&password=pw</a>),  where the identifier can be the user&rsquo;s IRI, username, or email, and</li>
+  <li>in the HTTP header (<a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP basic  authentication</a>), where the  identifier can be the user&rsquo;s username or email (IRI not supported).</li>
 </ul>
+<p>When using Python&rsquo;s module <code>requests</code>, the credentials can simply be submitted as a tuple with each request using the param <code>auth</code> (<a href="http://docs.python-requests.org/en/master/user/authentication/#basic-authentication">python requests</a>).</p>
 <p>When accessing any route and the <em>token</em> would need to be sent, we support two options to do so:</p>
 <ul>
   <li>in the URL submitting the parameter <code>token</code> (e.g.,  <a href="http://knora-host/v1/resources/resIri?token=1234567890">http://knora-host/v1/resources/resIri?token=1234567890</a>)</li>
   <li>in the HTTP authorization header with the  <a href="http://tools.ietf.org/html/rfc6750#section-2.1">HTTP bearer scheme</a>.</li>
 </ul>
 <h3><a href="#checking-credentials" name="checking-credentials" class="anchor"><span class="anchor-link"></span></a>Checking Credentials</h3>
-<p>To check the credentials, there is a special route called <strong>/v1/authenticate</strong>, which can be used to check if the credentials are valid.</p>
+<p>To check the credentials, send a GET request to <strong>/v2/authentication</strong> with the credentials supplied as URL parameters or HTTP authentication headers as described before, .</p>
 <h3><a href="#usage-scenarios" name="usage-scenarios" class="anchor"><span class="anchor-link"></span></a>Usage Scenarios</h3>
 <ol>
   <li>Create token by logging-in, send token on each subsequent request, and logout when finished.</li>
@@ -328,13 +332,13 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>In the first iteration, the email/password would be sent in clear text. Since we will use HTTPS this shouldn&rsquo;t be a problem. The second iteration, could encrypt the email/password.</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/05-internals/design/authentication.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/design/authentication.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-v2.1.0
+3.0.0-0-d71e52b7-20181130-1525
 </span>
 </div>
 </article>

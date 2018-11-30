@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="description" content="docs">
-<meta name="generator" content="Paradox, paradox-material-theme=v2.1.0, mkdocs-material=2.2.2">
+<meta name="generator" content="Paradox, paradox-material-theme=0.4.0, mkdocs-material=2.2.2">
 
 <meta name="lang:clipboard.copy" content="Copy to clipboard">
 <meta name="lang:clipboard.copied" content="Copied to clipboard">
@@ -179,6 +179,9 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
+    <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
@@ -201,7 +204,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> v2.1.0
+<i class="md-icon">label_outline</i> 3.0.0-0-d71e52b7-20181130-1525
 </div>
 </nav>
 
@@ -355,6 +358,7 @@ PREFIX incunabula: &lt;http://0.0.0.0:3333/ontology/0803/simple/v2#&gt;
   <li><code>UNION</code>: cannot be nested in a <code>UNION</code>.</li>
   <li><code>FILTER</code>: may contain a complex expression using the Boolean operators AND and OR, as well as comparison operators. The left argument of a comparison operator must be a query variable. A Knora ontology entity IRI used in a <code>FILTER</code> must be a property IRI.</li>
   <li><code>FILTER NOT EXISTS</code></li>
+  <li><code>MINUS</code></li>
   <li><code>OFFSET</code>: the <code>OFFSET</code> is needed for paging. It does not actually refer to the number of triples to be returned, but to the requested page of results. The default value is 0, which refers to the first page of results. The number of results per page is defined in <code>app/v2</code> in <code>application.conf</code>.</li>
   <li><code>ORDER BY</code>: In SPARQL, the result of a <code>CONSTRUCT</code> query is an unordered set of triples. However, a Gravsearch query returns an ordered list of resources, which can be ordered by the values of specified properties. If the query is written in the complex schema, items below the level of Knora values may not be used in <code>ORDER BY</code>.</li>
   <li><code>BIND</code>: The value assigned must be a Knora resource IRI.</li>
@@ -829,13 +833,13 @@ CONSTRUCT {
 </code></pre>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/03-apis/api-v2/query-language.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-v2/query-language.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-v2.1.0
+3.0.0-0-d71e52b7-20181130-1525
 </span>
 </div>
 </article>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="description" content="docs">
-<meta name="generator" content="Paradox, paradox-material-theme=v2.1.0, mkdocs-material=2.2.2">
+<meta name="generator" content="Paradox, paradox-material-theme=0.4.0, mkdocs-material=2.2.2">
 
 <meta name="lang:clipboard.copy" content="Copy to clipboard">
 <meta name="lang:clipboard.copied" content="Copied to clipboard">
@@ -179,6 +179,9 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
+    <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
@@ -187,6 +190,7 @@ dhlab-basel/Knora/docs
   <li><a href="../../03-apis/api-v2/editing-values.html#editing-values" class="header">Editing Values</a>
   <ul>
     <li><a href="../../03-apis/api-v2/editing-values.html#creating-a-value" class="header">Creating a Value</a></li>
+    <li><a href="../../03-apis/api-v2/editing-values.html#creating-file-values" class="header">Creating File Values</a></li>
     <li><a href="../../03-apis/api-v2/editing-values.html#updating-a-value" class="header">Updating a Value</a></li>
     <li><a href="../../03-apis/api-v2/editing-values.html#deleting-a-value" class="header">Deleting a Value</a></li>
   </ul></li>
@@ -194,7 +198,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> v2.1.0
+<i class="md-icon">label_outline</i> 3.0.0-0-d71e52b7-20181130-1525
 </div>
 </nav>
 
@@ -210,6 +214,7 @@ dhlab-basel/Knora/docs
   <li><a href="../../03-apis/api-v2/editing-values.html#editing-values" class="header">Editing Values</a>
   <ul>
     <li><a href="../../03-apis/api-v2/editing-values.html#creating-a-value" class="header">Creating a Value</a></li>
+    <li><a href="../../03-apis/api-v2/editing-values.html#creating-file-values" class="header">Creating File Values</a></li>
     <li><a href="../../03-apis/api-v2/editing-values.html#updating-a-value" class="header">Updating a Value</a></li>
     <li><a href="../../03-apis/api-v2/editing-values.html#deleting-a-value" class="header">Deleting a Value</a></li>
   </ul></li>
@@ -248,6 +253,11 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     <li><a href="../../03-apis/api-v2/editing-values.html#creating-a-link-between-resources" class="header">Creating a Link Between Resources</a></li>
     <li><a href="../../03-apis/api-v2/editing-values.html#creating-a-text-value-without-standoff-markup" class="header">Creating a Text Value Without Standoff Markup</a></li>
     <li><a href="../../03-apis/api-v2/editing-values.html#creating-a-text-value-with-standoff-markup" class="header">Creating a Text Value with Standoff Markup</a></li>
+  </ul></li>
+  <li><a href="../../03-apis/api-v2/editing-values.html#creating-file-values" class="header">Creating File Values</a>
+  <ul>
+    <li><a href="../../03-apis/api-v2/editing-values.html#upload-files-to-sipi" class="header">Upload Files to Sipi</a></li>
+    <li><a href="../../03-apis/api-v2/editing-values.html#submit-a-file-value-to-knora" class="header">Submit A File Value to Knora</a></li>
   </ul></li>
   <li><a href="../../03-apis/api-v2/editing-values.html#updating-a-value" class="header">Updating a Value</a></li>
   <li><a href="../../03-apis/api-v2/editing-values.html#deleting-a-value" class="header">Deleting a Value</a></li>
@@ -364,6 +374,50 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 }
 </code></pre>
 <p>Note that quotation marks and line breaks in the XML must be escaped, and that the IRI of the mapping must be provided.</p>
+<h2><a href="#creating-file-values" name="creating-file-values" class="anchor"><span class="anchor-link"></span></a>Creating File Values</h2>
+<p>Knora supports the storage of certain types of data as files, using <a href="https://github.com/dhlab-basel/Sipi">Sipi</a> (see <a href="../../02-knora-ontologies/knora-base.html#FileValue">FileValue</a>). Knora API v2 currently supports using Sipi to store image files. Support for other types of files will be added in the near future.</p>
+<p>The following sections describe the steps for creating a file value.</p>
+<h3><a href="#upload-files-to-sipi" name="upload-files-to-sipi" class="anchor"><span class="anchor-link"></span></a>Upload Files to Sipi</h3>
+<p>The first step is to upload one or more files to Sipi, using a <code>multipart/form-data</code> request, where <code>sipihost</code> represents the host and port on which Sipi is running:</p>
+<pre><code>HTTP POST to http://sipihost/upload?token=TOKEN
+</code></pre>
+<p>The <code>token</code> parameter must provide the <a href="https://jwt.io/">JSON Web Token</a> that Knora returned when the client logged in. Each body part in the request must contain a parameter <code>filename</code>, providing the file&rsquo;s original filename, which both Knora and Sipi will store; these filenames can be descriptive and need not be unique.</p>
+<p>Sipi will then convert the uploaded image files to JPEG 2000 format and store them in a temporary location. If this is successful, it will return a JSON response that looks something like this:</p>
+<pre class="prettyprint"><code class="language-json">{
+  &quot;uploadedFiles&quot;: [{
+    &quot;originalFilename&quot;: &quot;manuscript-1234-page-1.tiff&quot;,
+    &quot;internalFilename&quot;: &quot;3UIsXH9bP0j-BV0D4sN51Xz.jp2&quot;,
+    &quot;temporaryBaseIIIFUrl&quot;: &quot;http://sipihost/tmp/3UIsXH9bP0j-BV0D4sN51Xz.jp2&quot;
+  }, {
+    &quot;originalFilename&quot;: &quot;manuscript-1234-page-2.tiff&quot;,
+    &quot;internalFilename&quot;: &quot;2RvJgguglpe-B45EOk0Gx8H.jp2&quot;,
+    &quot;temporaryBaseIIIFUrl&quot;: &quot;http://sipihost/tmp/2RvJgguglpe-B45EOk0Gx8H.jp2&quot;
+  }]
+}
+</code></pre>
+<p>In this example, we uploaded two files to Sipi, so <code>uploadedFiles</code> is an array with two elements. For each file, we have:</p>
+<ul>
+  <li>the <code>originalFilename</code>, which we submitted when uploading the file</li>
+  <li>the unique <code>internalFilename</code> that Sipi has randomly generated for the file</li>
+  <li>the <code>temporaryBaseIIIFUrl</code>, which we can use to construct a IIIF URL for  previewing the file</li>
+</ul>
+<p>The client may now wish to get a thumbnail of each uploaded image, to allow the user to confirm that the correct files have been uploaded. This can be done by adding IIIF parameters to <code>temporaryBaseIIIFUrl</code>. For example, to get a JPG thumbnail image that is 150 pixels wide, you would add <code>/full/150,/0/default.jpg</code>.</p>
+<h3><a href="#submit-a-file-value-to-knora" name="submit-a-file-value-to-knora" class="anchor"><span class="anchor-link"></span></a>Submit A File Value to Knora</h3>
+<p>After uploading a file to Sipi, you can submit a request to Knora to create a file value. The request submitted to Knora takes the same form as any other request to create a value. Instead of providing the file&rsquo;s complete metadata, you just provide the unique internal filename generated by Sipi. For example:</p>
+<pre class="prettyprint"><code class="language-jsonld">{
+  &quot;@id&quot; : &quot;http://rdfh.ch/0001/a-thing-picture&quot;,
+  &quot;@type&quot; : &quot;anything:ThingPicture&quot;,
+  &quot;knora-api:hasStillImageFileValue&quot; : {
+    &quot;@type&quot; : &quot;knora-api:StillImageFileValue&quot;,
+    &quot;knora-api:fileValueHasFilename&quot; : &quot;3UIsXH9bP0j-BV0D4sN51Xz.jp2&quot;
+  },
+  &quot;@context&quot; : {
+    &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
+    &quot;anything&quot; : &quot;http://0.0.0.0:3333/ontology/0001/anything/v2#&quot;
+  }
+}
+</code></pre>
+<p>Knora then gets the rest of the file&rsquo;s metadata from Sipi. If the client&rsquo;s request to Knora is valid, Knora saves the file value in the triplestore and instructs Sipi to move the file to permanent storage. Otherwise, the temporary file that was stored by Sipi is deleted.</p>
 <h2><a href="#updating-a-value" name="updating-a-value" class="anchor"><span class="anchor-link"></span></a>Updating a Value</h2>
 <p>To update a value, use this route:</p>
 <pre><code>HTTP PUT to http://host/v2/values
@@ -397,13 +451,13 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>The optional URL parameter <code>deleteComment</code> specifies a comment to be attached to the value, explaining why it has been marked as deleted. The comment must also be URL-encoded.</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/03-apis/api-v2/editing-values.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-v2/editing-values.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-v2.1.0
+3.0.0-0-d71e52b7-20181130-1525
 </span>
 </div>
 </article>

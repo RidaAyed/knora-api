@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="description" content="docs">
-<meta name="generator" content="Paradox, paradox-material-theme=v2.1.0, mkdocs-material=2.2.2">
+<meta name="generator" content="Paradox, paradox-material-theme=0.4.0, mkdocs-material=2.2.2">
 
 <meta name="lang:clipboard.copy" content="Copy to clipboard">
 <meta name="lang:clipboard.copied" content="Copied to clipboard">
@@ -179,6 +179,9 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
+    <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
@@ -186,18 +189,15 @@ dhlab-basel/Knora/docs
 <ul>
   <li><a href="../../05-internals/development/build-process.html#build-process" class="header">Build Process</a>
   <ul>
-    <li><a href="../../05-internals/development/build-process.html#building-and-running" class="header">Building and Running</a></li>
-    <li><a href="../../05-internals/development/build-process.html#running-the-automated-tests" class="header">Running the automated tests</a></li>
-    <li><a href="../../05-internals/development/build-process.html#load-testing-on-mac-os-x" class="header">Load Testing on Mac OS X</a></li>
-    <li><a href="../../05-internals/development/build-process.html#continuous-integration" class="header">Continuous Integration</a></li>
     <li><a href="../../05-internals/development/build-process.html#sbt-build-configuration" class="header">SBT Build Configuration</a></li>
-    <li><a href="../../05-internals/development/build-process.html#webapi-server-startup-flags" class="header">Webapi Server Startup-Flags</a></li>
+    <li><a href="../../05-internals/development/build-process.html#building-deployment-packages" class="header">Building Deployment Packages</a></li>
+    <li><a href="../../05-internals/development/build-process.html#building-docker-images" class="header">Building Docker Images</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> v2.1.0
+<i class="md-icon">label_outline</i> 3.0.0-0-d71e52b7-20181130-1525
 </div>
 </nav>
 
@@ -212,12 +212,9 @@ dhlab-basel/Knora/docs
 <ul>
   <li><a href="../../05-internals/development/build-process.html#build-process" class="header">Build Process</a>
   <ul>
-    <li><a href="../../05-internals/development/build-process.html#building-and-running" class="header">Building and Running</a></li>
-    <li><a href="../../05-internals/development/build-process.html#running-the-automated-tests" class="header">Running the automated tests</a></li>
-    <li><a href="../../05-internals/development/build-process.html#load-testing-on-mac-os-x" class="header">Load Testing on Mac OS X</a></li>
-    <li><a href="../../05-internals/development/build-process.html#continuous-integration" class="header">Continuous Integration</a></li>
     <li><a href="../../05-internals/development/build-process.html#sbt-build-configuration" class="header">SBT Build Configuration</a></li>
-    <li><a href="../../05-internals/development/build-process.html#webapi-server-startup-flags" class="header">Webapi Server Startup-Flags</a></li>
+    <li><a href="../../05-internals/development/build-process.html#building-deployment-packages" class="header">Building Deployment Packages</a></li>
+    <li><a href="../../05-internals/development/build-process.html#building-docker-images" class="header">Building Docker Images</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -249,253 +246,282 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h1><a href="#build-process" name="build-process" class="anchor"><span class="anchor-link"></span></a>Build Process</h1>
 <div class="toc ">
 <ul>
-  <li><a href="../../05-internals/development/build-process.html#building-and-running" class="header">Building and Running</a>
-  <ul>
-    <li><a href="../../05-internals/development/build-process.html#starting-a-triplestore" class="header">Starting a Triplestore</a></li>
-  </ul></li>
-  <li><a href="../../05-internals/development/build-process.html#running-the-automated-tests" class="header">Running the automated tests</a></li>
-  <li><a href="../../05-internals/development/build-process.html#load-testing-on-mac-os-x" class="header">Load Testing on Mac OS X</a></li>
-  <li><a href="../../05-internals/development/build-process.html#continuous-integration" class="header">Continuous Integration</a></li>
   <li><a href="../../05-internals/development/build-process.html#sbt-build-configuration" class="header">SBT Build Configuration</a></li>
-  <li><a href="../../05-internals/development/build-process.html#webapi-server-startup-flags" class="header">Webapi Server Startup-Flags</a>
-  <ul>
-    <li><a href="../../05-internals/development/build-process.html#loaddemodata-flag" class="header"><code>loadDemoData</code> - Flag</a></li>
-    <li><a href="../../05-internals/development/build-process.html#allowreloadoverhttp-flag" class="header"><code>allowReloadOverHTTP</code> - Flag</a></li>
-  </ul></li>
+  <li><a href="../../05-internals/development/build-process.html#building-deployment-packages" class="header">Building Deployment Packages</a></li>
+  <li><a href="../../05-internals/development/build-process.html#building-docker-images" class="header">Building Docker Images</a></li>
 </ul>
 </div>
-<p>TODO: complete this file.</p>
-<ul>
-  <li>SBT</li>
-  <li>Using GraphDB for development and how to initialize the &lsquo;knora-test-unit&rsquo; repository</li>
-  <li>Using Fuseki for development</li>
-</ul>
-<h2><a href="#building-and-running" name="building-and-running" class="anchor"><span class="anchor-link"></span></a>Building and Running</h2>
-<h3><a href="#starting-a-triplestore" name="starting-a-triplestore" class="anchor"><span class="anchor-link"></span></a>Starting a Triplestore</h3>
-<p>Start a triplestore (GraphDB-Free or GraphDB-SE). Download distribution from <a href="http://ontotext.com">Ontotext</a>. Unzip distribution  to a place of your choosing and run the following:</p>
-<pre><code>$ cd /to/unziped/location
-$ ./bin/graphdb -Dgraphdb.license.file=/path/to/GRAPHDB_SE.license
-</code></pre>
-<p>Here we use GraphDB-SE which needs to be licensed separately.</p>
-<p>Then in another terminal, initialize the data repository and load some test data:</p>
-<pre><code>$ cd KNORA_PROJECT_DIRECTORY/webapi/scripts
-$ ./graphdb-se-local-init-knora-test.sh
-</code></pre>
-<p>Then go back to the webapi root directory and use SBT to start the API server:</p>
-<pre><code>$ cd KNORA_PROJECT_DIRECTORY/webapi
-$ sbt
-&gt; compile
-&gt; reStart
-</code></pre>
-<p>To shut down Knora:</p>
-<pre><code>&gt; re-stop
-</code></pre>
-<h2><a href="#running-the-automated-tests" name="running-the-automated-tests" class="anchor"><span class="anchor-link"></span></a>Running the automated tests</h2>
-<p>Make sure you&rsquo;ve started the triplestore as shown above.</p>
-<p>Then in another terminal, initialise the repository used for automated testing:</p>
-<pre><code>$ cd KNORA_PROJECT_DIRECTORY/webapi/scripts
-$ ./graphdb-se-local-init-knora-test-unit.sh
-</code></pre>
-<p>Run the automated tests from sbt:</p>
-<pre><code>&gt; graphdb:test
-</code></pre>
-<h2><a href="#load-testing-on-mac-os-x" name="load-testing-on-mac-os-x" class="anchor"><span class="anchor-link"></span></a>Load Testing on Mac OS X</h2>
-<p>To test Knora with many concurrent connections on Mac OS X, you will need to adjust some kernel parameters to allow more open connections, to recycle ephemeral ports more quickly, and to use a wider range of ephemeral port numbers. The script <code>webapi/scripts/macOS-kernel-test-config.sh</code> will do this.</p>
-<h2><a href="#continuous-integration" name="continuous-integration" class="anchor"><span class="anchor-link"></span></a>Continuous Integration</h2>
-<p>For continuous integration testing, we use Travis-CI. Every commit pushed to the git repository or every pull request, triggers the build. Additionaly, in Github there is a litle checkmark beside every commit, signaling the status of the build (successful, unsucessful, ongoing).</p>
-<p>The build that is executed on Travis-CI is defined in <code>.travis.yml</code> situated in the root folder of the project, and looks like this:</p>
-<pre class="prettyprint"><code class="language-yml">dist: trusty
-sudo: required
-
-addons:
-  chrome: stable
-
-git:
-  depth: 1
-
-language: scala
-
-scala:
-  - 2.12.1
-
-jdk:
-  - openjdk10
-
-services:
-  - docker
-
-env:
-  global:
-    - WEBAPI_REPO=dhlabbasel/webapi
-    - SALSAH1_REPO=dhlabbasel/salsah1
-    - SALSAH2_REPO=dhlabbasel/salsah2
-    - SIPI_REPO=dhlabbasel/sipi
-    - DOCKERHOST=$(ip route get 8.8.8.8 | awk &#39;{print $NF; exit}&#39;)
-    - CHROME_BIN=google-chrome-stable
-    - GDB_HEAP_SIZE=&quot;2G&quot;
-    - TAG=${TRAVIS_BRANCH//\//-}
-    - GRAPHDB_VERSION=&quot;8.5.0-se&quot;
-
-before_cache:
-    - sudo chown -R travis:travis $HOME/.ivy2
-
-cache:
-  directories:
-    - $HOME/.ivy2
-
-before_install:
-  - openssl aes-256-cbc -K $encrypted_6254b38dc8d5_key -iv $encrypted_6254b38dc8d5_iv -in $TRAVIS_BUILD_DIR/private/graphdb.license.enc -out $TRAVIS_BUILD_DIR/private/graphdb.license -d
-  - sudo apt-get -qq update
-  - sudo apt-get install -y expect
-
-stages:
-  - compile and stage
-  - test
-  - name: publish # generally, only publish if we are on &#39;develop&#39; or tagged
-    if: branch = develop OR tag IS present
-
-jobs:
-  include:
-    # test sbt compile and stage
-    - stage: compile and stage
-      script:
-        - rm -rf $HOME/.sbt
-        - rm -rf $HOME/.ivy2
-        - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt compile stage
-        # only uncomment if docker image is needed for this branch. remove before merging into develop
-        # - docker login -u $DOCKER_USER -p $DOCKER_PASS
-        # - docker build $TRAVIS_BUILD_DIR/webapi/ -t $WEBAPI_REPO:$TAG
-        # - docker push $WEBAPI_REPO
-    # unit and e2e tests
-    - stage: test
-      script:
-        # prepare needed graphdb-se files
-        - mkdir -p $TRAVIS_BUILD_DIR/graphdb
-        - cp $TRAVIS_BUILD_DIR/private/graphdb.license $TRAVIS_BUILD_DIR/graphdb/graphdb.license
-        - cp $TRAVIS_BUILD_DIR/webapi/scripts/KnoraRules.pie $TRAVIS_BUILD_DIR/graphdb
-        # start and initialize graphdb-se
-        - docker run -d -p 127.0.0.1:7200:7200 -v $TRAVIS_BUILD_DIR/graphdb:/graphdb -e GDB_HEAP_SIZE=$GDB_HEAP_SIZE ontotext/graphdb:$GRAPHDB_VERSION -Dgraphdb.license.file=/graphdb/graphdb.license
-        - sleep 15
-        - cd $TRAVIS_BUILD_DIR/webapi/scripts &amp;&amp; ./graphdb-se-docker-init-knora-test-unit.sh
-        # hit graphdb with a request &quot;waking-it-up&quot;
-        - curl http://localhost:7200/rest/repositories
-        # start the built-in webapi server tests
-        - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt clean coverage test coverageReport
-        # upload code coverage report
-        # - sbt codacyCoverage
-    # integration tests
-    - stage: test
-      script:
-        # prepare needed graphdb-se files
-        - mkdir -p $TRAVIS_BUILD_DIR/graphdb
-        - cp $TRAVIS_BUILD_DIR/private/graphdb.license $TRAVIS_BUILD_DIR/graphdb/graphdb.license
-        - cp $TRAVIS_BUILD_DIR/webapi/scripts/KnoraRules.pie $TRAVIS_BUILD_DIR/graphdb
-        # start and initialize graphdb-se
-        - docker run -d -p 127.0.0.1:7200:7200 -v $TRAVIS_BUILD_DIR/graphdb:/graphdb -e GDB_HEAP_SIZE=$GDB_HEAP_SIZE ontotext/graphdb:$GRAPHDB_VERSION -Dgraphdb.license.file=/graphdb/graphdb.license
-        - sleep 15
-        - cd $TRAVIS_BUILD_DIR/webapi/scripts &amp;&amp; ./graphdb-se-docker-init-knora-test-unit.sh
-        # start the sipi container (with production config)
-        - cd $TRAVIS_BUILD_DIR/sipi/ &amp;&amp; docker-compose up -d sipi
-        # start the integration tests
-        - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt clean coverage it:test coverageReport
-        # upload code coverage report
-        # - sbt codacyCoverage
-    # testing docs generation
-    - stage: test
-      script:
-        # install the necessary packages
-        - sudo apt-get install -y graphviz software-properties-common
-        - sudo apt-add-repository -y ppa:rael-gc/rvm
-        - sudo apt-get update
-        - sudo apt-get --allow-unauthenticated install rvm
-        - rvm reload
-        - rvm install ruby 2.5.1
-        - rvm use 2.5.1 --default
-        - ruby -v
-        # install bundler
-        - gem install bundler
-        # install jekyll
-        # - gem install jekyll -v 3.8.1
-        # install typedoc
-        - npm install --global typedoc
-        # install jekyll dependencies
-        - cd $TRAVIS_BUILD_DIR/docs/src/jekyll &amp;&amp; bundle install
-        # compile and build all docs (paradox, typescript, jekyll)
-        - cd $TRAVIS_BUILD_DIR/docs &amp;&amp; sbt makeSite
-    # Salsah browser tests
-    #- stage: test
-    #  script:
-    #    # prepare needed graphdb-se files
-    #    - mkdir -p $TRAVIS_BUILD_DIR/data/conf
-    #    - cp $TRAVIS_BUILD_DIR/private/graphdb.license $TRAVIS_BUILD_DIR/data/conf/graphdb.license
-    #    - mkdir -p $TRAVIS_BUILD_DIR/graphdb
-    #    - cp $TRAVIS_BUILD_DIR/webapi/scripts/KnoraRules.pie $TRAVIS_BUILD_DIR/graphdb
-    #    # start and initialize graphdb-se
-    #    - docker run -d -p 127.0.0.1:7200:7200 -v $TRAVIS_BUILD_DIR/data:/opt/graphdb/home -v $TRAVIS_BUILD_DIR/graphdb:/graphdb -e GDB_HEAP_SIZE=$GDB_HEAP_SIZE ontotext/graphdb:$GRAPHDB_VERSION
-    #    - sleep 15
-    #    - cd $TRAVIS_BUILD_DIR/webapi/scripts &amp;&amp; ./graphdb-se-docker-init-knora-test.sh
-    #    # start the sipi container (with test config)
-    #    - docker run -d --add-host webapihost:$DOCKERHOST -v /tmp:/tmp -v $HOME:$HOME -p 1024:1024 $SIPI_REPO:develop /sipi/local/bin/sipi --config=/sipi/config/sipi.knora-test-docker-config.lua
-    #    # start the webapi and salsah1 server
-    #    - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt &quot;run allowReloadOverHTTP&quot; &amp;
-    #    - cd $TRAVIS_BUILD_DIR/salsah1/ &amp;&amp; sbt run &amp;
-    #    # wait for the webapi server to start before we proceed with running the salsah tests
-    #    - until netstat -an 2&gt;/dev/null | grep &#39;3333.*LISTEN&#39;; do true; done
-    #    # unzip chromedriver
-    #    - cd $TRAVIS_BUILD_DIR/salsah1/lib/chromedriver/ &amp;&amp; unzip chromedriver_linux64.zip
-    #    # start built-in salsah1 browser tests
-    #    - cd $TRAVIS_BUILD_DIR/salsah1/ &amp;&amp; sbt headless:test
-    # testing docker images
-    - stage: test
-      script:
-        - docker build $TRAVIS_BUILD_DIR/webapi/
-        - docker build $TRAVIS_BUILD_DIR/salsah1/
-    - stage: publish
-      script:
-        # login into docker hub, build image, and push but only when on the &quot;develop&quot; branch or tagged
-        # when on &#39;develop&#39; then $TRAVIS_BRANCH = develop
-        # when on &#39;tag&#39; then $TRAVIS_BRANCH = tag, e.g., v1.2.0
-        - docker login -u $DOCKER_USER -p $DOCKER_PASS
-        # webapi
-        - docker build $TRAVIS_BUILD_DIR/webapi/ -t $WEBAPI_REPO:$TRAVIS_BRANCH
-        - docker tag $WEBAPI_REPO:$TRAVIS_BRANCH $WEBAPI_REPO:latest
-        - docker push $WEBAPI_REPO
-        # salsah1
-        - docker build $TRAVIS_BUILD_DIR/salsah1/ -t $SALSAH1_REPO:$TRAVIS_BRANCH
-        - docker tag $SALSAH1_REPO:$TRAVIS_BRANCH $SALSAH1_REPO:latest
-        - docker push $SALSAH1_REPO
-        # sipi: get the develop sipi and tag it as &#39;develop-knora&#39; so we know that this version is tested (only on the develop branch)
-        - docker pull $SIPI_REPO:develop
-        - docker tag $SIPI_REPO:develop $SIPI_REPO:knora-$TRAVIS_BRANCH
-        - docker push $SIPI_REPO
-notifications:
-  slack:
-    secure: gaazomUbAB4q7bH2XOiZXqHvU2gd/X/jIRLAJW9vjcRbY6o48eiEdNXF2umraHG0q+5UUEJ5dfvxiPtC4PiUq8uD6J+R0fEWrWznYoIeEWEXjKxRxWplrWJ9Ke+PJb3wCV6cXBGMfxDpvYQbVjsy7n0aQmjNs4Drz+llqL5SilTdswTylwvUdufad0QaovXklL+p0w9vRHRKzQkYKa9phL10VcJa8TPI74tuFcTHnK6TcMNW6p0vzAaF6JVgzoRPzUgXnEPCw4pI8zqOF1ghPpQByNXKiYofPWt1yTFgb60LQarDEiHXunXAA/sf2gx616pWLVjDFGziXVzhiGUDUjM5I1p7hPyA2rTB63AAZustFcGeD+jbHNHIFhcvvCHVHjJfp8M7LrUR+MBqz5mJNi/9KgxyZ8I9Df28TxmKxGFaGW8t4PZdA75/49Hos0TqtIp5m+eo8mTksUJogEJJokRZUKraMBhC0cNCry0kp+EQ06F4usLoDyZTUar4OSuNSiymf+zwz6jZo8dF/cluRYellwewE9NJiNWGN4DiBhk2vGJ7OtWMDPkl1tqkG8npoqbT4s38esjxfa/XcworGfeqE+9mzugVzkIKIX2lB6QxZp0AKQVOiy7JwwdtcjVMLvceiNPEWfe8fhLMX02oqYz2uoibRmHMxKPa5CpmUIg=</code></pre>
-<p>It basically means:</p>
-<ul>
-  <li>use the virtual machine based environment (line 1)</li>
-  <li>checkout git with a shorter history (lines 2-3)</li>
-  <li>add scala libraries (lines 4-6)</li>
-  <li>add oracle jdk version 8 (lines 7-8)</li>
-  <li>cache some directories between builds to make it faster (line  9-11)</li>
-  <li>start fuseki and afterwards start all tests (lines 12-14)</li>
-  <li>send notification to our slack channel (lines 15-17)</li>
-</ul>
 <h2><a href="#sbt-build-configuration" name="sbt-build-configuration" class="anchor"><span class="anchor-link"></span></a>SBT Build Configuration</h2>
-<pre class="prettyprint"><code class="language-sbt">import sbt._
-import NativePackagerHelper._
-import sbt.io.IO
-import sbtassembly.MergeStrategy
-import sbtassembly.MergeStrategy._
+<p>Knora&rsquo;s complete build definition is defined in <code>KnoraBuild.sbt</code>:</p>
+<pre class="prettyprint"><code class="language-sbt"><br/>import com.typesafe.sbt.SbtNativePackager.autoImport.NativePackagerHelper._
+import com.typesafe.sbt.packager.docker.DockerPlugin.autoImport.{Docker, dockerRepository}
+import com.typesafe.sbt.packager.docker.{Cmd, ExecCmd}
+import org.knora.Dependencies
+
+//////////////////////////////////////
+// GLOBAL SETTINGS
+//////////////////////////////////////
+
+lazy val aggregatedProjects: Seq[ProjectReference] = Seq(docs, salsah1, webapi)
+
+lazy val buildSettings = Dependencies.Versions ++ Seq(
+    organization := &quot;org.knora&quot;,
+    version := (ThisBuild / version).value
+)
+
+lazy val root = Project(id = &quot;knora&quot;, file(&quot;.&quot;))
+        .aggregate(aggregatedProjects: _*)
+        .enablePlugins(DockerComposePlugin)
+        .settings(Dependencies.Versions)
+        .settings(
+            // values set for all sub-projects
+            // These are normal sbt settings to configure for release, skip if already defined
+
+            ThisBuild / licenses := Seq(&quot;AGPL-3.0&quot; -&gt; url(&quot;https://opensource.org/licenses/AGPL-3.0&quot;)),
+            ThisBuild / homepage := Some(url(&quot;https://github.com/dhlab-basel/Knora&quot;)),
+            ThisBuild / scmInfo := Some(ScmInfo(url(&quot;https://github.com/dhlab-basel/Knora&quot;), &quot;scm:git:git@github.com:dhlab-basel/Knora.git&quot;)),
+
+            // override dynver generated version string because docker hub rejects &#39;+&#39; in tags
+            ThisBuild / version ~= (_.replace(&#39;+&#39;, &#39;-&#39;)),
+            ThisBuild / dynver ~= (_.replace(&#39;+&#39;, &#39;-&#39;)),
+
+            Global / cancelable := true, // use Ctrl-c to stop current task and not quit SBT
+
+            publish / skip := true,
+
+            Dependencies.sysProps := sys.props.toString(),
+            Dependencies.sysEnvs := sys.env.toString(),
+
+            ThisBuild / Dependencies.gdbHomePath := sys.env.getOrElse(&quot;KNORA_GDB_HOME&quot;, sys.props(&quot;user.dir&quot;) + &quot;/triplestores/graphdb/home&quot;),
+            ThisBuild / Dependencies.gdbLicensePath := sys.env.getOrElse(&quot;KNORA_GDB_LICENSE&quot;, sys.props(&quot;user.dir&quot;) + &quot;/triplestores/graphdb/graphdb.license&quot;),
+
+            variablesForSubstitution := Map(
+                &quot;KNORA_GDB_HOME&quot; -&gt; Dependencies.gdbHomePath.value,
+                &quot;KNORA_GDB_LICENSE &quot; -&gt; Dependencies.gdbLicensePath.value,
+                &quot;KNORA_GDB_IMAGE&quot; -&gt; Dependencies.gdbImage.value,
+                &quot;SIPI_VERSION_TAG&quot; -&gt; Dependencies.sipiVersion.value,
+                &quot;KNORA_VERSION_TAG&quot; -&gt; version.value
+            ),
+
+            dockerImageCreationTask := Seq(
+                (salsah1 / Docker / publishLocal).value,
+                (webapi / Docker / publishLocal).value
+            )
+        )
+
+
+//////////////////////////////////////
+// DOCS (./docs)
+//////////////////////////////////////
+
+import scala.sys.process._
+
+// Define `Configuration` instances representing our different documentation trees
+lazy val ParadoxSite = config(&quot;paradox&quot;)
+
+lazy val docs = knoraModule(&quot;docs&quot;)
+        .enablePlugins(JekyllPlugin, ParadoxPlugin, ParadoxSitePlugin, ParadoxMaterialThemePlugin, GhpagesPlugin)
+        .configs(
+            ParadoxSite
+        )
+        .settings(
+            // Apply default settings to our two custom configuration instances
+            ParadoxSitePlugin.paradoxSettings(ParadoxSite),
+            ParadoxMaterialThemePlugin.paradoxMaterialThemeGlobalSettings, // paradoxTheme and version
+            ParadoxMaterialThemePlugin.paradoxMaterialThemeSettings(ParadoxSite)
+        )
+        .settings(
+
+            // Ghpages settings
+            ghpagesNoJekyll := true,
+            git.remoteRepo := &quot;git@github.com:dhlab-basel/Knora.git&quot;,
+            excludeFilter in ghpagesCleanSite :=
+                    new FileFilter {
+                        def accept(f: File) = (ghpagesRepository.value / &quot;CNAME&quot;).getCanonicalPath == f.getCanonicalPath
+                    } || &quot;LICENSE.md&quot; || &quot;README.md&quot;,
+
+            // (sbt-site) Customize the source directory
+            // sourceDirectory in Jekyll := sourceDirectory.value / &quot;overview&quot;,
+            sourceDirectory in ParadoxSite := sourceDirectory.value / &quot;paradox&quot;,
+
+            // (sbt-site) Customize the output directory (subdirectory of site)
+            siteSubdirName in ParadoxSite := &quot;paradox&quot;,
+
+            // Set some paradox properties
+            paradoxProperties in ParadoxSite ++= Map(
+                &quot;project.name&quot; -&gt; &quot;Knora Documentation&quot;,
+                &quot;github.base_url&quot; -&gt; &quot;https://github.com/dhlab-basel/Knora&quot;,
+                &quot;image.base_url&quot; -&gt; &quot;.../assets/images&quot;,
+                &quot;extref.rfc.base_url&quot; -&gt; &quot;http://tools.ietf.org/html/rfc%s&quot;
+            ),
+
+            // Paradox Material Theme Settings
+            paradoxMaterialTheme in ParadoxSite ~= {
+                _.withColor(&quot;blue&quot;, &quot;yellow&quot;)
+                        .withRepository(uri(&quot;https://github.com/dhlab-basel/Knora/docs&quot;))
+                        .withFavicon(&quot;cloud&quot;)
+                        .withLogoIcon(&quot;cloud&quot;)
+                        .withSocial(
+                            uri(&quot;https://github.com/dhlab-basel&quot;),
+                            uri(&quot;https://twitter.com/dhlabbasel&quot;)
+                        )
+                        .withLanguage(java.util.Locale.ENGLISH)
+                        .withCopyright(&quot;Copyright 2015-2018 the contributors (see Contributors.md)&quot;)
+            },
+            mappings in makeSite ++= Seq(
+                file(&quot;docs/src/api-admin/index.html&quot;) -&gt; &quot;api-admin/index.html&quot;,
+                file(&quot;docs/src/api-admin/swagger.json&quot;) -&gt; &quot;api-admin/swagger.json&quot;
+            ),
+            makeSite := makeSite.dependsOn(buildPrequisites).value
+        )
+
+lazy val buildPrequisites = taskKey[Unit](&quot;Build typescript API documentation and Graphviz diagrams.&quot;)
+
+docs / buildPrequisites := {
+    val s: TaskStreams = streams.value
+
+    val execDir: Option[File] = if (sys.props(&quot;user.dir&quot;).endsWith(&quot;docs&quot;)) {
+        // running from docs directory, which is fine
+        None
+    } else {
+        // running from project root directory
+        Some(new File(sys.props(&quot;user.dir&quot;) + &quot;/docs&quot;))
+    }
+
+    val shell: Seq[String] = if (sys.props(&quot;os.name&quot;).contains(&quot;Windows&quot;)) Seq(&quot;cmd&quot;, &quot;/c&quot;) else Seq(&quot;bash&quot;, &quot;-c&quot;)
+    val clean: Seq[String] = shell :+ &quot;make clean&quot;
+    val jsonformat: Seq[String] = shell :+ &quot;make jsonformat&quot;
+    val graphvizfigures: Seq[String] = shell :+ &quot;make graphvizfigures&quot;
+    val jsonformattest: Seq[String] = shell :+ &quot;make jsonformattest&quot;
+
+    s.log.info(&quot;building typescript documentation and graphviz diagrams...&quot;)
+
+    if ((Process(clean, execDir) #&amp;&amp; Process(jsonformattest, execDir) #&amp;&amp; Process(jsonformat, execDir) #&amp;&amp; Process(graphvizfigures, execDir) !) == 0) {
+        Thread.sleep(500)
+        s.log.success(&quot;typescript documentation and graphviz diagrams built successfully&quot;)
+    } else {
+        throw new IllegalStateException(&quot;typescript documentation and graphviz diagrams failed to build&quot;)
+    }
+}
+
+
+//////////////////////////////////////
+// SALSAH1 (./salsah1)
+//////////////////////////////////////
+
+lazy val salsahCommonSettings = Seq(
+    name := &quot;salsah1&quot;
+)
+
+lazy val salsah1 = knoraModule(&quot;salsah1&quot;)
+        .enablePlugins(JavaAppPackaging, DockerPlugin, DockerComposePlugin)
+        .configs(
+            HeadlessTest
+        )
+        .settings(
+            salsahCommonSettings,
+            Revolver.settings
+        )
+        .settings(inConfig(HeadlessTest)(
+            Defaults.testTasks ++ Seq(
+                fork := true,
+                javaOptions ++= javaHeadlessTestOptions,
+                testOptions += Tests.Argument(&quot;-oDF&quot;) // show full stack traces and test case durations
+            )
+        ): _*)
+        .settings(
+            Dependencies.salsahLibraryDependencies,
+            logLevel := Level.Info,
+            fork in run := true,
+            javaOptions in run ++= javaRunOptions,
+            mainClass in(Compile, run) := Some(&quot;org.knora.salsah.Main&quot;),
+            fork in Test := true,
+            javaOptions in Test ++= javaTestOptions,
+            parallelExecution in Test := false,
+            /* show full stack traces and test case durations */
+            testOptions in Test += Tests.Argument(&quot;-oDF&quot;)
+        )
+        .settings( // enable deployment staging with `sbt stage`
+            mappings in Universal ++= {
+                // copy the public folder
+                directory(&quot;salsah1/src/public&quot;) ++
+                // copy the configuration files to config directory
+                contentOf(&quot;salsah1/configs&quot;).toMap.mapValues(&quot;config/&quot; + _) ++
+                // copy configuration files to config directory
+                contentOf(&quot;salsah1/src/main/resources&quot;).toMap.mapValues(&quot;config/&quot; + _)
+            },
+            // add &#39;config&#39; directory first in the classpath of the start script,
+            scriptClasspath := Seq(&quot;../config/&quot;) ++ scriptClasspath.value,
+            // need this here, but why?
+            mainClass in Compile := Some(&quot;org.knora.salsah.Main&quot;),
+
+            // add dockerCommands used to create the image
+            // docker:stage, docker:publishLocal, docker:publish, docker:clean
+
+            dockerRepository := Some(&quot;dhlabbasel&quot;),
+
+            maintainer := &quot;ivan.subotic@unibas.ch&quot;,
+
+            Docker / dockerCommands := Seq(
+                Cmd(&quot;FROM&quot;, &quot;openjdk:10-jre-slim-sid&quot;),
+                Cmd(&quot;LABEL&quot;, s&quot;&quot;&quot;MAINTAINER=&quot;${maintainer.value}&quot;&quot;&quot;&quot;),
+
+                Cmd(&quot;ENV&quot;, &quot;&quot;&quot;LANG=&quot;en_US.UTF-8&quot;&quot;&quot;&quot;),
+                Cmd(&quot;ENV&quot;, &quot;&quot;&quot;JAVA_OPTS=&quot;-Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8&quot;&quot;&quot;&quot;),
+                Cmd(&quot;ENV&quot;, &quot;KNORA_SALSAH1_DEPLOYED=true&quot;),
+                Cmd(&quot;ENV&quot;, &quot;KNORA_SALSAH1_WORKDIR=/salsah&quot;),
+
+                Cmd(&quot;ADD&quot;, &quot;opt/docker&quot;, &quot;/salsah&quot;),
+                Cmd(&quot;WORKDIR&quot;, &quot;/salsah&quot;),
+
+                Cmd(&quot;EXPOSE&quot;, &quot;3335&quot;),
+
+                ExecCmd(&quot;ENTRYPOINT&quot;, &quot;bin/salsah1&quot;),
+            ),
+
+
+        )
+        .settings()
+
+lazy val javaRunOptions = Seq(
+    // &quot;-showversion&quot;,
+    &quot;-Xms256m&quot;,
+    &quot;-Xmx256m&quot;
+    // &quot;-verbose:gc&quot;,
+    //&quot;-XX:+UseG1GC&quot;,
+    //&quot;-XX:MaxGCPauseMillis=500&quot;
+)
+
+lazy val javaTestOptions = Seq(
+    // &quot;-showversion&quot;,
+    &quot;-Xms512m&quot;,
+    &quot;-Xmx512m&quot;
+    // &quot;-verbose:gc&quot;,
+    //&quot;-XX:+UseG1GC&quot;,
+    //&quot;-XX:MaxGCPauseMillis=500&quot;,
+    //&quot;-XX:MaxMetaspaceSize=4096m&quot;
+)
+
+
+lazy val HeadlessTest = config(&quot;headless&quot;) extend (Test)
+lazy val javaHeadlessTestOptions = Seq(
+    &quot;-Dconfig.resource=headless-testing.conf&quot;
+) ++ javaTestOptions
+
+
+
+//////////////////////////////////////
+// WEBAPI (./webapi)
+//////////////////////////////////////
+
+import com.typesafe.sbt.SbtNativePackager.autoImport.NativePackagerHelper._
+import sbt._
 import sbt.librarymanagement.Resolver
 
 connectInput in run := true
 
 lazy val webApiCommonSettings = Seq(
-    organization := &quot;org.knora&quot;,
-    name := &quot;webapi&quot;,
-    version := &quot;v2.2.0-snapshot&quot;,
-    scalaVersion := &quot;2.12.4&quot;
+    name := &quot;webapi&quot;
 )
 
 // custom test and it settings
@@ -507,8 +533,13 @@ lazy val FusekiTest = config(&quot;fuseki&quot;) extend Test
 lazy val FusekiIt = config(&quot;fuseki-it&quot;) extend IntegrationTest
 lazy val EmbeddedJenaTDBTest = config(&quot;tdb&quot;) extend Test
 
-lazy val webapi = (project in file(&quot;.&quot;)).
-        configs(
+// GatlingPlugin - load testing
+// JavaAgent - adds AspectJ Weaver configuration
+// BuildInfoPlugin - allows generation of scala code with version information
+
+lazy val webapi = knoraModule(&quot;webapi&quot;)
+        .enablePlugins(SbtTwirl, JavaAppPackaging, DockerPlugin, GatlingPlugin, JavaAgent, RevolverPlugin, BuildInfoPlugin)
+        .configs(
             IntegrationTest,
             Gatling,
             GatlingIt,
@@ -519,15 +550,15 @@ lazy val webapi = (project in file(&quot;.&quot;)).
             FusekiTest,
             FusekiIt,
             EmbeddedJenaTDBTest
-        ).
-        settings(
+        )
+        .settings(
             webApiCommonSettings,
             resolvers ++= Seq(
                 Resolver.bintrayRepo(&quot;hseeberger&quot;, &quot;maven&quot;)
             ),
-            libraryDependencies ++= webApiLibs
-        ).
-        settings(
+            Dependencies.webapiLibraryDependencies
+        )
+        .settings(
             inConfig(Test)(Defaults.testTasks ++ baseAssemblySettings),
             inConfig(IntegrationTest)(Defaults.testSettings),
             inConfig(Gatling)(Defaults.testTasks ++ Seq(forkOptions := Defaults.forkOptionsTask.value)),
@@ -539,284 +570,112 @@ lazy val webapi = (project in file(&quot;.&quot;)).
             inConfig(FusekiTest)(Defaults.testTasks ++ Seq(forkOptions := Defaults.forkOptionsTask.value)),
             inConfig(FusekiIt)(Defaults.testTasks ++ Seq(forkOptions := Defaults.forkOptionsTask.value)),
             inConfig(EmbeddedJenaTDBTest)(Defaults.testTasks ++ Seq(forkOptions := Defaults.forkOptionsTask.value))
-        ).
-        settings(
+        )
+        .settings(
             scalacOptions ++= Seq(&quot;-feature&quot;, &quot;-unchecked&quot;, &quot;-deprecation&quot;, &quot;-Yresolve-term-conflict:package&quot;),
 
             logLevel := Level.Info,
 
             fork := true, // always fork
 
-            cancelable in Global := true, // use Ctrl-c to stop current task and not quit SBT
-
-            run / javaOptions := javaRunOptions,
+            run / javaOptions := webapiJavaRunOptions,
 
             reStart / javaOptions ++= resolvedJavaAgents.value map { resolved =&gt;
                 &quot;-javaagent:&quot; + resolved.artifact.absolutePath + resolved.agent.arguments
-            },// allows sbt-javaagent to work with sbt-revolver
-            reStart / javaOptions ++= javaRunOptions,
+            }, // allows sbt-javaagent to work with sbt-revolver
+            reStart / javaOptions ++= webapiJavaRunOptions,
 
-            javaAgents += library.aspectJWeaver,
+            javaAgents += Dependencies.Compile.aspectJWeaver,
 
             Test / parallelExecution := false,
-            Test / javaOptions ++= Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ javaTestOptions,
+            Test / javaOptions ++= Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ webapiJavaTestOptions,
             // Test / javaOptions ++= Seq(&quot;-Dakka.log-config-on-start=on&quot;), // prints out akka config
             // Test / javaOptions ++= Seq(&quot;-Dconfig.trace=loads&quot;), // prints out config locations
             Test / testOptions += Tests.Argument(&quot;-oDF&quot;), // show full stack traces and test case durations
 
-            IntegrationTest / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ javaTestOptions,
+            IntegrationTest / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ webapiJavaTestOptions,
             IntegrationTest / testOptions += Tests.Argument(&quot;-oDF&quot;), // show full stack traces and test case durations
 
-            Gatling / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ javaTestOptions,
+            Gatling / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ webapiJavaTestOptions,
             Gatling / testOptions := Seq(),
-            GatlingIt / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ javaTestOptions,
+            GatlingIt / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ webapiJavaTestOptions,
             GatlingIt / testOptions := Seq(),
 
-            GDBSE / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ javaTestOptions,
-            GDBSEIt / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ javaTestOptions,
+            GDBSE / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ webapiJavaTestOptions,
+            GDBSEIt / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-se.conf&quot;) ++ webapiJavaTestOptions,
 
-            GDBFree / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-free.conf&quot;) ++ javaTestOptions,
-            GDBFreeIt / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-free.conf&quot;) ++ javaTestOptions,
+            GDBFree / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-free.conf&quot;) ++ webapiJavaTestOptions,
+            GDBFreeIt / javaOptions := Seq(&quot;-Dconfig.resource=graphdb-free.conf&quot;) ++ webapiJavaTestOptions,
 
-            FusekiTest / javaOptions := Seq(&quot;-Dconfig.resource=fuseki.conf&quot;) ++ javaTestOptions,
-            FusekiIt / javaOptions := Seq(&quot;-Dconfig.resource=fuseki.conf&quot;) ++ javaTestOptions,
+            FusekiTest / javaOptions := Seq(&quot;-Dconfig.resource=fuseki.conf&quot;) ++ webapiJavaTestOptions,
+            FusekiIt / javaOptions := Seq(&quot;-Dconfig.resource=fuseki.conf&quot;) ++ webapiJavaTestOptions,
 
-            EmbeddedJenaTDBTest / javaOptions := Seq(&quot;-Dconfig.resource=jenatdb.conf&quot;) ++ javaTestOptions,
+            EmbeddedJenaTDBTest / javaOptions := Seq(&quot;-Dconfig.resource=jenatdb.conf&quot;) ++ webapiJavaTestOptions,
 
             // enable publishing the jar produced by `sbt test:package` and `sbt it:package`
             Test / packageBin / publishArtifact := true,
             IntegrationTest / packageBin / publishArtifact := true
-        ).
-        settings(
-//            // enabled deployment staging with `sbt stage`. uses fat jar assembly.
-//            // we specify the name for our fat jars (main, test, it)
-//            assembly / assemblyJarName := s&quot;assembly-${name.value}-main-${version.value}.jar&quot;,
-//            Test / assembly / assemblyJarName := s&quot;assembly-${name.value}-test-${version.value}.jar&quot;,
-//            IntegrationTest / assembly / assemblyJarName := s&quot;assembly-${name.value}-it-${version.value}.jar&quot;,
-//
-//            // disable running of tests before fat jar assembly!
-//            assembly / test := {},
-//            // test in (Test, assembly) := {},
-//            // test in (IntegrationTest, assembly) := {},
-//
-//            // need to use our custom merge strategy because of aop.xml (AspectJ)
-//            assembly / assemblyMergeStrategy := customMergeStrategy,
-//
-//            // Skip packageDoc task on stage
+        )
+        .settings(
+            // prepare for publishing
+
+            // Skip packageDoc task on stage
             Compile / packageDoc / mappings := Seq(),
-//
-//            Universal / mappings := {
-//                // removes all jar mappings in universal and appends the fat jar
-//                // universalMappings: Seq[(File,String)]
-//                val universalMappings = (mappings in Universal).value
-//                val fatJar = (assembly in Compile).value
-//                // removing means filtering
-//                val filtered = universalMappings filter {
-//                    case (file, name) =&gt;  ! name.endsWith(&quot;.jar&quot;)
-//                }
-//                // add the fat jar
-//                filtered :+ (fatJar -&gt; (&quot;lib/&quot; + fatJar.getName))
-//            },
 
             Universal / mappings ++= {
                 // copy the scripts folder
-                directory(&quot;scripts&quot;) ++
-                // copy the configuration files to config directory
-                contentOf(&quot;configs&quot;).toMap.mapValues(&quot;config/&quot; + _) ++
-                // copy configuration files to config directory
-                contentOf(&quot;src/main/resources&quot;).toMap.mapValues(&quot;config/&quot; + _)
+                directory(&quot;webapi/scripts&quot;) ++
+                        // copy the configuration files to config directory
+                        contentOf(&quot;webapi/configs&quot;).toMap.mapValues(&quot;config/&quot; + _) ++
+                        // copy configuration files to config directory
+                        contentOf(&quot;webapi/src/main/resources&quot;).toMap.mapValues(&quot;config/&quot; + _)
                 // copy the aspectj weaver jar
-//                contentOf(&quot;vendor&quot;).toMap.mapValues(&quot;aspectjweaver/&quot; + _)
+                // contentOf(&quot;vendor&quot;).toMap.mapValues(&quot;aspectjweaver/&quot; + _)
             },
 
-            // the bash scripts classpath only needs the fat jar
-//            scriptClasspath := Seq( (assemblyJarName in assembly).value ),
-
-            // add &#39;config&#39; directory first in the classpath of the start script,
-            scriptClasspath := Seq(&quot;../config/&quot;) ++ scriptClasspath.value,
-
-            // add license
-            licenses := Seq((&quot;GNU AGPL&quot;, url(&quot;https://www.gnu.org/licenses/agpl-3.0&quot;))),
+            // add &#39;config&#39; directory to the classpath of the start script,
+            Universal / scriptClasspath := Seq(&quot;../config/&quot;) ++ scriptClasspath.value,
 
             // need this here, so that the Manifest inside the jars has the correct main class set.
             Compile / mainClass := Some(&quot;org.knora.webapi.Main&quot;),
             Compile / run / mainClass := Some(&quot;org.knora.webapi.Main&quot;),
             Test / mainClass := Some(&quot;org.scalatest.tools.Runner&quot;),
-            IntegrationTest / mainClass := Some(&quot;org.scalatest.tools.Runner&quot;)
-        ).
-        settings(
+            IntegrationTest / mainClass := Some(&quot;org.scalatest.tools.Runner&quot;),
+
+            // add dockerCommands used to create the image
+            // docker:stage, docker:publishLocal, docker:publish, docker:clean
+
+            dockerRepository := Some(&quot;dhlabbasel&quot;),
+
+            maintainer := &quot;ivan.subotic@unibas.ch&quot;,
+
+            Docker / dockerCommands := Seq(
+                Cmd(&quot;FROM&quot;, &quot;openjdk:10-jre-slim-sid&quot;),
+                Cmd(&quot;LABEL&quot;, s&quot;&quot;&quot;MAINTAINER=&quot;${maintainer.value}&quot;&quot;&quot;&quot;),
+                // install wget
+                Cmd(&quot;RUN&quot;, &quot;apt-get -qq update &amp;&amp; apt-get install -y --no-install-recommends wget=1.19.5-2 &amp;&amp; rm -rf /var/lib/apt/lists/*&quot;),
+                // install yourkit profiler
+                Cmd(&quot;RUN&quot;, &quot;wget https://www.yourkit.com/download/docker/YourKit-JavaProfiler-2018.04-docker.zip -P /tmp/ &amp;&amp; unzip /tmp/YourKit-JavaProfiler-2018.04-docker.zip -d /usr/local &amp;&amp; rm /tmp/YourKit-JavaProfiler-2018.04-docker.zip&quot;),
+
+                Cmd(&quot;ADD&quot;, &quot;opt/docker&quot;, &quot;/webapi&quot;),
+                Cmd(&quot;WORKDIR&quot;, &quot;/webapi&quot;),
+
+                Cmd(&quot;EXPOSE&quot;, &quot;3333&quot;),
+                Cmd(&quot;EXPOSE&quot;, &quot;10001&quot;),
+
+                ExecCmd(&quot;ENTRYPOINT&quot;, &quot;bin/webapi&quot;, &quot;-J-agentpath:/usr/local/YourKit-JavaProfiler-2018.04/bin/linux-x86-64/libyjpagent.so=port=10001,listen=all&quot;),
+            )
+        )
+        .settings(
             buildInfoKeys ++= Seq[BuildInfoKey](
                 name,
                 version,
-                &quot;akkaHttp&quot; -&gt; library.Version.akkaHttp
+                &quot;akkaHttp&quot; -&gt; Dependencies.akkaHttpVersion
             ),
             buildInfoPackage := &quot;org.knora.webapi&quot;
-        ).
-        enablePlugins(SbtTwirl). // Enable the sbt-twirl plugin
-        enablePlugins(JavaAppPackaging). // Enable the sbt-native-packager plugin
-        enablePlugins(GatlingPlugin). // load testing
-        enablePlugins(JavaAgent). // Adds AspectJ Weaver configuration
-        enablePlugins(RevolverPlugin).
-        enablePlugins(BuildInfoPlugin) // allows generation of scala code with version information
+        )
 
-
-
-lazy val webApiLibs = Seq(
-    library.aspectJWeaver,
-    library.akkaActor,
-    library.akkaAgent,
-    library.akkaHttp,
-    library.akkaHttpCirce,
-    library.akkaHttpCors,
-    library.akkaHttpSprayJson,
-    library.akkaHttpJacksonJava,
-    library.akkaHttpTestkit,
-    library.akkaHttpXml,
-    library.akkaSlf4j,
-    library.akkaStream,
-    library.akkaStreamTestkit,
-    library.akkaTestkit,
-    library.bcprov,
-    library.commonsBeanUtil,
-    library.commonsIo,
-    library.commonsText,
-    library.commonsValidator,
-    library.diff,
-    library.ehcache,
-    library.gatlingHighcharts,
-    library.gatlingTestFramework,
-    library.gwtServlet,
-    library.jacksonScala,
-    library.jaxbApi,
-    library.jsonldJava,
-    library.jodd,
-    library.jodaTime,
-    library.jodaConvert,
-    library.jenaLibs,
-    library.jenaText,
-    library.jwt,
-    //library.kamonCore,
-    //library.kamonAkka,
-    //library.kamonAkkaHttp,
-    //library.kamonPrometheus,
-    //library.kamonZipkin,
-    //library.kamonJaeger,
-    library.logbackClassic,
-    library.rdf4jRuntime,
-    library.saxonHE,
-    library.scalaArm,
-    library.scalaJava8Compat,
-    library.scalaLogging,
-    library.scalaTest,
-    library.scalaXml,
-    library.scallop,
-    library.springSecurityCore,
-    library.swaggerAkkaHttp,
-    library.typesafeConfig,
-    library.xmlunitCore,
-    library.icu4j
-)
-
-lazy val library =
-    new {
-        object Version {
-            val akkaBase = &quot;2.5.13&quot;
-            val akkaHttp = &quot;10.1.3&quot;
-            val jena = &quot;3.4.0&quot;
-            val metrics = &quot;4.0.1&quot;
-        }
-
-        // akka
-        val akkaActor              = &quot;com.typesafe.akka&quot;            %% &quot;akka-actor&quot;               % Version.akkaBase
-        val akkaAgent              = &quot;com.typesafe.akka&quot;            %% &quot;akka-agent&quot;               % Version.akkaBase
-        val akkaStream             = &quot;com.typesafe.akka&quot;            %% &quot;akka-stream&quot;              % Version.akkaBase
-        val akkaSlf4j              = &quot;com.typesafe.akka&quot;            %% &quot;akka-slf4j&quot;               % Version.akkaBase
-        val akkaTestkit            = &quot;com.typesafe.akka&quot;            %% &quot;akka-testkit&quot;             % Version.akkaBase    % &quot;test, it, gdbse, gdbse-it, gdbfree, gdbfree-it, tdb, fuseki, fuseki-it&quot;
-        val akkaStreamTestkit      = &quot;com.typesafe.akka&quot;            %% &quot;akka-stream-testkit&quot;      % Version.akkaBase    % &quot;test, it, gdbse, gdbse-it, gdbfree, gdbfree-it, tdb, fuseki, fuseki-it&quot;
-
-        // akka http
-        val akkaHttp               = &quot;com.typesafe.akka&quot;            %% &quot;akka-http&quot;                % Version.akkaHttp
-        val akkaHttpXml            = &quot;com.typesafe.akka&quot;            %% &quot;akka-http-xml&quot;            % Version.akkaHttp
-        val akkaHttpSprayJson      = &quot;com.typesafe.akka&quot;            %% &quot;akka-http-spray-json&quot;     % Version.akkaHttp
-        val akkaHttpJacksonJava    = &quot;com.typesafe.akka&quot;            %% &quot;akka-http-jackson&quot;        % Version.akkaHttp
-        val akkaHttpTestkit        = &quot;com.typesafe.akka&quot;            %% &quot;akka-http-testkit&quot;        % Version.akkaHttp    % &quot;test, it, gdbse, gdbse-it, gdbfree, gdbfree-it, tdb, fuseki, fuseki-it&quot;
-
-        val typesafeConfig         = &quot;com.typesafe&quot;                  % &quot;config&quot;                   % &quot;1.3.3&quot;
-
-        // testing
-        val scalaTest              = &quot;org.scalatest&quot;                %% &quot;scalatest&quot;                % &quot;3.0.4&quot;             % &quot;test, it, gdbse, gdbse-it, gdbfree, gdbfree-it, tdb, fuseki, fuseki-it&quot;
-        val gatlingHighcharts      = &quot;io.gatling.highcharts&quot;         % &quot;gatling-charts-highcharts&quot;% &quot;2.3.1&quot;             % &quot;test, it, gdbse, gdbse-it, gdbfree, gdbfree-it, tdb, fuseki, fuseki-it&quot;
-        val gatlingTestFramework   = &quot;io.gatling&quot;                    % &quot;gatling-test-framework&quot;   % &quot;2.3.1&quot;             % &quot;test, it, gdbse, gdbse-it, gdbfree, gdbfree-it, tdb, fuseki, fuseki-it&quot;
-
-        //CORS support
-        val akkaHttpCors           = &quot;ch.megard&quot;                    %% &quot;akka-http-cors&quot;           % &quot;0.3.0&quot;
-
-        // jena
-        val jenaLibs               = &quot;org.apache.jena&quot;               % &quot;apache-jena-libs&quot;         % Version.jena exclude(&quot;org.slf4j&quot;, &quot;slf4j-log4j12&quot;) exclude(&quot;commons-codec&quot;, &quot;commons-codec&quot;)
-        val jenaText               = &quot;org.apache.jena&quot;               % &quot;jena-text&quot;                % Version.jena exclude(&quot;org.slf4j&quot;, &quot;slf4j-log4j12&quot;) exclude(&quot;commons-codec&quot;, &quot;commons-codec&quot;)
-
-        // logging
-        val commonsLogging         = &quot;commons-logging&quot;               % &quot;commons-logging&quot;          % &quot;1.2&quot;
-        val scalaLogging           = &quot;com.typesafe.scala-logging&quot;   %% &quot;scala-logging&quot;            % &quot;3.8.0&quot;
-        val logbackClassic         = &quot;ch.qos.logback&quot;                % &quot;logback-classic&quot;          % &quot;1.2.3&quot;
-
-        // input validation
-        val commonsValidator       = &quot;commons-validator&quot;             % &quot;commons-validator&quot;        % &quot;1.6&quot; exclude(&quot;commons-logging&quot;, &quot;commons-logging&quot;)
-
-        // authentication
-        val bcprov                 = &quot;org.bouncycastle&quot;              % &quot;bcprov-jdk15on&quot;           % &quot;1.59&quot;
-        val springSecurityCore     = &quot;org.springframework.security&quot;  % &quot;spring-security-core&quot;     % &quot;4.2.5.RELEASE&quot; exclude(&quot;commons-logging&quot;, &quot;commons-logging&quot;) exclude(&quot;org.springframework&quot;, &quot;spring-aop&quot;)
-        val jwt                    = &quot;io.igl&quot;                       %% &quot;jwt&quot;                      % &quot;1.2.2&quot; exclude(&quot;commons-codec&quot;, &quot;commons-codec&quot;)
-
-        // caching
-        val ehcache                = &quot;net.sf.ehcache&quot;                % &quot;ehcache&quot;                  % &quot;2.10.3&quot;
-
-        // monitoring
-        val kamonCore              = &quot;io.kamon&quot;                     %% &quot;kamon-core&quot;               % &quot;1.1.3&quot;
-        val kamonAkka              = &quot;io.kamon&quot;                     %% &quot;kamon-akka-2.5&quot;           % &quot;1.1.1&quot;
-        val kamonAkkaHttp          = &quot;io.kamon&quot;                     %% &quot;kamon-akka-http-2.5&quot;      % &quot;1.1.0&quot;
-        val kamonPrometheus        = &quot;io.kamon&quot;                     %% &quot;kamon-prometheus&quot;         % &quot;1.1.1&quot;
-        val kamonZipkin            = &quot;io.kamon&quot;                     %% &quot;kamon-zipkin&quot;             % &quot;1.0.0&quot;
-        val kamonJaeger            = &quot;io.kamon&quot;                     %% &quot;kamon-jaeger&quot;             % &quot;1.0.2&quot;
-        val aspectJWeaver          = &quot;org.aspectj&quot;                   % &quot;aspectjweaver&quot;            % &quot;1.9.1&quot;
-
-        // other
-        //&quot;javax.transaction&quot; % &quot;transaction-api&quot; % &quot;1.1-rev-1&quot;,
-        val commonsText            = &quot;org.apache.commons&quot;            % &quot;commons-text&quot;             % &quot;1.6&quot;
-        val commonsIo              = &quot;commons-io&quot;                    % &quot;commons-io&quot;               % &quot;2.6&quot;
-        val commonsBeanUtil        = &quot;commons-beanutils&quot;             % &quot;commons-beanutils&quot;        % &quot;1.9.3&quot; exclude(&quot;commons-logging&quot;, &quot;commons-logging&quot;) // not used by us, but need newest version to prevent this problem: http://stackoverflow.com/questions/14402745/duplicate-classes-in-commons-collections-and-commons-beanutils
-        val jodd                   = &quot;org.jodd&quot;                      % &quot;jodd&quot;                     % &quot;3.2.6&quot;
-        val jodaTime               = &quot;joda-time&quot;                     % &quot;joda-time&quot;                % &quot;2.9.1&quot;
-        val jodaConvert            = &quot;org.joda&quot;                      % &quot;joda-convert&quot;             % &quot;1.8&quot;
-        val diff                   = &quot;com.sksamuel.diff&quot;             % &quot;diff&quot;                     % &quot;1.1.11&quot;
-        val xmlunitCore            = &quot;org.xmlunit&quot;                   % &quot;xmlunit-core&quot;             % &quot;2.1.1&quot;
-
-        // other
-        val rdf4jRuntime           = &quot;org.eclipse.rdf4j&quot;             % &quot;rdf4j-runtime&quot;            % &quot;2.3.2&quot;
-        val scallop                = &quot;org.rogach&quot;                   %% &quot;scallop&quot;                  % &quot;2.0.5&quot;
-        val gwtServlet             = &quot;com.google.gwt&quot;                % &quot;gwt-servlet&quot;              % &quot;2.8.0&quot;
-        val saxonHE                = &quot;net.sf.saxon&quot;                  % &quot;Saxon-HE&quot;                 % &quot;9.7.0-14&quot;
-
-        val scalaXml               = &quot;org.scala-lang.modules&quot;       %% &quot;scala-xml&quot;                % &quot;1.1.0&quot;
-        val scalaArm               = &quot;com.jsuereth&quot;                  % &quot;scala-arm_2.12&quot;           % &quot;2.0&quot;
-        val scalaJava8Compat       = &quot;org.scala-lang.modules&quot;        % &quot;scala-java8-compat_2.12&quot;  % &quot;0.8.0&quot;
-        
-        // provides akka jackson (json) support
-        val akkaHttpCirce          = &quot;de.heikoseeberger&quot;            %% &quot;akka-http-circe&quot;          % &quot;1.21.0&quot;
-        val jacksonScala           = &quot;com.fasterxml.jackson.module&quot; %% &quot;jackson-module-scala&quot;     % &quot;2.9.4&quot;
-
-        val jsonldJava             = &quot;com.github.jsonld-java&quot;        % &quot;jsonld-java&quot;              % &quot;0.12.0&quot;
-
-        // swagger (api documentation)
-        val swaggerAkkaHttp        = &quot;com.github.swagger-akka-http&quot; %% &quot;swagger-akka-http&quot;        % &quot;0.14.0&quot;
-
-        // Java EE modules which are deprecated in Java SE 9, 10 and will be removed in Java SE 11
-        val jaxbApi                = &quot;javax.xml.bind&quot;                % &quot;jaxb-api&quot;                 % &quot;2.2.12&quot;
-
-        val icu4j                  = &quot;com.ibm.icu&quot;                   % &quot;icu4j&quot;                    % &quot;62.1&quot;
-    }
-
-lazy val javaRunOptions = Seq(
+lazy val webapiJavaRunOptions = Seq(
     // &quot;-showversion&quot;,
     &quot;-Xms1G&quot;,
     &quot;-Xmx1G&quot;,
@@ -830,7 +689,7 @@ lazy val javaRunOptions = Seq(
     //&quot;-agentpath:/Applications/YourKit-Java-Profiler-2018.04.app/Contents/Resources/bin/mac/libyjpagent.jnilib&quot;
 )
 
-lazy val javaTestOptions = Seq(
+lazy val webapiJavaTestOptions = Seq(
     // &quot;-showversion&quot;,
     &quot;-Xms1G&quot;,
     &quot;-Xmx1G&quot;
@@ -840,91 +699,67 @@ lazy val javaTestOptions = Seq(
     //&quot;-XX:MaxMetaspaceSize=4096m&quot;
 )
 
-// Create a new MergeStrategy for aop.xml files, as the aop.xml file is present in more than one package.
-// When we create a fat JAR (assembly task), then we need to resolve this conflict.
-val aopMerge: MergeStrategy = new MergeStrategy {
-    val name = &quot;aopMerge&quot;
-    import scala.xml._
-    import scala.xml.dtd._
+def knoraModule(name: String): Project =
+    Project(id = name, base = file(name))
+            .settings(buildSettings)</code></pre>
+<h2><a href="#building-deployment-packages" name="building-deployment-packages" class="anchor"><span class="anchor-link"></span></a>Building Deployment Packages</h2>
+<p>Deployment packages for <code>salsah1</code> and <code>webapi</code> can be built by using the following SBT tasks:</p>
+<ul>
+  <li><code>$ sbt stage</code> - Stages the app so that it can be run locally without having the app packaged.</li>
+  <li><code>$ sbt universal:packageBin</code> - Generates a universal zip file</li>
+  <li><code>$ sbt universal:packageZipTarball</code> - Generates a universal tgz file</li>
+</ul>
+<p>The tasks can be scoped by prefixing <code>salsah1/</code> or <code>webapi/</code>, e.g., to only run <code>sbt stage</code> for the <code>webapi</code> project, run:</p>
+<pre class="prettyprint"><code class="language-bash">$ sbt webapi/stage
+</code></pre>
+<h2><a href="#building-docker-images" name="building-docker-images" class="anchor"><span class="anchor-link"></span></a>Building Docker Images</h2>
+<p>Docker images for <code>salsah1</code> and <code>webapi</code> can be built by using the following SBT tasks:</p>
+<ul>
+  <li><code>$ sbt docker:stage</code> - Generates a directory with the Dockerfile and environment prepared for creating a Docker image.</li>
+  <li><code>$ sbt docker:publishLocal</code> - Builds an image using the local Docker server.</li>
+  <li><code>$ sbt docker:publish</code> - Builds an image using the local Docker server, and pushes it to the configured remote repository.</li>
+  <li><code>$ sbt docker:clean</code> - Removes the built image from the local Docker server.</li>
+</ul>
+<p>The tasks can be scoped by prefixing <code>salsah1/</code> or <code>webapi/</code>, e.g., to only run <code>sbt docker:stage</code> for the <code>webapi</code> project, run:</p>
+<pre class="prettyprint"><code class="language-bash">$ sbt webapi/docker:stage
+```` 
 
-    def apply(tempDir: File, path: String, files: Seq[File]): Either[String, Seq[(File, String)]] = {
-        val dt = DocType(&quot;aspectj&quot;, PublicID(&quot;-//AspectJ//DTD//EN&quot;, &quot;http://www.eclipse.org/aspectj/dtd/aspectj.dtd&quot;), Nil)
-        val file = MergeStrategy.createMergeTarget(tempDir, path)
-        val xmls: Seq[Elem] = files.map(XML.loadFile)
-        val aspectsChildren: Seq[Node] = xmls.flatMap(_ \\ &quot;aspectj&quot; \ &quot;aspects&quot; \ &quot;_&quot;)
-        val weaverChildren: Seq[Node] = xmls.flatMap(_ \\ &quot;aspectj&quot; \ &quot;weaver&quot; \ &quot;_&quot;)
-        val options: String = xmls.map(x =&gt; (x \\ &quot;aspectj&quot; \ &quot;weaver&quot; \ &quot;@options&quot;).text).mkString(&quot; &quot;).trim
-        val weaverAttr = if (options.isEmpty) Null else new UnprefixedAttribute(&quot;options&quot;, options, Null)
-        val aspects = new Elem(null, &quot;aspects&quot;, Null, TopScope, false, aspectsChildren: _*)
-        val weaver = new Elem(null, &quot;weaver&quot;, weaverAttr, TopScope, false, weaverChildren: _*)
-        val aspectj = new Elem(null, &quot;aspectj&quot;, Null, TopScope, false, aspects, weaver)
-        XML.save(file.toString, aspectj, &quot;UTF-8&quot;, xmlDecl = false, dt)
-        IO.append(file, IO.Newline.getBytes(IO.defaultCharset))
-        Right(Seq(file -&gt; path))
-    }
-}
+## Running the Knora Stack (graphdb, webapi, salsah1, sipi)
 
-// Use defaultMergeStrategy with a case for aop.xml
-// I like this better than the inline version mentioned in assembly&#39;s README
-val customMergeStrategy: String =&gt; MergeStrategy = {
-    case PathList(&quot;META-INF&quot;, &quot;aop.xml&quot;) =&gt;
-        aopMerge
-    case PathList(ps @ _*) if ps.exists(_.contains(&quot;aopalliance&quot;)) || ps.exists(_.contains(&quot;lucene&quot;)) || ps.exists(_.contains(&quot;joda&quot;)) =&gt;
-        // Workaround for #855. TODO: find a better way to resolve these conflicts.
-        MergeStrategy.first
-    case s =&gt;
-        defaultMergeStrategy(s)
-}</code></pre>
-<h2><a href="#webapi-server-startup-flags" name="webapi-server-startup-flags" class="anchor"><span class="anchor-link"></span></a>Webapi Server Startup-Flags</h2>
-<p>The Webapi-Server can be started with a number of flags. These flags can be supplied either to the <code>reStart</code> or the <code>run</code> command in sbt, e.g.,:</p>
-<pre><code>$ sbt
-&gt; reStart flag
+The complete knora stack (graphdb, webapi, salsah1, sipi) can be started by invoking the following SBT task:
+
 </code></pre>
-<p>or</p>
-<pre><code>$ sbt
-&gt; run flag
+<p>$ sbt dockerComposeUp</p>
+<pre><code><br/>This will build, publish locally and use the docker images for `webapi` and `salsah1`.
+
+
+## Building Documentation
+
+The complete Knora documentation site is built by invoking the following tasks:
+
+- `$ sbt docs/makeSite` - generates the documentation which can be found under `docs/target/site/`
+- `$ sbt docs/previewSite` - previews the generated site by launching a static web server
+- `$ sbt docs/previewAuto` - previews the generated site by launching a dynamic server updating its content at each modification in your source files.
+
+Both preview tasks launch the server on port `4000` and attempt to connect your browser to `http://localhost:4000/`.
+
+
+## Publishing Documentation
+
+To publish the documentation, you need to be on the `develop` branch and then execute the following task:
+
 </code></pre>
-<h3><a href="#loaddemodata-flag" name="loaddemodata-flag" class="anchor"><span class="anchor-link"></span></a><code>loadDemoData</code> - Flag</h3>
-<p>When the webapi-server is started with the <code>loadDemoData</code> flag, then at startup, the data which is configured in <code>application.conf</code> under the <code>app.triplestore.rdf-data</code> key is loaded into the triplestore, and any data in the triplestore is removed beforehand.</p>
-<p>Usage:</p>
-<pre><code>$ sbt
-&gt; reStart loadDemoData
-</code></pre>
-<h3><a href="#allowreloadoverhttp-flag" name="allowreloadoverhttp-flag" class="anchor"><span class="anchor-link"></span></a><code>allowReloadOverHTTP</code> - Flag</h3>
-<p>When the webapi.server is started with the <code>allowReloadOverHTTP</code> flag (<code>reStart -r</code>), then the <code>v1/store/ResetTriplestoreContent</code> route is activated. This route accepts a <code>POST</code> request, with a JSON payload consisting of the following example content:</p>
-<pre><code>[
-  {
-    &quot;path&quot;: &quot;../knora-ontologies/knora-base.ttl&quot;,
-    &quot;name&quot;: &quot;http://www.knora.org/ontology/knora-base&quot;
-  },
-  {
-    &quot;path&quot;: &quot;../knora-ontologies/salsah-gui.ttl&quot;,
-    &quot;name&quot;: &quot;http://www.knora.org/ontology/salsah-gui&quot;
-  },
-  {
-    &quot;path&quot;: &quot;_test_data/ontologies/incunabula-onto.ttl&quot;,
-    &quot;name&quot;: &quot;http://www.knora.org/ontology/0803/incunabula&quot;
-  },
-  {
-    &quot;path&quot;: &quot;_test_data/all_data/incunabula-data.ttl&quot;,
-    &quot;name&quot;: &quot;http://www.knora.org/data/incunabula&quot;
-  }
-]
-</code></pre>
-<p>This content corresponds to the payload sent with the <code>ResetTriplestoreContent</code> message, defined inside the <code>org.knora.webapi.messages.v1.store.triplestoremessages</code> package. The <code>path</code> being the relative path to the <code>ttl</code> file which will be loaded into a named graph by the name of <code>name</code>.</p>
-<p>Usage:</p>
-<pre><code>$ sbt
-&gt; reStart allowReloadOverHTTP
-</code></pre>
+<p>$ sbt docs/ghpagesPushSite ```</p>
+<p>This task will build all documentation and publish it to the <code>gh-pages</code> branch.</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/05-internals/development/build-process.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/development/build-process.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-v2.1.0
+3.0.0-0-d71e52b7-20181130-1525
 </span>
 </div>
 </article>
@@ -934,7 +769,7 @@ v2.1.0
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../../05-internals/development/graphdb.html" title="Starting GraphDB" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../../05-internals/development/building-and-running.html" title="Building and Running" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -943,7 +778,7 @@ v2.1.0
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Starting GraphDB
+Building and Running
 </span>
 </div>
 </a>

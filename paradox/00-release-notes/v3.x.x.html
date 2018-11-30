@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../cloud">
-<title>Configuration · Knora Documentation</title>
+<title>v3.x.x Release Notes · Knora Documentation</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Configuration
+v3.x.x Release Notes
 </span>
 </div>
 </div>
@@ -155,7 +155,7 @@ dhlab-basel/Knora/docs
   <li><a href="../04-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
     <li><a href="../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
-    <li><a href="../04-deployment/configuration.html" class="active page">Configuration</a></li>
+    <li><a href="../04-deployment/configuration.html" class="page">Configuration</a></li>
   </ul></li>
   <li><a href="../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -179,12 +179,19 @@ dhlab-basel/Knora/docs
     <li><a href="../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes</a></li>
     <li><a href="../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
     <li><a href="../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
-    <li><a href="../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
+    <li><a href="../00-release-notes/v3.x.x.html" class="active page">v3.x.x Release Notes</a></li>
     <li><a href="../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../00-release-notes/v3.x.x.html#v3-x-x-release-notes" class="header">v3.x.x Release Notes</a>
+  <ul>
+    <li><a href="../00-release-notes/v3.x.x.html#v3-0-0" class="header">v3.0.0</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
@@ -195,196 +202,39 @@ dhlab-basel/Knora/docs
 </div>
 </div>
 </div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../00-release-notes/v3.x.x.html#v3-x-x-release-notes" class="header">v3.x.x Release Notes</a>
+  <ul>
+    <li><a href="../00-release-notes/v3.x.x.html#v3-0-0" class="header">v3.0.0</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+</div>
+</div>
+</div>
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
-<!---
-Copyright © 2015-2018 the contributors (see Contributors.md).
-
-This file is part of Knora.
-
-Knora is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published
-by the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Knora is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public
-License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
--->
-<h1><a href="#configuration" name="configuration" class="anchor"><span class="anchor-link"></span></a>Configuration</h1>
-<p>All configuration for Knora is done in <code>application.conf</code>. Besides the Knora application specific configuration, there we can also find configuration for the underlying Akka library.</p>
-<p>For optimal performance it is important to tune the configuration to the hardware used, mainly to the number of CPUs and cores per CPU.</p>
-<p>The relevant sections for tuning are:</p>
+<h1><a href="#v3-x-x-release-notes" name="v3-x-x-release-notes" class="anchor"><span class="anchor-link"></span></a>v3.x.x Release Notes</h1>
+<h2><a href="#v3-0-0" name="v3-0-0" class="anchor"><span class="anchor-link"></span></a>v3.0.0</h2>
 <ul>
-  <li><code>akka.actor.deployment</code></li>
-  <li><code>knora-ask-dispatcher</code></li>
-  <li><code>knora-store-dispatcher</code></li>
-  <li><code>knora-sipi-dispatcher</code></li>
-  <li><code>knora-v1-dispatcher</code></li>
-  <li><code>knora-v2-dispatcher</code></li>
-  <li><code>knora-admin-dispatcher</code></li>
+  <li>[BREAKING ONTOLOGY CHANGE] The property <code>knora-base:username</code> was added and is required for <code>knora-base:User</code>. (<a href="https://github.com/dhlab-basel/Knora/issues/1047">#1047</a>)</li>
+  <li>[BREAKING API CHANGE] The <code>/admin/user</code> API has changed due to adding the <code>username</code> property. (<a href="https://github.com/dhlab-basel/Knora/issues/1047">#1047</a>)</li>
+  <li>[FIX] Incorrect standoff to XML conversion if empty tag has empty child tag (<a href="https://github.com/dhlab-basel/Knora/issues/1054">#1054</a>)</li>
+  <li>[FEATURE] Add default permission caching (<a href="https://github.com/dhlab-basel/Knora/issues/1062">#1062</a>)</li>
+  <li>[FIX] Fix unescaping in update check and reading standoff URL (<a href="https://github.com/dhlab-basel/Knora/issues/1074">#1074</a>)</li>
+  <li>[FIX] Incorrect standoff to XML conversion if empty tag has empty child tag (<a href="https://github.com/dhlab-basel/Knora/issues/1054">#1054</a>)</li>
+  <li>[FEATURE] Create image file values in API v2 (<a href="https://github.com/dhlab-basel/Knora/issues/1011">#1011</a>). Requires Sipi with tagged commit <code>v1.4.1-SNAPSHOT</code> or later.</li>
 </ul>
-<p>## System Environment Variables</p>
-<p>A number of core settings is additionally configurable through system environment variables. These are:</p>
-<table>
-  <thead>
-    <tr>
-      <th>key in application.conf </th>
-      <th>environment variable </th>
-      <th>default value </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>akka.log-config-on-start </td>
-      <td>KNORA_AKKA_LOG_CONFIG_ON_START </td>
-      <td>off </td>
-    </tr>
-    <tr>
-      <td>akka.loglevel </td>
-      <td>KNORA_AKKA_LOGLEVEL </td>
-      <td>INFO </td>
-    </tr>
-    <tr>
-      <td>akka.stdout-loglevel </td>
-      <td>KNORA_AKKA_STDOUT_LOGLEVEL </td>
-      <td>INFO </td>
-    </tr>
-    <tr>
-      <td>app.print-short-config </td>
-      <td>KNORA_WEBAPI_PRINT_SHORT_CONFIG </td>
-      <td>true </td>
-    </tr>
-    <tr>
-      <td>app.print-extended-config </td>
-      <td>KNORA_WEBAPI_PRINT_EXTENDED_CONFIG </td>
-      <td>false </td>
-    </tr>
-    <tr>
-      <td>app.jwt-secret-key </td>
-      <td>KNORA_WEBAPI_JWT_SECRET_KEY </td>
-      <td>super-secret-key </td>
-    </tr>
-    <tr>
-      <td>app.jwt-longevity </td>
-      <td>KNORA_WEBAPI_JWT_LONGEVITY </td>
-      <td>30 days </td>
-    </tr>
-    <tr>
-      <td>app.knora-api.internal-host </td>
-      <td>KNORA_WEBAPI_KNORA_API_INTERNAL_HOST </td>
-      <td>0.0.0.0 </td>
-    </tr>
-    <tr>
-      <td>app.knora-api.internal-port </td>
-      <td>KNORA_WEBAPI_KNORA_API_INTERNAL_PORT </td>
-      <td>3333 </td>
-    </tr>
-    <tr>
-      <td>app.knora-api.external-protocol </td>
-      <td>KNORA_WEBAPI_KNORA_API_EXTERNAL_PROTOCOL </td>
-      <td>http </td>
-    </tr>
-    <tr>
-      <td>app.knora-api.external-host </td>
-      <td>KNORA_WEBAPI_KNORA_API_EXTERNAL_HOST </td>
-      <td>0.0.0.0 </td>
-    </tr>
-    <tr>
-      <td>app.knora-api.external-port </td>
-      <td>KNORA_WEBAPI_KNORA_API_EXTERNAL_PORT </td>
-      <td>3333 </td>
-    </tr>
-    <tr>
-      <td>app.sipi.internal-protocol </td>
-      <td>KNORA_WEBAPI_SIPI_INTERNAL_PROTOCOL </td>
-      <td>http </td>
-    </tr>
-    <tr>
-      <td>app.sipi.internal-host </td>
-      <td>KNORA_WEBAPI_SIPI_INTERNAL_HOST </td>
-      <td>localhost </td>
-    </tr>
-    <tr>
-      <td>app.sipi.internal-port </td>
-      <td>KNORA_WEBAPI_SIPI_INTERNAL_PORT </td>
-      <td>1024 </td>
-    </tr>
-    <tr>
-      <td>app.sipi.external-protocol </td>
-      <td>KNORA_WEBAPI_SIPI_EXTERNAL_PROTOCOL </td>
-      <td>http </td>
-    </tr>
-    <tr>
-      <td>app.sipi.external-host </td>
-      <td>KNORA_WEBAPI_SIPI_EXTERNAL_HOST </td>
-      <td>localhost </td>
-    </tr>
-    <tr>
-      <td>app.sipi.external-port </td>
-      <td>KNORA_WEBAPI_SIPI_EXTERNAL_PORT </td>
-      <td>443 </td>
-    </tr>
-    <tr>
-      <td>app.salsah1.base-url </td>
-      <td>KNORA_WEBAPI_SALSAH1_BASE_URL </td>
-      <td><a href="http://localhost:3335|">http://localhost:3335|</a></td>
-    </tr>
-    <tr>
-      <td>app.triplestore.dbtype </td>
-      <td>KNORA_WEBAPI_TRIPLESTORE_DBTYPE </td>
-      <td>graphdb-se </td>
-    </tr>
-    <tr>
-      <td>app.triplestore.use-https </td>
-      <td>KNORA_WEBAPI_TRIPLESTORE_USE_HTTPS </td>
-      <td>false </td>
-    </tr>
-    <tr>
-      <td>app.triplestore.host </td>
-      <td>KNORA_WEBAPI_TRIPLESTORE_HOST </td>
-      <td>localhost </td>
-    </tr>
-    <tr>
-      <td>app.triplestore.graphdb.port </td>
-      <td>KNORA_WEBAPI_TRIPLESTORE_GRAPHDB_PORT </td>
-      <td>7200 </td>
-    </tr>
-    <tr>
-      <td>app.triplestore.graphdb.repository-name </td>
-      <td>KNORA_WEBAPI_TRIPLESTORE_GRAPHDB_REPOSITORY_NAME </td>
-      <td>knora-test </td>
-    </tr>
-    <tr>
-      <td>app.triplestore.graphdb.username </td>
-      <td>KNORA_WEBAPI_TRIPLESTORE_GRAPHDB_USERNAME </td>
-      <td>admin </td>
-    </tr>
-    <tr>
-      <td>app.triplestore.graphdb.password </td>
-      <td>KNORA_WEBAPI_TRIPLESTORE_GRAPHDB_PASSWORD </td>
-      <td>root </td>
-    </tr>
-    <tr>
-      <td>app.triplestore.fuseki.port </td>
-      <td>KNORA_WEBAPI_TRIPLESTORE_FUSEKI_PORT </td>
-      <td>3030 </td>
-    </tr>
-    <tr>
-      <td>app.triplestore.fuseki.repository-name </td>
-      <td>KNORA_WEBAPI_TRIPLESTORE_FUSEKI_REPOSITORY_NAME </td>
-      <td>knora-test </td>
-    </tr>
-  </tbody>
-</table>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/04-deployment/configuration.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/00-release-notes/v3.x.x.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -400,7 +250,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../04-deployment/getting-started.html" title="Getting Started with Knora" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../00-release-notes/v2.x.x.html" title="v2.x.x Release Notes" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -409,17 +259,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Getting Started with Knora
+v2.x.x Release Notes
 </span>
 </div>
 </a>
-<a href="../05-internals/index.html" title="Knora Internals" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../00-release-notes/next.html" title="Release Notes for Next Release" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Knora Internals
+Release Notes for Next Release
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="description" content="docs">
-<meta name="generator" content="Paradox, paradox-material-theme=v2.1.0, mkdocs-material=2.2.2">
+<meta name="generator" content="Paradox, paradox-material-theme=0.4.0, mkdocs-material=2.2.2">
 
 <meta name="lang:clipboard.copy" content="Copy to clipboard">
 <meta name="lang:clipboard.copied" content="Copied to clipboard">
@@ -179,6 +179,9 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes</a></li>
     <li><a href="../../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
+    <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
@@ -203,7 +206,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> v2.1.0
+<i class="md-icon">label_outline</i> 3.0.0-0-d71e52b7-20181130-1525
 </div>
 </nav>
 
@@ -443,13 +446,13 @@ String]</code> of variable names to values.</p>
 <p>The <code>Jsonable</code> trait marks classes that can convert themselves into spray-json AST objects when you call their <code>toJsValue</code> method; it returns a <code>JsValue</code> object, which can then be converted to text by calling its <code>prettyPrint</code> or <code>compactPrint</code> methods. Case classes representing complete API responses extend the <code>KnoraResponseV1</code> trait, which extends <code>Jsonable</code>. Case classes representing Knora values extend the <code>ApiValueV1</code> trait, which also extends <code>Jsonable</code>. To make the responders reusable, the JSON for API responses is generated only at the last moment, by the <code>RouteUtils.runJsonRoute()</code> function.</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/src/paradox/05-internals/design/design-overview.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/design/design-overview.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-v2.1.0
+3.0.0-0-d71e52b7-20181130-1525
 </span>
 </div>
 </article>
