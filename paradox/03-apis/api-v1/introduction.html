@@ -138,6 +138,8 @@ dhlab-basel/Knora/docs
   <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
   <ul>
     <li><a href="../../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../../01-introduction/data-formats.html" class="page">Data Formats in Knora</a></li>
+    <li><a href="../../01-introduction/standoff-rdf.html" class="page">Standoff/RDF Text Markup</a></li>
     <li><a href="../../01-introduction/example-project.html" class="page">An Example Project</a></li>
   </ul></li>
   <li><a href="../../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
@@ -200,7 +202,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 3.0.0-0-d71e52b7-20181130-1525
+<i class="md-icon">label_outline</i> 3.0.0-4-3a02d6f9
 </div>
 </nav>
 
@@ -263,7 +265,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h2><a href="#placeholder-host-in-sample-urls" name="placeholder-host-in-sample-urls" class="anchor"><span class="anchor-link"></span></a>Placeholder <code>host</code> in sample URLs</h2>
 <p>Please note that all the sample URLs used in this documentation contain <code>host</code> as a placeholder. The placeholder <code>host</code> has to be replaced by the actual hostname (and port) of the server the Knora instance is running on.</p>
 <h2><a href="#authentication" name="authentication" class="anchor"><span class="anchor-link"></span></a>Authentication</h2>
-<p>For all API operations that target at changing resources or values, the client has to provide credentials (username and password) so that the API server can authenticate the user making the request. When using the SALSAH web interface, after logging in a session is established (cookie based). When using the API with another client application, credentials can be sent as a part of the HTTP header or as parts of the URL (see <a href="../../05-internals/design/authentication.html">Authentication in Knora</a>).</p>
+<p>For all API operations that target at changing resources or values, the client has to provide credentials (username and password) so that the API server can authenticate the user making the request. When using the SALSAH web interface, after logging in a session is established (cookie based). When using the API with another client application, credentials can be sent as a part of the HTTP header or as parts of the URL (see <a href="../../05-internals/design/principles/authentication.html">Authentication in Knora</a>).</p>
 <p>Also when reading resources authentication my be needed as resources and their values may have restricted view permissions.</p>
 </div>
 <div>
@@ -273,7 +275,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-3.0.0-0-d71e52b7-20181130-1525
+3.0.0-4-3a02d6f9
 </span>
 </div>
 </article>
@@ -296,13 +298,13 @@ Knora API v1
 </span>
 </div>
 </a>
-<a href="../../03-apis/api-v1/reading-and-searching-resources.html" title="Reading and Searching Resources" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../03-apis/api-v1/authentication.html" title="Authentication" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Reading and Searching Resources
+Authentication
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

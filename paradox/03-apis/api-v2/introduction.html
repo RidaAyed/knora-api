@@ -138,6 +138,8 @@ dhlab-basel/Knora/docs
   <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
   <ul>
     <li><a href="../../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../../01-introduction/data-formats.html" class="page">Data Formats in Knora</a></li>
+    <li><a href="../../01-introduction/standoff-rdf.html" class="page">Standoff/RDF Text Markup</a></li>
     <li><a href="../../01-introduction/example-project.html" class="page">An Example Project</a></li>
   </ul></li>
   <li><a href="../../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
@@ -199,7 +201,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 3.0.0-0-d71e52b7-20181130-1525
+<i class="md-icon">label_outline</i> 3.0.0-4-3a02d6f9
 </div>
 </nav>
 
@@ -286,7 +288,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   </tbody>
 </table>
 <h2><a href="#json-ld" name="json-ld" class="anchor"><span class="anchor-link"></span></a>JSON-LD</h2>
-<p>Our preferred format for data exchange is <a href="https://json-ld.org/spec/latest/json-ld/">JSON-LD</a>. JSON-LD allows the Knora API server to provide responses that are relatively easy for automated processes to interpret, since their structure and semantics is explicitly defined. For example, each project-specific Knora resource property is identified by an IRI, which can be dereferenced to get more information about it (e.g. its label in different languages). Moreover, each value has a type represented by an IRI. These are either standard RDF types (e.g. XSD datatypes) or more complex types whose IRIs can be dereferenced to get more information about their structure.</p>
+<p>Our preferred format for data exchange is <a href="https://json-ld.org/spec/latest/json-ld/">JSON-LD</a>. JSON-LD allows the Knora API server to provide responses that are relatively easy for automated processes to interpret, since their structure and semantics is explicitly defined. For example, each user-created Knora resource property is identified by an IRI, which can be dereferenced to get more information about it (e.g. its label in different languages). Moreover, each value has a type represented by an IRI. These are either standard RDF types (e.g. XSD datatypes) or more complex types whose IRIs can be dereferenced to get more information about their structure.</p>
 <p>At the same time, JSON-LD responses are relatively easy for software developers to work with, and are more concise and easier to read than the equivalent XML. Items in a response can have human-readable names, which can nevertheless be expanded to full IRIs. Also, while a format such as <a href="https://www.w3.org/TR/turtle/">Turtle</a> just provides a set of RDF triples, an equivalent JSON-LD response can explicitly provide data in a hierarchical structure, with objects nested inside other objects.</p>
 <h2><a href="#knora-iris" name="knora-iris" class="anchor"><span class="anchor-link"></span></a>Knora IRIs</h2>
 <p>Resources and entities are identified by IRIs. The format of these IRIs is explained in <a href="knora-iris.html">Knora IRIs</a>.</p>
@@ -310,7 +312,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-3.0.0-0-d71e52b7-20181130-1525
+3.0.0-4-3a02d6f9
 </span>
 </div>
 </article>
@@ -333,13 +335,13 @@ Knora API v2
 </span>
 </div>
 </a>
-<a href="../../03-apis/api-v2/knora-iris.html" title="Knora IRIs" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../03-apis/api-v2/authentication.html" title="Authentication" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Knora IRIs
+Authentication
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../../cloud">
-<title>How to Add an API Route · Knora Documentation</title>
+<title>Authentication · Knora Documentation</title>
 <link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-How to Add an API Route
+Authentication
 </span>
 </div>
 </div>
@@ -138,6 +138,8 @@ dhlab-basel/Knora/docs
   <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
   <ul>
     <li><a href="../../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../../01-introduction/data-formats.html" class="page">Data Formats in Knora</a></li>
+    <li><a href="../../01-introduction/standoff-rdf.html" class="page">Standoff/RDF Text Markup</a></li>
     <li><a href="../../01-introduction/example-project.html" class="page">An Example Project</a></li>
   </ul></li>
   <li><a href="../../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
@@ -187,18 +189,18 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../05-internals/design/how-to-add-a-route.html#how-to-add-an-api-route" class="header">How to Add an API Route</a>
+  <li><a href="../../03-apis/api-v1/authentication.html#authentication" class="header">Authentication</a>
   <ul>
-    <li><a href="../../05-internals/design/how-to-add-a-route.html#write-sparql-templates" class="header">Write SPARQL templates</a></li>
-    <li><a href="../../05-internals/design/how-to-add-a-route.html#write-responder-request-and-response-messages" class="header">Write Responder Request and Response Messages</a></li>
-    <li><a href="../../05-internals/design/how-to-add-a-route.html#write-a-responder" class="header">Write a Responder</a></li>
-    <li><a href="../../05-internals/design/how-to-add-a-route.html#write-a-route" class="header">Write a Route</a></li>
+    <li><a href="../../03-apis/api-v1/authentication.html#login-and-logout" class="header">Login and Logout</a></li>
+    <li><a href="../../03-apis/api-v1/authentication.html#submitting-credentials" class="header">Submitting Credentials</a></li>
+    <li><a href="../../03-apis/api-v1/authentication.html#checking-credentials" class="header">Checking Credentials</a></li>
+    <li><a href="../../03-apis/api-v1/authentication.html#usage-scenarios" class="header">Usage Scenarios</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 3.0.0-0-d71e52b7-20181130-1525
+<i class="md-icon">label_outline</i> 3.0.0-4-3a02d6f9
 </div>
 </nav>
 
@@ -211,12 +213,12 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../05-internals/design/how-to-add-a-route.html#how-to-add-an-api-route" class="header">How to Add an API Route</a>
+  <li><a href="../../03-apis/api-v1/authentication.html#authentication" class="header">Authentication</a>
   <ul>
-    <li><a href="../../05-internals/design/how-to-add-a-route.html#write-sparql-templates" class="header">Write SPARQL templates</a></li>
-    <li><a href="../../05-internals/design/how-to-add-a-route.html#write-responder-request-and-response-messages" class="header">Write Responder Request and Response Messages</a></li>
-    <li><a href="../../05-internals/design/how-to-add-a-route.html#write-a-responder" class="header">Write a Responder</a></li>
-    <li><a href="../../05-internals/design/how-to-add-a-route.html#write-a-route" class="header">Write a Route</a></li>
+    <li><a href="../../03-apis/api-v1/authentication.html#login-and-logout" class="header">Login and Logout</a></li>
+    <li><a href="../../03-apis/api-v1/authentication.html#submitting-credentials" class="header">Submitting Credentials</a></li>
+    <li><a href="../../03-apis/api-v1/authentication.html#checking-credentials" class="header">Checking Credentials</a></li>
+    <li><a href="../../03-apis/api-v1/authentication.html#usage-scenarios" class="header">Usage Scenarios</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -245,78 +247,42 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#how-to-add-an-api-route" name="how-to-add-an-api-route" class="anchor"><span class="anchor-link"></span></a>How to Add an API Route</h1>
+<h1><a href="#authentication" name="authentication" class="anchor"><span class="anchor-link"></span></a>Authentication</h1>
 <div class="toc ">
 <ul>
-  <li><a href="../../05-internals/design/how-to-add-a-route.html#write-sparql-templates" class="header">Write SPARQL templates</a></li>
-  <li><a href="../../05-internals/design/how-to-add-a-route.html#write-responder-request-and-response-messages" class="header">Write Responder Request and Response Messages</a></li>
-  <li><a href="../../05-internals/design/how-to-add-a-route.html#write-a-responder" class="header">Write a Responder</a></li>
-  <li><a href="../../05-internals/design/how-to-add-a-route.html#write-a-route" class="header">Write a Route</a></li>
+  <li><a href="../../03-apis/api-v1/authentication.html#login-and-logout" class="header">Login and Logout</a></li>
+  <li><a href="../../03-apis/api-v1/authentication.html#submitting-credentials" class="header">Submitting Credentials</a></li>
+  <li><a href="../../03-apis/api-v1/authentication.html#checking-credentials" class="header">Checking Credentials</a></li>
+  <li><a href="../../03-apis/api-v1/authentication.html#usage-scenarios" class="header">Usage Scenarios</a></li>
 </ul>
 </div>
-<h2><a href="#write-sparql-templates" name="write-sparql-templates" class="anchor"><span class="anchor-link"></span></a>Write SPARQL templates</h2>
-<p>Add any SPARQL templates you need to <code>src/main/twirl/queries/sparql/v1</code>, using the <a href="https://github.com/playframework/twirl">Twirl</a> template engine.</p>
-<h2><a href="#write-responder-request-and-response-messages" name="write-responder-request-and-response-messages" class="anchor"><span class="anchor-link"></span></a>Write Responder Request and Response Messages</h2>
-<p>Add a file to the <code>org.knora.webapi.messages.v1respondermessages</code> package, containing case classes for your responder&rsquo;s request and response messages. Add a trait that the responder&rsquo;s request messages extend. Each request message type should contain a <code>UserProfileV1</code>.</p>
-<p>Response message classes that represent a complete API response must extend <code>KnoraResponseV1</code>, and must therefore have a <code>toJsValue</code> method that converts the response message to a JSON AST using <a href="https://github.com/spray/spray-json">spray-json</a>.</p>
-<h2><a href="#write-a-responder" name="write-a-responder" class="anchor"><span class="anchor-link"></span></a>Write a Responder</h2>
-<p>Write an Akka actor class that extends <code>ResponderV1</code>, and add it to the <code>org.knora.webapi.responders.v1</code> package.</p>
-<p>Give your responder a <code>receive()</code> method that handles each of your request message types by generating a <code>Future</code> containing a response message, and passing the <code>Future</code> to <code>ActorUtils.futureToMessage()</code>. See <a href="futures-with-akka.html">Futures with Akka</a> and <a href="design-overview.html#error-handling">Error Handling</a> for details.</p>
-<p>See <a href="design-overview.html#triplestore-access">Triplestore Access</a> for details of how to access the triplestore in your responder.</p>
-<p>Add an actor pool for your responder to <code>application.conf</code>, under <code>actor.deployment</code>.</p>
-<p>In <code>ResponderManagerV1</code>, add a reference to your actor pool. Then add a <code>case</code> to the <code>receive()</code> method in <code>ResponderManagerV1</code>, to match messages that extend your request message trait, and forward them to that pool.</p>
-<h2><a href="#write-a-route" name="write-a-route" class="anchor"><span class="anchor-link"></span></a>Write a Route</h2>
-<p>Add an object to the <code>org.knora.webapi.routing.v1</code> package for your route. Your object should look something like this:</p>
-<pre class="prettyprint"><code class="language-scala">import akka.actor.ActorSystem
-import akka.event.LoggingAdapter
-import org.knora.webapi.SettingsImpl
-import org.knora.webapi.messages.v1respondermessages.SampleGetRequestV1
-import org.knora.webapi.routing.RouteUtils
-import spray.routing.Directives._
-import spray.routing._
-import org.knora.webapi.util.StringConversions
-import org.knora.webapi.BadRequestException
-
-object SampleRouteV1 extends Authenticator {
-
-    def knoraApiPath(_system: ActorSystem, settings: SettingsImpl, log: LoggingAdapter): Route = {
-        implicit val system: ActorSystem = _system
-        implicit val executionContext = system.dispatcher
-        implicit val timeout = settings.defaultTimeout
-        val responderManager = system.actorSelection(&quot;/user/responderManager&quot;)
-
-        path(&quot;sample&quot; / Segment) { iri =&gt;
-            get { requestContext =&gt;
-                val userProfile = getUserProfileV1(requestContext)
-                val requestMessage = makeRequestMessage(iri, userProfile)
-
-                RouteUtils.runJsonRoute(
-                    requestMessage,
-                    requestContext,
-                    settings,
-                    responderManager,
-                    log
-                )
-            }
-        }
-    }
-
-    private def makeRequestMessage(iriStr: String, userProfile: UserProfileV1): SampleGetRequestV1 = {
-        val iri = StringConversions.toIri(iriStr, () =&gt; throw BadRequestException(s&quot;Invalid IRI: $iriStr&quot;))
-        SampleGetRequestV1(iri, userProfile)
-    }
-}
-</code></pre>
-<p>Finally, add your <code>knoraApiPath()</code> function to the <code>apiRoutes</code> member variable in <code>KnoraService</code>. Any exception thrown inside the route (e.g., input validation, getUserProfile, etc.) will be handled by the <code>KnoraExceptionHandler</code>, so that the correct client response (status code, format) will be returned.</p>
+<h2><a href="#login-and-logout" name="login-and-logout" class="anchor"><span class="anchor-link"></span></a>Login and Logout</h2>
+<p>When a client accesses the <strong>/v1/session?login</strong> route successfully, it gets back headers requesting that a cookie is created, which will store the session token. On all subsequent calls to any route, this session token needs to be sent with each request. Normally, a web browser does this automatically, i.e. sends the cookie on every request. The session token is used by the server to retrieve the user profile. If successful, the user is deemed authenticated.</p>
+<p>To <strong>logout</strong> the client can call the same route and provide the logout parameter <strong>/v1/session?logout</strong>. This will invalidate the session token and return headers for removing the cookie on the client.</p>
+<h2><a href="#submitting-credentials" name="submitting-credentials" class="anchor"><span class="anchor-link"></span></a>Submitting Credentials</h2>
+<p>For <strong>login</strong>, credentials in form of <em>email</em> and <em>password</em> need to be sent with the request.</p>
+<p>There are two possibilities to do so:</p>
+<ul>
+  <li>in the URL submitting the parameters <code>email</code> and <code>password</code> (e.g., <a href="http://knora-host/v1/resources/resIri?email=userUrlEncodedEmail&password=pw">http://knora-host/v1/resources/resIri?email=userUrlEncodedEmail&password=pw</a>)</li>
+  <li>in the HTTP authorization header (<a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP basic authentication</a>) when doing a HTTP request to the API When using Python&rsquo;s module <code>requests</code>, the credentials can simply be submitted as a tuple with each request using the param <code>auth</code> (<a href="http://docs.python-requests.org/en/master/user/authentication/#basic-authentication">python requests</a>).</li>
+</ul>
+<p>An alternative way for accessing all routes is to simply supply the <em>email</em> and <em>password</em> credentials on each request either as URL parameters or in the HTTP authorization header.</p>
+<h2><a href="#checking-credentials" name="checking-credentials" class="anchor"><span class="anchor-link"></span></a>Checking Credentials</h2>
+<p>To check the credentials, there is a special route called <strong>/v1/authenticate</strong>, which can be used to check if the credentials are valid.</p>
+<h2><a href="#usage-scenarios" name="usage-scenarios" class="anchor"><span class="anchor-link"></span></a>Usage Scenarios</h2>
+<ol>
+  <li>Create session by logging-in, send session token on each subsequent request, and logout when finished.</li>
+  <li>Send email/password credentials on every request.</li>
+</ol>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/design/how-to-add-a-route.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-v1/authentication.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-3.0.0-0-d71e52b7-20181130-1525
+3.0.0-4-3a02d6f9
 </span>
 </div>
 </article>
@@ -326,7 +292,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../../05-internals/design/shared-packages.html" title="Shared Packages" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../../03-apis/api-v1/introduction.html" title="Introduction: Using API V1" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -335,17 +301,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Shared Packages
+Introduction: Using API V1
 </span>
 </div>
 </a>
-<a href="../../05-internals/design/triplestore-updates.html" title="Triplestore Updates" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../03-apis/api-v1/reading-and-searching-resources.html" title="Reading and Searching Resources" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Triplestore Updates
+Reading and Searching Resources
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

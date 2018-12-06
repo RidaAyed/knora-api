@@ -138,6 +138,8 @@ dhlab-basel/Knora/docs
   <li><a href="01-introduction/index.html" class="page">Introduction</a>
   <ul>
     <li><a href="01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="01-introduction/data-formats.html" class="page">Data Formats in Knora</a></li>
+    <li><a href="01-introduction/standoff-rdf.html" class="page">Standoff/RDF Text Markup</a></li>
     <li><a href="01-introduction/example-project.html" class="page">An Example Project</a></li>
   </ul></li>
   <li><a href="02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
@@ -189,6 +191,7 @@ dhlab-basel/Knora/docs
 <ul>
   <li><a href="faq.html#frequently-asked-questions" class="header">Frequently Asked Questions</a>
   <ul>
+    <li><a href="faq.html#data-formats" class="header">Data Formats</a></li>
     <li><a href="faq.html#triplestores" class="header">Triplestores</a></li>
     <li><a href="faq.html#knora-ontologies" class="header">Knora Ontologies</a></li>
   </ul></li>
@@ -196,7 +199,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 3.0.0-0-d71e52b7-20181130-1525
+<i class="md-icon">label_outline</i> 3.0.0-4-3a02d6f9
 </div>
 </nav>
 
@@ -211,6 +214,7 @@ dhlab-basel/Knora/docs
 <ul>
   <li><a href="faq.html#frequently-asked-questions" class="header">Frequently Asked Questions</a>
   <ul>
+    <li><a href="faq.html#data-formats" class="header">Data Formats</a></li>
     <li><a href="faq.html#triplestores" class="header">Triplestores</a></li>
     <li><a href="faq.html#knora-ontologies" class="header">Knora Ontologies</a></li>
   </ul></li>
@@ -244,6 +248,11 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h1><a href="#frequently-asked-questions" name="frequently-asked-questions" class="anchor"><span class="anchor-link"></span></a>Frequently Asked Questions</h1>
 <div class="toc ">
 <ul>
+  <li><a href="faq.html#data-formats" class="header">Data Formats</a>
+  <ul>
+    <li><a href="faq.html#what-data-formats-does-knora-store-" class="header">What data formats does Knora store?</a></li>
+    <li><a href="faq.html#does-knora-store-xml-files-" class="header">Does Knora store XML files?</a></li>
+  </ul></li>
   <li><a href="faq.html#triplestores" class="header">Triplestores</a>
   <ul>
     <li><a href="faq.html#which-triplestores-can-be-used-with-knora-" class="header">Which triplestores can be used with Knora?</a></li>
@@ -252,17 +261,24 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <ul>
     <li><a href="faq.html#can-a-project-use-classes-or-properties-defined-in-another-projects-ontology-" class="header">Can a project use classes or properties defined in another project&rsquo;s ontology?</a></li>
     <li><a href="faq.html#why-doesnt-knora-use-rdfs-domain-and-rdfs-range-for-consistency-checking-" class="header">Why doesn&rsquo;t Knora use <code>rdfs:domain</code> and <code>rdfs:range</code> for consistency checking?</a></li>
-    <li><a href="faq.html#can-a-project-specific-property-be-an-owl-transitiveproperty-" class="header">Can a project-specific property be an <code>owl:TransitiveProperty</code>?</a></li>
+    <li><a href="faq.html#can-a-user-created-property-be-an-owl-transitiveproperty-" class="header">Can a user-created property be an <code>owl:TransitiveProperty</code>?</a></li>
   </ul></li>
 </ul>
 </div>
+<h2><a href="#data-formats" name="data-formats" class="anchor"><span class="anchor-link"></span></a>Data Formats</h2>
+<h3><a href="#what-data-formats-does-knora-store-" name="what-data-formats-does-knora-store-" class="anchor"><span class="anchor-link"></span></a>What data formats does Knora store?</h3>
+<p>See <a href="01-introduction/data-formats.html">Data Formats in Knora</a>.</p>
+<h3><a href="#does-knora-store-xml-files-" name="does-knora-store-xml-files-" class="anchor"><span class="anchor-link"></span></a>Does Knora store XML files?</h3>
+<p>XML files do not lend themselves to searching and linking. Knora&rsquo;s RDF storage is better suited to its goal of facilitating data reuse.</p>
+<p>If your XML files represent text with markup (e.g. <a href="http://www.tei-c.org/">TEI/XML</a>), the recommended approach is to allow Knora to store it as <a href="01-introduction/standoff-rdf.html">Standoff/RDF</a>. This will allow both text and markup to be searched using <a href="03-apis/api-v2/query-language.html">Gravsearch</a>. Knora can also regenerate, at any time, an XML document that is equivalent to the original one.</p>
+<p>If you have XML that simply represents structured data (rather than text documents), we recommend converting it to Knora resources, which are stored as RDF.</p>
 <h2><a href="#triplestores" name="triplestores" class="anchor"><span class="anchor-link"></span></a>Triplestores</h2>
 <h3><a href="#which-triplestores-can-be-used-with-knora-" name="which-triplestores-can-be-used-with-knora-" class="anchor"><span class="anchor-link"></span></a>Which triplestores can be used with Knora?</h3>
 <p>Knora is tested with <a href="http://graphdb.ontotext.com/">Ontotext GraphDB SE</a>. Our goal is to support several triplestores, including open-source options. Integration with <a href="https://jena.apache.org/documentation/fuseki2/">Apache Jena Fuseki</a> has been partly implemented, but is not currently supported.</p>
 <h2><a href="#knora-ontologies" name="knora-ontologies" class="anchor"><span class="anchor-link"></span></a>Knora Ontologies</h2>
 <h3><a href="#can-a-project-use-classes-or-properties-defined-in-another-projects-ontology-" name="can-a-project-use-classes-or-properties-defined-in-another-projects-ontology-" class="anchor"><span class="anchor-link"></span></a>Can a project use classes or properties defined in another project&rsquo;s ontology?</h3>
-<p>Knora does not allow this to be done with ordinary project-specific ontologies. Each project must be free to change its own ontologies, but this is not possible if they have been used in ontologies or data created by other projects.</p>
-<p>An ontology can be defined as shared, meaning that it can be used by multiple projects, and that its creators promise not to change it in ways that could affect other ontologies or data that are based on it. See <a href="03-apis/api-v2/knora-iris.html#shared-ontologies">Shared Ontologies</a> for details.</p>
+<p>Knora does not allow this to be done with project-specific ontologies. Each project must be free to change its own ontologies, but this is not possible if they have been used in ontologies or data created by other projects.</p>
+<p>However, an ontology can be defined as shared, meaning that it can be used by multiple projects, and that its creators promise not to change it in ways that could affect other ontologies or data that are based on it. See <a href="02-knora-ontologies/introduction.html#shared-ontologies">Shared Ontologies</a> for details.</p>
 <p>There will be a standardisation process for shared ontologies (issue <a href="https://github.com/dhlab-basel/Knora/issues/523">#523</a>).</p>
 <h3><a href="#why-doesnt-knora-use-rdfs-domain-and-rdfs-range-for-consistency-checking-" name="why-doesnt-knora-use-rdfs-domain-and-rdfs-range-for-consistency-checking-" class="anchor"><span class="anchor-link"></span></a>Why doesn&rsquo;t Knora use <code>rdfs:domain</code> and <code>rdfs:range</code> for consistency checking?</h3>
 <p>Knora&rsquo;s consistency checking uses Knora-specific properties, which are called <code>knora-base:subjectClassConstraint</code> and <code>knora-base:objectClassConstraint</code> in the <code>knora-base</code> ontology, and <code>knora-api:subjectType</code> and <code>knora-api:objectType</code> in the <code>knora-api</code> ontologies. These properties express <em>restrictions</em> on the possible subjects and objects of a property. If a property&rsquo;s subject or object does not conform to the specified restrictions, Knora considers it an error.</p>
@@ -275,7 +291,7 @@ data:book1 example:hasAuthor data:oxygen .
 <p>Therefore, <code>rdfs:domain</code> and <code>rdfs:range</code> are not suitable for consistency checking.</p>
 <p>Knora therefore uses its own properties, along with OWL cardinalities, which it interprets according to a &ldquo;closed world&rdquo; assumption. Knora performs its own consistency checks to enforce these restrictions. Knora repositories can also take advantage of triplestore-specific consistency checking mechanisms.</p>
 <p>The constraint language <a href="https://www.w3.org/TR/shacl/">SHACL</a> may someday provide a standard, triplestore-independent way to implement consistency checks, if the obstacles to its adoption can be overcome (see <a href="https://research.nuance.com/diverging-views-of-shacl/">Diverging views of SHACL</a>). For further discussion of these issues, see <a href="http://spinrdf.org/shacl-and-owl.html">SHACL and OWL Compared</a>.</p>
-<h3><a href="#can-a-project-specific-property-be-an-owl-transitiveproperty-" name="can-a-project-specific-property-be-an-owl-transitiveproperty-" class="anchor"><span class="anchor-link"></span></a>Can a project-specific property be an <code>owl:TransitiveProperty</code>?</h3>
+<h3><a href="#can-a-user-created-property-be-an-owl-transitiveproperty-" name="can-a-user-created-property-be-an-owl-transitiveproperty-" class="anchor"><span class="anchor-link"></span></a>Can a user-created property be an <code>owl:TransitiveProperty</code>?</h3>
 <p>No, because in Knora, a resource controls its properties. This basic assumption is what allows Knora to enforce permissions and transaction integrity. The concept of a transitive property would break this assumption.</p>
 <p>Consider a link property <code>hasLinkToFoo</code> that is defined as an <code>owl:TransitiveProperty</code>, and is used to link resource <code>Foo1</code> to resource <code>Foo2</code>:</p>
 <p><img src="faq-fig1.dot.png" alt="Figure 1" title="Figure 1" /></p>
@@ -283,7 +299,7 @@ data:book1 example:hasAuthor data:oxygen .
 <p><img src="faq-fig2.dot.png" alt="Figure 2" title="Figure 2" /></p>
 <p>Since the property is transitive, a link from <code>Foo1</code> to <code>Foo3</code> is now inferred. But this should not be allowed, because the owner of <code>Foo2</code> does not have permission to add a link to <code>Foo1</code>.</p>
 <p>Moreover, even if the owner of <code>Foo2</code> did have that permission, the inferred link would not have a <code>knora-base:LinkValue</code> (a reification), which every Knora link must have. The <code>LinkValue</code> is what stores metadata about the creator of the link, its creation date, its permissions, and so on (see <a href="02-knora-ontologies/knora-base.html#linkvalue">LinkValue</a>).</p>
-<p>Finally, if an update to one resource could modify another resource, this would violate Knora&rsquo;s model of transaction integrity, in which each transaction can modify only one resource (see <a href="05-internals/design/triplestore-updates.html#application-level-locking">Application-level Locking</a>). Knora would then be unable to ensure that concurrent transactions do not interfere with each other.</p>
+<p>Finally, if an update to one resource could modify another resource, this would violate Knora&rsquo;s model of transaction integrity, in which each transaction can modify only one resource (see <a href="05-internals/design/principles/triplestore-updates.html#application-level-locking">Application-level Locking</a>). Knora would then be unable to ensure that concurrent transactions do not interfere with each other.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/faq.md" title="Edit this page" class="md-source-file md-edit">
@@ -292,7 +308,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-3.0.0-0-d71e52b7-20181130-1525
+3.0.0-4-3a02d6f9
 </span>
 </div>
 </article>

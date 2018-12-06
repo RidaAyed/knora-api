@@ -138,6 +138,8 @@ dhlab-basel/Knora/docs
   <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
   <ul>
     <li><a href="../../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../../01-introduction/data-formats.html" class="page">Data Formats in Knora</a></li>
+    <li><a href="../../01-introduction/standoff-rdf.html" class="page">Standoff/RDF Text Markup</a></li>
     <li><a href="../../01-introduction/example-project.html" class="page">An Example Project</a></li>
   </ul></li>
   <li><a href="../../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
@@ -197,7 +199,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 3.0.0-0-d71e52b7-20181130-1525
+<i class="md-icon">label_outline</i> 3.0.0-4-3a02d6f9
 </div>
 </nav>
 
@@ -352,7 +354,9 @@ lazy val docs = knoraModule(&quot;docs&quot;)
                 &quot;project.name&quot; -&gt; &quot;Knora Documentation&quot;,
                 &quot;github.base_url&quot; -&gt; &quot;https://github.com/dhlab-basel/Knora&quot;,
                 &quot;image.base_url&quot; -&gt; &quot;.../assets/images&quot;,
-                &quot;extref.rfc.base_url&quot; -&gt; &quot;http://tools.ietf.org/html/rfc%s&quot;
+                &quot;extref.rfc.base_url&quot; -&gt; &quot;http://tools.ietf.org/html/rfc%s&quot;,
+                &quot;snip.src.base_dir&quot; -&gt; ((baseDirectory in ThisBuild).value / &quot;webapi&quot; / &quot;src&quot; / &quot;main&quot; / &quot;scala&quot;).getAbsolutePath,
+                &quot;snip.test.base_dir&quot; -&gt; ((baseDirectory in ThisBuild).value / &quot;webapi&quot; / &quot;src&quot; / &quot;test&quot; / &quot;scala&quot;).getAbsolutePath
             ),
 
             // Paradox Material Theme Settings
@@ -446,7 +450,7 @@ lazy val salsah1 = knoraModule(&quot;salsah1&quot;)
                 // copy the public folder
                 directory(&quot;salsah1/src/public&quot;) ++
                 // copy the configuration files to config directory
-                contentOf(&quot;salsah1/configs&quot;).toMap.mapValues(&quot;config/&quot; + _) ++
+                // contentOf(&quot;salsah1/configs&quot;).toMap.mapValues(&quot;config/&quot; + _) ++
                 // copy configuration files to config directory
                 contentOf(&quot;salsah1/src/main/resources&quot;).toMap.mapValues(&quot;config/&quot; + _)
             },
@@ -469,10 +473,10 @@ lazy val salsah1 = knoraModule(&quot;salsah1&quot;)
                 Cmd(&quot;ENV&quot;, &quot;&quot;&quot;LANG=&quot;en_US.UTF-8&quot;&quot;&quot;&quot;),
                 Cmd(&quot;ENV&quot;, &quot;&quot;&quot;JAVA_OPTS=&quot;-Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8&quot;&quot;&quot;&quot;),
                 Cmd(&quot;ENV&quot;, &quot;KNORA_SALSAH1_DEPLOYED=true&quot;),
-                Cmd(&quot;ENV&quot;, &quot;KNORA_SALSAH1_WORKDIR=/salsah&quot;),
+                Cmd(&quot;ENV&quot;, &quot;KNORA_SALSAH1_WORKDIR=/salsah1&quot;),
 
-                Cmd(&quot;ADD&quot;, &quot;opt/docker&quot;, &quot;/salsah&quot;),
-                Cmd(&quot;WORKDIR&quot;, &quot;/salsah&quot;),
+                Cmd(&quot;ADD&quot;, &quot;opt/docker&quot;, &quot;/salsah1&quot;),
+                Cmd(&quot;WORKDIR&quot;, &quot;/salsah1&quot;),
 
                 Cmd(&quot;EXPOSE&quot;, &quot;3335&quot;),
 
@@ -670,7 +674,7 @@ lazy val webapi = knoraModule(&quot;webapi&quot;)
             buildInfoKeys ++= Seq[BuildInfoKey](
                 name,
                 version,
-                &quot;akkaHttp&quot; -&gt; Dependencies.akkaHttpVersion
+                &quot;akkaHttp&quot; -&gt; Dependencies.akkaHttpVersion.value
             ),
             buildInfoPackage := &quot;org.knora.webapi&quot;
         )
@@ -759,7 +763,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-3.0.0-0-d71e52b7-20181130-1525
+3.0.0-4-3a02d6f9
 </span>
 </div>
 </article>

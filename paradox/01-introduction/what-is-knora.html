@@ -138,6 +138,8 @@ dhlab-basel/Knora/docs
   <li><a href="../01-introduction/index.html" class="page">Introduction</a>
   <ul>
     <li><a href="../01-introduction/what-is-knora.html" class="active page">What Is Knora?</a></li>
+    <li><a href="../01-introduction/data-formats.html" class="page">Data Formats in Knora</a></li>
+    <li><a href="../01-introduction/standoff-rdf.html" class="page">Standoff/RDF Text Markup</a></li>
     <li><a href="../01-introduction/example-project.html" class="page">An Example Project</a></li>
   </ul></li>
   <li><a href="../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
@@ -185,11 +187,46 @@ dhlab-basel/Knora/docs
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../01-introduction/what-is-knora.html#what-is-knora-" class="header">What Is Knora?</a>
+  <ul>
+    <li><a href="../01-introduction/what-is-knora.html#humanities-focused-data-storage" class="header">Humanities-Focused Data Storage</a></li>
+    <li><a href="../01-introduction/what-is-knora.html#powerful-searches" class="header">Powerful Searches</a></li>
+    <li><a href="../01-introduction/what-is-knora.html#access-control" class="header">Access Control</a></li>
+    <li><a href="../01-introduction/what-is-knora.html#data-history" class="header">Data History</a></li>
+    <li><a href="../01-introduction/what-is-knora.html#data-consistency" class="header">Data Consistency</a></li>
+    <li><a href="../01-introduction/what-is-knora.html#linked-open-data" class="header">Linked Open Data</a></li>
+    <li><a href="../01-introduction/what-is-knora.html#build-your-own-application" class="header">Build Your Own Application</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 3.0.0-0-d71e52b7-20181130-1525
+<i class="md-icon">label_outline</i> 3.0.0-4-3a02d6f9
 </div>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../01-introduction/what-is-knora.html#what-is-knora-" class="header">What Is Knora?</a>
+  <ul>
+    <li><a href="../01-introduction/what-is-knora.html#humanities-focused-data-storage" class="header">Humanities-Focused Data Storage</a></li>
+    <li><a href="../01-introduction/what-is-knora.html#powerful-searches" class="header">Powerful Searches</a></li>
+    <li><a href="../01-introduction/what-is-knora.html#access-control" class="header">Access Control</a></li>
+    <li><a href="../01-introduction/what-is-knora.html#data-history" class="header">Data History</a></li>
+    <li><a href="../01-introduction/what-is-knora.html#data-consistency" class="header">Data Consistency</a></li>
+    <li><a href="../01-introduction/what-is-knora.html#linked-open-data" class="header">Linked Open Data</a></li>
+    <li><a href="../01-introduction/what-is-knora.html#build-your-own-application" class="header">Build Your Own Application</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 </div>
@@ -217,12 +254,51 @@ You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <h1><a href="#what-is-knora-" name="what-is-knora-" class="anchor"><span class="anchor-link"></span></a>What Is Knora?</h1>
-<p>Knora (Knowledge Organization, Representation, and Annotation) is a a server application for storing, sharing, and working with humanities data.</p>
-<p>Knora is based on the idea that the continuous availability and reusability of digital qualitative research data in the humanities requires a common, flexible data representation and storage technology capable of performing queries across large quantities of heterogeneous data, organised according to project-specific data structures that cannot be known in advance. It also requires a convenient, storage-independent way for Virtual Research Environments (VREs) and automated data-processing software to access, query, and add to this data.</p>
-<p>To solve the data representation and storage problem, Knora represents humanities data as <a href="http://www.w3.org/TR/2014/NOTE-rdf11-primer-20140624/">RDF</a> graphs, using <a href="http://www.w3.org/TR/2012/REC-owl2-primer-20121211/">OWL</a> ontologies that express abstract, cross-disciplinary commonalities in the structure and semantics of research data. Each project using Knora extends these abstractions by providing its own project-specific ontology, which more specifically describes the structure and semantics of its data. Existing non-RDF repositories can readily be converted to an RDF format based on the proposed abstractions. This design makes it possible to preserve the semantics of data imported from relational databases, XML-based markup systems, and other types of storage, as well as to query, annotate, and link together heterogeneous data in a unified way. By offering a shared, standards-based, extensible infrastructure for diverse humanities projects, Knora also deals with the issue of conversion and migration caused by the obsolescence of file and data formats in an efficient and feasible manner.</p>
-<p>To solve the access problem, Knora offers generic HTTP-based APIs. These allow applications to query and work with data in terms of the concepts expressed by the Knora ontologies, without dealing with the complexities of the underlying storage system. This approach also allows Knora to provide features that are not part of the RDF standards, such as access control and automatic versioning of data, and to act as a gateway to other sorts of repositories, including non-RDF repositories.</p>
-<p>Knora uses a high-performance media server, called <a href="http://www.sipi.io/">Sipi</a>, for serving and converting binary media files such as images and video. Sipi can efficiently convert between many different formats on demand, preserving embedded metadata, and implements the <a href="http://iiif.io/">International Image Interoperability Framework (IIIF)</a>.</p>
-<p>Knora can be used with a general-purpose, browser-based VRE called <a href="https://dhlab-basel.github.io/Salsah/">SALSAH</a>. Using the Knora API, a project can also create its own VRE or project-specific web site, optionally reusing components from SALSAH.</p>
+<div class="toc ">
+<ul>
+  <li><a href="../01-introduction/what-is-knora.html#humanities-focused-data-storage" class="header">Humanities-Focused Data Storage</a>
+  <ul>
+    <li><a href="../01-introduction/what-is-knora.html#calendar-independent-dates" class="header">Calendar-Independent Dates</a></li>
+    <li><a href="../01-introduction/what-is-knora.html#flexible-searchable-text-markup" class="header">Flexible, Searchable Text Markup</a></li>
+  </ul></li>
+  <li><a href="../01-introduction/what-is-knora.html#powerful-searches" class="header">Powerful Searches</a></li>
+  <li><a href="../01-introduction/what-is-knora.html#access-control" class="header">Access Control</a></li>
+  <li><a href="../01-introduction/what-is-knora.html#data-history" class="header">Data History</a></li>
+  <li><a href="../01-introduction/what-is-knora.html#data-consistency" class="header">Data Consistency</a></li>
+  <li><a href="../01-introduction/what-is-knora.html#linked-open-data" class="header">Linked Open Data</a></li>
+  <li><a href="../01-introduction/what-is-knora.html#build-your-own-application" class="header">Build Your Own Application</a></li>
+</ul>
+</div>
+<p>Knora (Knowledge Organization, Representation, and Annotation) is a a content management system for the long-term preservation and reuse of humanities data. It is designed to accommodate data with a complex internal structure, including data that could be stored in relational databases.</p>
+<p>Knora aims to solve key problems in the long-term preservation and reuse of humanities data:</p>
+<p>First, traditional archives preserve data, but do not facilitate reuse. Typically, only metadata can be searched, not the data itself. You have to first identify an information package that might be of interest, then download it, and only then can you find out what&rsquo;s really in it. This is time-consuming, and makes it impractical to reuse data from many different sources.</p>
+<p>Knora solves this problem by keeping the data alive. You can query all the data in a Knora repository, not just the metadata. You can import thousands of databases into Knora, and run queries that search through all of them at once.</p>
+<p>Another problem is that researchers use a multitude of different data formats, many of which are proprietary and quickly become obsolete. It is not practical to maintain all the programs that were used to create and read old data files, or even all the operating systems that these programs ran on.</p>
+<p>Instead of preserving all these data formats, Knora supports the conversion of all sorts of data to a <a href="data-formats.html">small number of formats</a> that are suitable for long-term preservation, and that maintain the data&rsquo;s meaning and structure:</p>
+<ul>
+  <li>Non-binary data is stored as  <a href="http://www.w3.org/TR/2014/NOTE-rdf11-primer-20140624/">RDF</a>, in a dedicated  database called a triplestore. RDF is an open, vendor-independent standard  that can express any data structure.</li>
+  <li>Binary media files (images, audio, and video) are converted to a few specialised  archival file formats and stored by <a href="https://github.com/dhlab-basel/Sipi">Sipi</a>,  with metadata stored in the triplestore.</li>
+</ul>
+<p>Knora then makes this data available for reuse via its generic, standards-based application programming interfaces (APIs). A virtual research environment (VRE) can then use these APIs to search, link together, and add to data from different research projects in a unified way.</p>
+<h2><a href="#humanities-focused-data-storage" name="humanities-focused-data-storage" class="anchor"><span class="anchor-link"></span></a>Humanities-Focused Data Storage</h2>
+<p>Each project creates its own data model (or <em>ontology</em>), describing the types of items it wishes to store, using basic data types defined in Knora&rsquo;s <a href="../02-knora-ontologies/knora-base.html">base ontology</a>. This gives projects the freedom to describe their data in a way that makes sense to them, while allowing Knora to support searching and linking across projects.</p>
+<p>Knora has built-in support for data structures that are commonly needed in humanities data, and that present unique challenges for any type of database storage.</p>
+<h3><a href="#calendar-independent-dates" name="calendar-independent-dates" class="anchor"><span class="anchor-link"></span></a>Calendar-Independent Dates</h3>
+<p>In the humanities, a date could be based on any sort of calendar (e.g. Gregorian, Julian, Islamic, or Hebrew). Knora stores dates using a calendar-independent, astronomical representation, and converts between calendars as needed. This makes it possible to search for a date in one calendar, and get search results in other calendars.</p>
+<h3><a href="#flexible-searchable-text-markup" name="flexible-searchable-text-markup" class="anchor"><span class="anchor-link"></span></a>Flexible, Searchable Text Markup</h3>
+<p>Commonly used text markup systems, such as <a href="http://www.tei-c.org/">TEI/XML</a>, have to represent a text as a hierarchy, and therefore have trouble supporting overlapping markup. Knora supports <a href="standoff-rdf.html">Standoff/RDF markup</a>: the markup is stored as RDF data, separately from the text, allowing for overlapping markup. Knora&rsquo;s RDF-based standoff is designed to support the needs of complex digital critical editions. Knora can import any XML document (including TEI/XML) for storage as standoff/RDF, and can regenerate the original XML document at any time.</p>
+<h2><a href="#powerful-searches" name="powerful-searches" class="anchor"><span class="anchor-link"></span></a>Powerful Searches</h2>
+<p>Knora&rsquo;s API provides a search language, <a href="../03-apis/api-v2/query-language.html">Gravsearch</a>, that is designed to meet the needs of humanities researchers. Gravsearch supports Knora&rsquo;s humanites-focused data structures, including calendar-independent dates and standoff markup, as well as fast full-text searches. This allows searches to combine text-related criteria with any other criteria. For example, you could search for a text that contains a certain word and also mentions a person who lived in the same city as another person who is the author of a text that mentions an event that occurred during a certain time period.</p>
+<h2><a href="#access-control" name="access-control" class="anchor"><span class="anchor-link"></span></a>Access Control</h2>
+<p>The RDF standards do not include any concept of permissions. Knora&rsquo;s permission system allows project administrators and users to determine who can see or modify each item of data. Knora filters search results according to each user&rsquo;s permissions.</p>
+<h2><a href="#data-history" name="data-history" class="anchor"><span class="anchor-link"></span></a>Data History</h2>
+<p>RDF does not have a concept of data history. Knora maintains all previous versions of each item of data. Ordinary searches return only the latest version, but it is possible to obtain an item as it was at any point in the past.</p>
+<h2><a href="#data-consistency" name="data-consistency" class="anchor"><span class="anchor-link"></span></a>Data Consistency</h2>
+<p>RDF triplestores do not implement a standardised way of ensuring the consistency of data in a repository. Knora ensures that all data is consistent, conforms the project-specific data models, and meets Knora&rsquo;s minimum requirements for interoperability and reusability of data.</p>
+<h2><a href="#linked-open-data" name="linked-open-data" class="anchor"><span class="anchor-link"></span></a>Linked Open Data</h2>
+<p>Knora supports publishing data online as as <a href="http://linkeddata.org/">Linked Open Data</a>, using open standards to allow interoperability between different repositories on the web.</p>
+<h2><a href="#build-your-own-application" name="build-your-own-application" class="anchor"><span class="anchor-link"></span></a>Build Your Own Application</h2>
+<p>Knora can be used with a general-purpose, browser-based VRE called <a href="https://dhlab-basel.github.io/Salsah/">SALSAH</a>. Using the Knora API and <a href="https://github.com/dhlab-basel/Knora-ui">Knora-ui</a>, a set of reusable user-interface components, you can also create your own VRE or project-specific web site.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/01-introduction/what-is-knora.md" title="Edit this page" class="md-source-file md-edit">
@@ -231,7 +307,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-3.0.0-0-d71e52b7-20181130-1525
+3.0.0-4-3a02d6f9
 </span>
 </div>
 </article>
@@ -254,13 +330,13 @@ Introduction
 </span>
 </div>
 </a>
-<a href="../01-introduction/example-project.html" title="An Example Project" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../01-introduction/data-formats.html" title="Data Formats in Knora" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-An Example Project
+Data Formats in Knora
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

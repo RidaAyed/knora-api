@@ -138,6 +138,8 @@ dhlab-basel/Knora/docs
   <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
   <ul>
     <li><a href="../../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../../01-introduction/data-formats.html" class="page">Data Formats in Knora</a></li>
+    <li><a href="../../01-introduction/standoff-rdf.html" class="page">Standoff/RDF Text Markup</a></li>
     <li><a href="../../01-introduction/example-project.html" class="page">An Example Project</a></li>
   </ul></li>
   <li><a href="../../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
@@ -198,7 +200,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 3.0.0-0-d71e52b7-20181130-1525
+<i class="md-icon">label_outline</i> 3.0.0-4-3a02d6f9
 </div>
 </nav>
 
@@ -254,7 +256,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     <li><a href="../../03-apis/api-v2/knora-iris.html#internal-ontology-iris" class="header">Internal Ontology IRIs</a></li>
     <li><a href="../../03-apis/api-v2/knora-iris.html#external-ontology-iris" class="header">External Ontology IRIs</a></li>
     <li><a href="../../03-apis/api-v2/knora-iris.html#ontology-entity-iris" class="header">Ontology Entity IRIs</a></li>
-    <li><a href="../../03-apis/api-v2/knora-iris.html#shared-ontologies" class="header">Shared Ontologies</a></li>
+    <li><a href="../../03-apis/api-v2/knora-iris.html#shared-ontology-iris" class="header">Shared Ontology IRIs</a></li>
   </ul></li>
   <li><a href="../../03-apis/api-v2/knora-iris.html#iris-for-data" class="header">IRIs for Data</a></li>
   <li><a href="../../03-apis/api-v2/knora-iris.html#knora-resource-permalinks" class="header">Knora Resource Permalinks</a></li>
@@ -263,13 +265,13 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>The IRIs used in Knora repositories and in the Knora API v2 follow certain conventions.</p>
 <h2><a href="#project-short-codes" name="project-short-codes" class="anchor"><span class="anchor-link"></span></a>Project Short-Codes</h2>
 <p>A project short-code is a hexadecimal number of at least four digits, assigned by the <a href="http://dasch.swiss/">DaSCH</a> to uniquely identify a Knora project regardless of where it is hosted. The IRIs of ontologies that are built into Knora do not contain shortcodes; these ontologies implicitly belong to the Knora system project.</p>
-<p>A project-specific ontology IRI must always include its project shortcode.</p>
+<p>A user-created ontology IRI must always include its project shortcode.</p>
 <p>Project ID <code>0000</code> is reserved for shared ontologies (see <a href="knora-iris.html#shared-ontologies">Shared Ontologies</a>).</p>
 <p>The range of project IDs from <code>0001</code> to <code>00FF</code> inclusive is reserved for local testing. Thus, the first useful project will be <code>0100</code>.</p>
 <p>In the beginning, Unil will use the IDs <code>0100</code> to <code>07FF</code>, and Unibas <code>0800</code> to <code>08FF</code>.</p>
 <h2><a href="#iris-for-ontologies-and-ontology-entities" name="iris-for-ontologies-and-ontology-entities" class="anchor"><span class="anchor-link"></span></a>IRIs for Ontologies and Ontology Entities</h2>
 <h3><a href="#internal-ontology-iris" name="internal-ontology-iris" class="anchor"><span class="anchor-link"></span></a>Internal Ontology IRIs</h3>
-<p>Knora makes a distinction between internal and external ontologies. Internal ontologies are used in the triplestore, while external ontologies are used in API v2. For each internal ontology, there is a corresponding external ontology. Some internal ontologies are built into Knora, while others are project-specific. Knora automatically generates external ontologies based on project-specific internal ontologies.</p>
+<p>Knora makes a distinction between internal and external ontologies. Internal ontologies are used in the triplestore, while external ontologies are used in API v2. For each internal ontology, there is a corresponding external ontology. Some internal ontologies are built into Knora, while others are user-created. Knora automatically generates external ontologies based on user-created internal ontologies.</p>
 <p>Each internal ontology has an IRI, which is also the IRI of the named graph that contains the ontology in the triplestore. An internal ontology IRI has the form:</p>
 <pre><code>http://www.knora.org/ontology/PROJECT_SHORTCODE/ONTOLOGY_NAME
 </code></pre>
@@ -282,7 +284,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li><code>standoff</code></li>
   <li><code>salsah-gui</code></li>
 </ul>
-<p>Names starting with <code>knora</code> are reserved for future built-in Knora ontologies. A project-specific ontology name may not start with the letter <code>v</code> followed by a digit, and may not contain these reserved words:</p>
+<p>Names starting with <code>knora</code> are reserved for future built-in Knora ontologies. A user-created ontology name may not start with the letter <code>v</code> followed by a digit, and may not contain these reserved words:</p>
 <ul>
   <li><code>knora</code></li>
   <li><code>ontology</code></li>
@@ -321,10 +323,8 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li><code>http://HOST[:PORT]/ontology/0001/example/v2#ExampleThing</code> (in the API v2 complex schema)</li>
   <li><code>http://HOST[:PORT]/ontology/0001/example/simple/v2#ExampleThing</code> (in the API v2 simple schema)</li>
 </ul>
-<h3><a href="#shared-ontologies" name="shared-ontologies" class="anchor"><span class="anchor-link"></span></a>Shared Ontologies</h3>
-<p>Knora does not normally allow a project to use classes or properties defined in an ontology that belongs to another project. Each project must be free to change its own ontologies, but this is not possible if they have been used in ontologies or data created by other projects.</p>
-<p>However, an ontology can be defined as shared, meaning that it can be used by multiple projects, and that its creators will not change it in ways that could affect other ontologies or data that are based on it. Specifically, in a shared ontology, existing classes and properties cannot safely be changed, but new ones can be added. (It is not even safe to add an optional cardinality to an existing class, because this could cause subclasses to violate the rule that a class cannot have a cardinality on property P as well as a cardinality on a subproperty of P; see <a href="../../02-knora-ontologies/knora-base.html#restrictions-on-classes">Restrictions on Classes</a>.)</p>
-<p>A standardisation process for shared ontologies is planned (issue <a href="https://github.com/dhlab-basel/Knora/issues/523">#523</a>).</p>
+<h3><a href="#shared-ontology-iris" name="shared-ontology-iris" class="anchor"><span class="anchor-link"></span></a>Shared Ontology IRIs</h3>
+<p>As explained in <a href="../../02-knora-ontologies/introduction.html#shared-ontologies">Shared Ontologies</a>, a user-created ontology can be defined as shared, meaning that it can be used by multiple projects, and that its creators will not change it in ways that could affect other ontologies or data that are based on it.</p>
 <p>There is currently one project for shared ontologies:</p>
 <pre><code>http://www.knora.org/ontology/knora-base#DefaultSharedOntologiesProject
 </code></pre>
@@ -362,7 +362,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-3.0.0-0-d71e52b7-20181130-1525
+3.0.0-4-3a02d6f9
 </span>
 </div>
 </article>
@@ -372,7 +372,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../../03-apis/api-v2/introduction.html" title="Introduction: Using API v2" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../../03-apis/api-v2/authentication.html" title="Authentication" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -381,7 +381,7 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Introduction: Using API v2
+Authentication
 </span>
 </div>
 </a>

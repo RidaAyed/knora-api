@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="description" content="docs">
+<meta name="generator" content="Paradox, paradox-material-theme=0.4.0, mkdocs-material=2.2.2">
+
+<meta name="lang:clipboard.copy" content="Copy to clipboard">
+<meta name="lang:clipboard.copied" content="Copied to clipboard">
+<meta name="lang:search.result.none" content="No matching documents">
+<meta name="lang:search.result.one" content="1 matching document">
+<meta name="lang:search.result.other" content="# matching documents">
+<meta name="lang:search.language" content="">
+<meta name="lang:search.tokenizer" content="[\s\-]+">
+
+
+<meta name="description" content="docs">
+<link rel="shortcut icon" href="../cloud">
+<title>Standoff/RDF Text Markup · Knora Documentation</title>
+<link rel="stylesheet" href="../assets/stylesheets/application.7a4cdee3.css">
+<link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
+<link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
+<link rel="stylesheet" href="../lib/prettify/prettify.css">
+<script src="../lib/modernizr/modernizr.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+<style>
+body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}
+code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../assets/stylesheets/paradox-material-theme.css">
+</head>
+<body
+data-md-color-primary="blue"
+data-md-color-accent="yellow"
+>
+<input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+<input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+<label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+<header class="md-header" data-md-component="header">
+<nav class="md-header-nav md-grid">
+<div class="md-flex">
+<div class="md-flex__cell md-flex__cell--shrink">
+<a href="../index.html" title="Knora Documentation" class="md-header-nav__button md-logo">
+<i class="md-icon">cloud</i>
+</a>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch">
+<div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+<span class="md-header-nav__topic">
+Knora Documentation
+</span>
+<span class="md-header-nav__topic">
+Standoff/RDF Text Markup
+</span>
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="search"></label>
+<div class="md-search__inner">
+<form class="md-search__form" name="search">
+<input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+<label class="md-icon md-search__icon" for="search"></label>
+<button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix>
+<div class="md-search-result" data-md-component="result">
+<div class="md-search-result__meta">
+Type to start searching
+</div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<div class="md-header-nav__source">
+<a href="https://github.com/dhlab-basel/Knora/docs"
+title="Go to repository"
+class="md-source"
+data-md-source="github">
+<div class="md-source__icon">
+<i class="fa fa-github"></i>
+</div>
+<div class="md-source__repository">
+dhlab-basel/Knora/docs
+</div>
+</a>
+
+</div>
+</div>
+</div>
+</nav>
+</header>
+
+<div class="md-container">
+<main class="md-main">
+<div class="md-main__inner md-grid" data-md-component="container">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" data-md-level="0" style="visibility: hidden">
+<label class="md-nav__title md-nav__title--site" for="drawer">
+<span class="md-nav__button md-logo">
+<i class="md-icon">cloud</i>
+</span>
+<a href="../index.html" title="Knora Documentation">
+Knora Documentation
+</a>
+</label>
+<div class="md-nav__source">
+<a href="https://github.com/dhlab-basel/Knora/docs"
+title="Go to repository"
+class="md-source"
+data-md-source="github">
+<div class="md-source__icon">
+<i class="fa fa-github"></i>
+</div>
+<div class="md-source__repository">
+dhlab-basel/Knora/docs
+</div>
+</a>
+
+</div>
+<ul>
+  <li><a href="../01-introduction/index.html" class="page">Introduction</a>
+  <ul>
+    <li><a href="../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../01-introduction/data-formats.html" class="page">Data Formats in Knora</a></li>
+    <li><a href="../01-introduction/standoff-rdf.html" class="active page">Standoff/RDF Text Markup</a></li>
+    <li><a href="../01-introduction/example-project.html" class="page">An Example Project</a></li>
+  </ul></li>
+  <li><a href="../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
+  <ul>
+    <li><a href="../02-knora-ontologies/introduction.html" class="page">Introduction</a></li>
+    <li><a href="../02-knora-ontologies/knora-base.html" class="page">The Knora Base Ontology</a></li>
+    <li><a href="../02-knora-ontologies/salsah-gui.html" class="page">The SALSAH GUI Ontology</a></li>
+  </ul></li>
+  <li><a href="../03-apis/index.html" class="page">The Knora APIs</a>
+  <ul>
+    <li><a href="../03-apis/api-v1/index.html" class="page">Knora API v1</a></li>
+    <li><a href="../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
+    <li><a href="../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
+  </ul></li>
+  <li><a href="../04-deployment/index.html" class="page">Deploying Knora</a>
+  <ul>
+    <li><a href="../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+    <li><a href="../04-deployment/configuration.html" class="page">Configuration</a></li>
+  </ul></li>
+  <li><a href="../05-internals/index.html" class="page">Knora Internals</a>
+  <ul>
+    <li><a href="../05-internals/design/index.html" class="page">Design</a></li>
+    <li><a href="../05-internals/development/index.html" class="page">Development</a></li>
+  </ul></li>
+  <li><a href="../06-salsah/index.html" class="page">The SALSAH 1 GUI</a></li>
+  <li><a href="../07-sipi/index.html" class="page">The Sipi Media Server</a>
+  <ul>
+    <li><a href="../07-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
+    <li><a href="../07-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
+  </ul></li>
+  <li><a href="../faq.html" class="page">Frequently Asked Questions</a></li>
+  <li><a href="../00-release-notes/index.html" class="page">Release Notes</a>
+  <ul>
+    <li><a href="../00-release-notes/v1.1.0.html" class="page">v1.1.0 Release Notes</a></li>
+    <li><a href="../00-release-notes/v1.2.0.html" class="page">v1.2.0 Release Notes</a></li>
+    <li><a href="../00-release-notes/v1.3.0.html" class="page">v1.3.0 Release Notes</a></li>
+    <li><a href="../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
+    <li><a href="../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes</a></li>
+    <li><a href="../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes</a></li>
+    <li><a href="../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
+    <li><a href="../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
+    <li><a href="../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
+    <li><a href="../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
+    <li><a href="../00-release-notes/migration.html" class="page">Migration Notes</a></li>
+  </ul></li>
+</ul>
+<nav class="md-nav md-nav--secondary">
+</nav>
+
+<div class="md-nav__title--site md-version" title="Version">
+<i class="md-icon">label_outline</i> 3.0.0-4-3a02d6f9
+</div>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset">
+<div class="md-content__searchable">
+<!---
+Copyright © 2015-2018 the contributors (see Contributors.md).
+
+This file is part of Knora.
+
+Knora is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Knora is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<h1><a href="#standoff-rdf-text-markup" name="standoff-rdf-text-markup" class="anchor"><span class="anchor-link"></span></a>Standoff/RDF Text Markup</h1>
+<div class="toc ">
+<ul>
+</ul>
+</div>
+<p><a href="http://uahost.uantwerpen.be/lse/index.php/lexicon/markup-standoff/">Standoff markup</a> is text markup that is stored separately from the content it describes. Knora&rsquo;s Standoff/RDF markup stores content as a simple Unicode string, and represents markup separately as RDF data. This approach has some advantages over commonly used markup systems such as XML:</p>
+<p>First, XML and other hierarchical markup systems assume that a document is a hierarchy, and have difficulty representing <a href="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/NH.html">non-hierarchical structures</a> or multiple overlapping hierarchies. Standoff markup can easily represent these structures.</p>
+<p>Second, markup languages are typically designed to be used in text files. But there is no standard system for searching and linking together many different text files containing markup. It is possible to do this in a non-standard way by using an XML database such as <a href="http://exist-db.org">eXist</a>, but this still does not allow for queries that include text as well as non-textual data not stored in XML.</p>
+<p>By storing markup as RDF, Knora can search for markup structures in the same way that it searches for any RDF data structure. This makes it possible to do searches that combine text-related criteria with other sorts of criteria. For example, if persons and events are represented as Knora resources, and texts are represented in Standoff/RDF, a text can contain tags representing links to persons or events. You could then search for a text that mentions a person who lived in the same city as another person who is the author of a text that mentions an event that occurred during a certain time period.</p>
+<p>In Knora&rsquo;s Standoff/RDF, a tag is an RDF entity that is linked to a <a href="../02-knora-ontologies/knora-base.html#textvalue">text value</a>. Each tag points to a substring of the text, and has semantic properties of its own. You can define your own tag classes in your ontology by making subclasses of <code>knora-base:StandoffTag</code>, and attach your own properties to them. You can then search for those properties using Knora&rsquo;s search language, <a href="../03-apis/api-v2/query-language.html">Gravsearch</a>.</p>
+<p>The built-in <a href="../02-knora-ontologies/knora-base.html">knora-base</a> and <code>standoff</code> ontologies provide some basic tags that can be reused or extended. These include tags that represent Knora data types. For example, <code>knora-base:StandoffDateTag</code> represents a date in exactly the same way as a Knora <a href="../02-knora-ontologies/knora-base.html#datevalue">date value</a>, i.e. as a calendar-independent astronomical date. You can use this tag as-is, or extend it by making a subclass, to represent dates in texts. Gravsearch includes built-in functionality for searching for these data type tags. For example, you can search for text containing a date that falls within a certain <a href="../03-apis/api-v2/query-language.html#matching-standoff-dates">date range</a>.</p>
+<p>Knora&rsquo;s APIs support automatic conversion between XML and Standoff/RDF. To make this work, Standoff/RDF stores the order of tags and their hierarchical relationships. You must define an <a href="../03-apis/api-v2/xml-to-standoff-mapping.html">XML-to-Standoff Mapping</a> for your standoff tag classes and properties. Then you can import an XML document into Knora, which will store it as Standoff/RDF. The text and markup can then be searched using Gravsearch. When you retrieve the document, Knora converts it back to the original XML.</p>
+<p>To represent overlapping or non-hierarchical markup in exported and imported XML, Knora supports <a href="http://conferences.idealliance.org/extreme/html/2004/DeRose01/EML2004DeRose01.html#t6">CLIX</a> tags.</p>
+<p>Future plans for Standoff/RDF include:</p>
+<ul>
+  <li>Creation and retrieval of standoff markup as such via the Knora API,  without using XML as an input/output format.</li>
+  <li>A user interface for editing standoff markup.</li>
+  <li>The ability to create resources that cite particular standoff tags in other resources.</li>
+</ul>
+</div>
+<div>
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/01-introduction/standoff-rdf.md" title="Edit this page" class="md-source-file md-edit">
+Edit this page
+</a>
+</div>
+<div class="print-only">
+<span class="md-source-file md-version">
+3.0.0-4-3a02d6f9
+</span>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav class="md-footer-nav__inner md-grid">
+<a href="../01-introduction/data-formats.html" title="Data Formats in Knora" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Previous
+</span>
+Data Formats in Knora
+</span>
+</div>
+</a>
+<a href="../01-introduction/example-project.html" title="An Example Project" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Next
+</span>
+An Example Project
+</span>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+<div class="md-footer-copyright__highlight">
+Copyright 2015-2018 the contributors (see Contributors.md)
+</div>
+Powered by
+<a href="https://github.com/lightbend/paradox">Paradox</a>
+and
+<a href="https://jonas.github.io/paradox-material-theme/">Paradox Material Theme</a>
+
+</div>
+<div class="md-footer-social">
+<a href="https://github.com/dhlab-basel" class="md-footer-social__link fa fa-github"></a><a href="https://twitter.com/dhlabbasel" class="md-footer-social__link fa fa-twitter"></a>
+</div>
+
+</div>
+</div>
+</footer>
+
+</div>
+<script src="../assets/javascripts/application.5165553b.js"></script>
+<script src="../assets/javascripts/paradox-material-theme.js"></script>
+<script>app.initialize({version:"0.17",url:{base:"../."}})</script>
+<script type="text/javascript" src="../lib/prettify/prettify.js"></script>
+<script type="text/javascript" src="../lib/prettify/lang-scala.js"></script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+window.prettyPrint && prettyPrint();
+});
+</script>
+</body>
+</html>

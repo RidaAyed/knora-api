@@ -138,6 +138,8 @@ dhlab-basel/Knora/docs
   <li><a href="../01-introduction/index.html" class="page">Introduction</a>
   <ul>
     <li><a href="../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../01-introduction/data-formats.html" class="page">Data Formats in Knora</a></li>
+    <li><a href="../01-introduction/standoff-rdf.html" class="page">Standoff/RDF Text Markup</a></li>
     <li><a href="../01-introduction/example-project.html" class="page">An Example Project</a></li>
   </ul></li>
   <li><a href="../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
@@ -191,12 +193,13 @@ dhlab-basel/Knora/docs
   <ul>
     <li><a href="../07-sipi/setup-sipi-for-knora.html#setup-and-execution" class="header">Setup and Execution</a></li>
     <li><a href="../07-sipi/setup-sipi-for-knora.html#using-sipi-in-test-mode" class="header">Using Sipi in Test Mode</a></li>
+    <li><a href="../07-sipi/setup-sipi-for-knora.html#using-sipi-in-production-behind-a-proxy" class="header">Using Sipi in production behind a proxy</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 3.0.0-0-d71e52b7-20181130-1525
+<i class="md-icon">label_outline</i> 3.0.0-4-3a02d6f9
 </div>
 </nav>
 
@@ -213,6 +216,7 @@ dhlab-basel/Knora/docs
   <ul>
     <li><a href="../07-sipi/setup-sipi-for-knora.html#setup-and-execution" class="header">Setup and Execution</a></li>
     <li><a href="../07-sipi/setup-sipi-for-knora.html#using-sipi-in-test-mode" class="header">Using Sipi in Test Mode</a></li>
+    <li><a href="../07-sipi/setup-sipi-for-knora.html#using-sipi-in-production-behind-a-proxy" class="header">Using Sipi in production behind a proxy</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -260,6 +264,53 @@ $ docker image rm --force dhlabbasel/sipi:develop // deletes cached image and ne
 $ docker run --rm -it --add-host webapihost:$DOCKERHOST -v $PWD/config:/sipi/config -v $PWD/scripts:/sipi/scripts -v /tmp:/tmp -v $HOME:$HOME -p 1024:1024 dhlabbasel/sipi:develop --config=/sipi/config/sipi.knora-docker-test-config.lua
 </code></pre>
 <p>Then always the same test file will be served which is included in Sipi. In test mode, Sipi will not aks Knora about the user&rsquo;s permission on the requested file.</p>
+<h2><a href="#using-sipi-in-production-behind-a-proxy" name="using-sipi-in-production-behind-a-proxy" class="anchor"><span class="anchor-link"></span></a>Using Sipi in production behind a proxy</h2>
+<p>For SIPI to work with Salsah1 (non-angular) GUI, we need to define an additional set of environment variables if we want to run SIPI behind a proxy:</p>
+<ul>
+  <li><code>SIPI_EXTERNAL_PROTOCOL=https</code></li>
+  <li><code>SIPI_EXTERNAL_HOSTNAME=iiif.example.org</code></li>
+  <li><code>SIPI_EXTERNAL_PORT=443</code></li>
+</ul>
+<p>These variables are only used by <code>make_thumbnail.lua</code>:</p>
+<pre class="prettyprint"><code class="language-lua">-- We need to be able to run behind a proxy and to configure this easily.
+-- Allows to set SIPI_EXTERNAL_PROTOCOL environment variable and use its value.
+--
+local external_protocol = os.getenv(&quot;SIPI_EXTERNAL_PROTOCOL&quot;)
+if external_protocol == nil then
+    external_protocol = &quot;http&quot;
+end
+server.log(&quot;make_thumbnail - external_protocol: &quot; .. external_protocol, server.loglevel.LOG_DEBUG)
+
+--
+-- We need to be able to run behind a proxy and to configure this easily.
+-- Allows to set SIPI_EXTERNAL_HOSTNAME environment variable and use its value.
+--
+local external_hostname = os.getenv(&quot;SIPI_EXTERNAL_HOSTNAME&quot;)
+if external_hostname == nil then
+    external_hostname = config.hostname
+end
+server.log(&quot;make_thumbnail - external_hostname: &quot; .. external_hostname, server.loglevel.LOG_DEBUG)
+
+--
+-- We need to be able to run behind a proxy and to configure this easily.
+-- Allows to set SIPI_EXTERNAL_PORT environment variable and use its value.
+--
+local external_port = os.getenv(&quot;SIPI_EXTERNAL_PORT&quot;)
+if external_port == nil then
+    external_port = config.port
+end
+server.log(&quot;make_thumbnail - external_port: &quot; .. external_port, server.loglevel.LOG_DEBUG)
+
+answer = {
+    nx_thumb = dims.nx,
+    ny_thumb = dims.ny,
+    mimetype_thumb = &#39;image/jpeg&#39;,
+    preview_path =  external_protocol .. &quot;://&quot; .. external_hostname .. &quot;:&quot; .. external_port ..&quot;/thumbs/&quot; .. thumbName .. &quot;/full/full/0/default.jpg&quot;,
+    filename = tmpName, -- make this a IIIF URL
+    original_mimetype = submitted_mimetype.mimetype,
+    original_filename = filename,
+    file_type = &#39;IMAGE&#39;
+}</code></pre>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/07-sipi/setup-sipi-for-knora.md" title="Edit this page" class="md-source-file md-edit">
@@ -268,7 +319,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-3.0.0-0-d71e52b7-20181130-1525
+3.0.0-4-3a02d6f9
 </span>
 </div>
 </article>

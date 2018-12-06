@@ -138,6 +138,8 @@ dhlab-basel/Knora/docs
   <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
   <ul>
     <li><a href="../../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../../01-introduction/data-formats.html" class="page">Data Formats in Knora</a></li>
+    <li><a href="../../01-introduction/standoff-rdf.html" class="page">Standoff/RDF Text Markup</a></li>
     <li><a href="../../01-introduction/example-project.html" class="page">An Example Project</a></li>
   </ul></li>
   <li><a href="../../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
@@ -190,12 +192,13 @@ dhlab-basel/Knora/docs
   <li><a href="../../03-apis/api-v2/editing-resources.html#editing-resources" class="header">Editing Resources</a>
   <ul>
     <li><a href="../../03-apis/api-v2/editing-resources.html#creating-a-resource" class="header">Creating a Resource</a></li>
+    <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resource" class="header">Modifying a Resource</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 3.0.0-0-d71e52b7-20181130-1525
+<i class="md-icon">label_outline</i> 3.0.0-4-3a02d6f9
 </div>
 </nav>
 
@@ -211,6 +214,7 @@ dhlab-basel/Knora/docs
   <li><a href="../../03-apis/api-v2/editing-resources.html#editing-resources" class="header">Editing Resources</a>
   <ul>
     <li><a href="../../03-apis/api-v2/editing-resources.html#creating-a-resource" class="header">Creating a Resource</a></li>
+    <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resource" class="header">Modifying a Resource</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -243,6 +247,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <div class="toc ">
 <ul>
   <li><a href="../../03-apis/api-v2/editing-resources.html#creating-a-resource" class="header">Creating a Resource</a></li>
+  <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resource" class="header">Modifying a Resource</a></li>
 </ul>
 </div>
 <h2><a href="#creating-a-resource" name="creating-a-resource" class="anchor"><span class="anchor-link"></span></a>Creating a Resource</h2>
@@ -369,9 +374,11 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 }
 </code></pre>
 <p>The format of the object of <code>knora-api:hasPermissions</code> is described in <a href="../../02-knora-ontologies/knora-base.html#permissions">Permissions</a>.</p>
-<p>If permissions are not given, configurable default permissions are used (see <a href="../../05-internals/design/administration.html#default-object-access-permissions">Default Object Access Permissions</a>).</p>
+<p>If permissions are not given, configurable default permissions are used (see <a href="../../05-internals/design/api-admin/administration.html#default-object-access-permissions">Default Object Access Permissions</a>).</p>
 <p>To create a resource, the user must have permission to create resources in the specified project.</p>
 <p>The response is a JSON-LD document containing a <a href="reading-and-searching-resources.html#get-the-preview-of-a-resource-by-its-iri">preview</a> of the resource.</p>
+<h2><a href="#modifying-a-resource" name="modifying-a-resource" class="anchor"><span class="anchor-link"></span></a>Modifying a Resource</h2>
+<p>To modify a resource, you can modify its values; see <a href="editing-values.html">Editing Values</a>.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-v2/editing-resources.md" title="Edit this page" class="md-source-file md-edit">
@@ -380,7 +387,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-3.0.0-0-d71e52b7-20181130-1525
+3.0.0-4-3a02d6f9
 </span>
 </div>
 </article>

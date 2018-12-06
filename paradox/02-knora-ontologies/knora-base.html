@@ -138,6 +138,8 @@ dhlab-basel/Knora/docs
   <li><a href="../01-introduction/index.html" class="page">Introduction</a>
   <ul>
     <li><a href="../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../01-introduction/data-formats.html" class="page">Data Formats in Knora</a></li>
+    <li><a href="../01-introduction/standoff-rdf.html" class="page">Standoff/RDF Text Markup</a></li>
     <li><a href="../01-introduction/example-project.html" class="page">An Example Project</a></li>
   </ul></li>
   <li><a href="../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
@@ -191,14 +193,14 @@ dhlab-basel/Knora/docs
   <ul>
     <li><a href="../02-knora-ontologies/knora-base.html#overview" class="header">Overview</a></li>
     <li><a href="../02-knora-ontologies/knora-base.html#the-knora-data-model" class="header">The Knora Data Model</a></li>
-    <li><a href="../02-knora-ontologies/knora-base.html#summary-of-restrictions-on-project-specific-ontologies" class="header">Summary of Restrictions on Project-Specific Ontologies</a></li>
+    <li><a href="../02-knora-ontologies/knora-base.html#summary-of-restrictions-on-user-created-ontologies" class="header">Summary of Restrictions on User-Created Ontologies</a></li>
     <li><a href="../02-knora-ontologies/knora-base.html#standardisation" class="header">Standardisation</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 3.0.0-0-d71e52b7-20181130-1525
+<i class="md-icon">label_outline</i> 3.0.0-4-3a02d6f9
 </div>
 </nav>
 
@@ -215,7 +217,7 @@ dhlab-basel/Knora/docs
   <ul>
     <li><a href="../02-knora-ontologies/knora-base.html#overview" class="header">Overview</a></li>
     <li><a href="../02-knora-ontologies/knora-base.html#the-knora-data-model" class="header">The Knora Data Model</a></li>
-    <li><a href="../02-knora-ontologies/knora-base.html#summary-of-restrictions-on-project-specific-ontologies" class="header">Summary of Restrictions on Project-Specific Ontologies</a></li>
+    <li><a href="../02-knora-ontologies/knora-base.html#summary-of-restrictions-on-user-created-ontologies" class="header">Summary of Restrictions on User-Created Ontologies</a></li>
     <li><a href="../02-knora-ontologies/knora-base.html#standardisation" class="header">Standardisation</a></li>
   </ul></li>
 </ul>
@@ -265,7 +267,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     <li><a href="../02-knora-ontologies/knora-base.html#constraints-on-the-types-of-property-subjects-and-objects" class="header">Constraints on the Types of Property Subjects and Objects</a></li>
     <li><a href="../02-knora-ontologies/knora-base.html#consistency-constraint-example" class="header">Consistency Constraint Example</a></li>
   </ul></li>
-  <li><a href="../02-knora-ontologies/knora-base.html#summary-of-restrictions-on-project-specific-ontologies" class="header">Summary of Restrictions on Project-Specific Ontologies</a>
+  <li><a href="../02-knora-ontologies/knora-base.html#summary-of-restrictions-on-user-created-ontologies" class="header">Summary of Restrictions on User-Created Ontologies</a>
   <ul>
     <li><a href="../02-knora-ontologies/knora-base.html#restrictions-on-classes" class="header">Restrictions on Classes</a></li>
     <li><a href="../02-knora-ontologies/knora-base.html#restrictions-on-properties" class="header">Restrictions on properties</a></li>
@@ -305,11 +307,11 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </dl>
 <p>Ontologies, resources, and valuesare associated with a project by means of the <code>kb:attachedToProject</code> property, as described in <a href="knora-base.html#ontologies">Ontologies</a> and <a href="knora-base.html#properties-of-resource">Properties of Resource</a>). Users are associated with a project by means of the <code>kb:isInProject</code> property, as described in <a href="knora-base.html#users-and-groups">Users and Groups</a>.</p>
 <h3><a href="#ontologies" name="ontologies" class="anchor"><span class="anchor-link"></span></a>Ontologies</h3>
-<p>Each project-specific ontology must be defined as an <code>owl:Ontology</code> with the properties <code>rdfs:label</code> and <code>kb:attachedToProject</code>.</p>
+<p>Each user-created ontology must be defined as an <code>owl:Ontology</code> with the properties <code>rdfs:label</code> and <code>kb:attachedToProject</code>.</p>
 <h3><a href="#resources" name="resources" class="anchor"><span class="anchor-link"></span></a>Resources</h3>
 <p>All the content produced by a project (e.g. digitised primary source materials or research data) must be stored in objects that belong to subclasses of <code>kb:Resource</code>, so that Knora can query and update that content. Each project using the Knora base ontology must define its own OWL classes, derived from <code>kb:Resource</code>, to represent the types of data it deals with. A subclass of <code>kb:Resource</code> may additionally be a subclass of any other class, e.g. an industry-standard class such as <code>foaf:Person</code>; this can facilitate searches across projects.</p>
 <p>Resources have properties that point to different parts of the content they contain. For example, a resource representing a book could have a property called <code>hasAuthor</code>, pointing to the author of the book. There are two possible kinds of content in a Knora resource: Knora values (see <a href="knora-base.html#values">Values</a>) or links to other resources (see <a href="knora-base.html#links-between-resources">Links Between Resources</a>). Properties that point to Knora values must be subproperties of <code>kb:hasValue</code>, and properties that point to other resources must be subproperties of <code>kb:hasLinkTo</code>. Either of these two types of properties may also be a subproperty of any other property, e.g. an industry-standard property such as <code>foaf:name</code>; this can facilitate searches across projects. Each property definition must specify the types that its subjects and objects must belong to (see <a href="knora-base.html#constraints-on-the-types-of-property-subjects-and-objects">Constraints on the Types of Property Subjects and Objects</a> for details).</p>
-<p>Each project-specific resource class definition must use OWL cardinality restrictions to specify the properties that resources of that class can have (see <a href="knora-base.html#owl-cardinalities">OWL Cardinalities</a> for details).</p>
+<p>Each user-created resource class definition must use OWL cardinality restrictions to specify the properties that resources of that class can have (see <a href="knora-base.html#owl-cardinalities">OWL Cardinalities</a> for details).</p>
 <p>Resources are not versioned; only their values are versioned (see <a href="knora-base.html#values">Values</a>).</p>
 <p>Every resource is required to have an <code>rdfs:label</code>. The object of this property is an <code>xsd:string</code>, rather than a Knora value; hence it is not versioned. A user who has modify permission on a resource (see <a href="knora-base.html#authorisation">Authorisation</a>) can change its label.</p>
 <p>A resource can be marked as deleted; Knora does this by adding the predicate <code>kb:isDeleted true</code> to the resource. An optional <code>kb:deleteComment</code> may be added to explain why the resource has been marked as deleted. Deleted resources are normally hidden. They cannot be undeleted, because even though resources are not versioned, it is necessary to be able to find out when a resource was deleted. If desired, a new resource can be created by copying data from a deleted resource.</p>
@@ -350,36 +352,37 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </dl>
 <p>Resources can have properties that point to other resources; see <a href="knora-base.html#links-between-resources">Links Between Resources</a>. A resource grants permissions to groups of users; see <a href="knora-base.html#authorisation">Authorisation</a>.</p>
 <h4><a href="#representations" name="representations" class="anchor"><span class="anchor-link"></span></a>Representations</h4>
-<p>It is not practical to store all data in RDF. In particular, RDF is not a good storage medium for binary data such as images. Therefore, Knora stores such data outside the triplestore, in ordinary files. A resource can have one or more files attached to it. For each file, there is a <code>kb:FileValue</code> in the triplestore containing metadata about the file (see <a href="knora-base.html#filevalue">FileValue</a>. A resource that has file values must belong to one of the subclasses of <code>kb:Representation</code>. The base class <code>Representation</code>, which is not intended to be used directly, has this property:</p>
+<p>It is not practical to store all data in RDF. In particular, RDF is not a good storage medium for binary data such as images. Therefore, Knora stores such data outside the triplestore, in ordinary files. A resource can have metadata about a file attached to it. The technical term for such a resource in Knora is a <strong>Representation</strong>. For each file, there is a <code>kb:FileValue</code> in the triplestore containing metadata about the file (see <a href="knora-base.html#filevalue">FileValue</a>). Knora uses <a href="https://github.com/dhlab-basel/Sipi">Sipi</a> to store files. The <a href="../03-apis/index.html">Knora APIs</a> provide ways to create file values using Knora and Sipi.</p>
+<p>A resource that has a file value must belong to one of the subclasses of <code>kb:Representation</code>. Its subclasses, which are intended to be used directly in data, include:</p>
+<dl>
+  <dt><code>StillImageRepresentation</code></dt>
+  <dd>
+  <p>A representation containing a still image file.</p></dd>
+  <dt><code>MovingImageRepresentation</code></dt>
+  <dd>
+  <p>A representation containing a video file.</p></dd>
+  <dt><code>AudioRepresentation</code></dt>
+  <dd>
+  <p>A representation containing an audio file.</p></dd>
+  <dt><code>DDDrepresentation</code></dt>
+  <dd>
+  <p>A representation containing a 3D image file.</p></dd>
+  <dt><code>TextRepresentation</code></dt>
+  <dd>
+  <p>A representation containing a formatted text file, such as an XML file.</p></dd>
+  <dt><code>DocumentRepresentation</code></dt>
+  <dd>
+  <p>A representation containing a document (such as a PDF file) that is not a text file.</p></dd>
+</dl>
+<p>The base class of all these classes is <code>Representation</code>, which is not intended to be used directly. It has this property, which its subclasses override:</p>
 <dl>
   <dt><code>hasFileValue</code> (1-n)
   </dt>
   <dd>
   <p>Points to one or more file values.</p></dd>
 </dl>
-<p>Its subclasses, which are intended to be used directly in data, include:</p>
-<dl>
-  <dt><code>StillImageRepresentation</code></dt>
-  <dd>
-  <p>A representation containing still image files.</p></dd>
-  <dt><code>MovingImageRepresentation</code></dt>
-  <dd>
-  <p>A representation containing video files.</p></dd>
-  <dt><code>AudioRepresentation</code></dt>
-  <dd>
-  <p>A representation containing audio files.</p></dd>
-  <dt><code>DDDrepresentation</code></dt>
-  <dd>
-  <p>A representation containing 3D images.</p></dd>
-  <dt><code>TextRepresentation</code></dt>
-  <dd>
-  <p>A representation containing formatted text files, such as XML files.</p></dd>
-  <dt><code>DocumentRepresentation</code></dt>
-  <dd>
-  <p>A representation containing documents (such as PDF files) that are not text files.</p></dd>
-</dl>
-<p>There are two ways for a project to design classes for representations. The simpler way is to create a resource class that represents a thing in the world (such as <code>ex:Painting</code>) and also belongs to a subclass of <code>Representation</code>. This is adequate if the class can have only one type of file attached to it. For example, if paintings are represented only by still images, <code>ex:Painting</code> could be a subclass of <code>StillImageRepresentation</code>. This is the only approach supported in version 1 of the Knora API.</p>
-<p>The more flexible approach, which is allowed by the Knora base ontology and will be supported by version 2 of the Knora API, is for each <code>ex:Painting</code> to use the <code>kb:hasRepresentation</code> property to point to other resources containing files that represent the painting. Each of these other resources can extend a different subclass of <code>Representation</code>. For example, a painting could have a <code>StillImageRepresentation</code> as well as a <code>DDDrepresentation</code>.</p>
+<p>There are two ways for a project to design classes for representations. The simpler way is to create a resource class that represents a thing in the world (such as <code>ex:Painting</code>) and also belongs to a subclass of <code>Representation</code>. This is adequate if the class can have only one type of file attached to it. For example, if paintings are represented only by still images, <code>ex:Painting</code> could be a subclass of <code>StillImageRepresentation</code>. This is the only approach supported in <a href="../03-apis/api-v1/index.html">Knora API v1</a>.</p>
+<p>The more flexible approach, which is supported by <a href="../03-apis/api-v2/index.html">Knora API v2</a>, is for each <code>ex:Painting</code> to use the <code>kb:hasRepresentation</code> property to point to other resources containing files that represent the painting. Each of these other resources can extend a different subclass of <code>Representation</code>. For example, a painting could have a <code>StillImageRepresentation</code> as well as a <code>DDDrepresentation</code>.</p>
 <h4><a href="#standard-resource-classes" name="standard-resource-classes" class="anchor"><span class="anchor-link"></span></a>Standard Resource Classes</h4>
 <p>In general, each project using Knora must define its own subclasses of <code>kb:Resource</code>. However, the Knora base ontology provides some standard subclasses of <code>kb:Resource</code>, which are intended to be used by any project:</p>
 <dl>
@@ -394,8 +397,8 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <p>Represents a link that connects two or more resources. A <code>LinkObj</code> has a <code>hasLinkTo</code> property pointing to each resource that it connects, as well as a <code>hasLinkToValue</code> property pointing to a reification of each of these direct links (see <a href="knora-base.html#links-between-resources">Links Between Resources</a>). A <code>LinkObj</code> is more complex (and hence less convenient and readable) than a simple direct link, but it has the advantage that it can be annotated using an <code>Annotation</code>. For improved readability, a project can make its own subclasses of <code>LinkObj</code> with specific meanings.</p></dd>
 </dl>
 <h3><a href="#values" name="values" class="anchor"><span class="anchor-link"></span></a>Values</h3>
-<p>The Knora base ontology defines a set of OWL classes that are derived from <code>kb:Value</code> and represent different types of structured values found in humanities data. This set of classes may not be extended by project-specific ontologies.</p>
-<p>A value is always part of one particular resource, which points to it using some property derived from <code>hasValue</code>. For example, a project-specific ontology could specify a <code>Book</code> class with a property <code>hasSummary</code> (derived from <code>hasValue</code>), and that property could have a <code>knora-base:objectClassConstraint</code> of <code>TextValue</code>. This would mean that the summary of each book is represented as a <code>TextValue</code>.</p>
+<p>The Knora base ontology defines a set of OWL classes that are derived from <code>kb:Value</code> and represent different types of structured values found in humanities data. This set of classes may not be extended by user-created ontologies.</p>
+<p>A value is always part of one particular resource, which points to it using some property derived from <code>hasValue</code>. For example, a user-created ontology could specify a <code>Book</code> class with a property <code>hasSummary</code> (derived from <code>hasValue</code>), and that property could have a <code>knora-base:objectClassConstraint</code> of <code>TextValue</code>. This would mean that the summary of each book is represented as a <code>TextValue</code>.</p>
 <p>Knora values are versioned. Existing values are not modified. Instead, a new version of an existing value is created. The new version is linked to the old version via the <code>previousValue</code> property.</p>
 <p>&ldquo;Deleting&rdquo; a value means marking it with <code>kb:isDeleted</code>. An optional <code>kb:deleteComment</code> may be added to explain why the value has been marked as deleted. Deleted values are normally hidden.</p>
 <p>Most types of values are marked as deleted without creating a new version of the value. However, link values must be treated as a special case. Before a <code>LinkValue</code> can be marked as deleted, its reference count must be decremented to 0. Therefore, a new version of the <code>LinkValue</code> is made, with a reference count of 0, and it is this new version that is marked as deleted.</p>
@@ -629,7 +632,6 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <p>Contains metadata about a document (such as PDF) that is not a text file.</p></dd>
 </dl>
 <p>Each of these classes contains properties that are specific to the type of file it describes. For example, still image files have dimensions, video files have frame rates, and so on.</p>
-<p>The files in a given representation must be semantically equivalent, meaning that coordinates that relate to one file must also be valid for other files in the same representation. Coordinates in Knora are expressed as fractions of the size of the object on some dimension; for example, image coordinates are expressed as fractions of its width and height, rather than in pixels. Therefore, the image files in a <code>StillImageRepresentation</code> must have the same aspect ratio, but they need not have the same dimensions in pixels. Similarly, the audio and video files in an <code>AudioRepresentation</code> or <code>MovingImageRepresentation</code> must have the same length in seconds, but may have different bitrates.</p>
 <p><code>FileValue</code> objects are versioned like other values, and the actual files stored by Knora are also versioned. Version 1 of the Knora API does not provide a way to retrieve a previous version of a file, but this feature will be added in a subsequent version of the API.</p>
 <h5><a href="#linkvalue" name="linkvalue" class="anchor"><span class="anchor-link"></span></a>LinkValue</h5>
 <p>A <code>LinkValue</code> is an RDF &ldquo;reification&rdquo; containing metadata about a link between two resources. It is therefore a subclass of <code>rdf:Statement</code> as well as of <code>Value</code>. It has these properties:</p>
@@ -857,7 +859,7 @@ data:LV1 rdf:type kb:LinkValue ;
 </dl>
 <p>For links to a <code>kb:Resource</code>, see <a href="knora-base.html#standofflinktag">StandoffLinkTag</a>.</p>
 <h4><a href="#mapping-to-create-standoff-from-xml" name="mapping-to-create-standoff-from-xml" class="anchor"><span class="anchor-link"></span></a>Mapping to Create Standoff From XML</h4>
-<p>A mapping allows for the conversion of an XML document to RDF-standoff and back. A mapping defines one-to-one relations between XML elements (with or without a class) and attributes and standoff classes and properties (see <a href="../03-apis/api-v1/xml-to-standoff-mapping.html">XML to Standoff Mapping</a>).</p>
+<p>A mapping allows for the conversion of an XML document to RDF-standoff and back. A mapping defines one-to-one relations between XML elements (with or without a class) and attributes and standoff classes and properties (see <a href="../03-apis/api-v2/xml-to-standoff-mapping.html">XML to Standoff Mapping</a>).</p>
 <p>A mapping is represented by a <code>kb:XMLToStandoffMapping</code> which contains one or more <code>kb:MappingElement</code>. A <code>kb:MappingElement</code> maps an XML element (including attributes) to a standoff class and standoff properties. It has the following properties:</p>
 <dl>
   <dt><code>mappingHasXMLTagname</code> (1)
@@ -975,7 +977,7 @@ select * where {
   <dt><code>isInGroup</code> (0-n)
   </dt>
   <dd>
-  <p>Project-specific groups that the user is a member of.</p></dd>
+  <p>user-created groups that the user is a member of.</p></dd>
   <dt><code>foaf:familyName</code> (1)
   </dt>
   <dd>
@@ -1000,7 +1002,7 @@ select * where {
   <dd>
   <p>When checking a user&rsquo;s permissions on an object, the user is automatically assigned to this group if he is the creator of the object.</p></dd>
 </dl>
-<p>A project-specific ontology can define additional groups, which must belong to the OWL class <code>kb:UserGroup</code>.</p>
+<p>A user-created ontology can define additional groups, which must belong to the OWL class <code>kb:UserGroup</code>.</p>
 <p>There is one built-in <code>SystemUser</code>, which is the creator of link values created automatically for resource references in standoff markup (see <a href="knora-base.html#standofflinktag">StandoffLinkTag</a>).</p>
 <h3><a href="#permissions" name="permissions" class="anchor"><span class="anchor-link"></span></a>Permissions</h3>
 <p>An object can grant the following permissions, which are stored in a compact format in a single string. This string is the object of the predicate <code>kb:hasPermissions</code>, which is required on every <code>kb:Resource</code> and <code>kb:Value</code>.</p>
@@ -1030,7 +1032,7 @@ select * where {
 <pre><code>V knora-base:UnknownUser,knora-base:KnownUser|M knora-base:ProjectMember
 </code></pre>
 <h3><a href="#consistency-checking" name="consistency-checking" class="anchor"><span class="anchor-link"></span></a>Consistency Checking</h3>
-<p>Knora tries to enforce repository consistency by checking constraints that are specified in the Knora base ontology and in project-specific ontologies. Three types of consistency rules are enforced:</p>
+<p>Knora tries to enforce repository consistency by checking constraints that are specified in the Knora base ontology and in user-created ontologies. Three types of consistency rules are enforced:</p>
 <ul>
   <li>Cardinalities in OWL class definitions must be satisfied.</li>
   <li>Constraints on the types of the subjects and objects of OWL object properties must be satisfied.</li>
@@ -1073,7 +1075,7 @@ select * where {
 <p>Note that, unlike cardinalities, predicates of properties are not inherited. If <code>:foo rdfs:subPropertyOf :bar</code>, this does not mean that <code>:foo</code> inherits anything from <code>:bar</code>. Any predicates of <code>:foo</code> that are also needed by <code>:bar</code> must be defined explicitly on <code>:bar</code>. This design decision was made because property predicate inheritance is not provided by RDFS inference, and would make it more difficult to check the correctness of ontologies, while providing little practical benefit.</p>
 <p>For more information about OWL cardinalities, see the <a href="http://www.w3.org/TR/2012/REC-owl2-primer-20121211/">OWL 2 Primer</a>.</p>
 <h3><a href="#constraints-on-the-types-of-property-subjects-and-objects" name="constraints-on-the-types-of-property-subjects-and-objects" class="anchor"><span class="anchor-link"></span></a>Constraints on the Types of Property Subjects and Objects</h3>
-<p>When a project-specific ontology defines a property, it must indicate the types that are allowed as objects (and, if possible, as subjects) of the property. This is done using the following Knora-specific properties:</p>
+<p>When a user-created ontology defines a property, it must indicate the types that are allowed as objects (and, if possible, as subjects) of the property. This is done using the following Knora-specific properties:</p>
 <dl>
   <dt><code>subjectClassConstraint</code></dt>
   <dd>
@@ -1088,7 +1090,7 @@ select * where {
 <p>Note that it is possible for a subproperty to have a more restrictive contraint than its base property, by specifing a subject or object class that is a subclass of the one specified in the base property. However, it is not possible for the subproperty to make the base property&rsquo;s constraint less restrictive.</p>
 <p>See also <a href="../faq.html#why-doesnt-knora-use-rdfs-domain-and-rdfs-range-for-consistency-checking-">Why doesn’t Knora use rdfs:domain and rdfs:range for consistency checking?</a></p>
 <h3><a href="#consistency-constraint-example" name="consistency-constraint-example" class="anchor"><span class="anchor-link"></span></a>Consistency Constraint Example</h3>
-<p>A project-specific ontology could define consistency constraints as in this simplified example:</p>
+<p>A user-created ontology could define consistency constraints as in this simplified example:</p>
 <pre><code>:book rdf:type owl:Class ;
     rdfs:subClassOf knora-base:Resource ,
         [ rdf:type owl:Restriction ;
@@ -1106,11 +1108,11 @@ select * where {
     knora-base:subjectClassConstraint :book ;
     knora-base:objectClassConstraint knora-base:TextValue .
 </code></pre>
-<h2><a href="#summary-of-restrictions-on-project-specific-ontologies" name="summary-of-restrictions-on-project-specific-ontologies" class="anchor"><span class="anchor-link"></span></a>Summary of Restrictions on Project-Specific Ontologies</h2>
+<h2><a href="#summary-of-restrictions-on-user-created-ontologies" name="summary-of-restrictions-on-user-created-ontologies" class="anchor"><span class="anchor-link"></span></a>Summary of Restrictions on User-Created Ontologies</h2>
 <p>An ontology can refer to a Knora ontology in another project only if the other ontology is built-in or shared (see <a href="../03-apis/api-v2/knora-iris.html#shared-ontologies">Shared Ontologies</a>).</p>
 <h3><a href="#restrictions-on-classes" name="restrictions-on-classes" class="anchor"><span class="anchor-link"></span></a>Restrictions on Classes</h3>
 <ul>
-  <li>Each class must be a subclass of either <code>kb:Resource</code> or <code>kb:StandoffTag</code>, but not both (note that this forbids project-specific subclasses of <code>kb:Value</code>).</li>
+  <li>Each class must be a subclass of either <code>kb:Resource</code> or <code>kb:StandoffTag</code>, but not both (note that this forbids user-created subclasses of <code>kb:Value</code>).</li>
   <li>All the cardinalities that a class defines directly (i.e. does not inherit from <code>kb:Resource</code>) must be on properties that are defined in the triplestore.</li>
   <li>Within the cardinalities of a class, there must be a link value property for each link property and vice versa.</li>
   <li>The cardinality of a link property must be the same as the cardinality of the corresponding link value property.</li>
@@ -1130,7 +1132,7 @@ select * where {
   <li>Each of its base properties that has a Knora IRI must also be a Knora resource property.</li>
 </ul>
 <h2><a href="#standardisation" name="standardisation" class="anchor"><span class="anchor-link"></span></a>Standardisation</h2>
-<p>The <a href="http://dasch.swiss/">DaSCH</a> intends to coordinate the standardisation of generally useful entities proposed in project-specific ontologies. We envisage a process in which two or more projects would initiate the process by starting a public discussion on proposed entities to be shared. Once a consensus was reached, the <a href="http://dasch.swiss/">DaSCH</a> would publish these entities in an ontology that could be used by multiple projects, and would ensure that such ontologies are not subsequently modified in ways that break compatibility with existing data. Functionality may be added to Knora to facilitate this process.</p>
+<p>The <a href="http://dasch.swiss/">DaSCH</a> intends to coordinate the standardisation of generally useful entities proposed in user-created ontologies. We envisage a process in which two or more projects would initiate the process by starting a public discussion on proposed entities to be shared. Once a consensus was reached, the <a href="http://dasch.swiss/">DaSCH</a> would publish these entities in an ontology that could be used by multiple projects, and would ensure that such ontologies are not subsequently modified in ways that break compatibility with existing data. Functionality may be added to Knora to facilitate this process.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/02-knora-ontologies/knora-base.md" title="Edit this page" class="md-source-file md-edit">
@@ -1139,7 +1141,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-3.0.0-0-d71e52b7-20181130-1525
+3.0.0-4-3a02d6f9
 </span>
 </div>
 </article>

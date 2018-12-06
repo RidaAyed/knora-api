@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../../cloud">
-<title>Responders Module · Knora Documentation</title>
+<title>Authentication · Knora Documentation</title>
 <link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Responders Module
+Authentication
 </span>
 </div>
 </div>
@@ -138,6 +138,8 @@ dhlab-basel/Knora/docs
   <li><a href="../../01-introduction/index.html" class="page">Introduction</a>
   <ul>
     <li><a href="../../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../../01-introduction/data-formats.html" class="page">Data Formats in Knora</a></li>
+    <li><a href="../../01-introduction/standoff-rdf.html" class="page">Standoff/RDF Text Markup</a></li>
     <li><a href="../../01-introduction/example-project.html" class="page">An Example Project</a></li>
   </ul></li>
   <li><a href="../../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
@@ -187,15 +189,19 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../05-internals/design/responders-module.html#responders-module" class="header">Responders Module</a>
+  <li><a href="../../03-apis/api-v2/authentication.html#authentication" class="header">Authentication</a>
   <ul>
-    <li><a href="../../05-internals/design/responders-module.html#version-1-0-responders" class="header">Version 1.0 Responders</a></li>
+    <li><a href="../../03-apis/api-v2/authentication.html#login-and-logout" class="header">Login and Logout</a></li>
+    <li><a href="../../03-apis/api-v2/authentication.html#submitting-credentials" class="header">Submitting Credentials</a></li>
+    <li><a href="../../03-apis/api-v2/authentication.html#checking-credentials" class="header">Checking Credentials</a></li>
+    <li><a href="../../03-apis/api-v2/authentication.html#usage-scenarios" class="header">Usage Scenarios</a></li>
+    <li><a href="../../03-apis/api-v2/authentication.html#sipi-media-server-" class="header">Sipi (Media Server)</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 3.0.0-0-d71e52b7-20181130-1525
+<i class="md-icon">label_outline</i> 3.0.0-4-3a02d6f9
 </div>
 </nav>
 
@@ -208,9 +214,13 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../05-internals/design/responders-module.html#responders-module" class="header">Responders Module</a>
+  <li><a href="../../03-apis/api-v2/authentication.html#authentication" class="header">Authentication</a>
   <ul>
-    <li><a href="../../05-internals/design/responders-module.html#version-1-0-responders" class="header">Version 1.0 Responders</a></li>
+    <li><a href="../../03-apis/api-v2/authentication.html#login-and-logout" class="header">Login and Logout</a></li>
+    <li><a href="../../03-apis/api-v2/authentication.html#submitting-credentials" class="header">Submitting Credentials</a></li>
+    <li><a href="../../03-apis/api-v2/authentication.html#checking-credentials" class="header">Checking Credentials</a></li>
+    <li><a href="../../03-apis/api-v2/authentication.html#usage-scenarios" class="header">Usage Scenarios</a></li>
+    <li><a href="../../03-apis/api-v2/authentication.html#sipi-media-server-" class="header">Sipi (Media Server)</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -239,48 +249,50 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#responders-module" name="responders-module" class="anchor"><span class="anchor-link"></span></a>Responders Module</h1>
+<h1><a href="#authentication" name="authentication" class="anchor"><span class="anchor-link"></span></a>Authentication</h1>
 <div class="toc ">
 <ul>
-  <li><a href="../../05-internals/design/responders-module.html#version-1-0-responders" class="header">Version 1.0 Responders</a>
-  <ul>
-    <li><a href="../../05-internals/design/responders-module.html#respondermanagerv1" class="header">ResponderManagerV1</a></li>
-    <li><a href="../../05-internals/design/responders-module.html#ckanresponderv1" class="header">CkanResponderV1</a></li>
-    <li><a href="../../05-internals/design/responders-module.html#hierarchicallistsresponderv1" class="header">HierarchicalListsResponderV1</a></li>
-    <li><a href="../../05-internals/design/responders-module.html#ontologyresponderv1" class="header">OntologyResponderV1</a></li>
-    <li><a href="../../05-internals/design/responders-module.html#projectsresponderv1" class="header">ProjectsResponderV1</a></li>
-    <li><a href="../../05-internals/design/responders-module.html#representationsresponderv1" class="header">RepresentationsResponderV1</a></li>
-    <li><a href="../../05-internals/design/responders-module.html#resourcesresponderv1" class="header">ResourcesResponderV1</a></li>
-    <li><a href="../../05-internals/design/responders-module.html#searchresponderv1" class="header">SearchResponderV1</a></li>
-    <li><a href="../../05-internals/design/responders-module.html#usersresponderv1" class="header">UsersResponderV1</a></li>
-    <li><a href="../../05-internals/design/responders-module.html#valuesresponderv1" class="header">ValuesResponderV1</a></li>
-    <li><a href="../../05-internals/design/responders-module.html#shared" class="header">Shared</a></li>
-  </ul></li>
+  <li><a href="../../03-apis/api-v2/authentication.html#login-and-logout" class="header">Login and Logout</a></li>
+  <li><a href="../../03-apis/api-v2/authentication.html#submitting-credentials" class="header">Submitting Credentials</a></li>
+  <li><a href="../../03-apis/api-v2/authentication.html#checking-credentials" class="header">Checking Credentials</a></li>
+  <li><a href="../../03-apis/api-v2/authentication.html#usage-scenarios" class="header">Usage Scenarios</a></li>
+  <li><a href="../../03-apis/api-v2/authentication.html#sipi-media-server-" class="header">Sipi (Media Server)</a></li>
 </ul>
 </div>
-<h2><a href="#version-1-0-responders" name="version-1-0-responders" class="anchor"><span class="anchor-link"></span></a>Version 1.0 Responders</h2>
-<h3><a href="#respondermanagerv1" name="respondermanagerv1" class="anchor"><span class="anchor-link"></span></a>ResponderManagerV1</h3>
-<h3><a href="#ckanresponderv1" name="ckanresponderv1" class="anchor"><span class="anchor-link"></span></a>CkanResponderV1</h3>
-<h3><a href="#hierarchicallistsresponderv1" name="hierarchicallistsresponderv1" class="anchor"><span class="anchor-link"></span></a>HierarchicalListsResponderV1</h3>
-<h3><a href="#ontologyresponderv1" name="ontologyresponderv1" class="anchor"><span class="anchor-link"></span></a>OntologyResponderV1</h3>
-<p>The ontology responder provides information derived from all the ontologies in the repository, including Knora ontologies as well as project-specific ontologies. Most importantly, it provides information about resource classes and properties. This includes the cardinalities defined on each resource class, and takes into account the rules of cardinality inheritance, as described in the section <strong>OWL Cardinalities</strong> in <a href="../../02-knora-ontologies/knora-base.html#owl-cardinalities">OWL Cardinalities</a>.</p>
-<p>For performance reasons, all ontology data is loaded and cached at application startup. Currently, to refresh the cache, you must restart the application. The responder calculates class hierarchies and cardinality inheritance in Scala.</p>
-<h3><a href="#projectsresponderv1" name="projectsresponderv1" class="anchor"><span class="anchor-link"></span></a>ProjectsResponderV1</h3>
-<h3><a href="#representationsresponderv1" name="representationsresponderv1" class="anchor"><span class="anchor-link"></span></a>RepresentationsResponderV1</h3>
-<h3><a href="#resourcesresponderv1" name="resourcesresponderv1" class="anchor"><span class="anchor-link"></span></a>ResourcesResponderV1</h3>
-<h3><a href="#searchresponderv1" name="searchresponderv1" class="anchor"><span class="anchor-link"></span></a>SearchResponderV1</h3>
-<h3><a href="#usersresponderv1" name="usersresponderv1" class="anchor"><span class="anchor-link"></span></a>UsersResponderV1</h3>
-<h3><a href="#valuesresponderv1" name="valuesresponderv1" class="anchor"><span class="anchor-link"></span></a>ValuesResponderV1</h3>
-<h3><a href="#shared" name="shared" class="anchor"><span class="anchor-link"></span></a>Shared</h3>
+<h2><a href="#login-and-logout" name="login-and-logout" class="anchor"><span class="anchor-link"></span></a>Login and Logout</h2>
+<p>A client sends a POST request (e.g., <code>{&quot;identifier&quot;:&quot;usersemail&quot;,
+&quot;password&quot;:&quot;userspassword&quot;}</code>) to the <strong>/v2/authentication</strong> route with <em>identifier</em> and <em>password</em> in the body. The identifier can be the user&rsquo;s IRI, username, or email. If the credentials are valid, a <a href="https://jwt.io">JSON WEB Token</a> (JWT) will be sent back in the response (e.g., <code>{&quot;token&quot;: &quot;eyJ0eXAiOiJ...&quot;}</code>). On all subsequent calls to any route, this token can be sent with each request (instead of <em>identifier</em>/*password*). If the token is successfully validated, then the user is deemed authenticated.</p>
+<p>To <strong>logout</strong>, the client sends a DELETE request to the same route <strong>/v2/authentication</strong> and the token (either as an URL parameter or authorization header). This will invalidate the token.</p>
+<h2><a href="#submitting-credentials" name="submitting-credentials" class="anchor"><span class="anchor-link"></span></a>Submitting Credentials</h2>
+<p>When accessing any route and <em>identifier</em>/*password* credentials would need to be sent, we support two options to do so:</p>
+<ul>
+  <li>in the URL submitting the parameters <code>identifier</code> and <code>password</code>  (e.g., <a href="http://knora-host/v1/resources/resIri?identifier=userUrlEncodedEmail&password=pw">http://knora-host/v1/resources/resIri?identifier=userUrlEncodedEmail&password=pw</a>),  where the identifier can be the user&rsquo;s IRI, username, or email, and</li>
+  <li>in the HTTP header (<a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP basic  authentication</a>), where the  identifier can be the user&rsquo;s username or email (IRI not supported).</li>
+</ul>
+<p>When using Python&rsquo;s module <code>requests</code>, the credentials can simply be submitted as a tuple with each request using the param <code>auth</code> (<a href="http://docs.python-requests.org/en/master/user/authentication/#basic-authentication">python requests</a>).</p>
+<p>When accessing any route and the <em>token</em> would need to be sent, we support two options to do so:</p>
+<ul>
+  <li>in the URL submitting the parameter <code>token</code> (e.g.,  <a href="http://knora-host/v1/resources/resIri?token=1234567890">http://knora-host/v1/resources/resIri?token=1234567890</a>)</li>
+  <li>in the HTTP authorization header with the  <a href="http://tools.ietf.org/html/rfc6750#section-2.1">HTTP bearer scheme</a>.</li>
+</ul>
+<h2><a href="#checking-credentials" name="checking-credentials" class="anchor"><span class="anchor-link"></span></a>Checking Credentials</h2>
+<p>To check the credentials, send a GET request to <strong>/v2/authentication</strong> with the credentials supplied as URL parameters or HTTP authentication headers as described before, .</p>
+<h2><a href="#usage-scenarios" name="usage-scenarios" class="anchor"><span class="anchor-link"></span></a>Usage Scenarios</h2>
+<ol>
+  <li>Create token by logging-in, send token on each subsequent request, and logout when finished.</li>
+  <li>Send email/password credentials on every request.</li>
+</ol>
+<h2><a href="#sipi-media-server-" name="sipi-media-server-" class="anchor"><span class="anchor-link"></span></a>Sipi (Media Server)</h2>
+<p>TODO (Should all be done with JWT)</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/design/responders-module.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-v2/authentication.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-3.0.0-0-d71e52b7-20181130-1525
+3.0.0-4-3a02d6f9
 </span>
 </div>
 </article>
@@ -290,7 +302,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../../05-internals/design/http-module.html" title="HTTP Module" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../../03-apis/api-v2/introduction.html" title="Introduction: Using API v2" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -299,17 +311,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-HTTP Module
+Introduction: Using API v2
 </span>
 </div>
 </a>
-<a href="../../05-internals/design/store-module.html" title="Store Module" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../03-apis/api-v2/knora-iris.html" title="Knora IRIs" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Store Module
+Knora IRIs
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

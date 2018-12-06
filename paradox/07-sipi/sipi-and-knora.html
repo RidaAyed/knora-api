@@ -138,6 +138,8 @@ dhlab-basel/Knora/docs
   <li><a href="../01-introduction/index.html" class="page">Introduction</a>
   <ul>
     <li><a href="../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../01-introduction/data-formats.html" class="page">Data Formats in Knora</a></li>
+    <li><a href="../01-introduction/standoff-rdf.html" class="page">Standoff/RDF Text Markup</a></li>
     <li><a href="../01-introduction/example-project.html" class="page">An Example Project</a></li>
   </ul></li>
   <li><a href="../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
@@ -192,12 +194,13 @@ dhlab-basel/Knora/docs
     <li><a href="../07-sipi/sipi-and-knora.html#general-remarks" class="header">General Remarks</a></li>
     <li><a href="../07-sipi/sipi-and-knora.html#adding-files-to-knora-using-the-gui-or-directly-the-api" class="header">Adding Files to Knora: Using the GUI or directly the API</a></li>
     <li><a href="../07-sipi/sipi-and-knora.html#retrieving-files-from-sipi" class="header">Retrieving Files from Sipi</a></li>
+    <li><a href="../07-sipi/sipi-and-knora.html#authentication-of-users-with-sipi" class="header">Authentication of users with Sipi</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 3.0.0-0-d71e52b7-20181130-1525
+<i class="md-icon">label_outline</i> 3.0.0-4-3a02d6f9
 </div>
 </nav>
 
@@ -215,6 +218,7 @@ dhlab-basel/Knora/docs
     <li><a href="../07-sipi/sipi-and-knora.html#general-remarks" class="header">General Remarks</a></li>
     <li><a href="../07-sipi/sipi-and-knora.html#adding-files-to-knora-using-the-gui-or-directly-the-api" class="header">Adding Files to Knora: Using the GUI or directly the API</a></li>
     <li><a href="../07-sipi/sipi-and-knora.html#retrieving-files-from-sipi" class="header">Retrieving Files from Sipi</a></li>
+    <li><a href="../07-sipi/sipi-and-knora.html#authentication-of-users-with-sipi" class="header">Authentication of users with Sipi</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -354,8 +358,9 @@ r = requests.post(knora_url + &#39;/resources&#39;,
 </code></pre>
 <p>Each of these paths has to be handled by the browser by making a call to Sipi, obtaining the binary representation in the desired quality. To deal with different image quality levels, Sipi implements the <a href="http://iiif.io/api/image/2.0/">IIIF standard</a>. The different quality level paths are created by Knora in <code>ValueUtilV1</code>.</p>
 <p>Whenever Sipi serves a binary representation of a Knora file value (indicated by using the prefix <code>knora</code> in the path), it has to make a request to Knora&rsquo;s Sipi responder to get the user&rsquo;s permissions on the requested file. Sipi&rsquo;s request to Knora contains a cookie with the Knora session id the user has obtained when logging in to Knora: As a response to a successful login, Knora returns the user&rsquo;s session id and this id is automatically sent to Sipi by the browser, setting a second cookie for the communication with Sipi. The reason the Knora session id is set in two cookies, is the fact that cookies can not be shared among different domains. Since Knora and Sipi are likely to be running under different domains, this solution offers the necessary flexibility.</p>
-<h3><a href="#sharing-the-session-id-with-sipi" name="sharing-the-session-id-with-sipi" class="anchor"><span class="anchor-link"></span></a>Sharing the Session ID with Sipi</h3>
-<p>Whenever a file is requested, Sipi asks Knora about the currents user&rsquo;s permissions on the given file. This is achieved by sharing the Knora session id with Sipi. When the user logs in to Knora using his browser, a request is sent to Sipi submitting the session id the user got back from Knora, setting a second session cookie. Now the user has two session cookies containing the same session id: one for the communication with Knora and one for the communication with Sipi. However, Sipi does not handle sessions. It just sends the given Knora session id to Knora.</p>
+<h2><a href="#authentication-of-users-with-sipi" name="authentication-of-users-with-sipi" class="anchor"><span class="anchor-link"></span></a>Authentication of users with Sipi</h2>
+<p>Whenever a file is requested, Sipi asks Knora about the currents user&rsquo;s permissions on the given file. This is achieved by sharing the Knora session id with Sipi. When the user logs in to Knora using his browser (with Salsah1), a session cookie containing a JWT token representing the user is stored in the user&rsquo;s client. This session cookie is then read by Sipi and used to query for the user&rsquo;s image permissions.</p>
+<p>Currently this only works for Salsah1. Authentication of users using Salsah2 is still under development.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/07-sipi/sipi-and-knora.md" title="Edit this page" class="md-source-file md-edit">
@@ -364,7 +369,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-3.0.0-0-d71e52b7-20181130-1525
+3.0.0-4-3a02d6f9
 </span>
 </div>
 </article>
