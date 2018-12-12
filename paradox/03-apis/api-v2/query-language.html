@@ -182,6 +182,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -195,6 +196,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v2/query-language.html#submitting-gravsearch-queries" class="header">Submitting Gravsearch Queries</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-and-api-schemas" class="header">Gravsearch and API Schemas</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#main-and-dependent-resources" class="header">Main and Dependent Resources</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#virtual-incoming-links" class="header">Virtual incoming Links</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#graph-patterns-and-result-graphs" class="header">Graph Patterns and Result Graphs</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#permission-checking" class="header">Permission Checking</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#inference" class="header">Inference</a></li>
@@ -206,7 +208,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 3.0.0-4-3a02d6f9
+<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
 </div>
 </nav>
 
@@ -225,6 +227,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v2/query-language.html#submitting-gravsearch-queries" class="header">Submitting Gravsearch Queries</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#gravsearch-and-api-schemas" class="header">Gravsearch and API Schemas</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#main-and-dependent-resources" class="header">Main and Dependent Resources</a></li>
+    <li><a href="../../03-apis/api-v2/query-language.html#virtual-incoming-links" class="header">Virtual incoming Links</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#graph-patterns-and-result-graphs" class="header">Graph Patterns and Result Graphs</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#permission-checking" class="header">Permission Checking</a></li>
     <li><a href="../../03-apis/api-v2/query-language.html#inference" class="header">Inference</a></li>
@@ -270,6 +273,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     <li><a href="../../03-apis/api-v2/query-language.html#using-the-complex-schema" class="header">Using the Complex Schema</a></li>
   </ul></li>
   <li><a href="../../03-apis/api-v2/query-language.html#main-and-dependent-resources" class="header">Main and Dependent Resources</a></li>
+  <li><a href="../../03-apis/api-v2/query-language.html#virtual-incoming-links" class="header">Virtual incoming Links</a></li>
   <li><a href="../../03-apis/api-v2/query-language.html#graph-patterns-and-result-graphs" class="header">Graph Patterns and Result Graphs</a></li>
   <li><a href="../../03-apis/api-v2/query-language.html#permission-checking" class="header">Permission Checking</a></li>
   <li><a href="../../03-apis/api-v2/query-language.html#inference" class="header">Inference</a></li>
@@ -344,6 +348,25 @@ PREFIX incunabula: &lt;http://0.0.0.0:3333/ontology/0803/simple/v2#&gt;
 <p>In the complex schema, Knora values are represented as objects belonging to subclasses of <code>knora-api:Value</code>, e.g. <code>knora-api:TextValue</code>, and have predicates of their own, which can be used in <code>FILTER</code> expressions (see <a href="query-language.html#filtering-on-values-in-the-complex-schema">Filtering on Values in the Complex Schema</a>).</p>
 <h2><a href="#main-and-dependent-resources" name="main-and-dependent-resources" class="anchor"><span class="anchor-link"></span></a>Main and Dependent Resources</h2>
 <p>The main resource is the top-level resource in a search result. Other resources that are in some way connected to the main resource are referred to as dependent resources. If the client asks for a resource A relating to a resource B, then all matches for A will be presented as main resources and those for B as dependent resources. The main resource must be represented by a variable, marked with <code>knora-api:isMainResource</code>, as explained under <a href="query-language.html#construct-clause">CONSTRUCT Clause</a>.</p>
+<h2><a href="#virtual-incoming-links" name="virtual-incoming-links" class="anchor"><span class="anchor-link"></span></a>Virtual incoming Links</h2>
+<p>Depending on the ontology design, a resource A points to B or vice versa. For example, a page A is part of a book B using the property <code>incunabula:partOf</code>. If A is marked as the main resource, then B is nested as a dependent resource in its link value <code>incunabula:partOfValue</code>. But in case B is marked as the main resource, B does not have a link value pointing to A because in fact B is pointed to by A. Instead, B has a virtual property <code>knora-api:hasIncomingLink</code> containing A&rsquo;s link value:</p>
+<pre><code>&quot;knora-api:hasIncomingLink&quot; : {
+    &quot;@id&quot; : &quot;http://rdfh.ch/A/values/xy&quot;,
+    &quot;@type&quot; : &quot;knora-api:LinkValue&quot;,
+    &quot;knora-api:linkValueHasSource&quot; : {
+      &quot;@id&quot; : &quot;http://rdfh.ch/A&quot;,
+      &quot;@type&quot; : &quot;incunabula:page&quot;,
+      &quot;incunabula:partOfValue&quot; : {
+        &quot;@id&quot; : &quot;http://rdfh.ch/A/values/xy&quot;,
+        &quot;@type&quot; : &quot;knora-api:LinkValue&quot;,
+        &quot;knora-api:linkValueHasTargetIri&quot; : {
+          &quot;@id&quot; : &quot;http://rdfh.ch/B&quot;
+        }
+      }
+    }
+  },
+</code></pre>
+<p>Note that the virtually inserted link value inverts the relation by using <code>knora-api:linkValueHasSource</code>. The source of the link is A and its target B is only represented by an Iri (<code>knora-api:linkValueHasTargetIri</code>) since B is the main resource. </p>
 <h2><a href="#graph-patterns-and-result-graphs" name="graph-patterns-and-result-graphs" class="anchor"><span class="anchor-link"></span></a>Graph Patterns and Result Graphs</h2>
 <p>The WHERE clause of a Gravsearch query specifies a graph pattern. Each query result will match this graph pattern, and will have the form of a graph whose starting point is a main resource. The query&rsquo;s graph pattern, and hence each query result graph, can span zero more levels of relations between resources. For example, a query could request regions in images on pages of books written by a certain author, articles by authors who were students of a particular professor, or authors of texts that refer to events that took place within a certain date range.</p>
 <h2><a href="#permission-checking" name="permission-checking" class="anchor"><span class="anchor-link"></span></a>Permission Checking</h2>
@@ -841,7 +864,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-3.0.0-4-3a02d6f9
+4.0.0-0-d149894e-20181212-2153
 </span>
 </div>
 </article>

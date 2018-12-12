@@ -182,6 +182,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -201,7 +202,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 3.0.0-4-3a02d6f9
+<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
 </div>
 </nav>
 
@@ -335,7 +336,8 @@ cache:
   directories:
   - &quot;$HOME/.ivy2&quot;
 before_install:
-  - openssl aes-256-cbc -K $encrypted_6254b38dc8d5_key -iv $encrypted_6254b38dc8d5_iv -in $TRAVIS_BUILD_DIR/private/graphdb.license.enc -out $TRAVIS_BUILD_DIR/private/graphdb.license -d
+  - openssl aes-256-cbc -K $encrypted_ec8f5e0fa991_key -iv $encrypted_ec8f5e0fa991_iv -in travis/secrets.tar.enc -out $TRAVIS_BUILD_DIR/travis/secrets.tar -d
+  - tar -C travis -xvf travis/secrets.tar
   - sudo apt-get -qq update
   - sudo apt-get install -y expect
 
@@ -362,7 +364,7 @@ jobs:
       script:
         # prepare needed graphdb-se files
         - mkdir -p $TRAVIS_BUILD_DIR/graphdb
-        - cp $TRAVIS_BUILD_DIR/private/graphdb.license $TRAVIS_BUILD_DIR/graphdb/graphdb.license
+        - cp $TRAVIS_BUILD_DIR/travis/graphdb.license $TRAVIS_BUILD_DIR/graphdb/graphdb.license
         - cp $TRAVIS_BUILD_DIR/webapi/scripts/KnoraRules.pie $TRAVIS_BUILD_DIR/graphdb
         # start and initialize graphdb-se
         - docker run -d -p 127.0.0.1:7200:7200 -v $TRAVIS_BUILD_DIR/graphdb:/graphdb -e GDB_HEAP_SIZE=$GDB_HEAP_SIZE ontotext/graphdb:$GRAPHDB_VERSION -Dgraphdb.license.file=/graphdb/graphdb.license
@@ -379,7 +381,7 @@ jobs:
       script:
         # prepare needed graphdb-se files
         - mkdir -p $TRAVIS_BUILD_DIR/graphdb
-        - cp $TRAVIS_BUILD_DIR/private/graphdb.license $TRAVIS_BUILD_DIR/graphdb/graphdb.license
+        - cp $TRAVIS_BUILD_DIR/travis/graphdb.license $TRAVIS_BUILD_DIR/graphdb/graphdb.license
         - cp $TRAVIS_BUILD_DIR/webapi/scripts/KnoraRules.pie $TRAVIS_BUILD_DIR/graphdb
         # start and initialize graphdb-se
         - docker run -d -p 127.0.0.1:7200:7200 -v $TRAVIS_BUILD_DIR/graphdb:/graphdb -e GDB_HEAP_SIZE=$GDB_HEAP_SIZE ontotext/graphdb:$GRAPHDB_VERSION -Dgraphdb.license.file=/graphdb/graphdb.license
@@ -418,7 +420,7 @@ jobs:
     #  script:
     #    # prepare needed graphdb-se files
     #    - mkdir -p $TRAVIS_BUILD_DIR/data/conf
-    #    - cp $TRAVIS_BUILD_DIR/private/graphdb.license $TRAVIS_BUILD_DIR/data/conf/graphdb.license
+    #    - cp $TRAVIS_BUILD_DIR/travis/graphdb.license $TRAVIS_BUILD_DIR/data/conf/graphdb.license
     #    - mkdir -p $TRAVIS_BUILD_DIR/graphdb
     #    - cp $TRAVIS_BUILD_DIR/webapi/scripts/KnoraRules.pie $TRAVIS_BUILD_DIR/graphdb
     #    # start and initialize graphdb-se
@@ -518,7 +520,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-3.0.0-4-3a02d6f9
+4.0.0-0-d149894e-20181212-2153
 </span>
 </div>
 </article>

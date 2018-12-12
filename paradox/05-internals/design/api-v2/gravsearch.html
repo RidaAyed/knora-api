@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../../../cloud">
-<title>Gravsearch Responder Logic · Knora Documentation</title>
+<title>Gravsearch Design · Knora Documentation</title>
 <link rel="stylesheet" href="../../../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../../../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Gravsearch Responder Logic
+Gravsearch Design
 </span>
 </div>
 </div>
@@ -182,6 +182,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -189,15 +190,17 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../../05-internals/design/api-v2/gravsearch.html#gravsearch-responder-logic" class="header">Gravsearch Responder Logic</a>
+  <li><a href="../../../05-internals/design/api-v2/gravsearch.html#gravsearch-design" class="header">Gravsearch Design</a>
   <ul>
+    <li><a href="../../../05-internals/design/api-v2/gravsearch.html#gravsearch-package" class="header">Gravsearch Package</a></li>
+    <li><a href="../../../05-internals/design/api-v2/gravsearch.html#type-inspection" class="header">Type Inspection</a></li>
     <li><a href="../../../05-internals/design/api-v2/gravsearch.html#transformation-of-a-gravsearch-query" class="header">Transformation of a Gravsearch Query</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 3.0.0-4-3a02d6f9
+<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
 </div>
 </nav>
 
@@ -210,8 +213,10 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../../05-internals/design/api-v2/gravsearch.html#gravsearch-responder-logic" class="header">Gravsearch Responder Logic</a>
+  <li><a href="../../../05-internals/design/api-v2/gravsearch.html#gravsearch-design" class="header">Gravsearch Design</a>
   <ul>
+    <li><a href="../../../05-internals/design/api-v2/gravsearch.html#gravsearch-package" class="header">Gravsearch Package</a></li>
+    <li><a href="../../../05-internals/design/api-v2/gravsearch.html#type-inspection" class="header">Type Inspection</a></li>
     <li><a href="../../../05-internals/design/api-v2/gravsearch.html#transformation-of-a-gravsearch-query" class="header">Transformation of a Gravsearch Query</a></li>
   </ul></li>
 </ul>
@@ -241,12 +246,21 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#gravsearch-responder-logic" name="gravsearch-responder-logic" class="anchor"><span class="anchor-link"></span></a>Gravsearch Responder Logic</h1>
+<h1><a href="#gravsearch-design" name="gravsearch-design" class="anchor"><span class="anchor-link"></span></a>Gravsearch Design</h1>
 <div class="toc ">
 <ul>
+  <li><a href="../../../05-internals/design/api-v2/gravsearch.html#gravsearch-package" class="header">Gravsearch Package</a></li>
+  <li><a href="../../../05-internals/design/api-v2/gravsearch.html#type-inspection" class="header">Type Inspection</a>
+  <ul>
+    <li><a href="../../../05-internals/design/api-v2/gravsearch.html#identifying-typeable-entities" class="header">Identifying Typeable Entities</a></li>
+    <li><a href="../../../05-internals/design/api-v2/gravsearch.html#the-type-inspection-pipeline" class="header">The Type Inspection Pipeline</a>
+    <ul>
+      <li><a href="../../../05-internals/design/api-v2/gravsearch.html#annotationreadinggravsearchtypeinspector" class="header">AnnotationReadingGravsearchTypeInspector</a></li>
+      <li><a href="../../../05-internals/design/api-v2/gravsearch.html#inferringgravsearchtypeinspector" class="header">InferringGravsearchTypeInspector</a></li>
+    </ul></li>
+  </ul></li>
   <li><a href="../../../05-internals/design/api-v2/gravsearch.html#transformation-of-a-gravsearch-query" class="header">Transformation of a Gravsearch Query</a>
   <ul>
-    <li><a href="../../../05-internals/design/api-v2/gravsearch.html#gravsearch-type-inspection" class="header">Gravsearch Type Inspection</a></li>
     <li><a href="../../../05-internals/design/api-v2/gravsearch.html#query-transformers" class="header">Query Transformers</a></li>
     <li><a href="../../../05-internals/design/api-v2/gravsearch.html#prequery" class="header">Prequery</a></li>
     <li><a href="../../../05-internals/design/api-v2/gravsearch.html#main-query" class="header">Main Query</a>
@@ -257,10 +271,43 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   </ul></li>
 </ul>
 </div>
+<h2><a href="#gravsearch-package" name="gravsearch-package" class="anchor"><span class="anchor-link"></span></a>Gravsearch Package</h2>
+<p>The classes that process Gravsearch queries and results can be found in <code>org.knora.webapi.responders.v2.search.gravsearch</code>.</p>
+<h2><a href="#type-inspection" name="type-inspection" class="anchor"><span class="anchor-link"></span></a>Type Inspection</h2>
+<p>The code that converts Gravserch queries into SPARQL queries, and processes the query results, needs to know the types of the entities that are used in the input query. As explained in <a href="../../../03-apis/api-v2/query-language.html#type-inference">Type Inference</a>, these types can be inferred, or they can be specified in the query using type annotations.</p>
+<p>Type inspection is implemented in the package <code>org.knora.webapi.responders.v2.search.gravsearch.types</code>. The entry point to this package is <code>GravsearchTypeInspectionRunner</code>, which is instantiated by <code>SearchResponderV2</code>. The result of type inspection is a <code>GravsearchTypeInspectionResult</code>, in which each typeable entity in the input query is associated with a <code>GravsearchEntityTypeInfo</code>, which can be either:</p>
+<ul>
+  <li>A <code>PropertyTypeInfo</code>, which specifies the type of object that a property is expected to have.</li>
+  <li>A <code>NonPropertyTypeInfo</code>, which specifies the type of a variable, or the type of an IRI representing a resource or value.</li>
+</ul>
+<h3><a href="#identifying-typeable-entities" name="identifying-typeable-entities" class="anchor"><span class="anchor-link"></span></a>Identifying Typeable Entities</h3>
+<p>After parsing a Gravsearch query, <code>SearchResponderV2</code> calls <code>GravsearchTypeInspectionRunner.inspectTypes</code>, passing the WHERE clause of the input query. This method first identifies the entities whose types need to be determined. Each of these entities is represented as a <code>TypeableEntity</code>. To do this, <code>GravsearchTypeInspectionRunner</code> uses <code>QueryTraverser</code> to traverse the WHERE clause, collecting typeable entities in a visitor called <code>TypeableEntityCollectingWhereVisitor</code>. The entities that are considered to need type information are:</p>
+<ul>
+  <li>All variables.</li>
+  <li>All IRIs except for those that represent type annotations or types.</li>
+</ul>
+<h3><a href="#the-type-inspection-pipeline" name="the-type-inspection-pipeline" class="anchor"><span class="anchor-link"></span></a>The Type Inspection Pipeline</h3>
+<p><code>GravsearchTypeInspectionRunner</code> contains a pipeline of type inspectors, each of which extends <code>GravsearchTypeInspector</code>. There are two type inspectors in the pipeline:</p>
+<ul>
+  <li><code>AnnotationReadingGravsearchTypeInspector</code>: reads  <a href="../../../03-apis/api-v2/query-language.html#type-annotations">type annotations</a> included in a Gravsearch query.</li>
+  <li><code>InferringGravsearchTypeInspector</code>: infers the types of entities from the context in which they are used, as well  as from ontology information that it requests from <code>OntologyResponderV2</code>.</li>
+</ul>
+<p>Each type inspector takes as input, and returns as output, an <code>IntermediateTypeInspectionResult</code>, which associates each <code>TypeableEntity</code> with zero or more types. Initially, each <code>TypeableEntity</code> has no types. Each type inspector adds whatever types it finds for each entity. At the end of the pipeline, each entity should have exactly one type. If not, that&rsquo;s an error, with two possible causes:</p>
+<ul>
+  <li>An entity&rsquo;s type could not be determined. The client must add a type annotation to make the query work.</li>
+  <li>An entity appears to have more than one type, because the query used the entity inconsistently.</li>
+</ul>
+<p>If there are no errors, <code>GravsearchTypeInspectionRunner</code> converts the pipeline&rsquo;s output to a <code>GravsearchTypeInspectionResult</code>, in which each entity is associated with exactly one type.</p>
+<h4><a href="#annotationreadinggravsearchtypeinspector" name="annotationreadinggravsearchtypeinspector" class="anchor"><span class="anchor-link"></span></a>AnnotationReadingGravsearchTypeInspector</h4>
+<p>This inspector uses <code>QueryTraverser</code> to traverse the WHERE clause, collecting type annotations in a visitor called <code>AnnotationCollectingWhereVisitor</code>. It then converts each annotation to a <code>GravsearchEntityTypeInfo</code>.</p>
+<h4><a href="#inferringgravsearchtypeinspector" name="inferringgravsearchtypeinspector" class="anchor"><span class="anchor-link"></span></a>InferringGravsearchTypeInspector</h4>
+<p>This inspector first uses <code>QueryTraverser</code> to traverse the WHERE clause, assembling an index of usage information about typeable entities in a visitor called <code>UsageIndexCollectingWhereVisitor</code>. The <code>UsageIndex</code> contains, for example, an index of all the entities that are used as subjects, predicates, or objects, along with the statements in which they are used. It also contains sets of all the Knora class and property IRIs that are used in the WHERE clause. <code>InferringGravsearchTypeInspector</code> then asks <code>OntologyResponderV2</code> for information about those classes and properties, as well as about the classes that are subject types or object types of those properties.</p>
+<p>Next, the inspector runs inference rules (which extend <code>InferenceRule</code>) on each <code>TypeableEntity</code>. Each rule takes as input a <code>TypeableEntity</code>, the usage index, the ontology information, and the <code>IntermediateTypeInspectionResult</code>, and returns a new <code>IntermediateTypeInspectionResult</code>. For example, <code>TypeOfObjectFromPropertyRule</code> infers an entity&rsquo;s type if the entity is used as the object of a statement and the predicate&rsquo;s <code>knora-api:objectType</code> is known.</p>
+<p>The inference rules are run repeatedly, because the output of one rule may allow another rule to infer additional information. There are two pipelines of rules: a pipeline for the first iteration of type inference, and a pipeline for subsequent iterations. This is because some rules can return additional information if they are run more than once on the same entity, while others cannot.</p>
+<p>The number of iterations is limited to <code>InferringGravsearchTypeInspector.MAX_ITERATIONS</code>, but in practice two iterations are sufficient for most realistic queries, and it is difficult to design a query that requires more than six iterations.</p>
 <h2><a href="#transformation-of-a-gravsearch-query" name="transformation-of-a-gravsearch-query" class="anchor"><span class="anchor-link"></span></a>Transformation of a Gravsearch Query</h2>
 <p>A Gravsearch query submitted by the client is parsed by <code>GravsearchParser</code> and preprocessed by <code>GravsearchTypeInspector</code> to get type information about the elements used in the query (resources, values, properties etc.) and do some basic sanity checks.</p>
-<p>In <code>SearchResponderV2</code>, two queries are generated from a given Gravsearch query: a prequery and a main query. </p>
-<h3><a href="#gravsearch-type-inspection" name="gravsearch-type-inspection" class="anchor"><span class="anchor-link"></span></a>Gravsearch Type Inspection</h3>
+<p>In <code>SearchResponderV2</code>, two queries are generated from a given Gravsearch query: a prequery and a main query.</p>
 <h3><a href="#query-transformers" name="query-transformers" class="anchor"><span class="anchor-link"></span></a>Query Transformers</h3>
 <p>The Gravsearch query is passed to <code>QueryTraverser</code> along with a query transformer. Query transformers are classes that implement traits supported by <code>QueryTraverser</code>:</p>
 <ul>
@@ -272,9 +319,10 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>The traits listed above define methods that are implemented in the transformer classes and called by <code>QueryTraverser</code> to perform SPARQL to SPARQL conversions. When iterating over the statements of the input query, the transformer class&rsquo;s transformation methods are called to perform the conversion.</p>
 <h3><a href="#prequery" name="prequery" class="anchor"><span class="anchor-link"></span></a>Prequery</h3>
 <p>The purpose of the prequery is to get an ordered collection of results representing only the IRIs of one page of matching resources and values. Sort criteria can be submitted by the user, but the result is always deterministic also without sort criteria. This is necessary to support paging. A prequery is a SPARQL SELECT query.</p>
+<p>The classes involved in generating prequeries can be found in <code>org.knora.webapi.responders.v2.search.gravsearch.prequery</code>.</p>
 <p>If the client submits a count query, the prequery returns the overall number of hits, but not the results themselves.</p>
-<p>In a first step, the Gravsearch query&rsquo;s WHERE clause is transformed and the prequery (SELECT and WHERE clause) is generated from this result. The transformation of the Gravsearch query&rsquo;s WHERE clause relies on the implementation of the abstract class <code>AbstractSparqlTransformer</code>.</p>
-<p><code>AbstractSparqlTransformer</code> contains members whose state is changed during the iteration over the statements of the input query. They can then by used to create the converted query.</p>
+<p>In a first step, the Gravsearch query&rsquo;s WHERE clause is transformed and the prequery (SELECT and WHERE clause) is generated from this result. The transformation of the Gravsearch query&rsquo;s WHERE clause relies on the implementation of the abstract class <code>AbstractPrequeryGenerator</code>.</p>
+<p><code>AbstractPrequeryGenerator</code> contains members whose state is changed during the iteration over the statements of the input query. They can then by used to create the converted query.</p>
 <ul>
   <li><code>mainResourceVariable: Option[QueryVariable]</code>: SPARQL variable representing the main resource of the input query. Present in the prequery&rsquo;s SELECT clause.</li>
   <li><code>dependentResourceVariables: mutable.Set[QueryVariable]</code>: a set of SPARQL variables representing dependent resources in the input query. Used in an aggregation function in the prequery&rsquo;s SELECT clause (see below).</li>
@@ -307,7 +355,7 @@ PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
 
     }
 </code></pre>
-<p>The prequery&rsquo;s SELECT clause is built using the member variables defined in <code>AbstractSparqlTransformer</code>. State of member variables after transformation of the input query into the prequery:</p>
+<p>The prequery&rsquo;s SELECT clause is built using the member variables defined in <code>AbstractPrequeryGenerator</code>. State of member variables after transformation of the input query into the prequery:</p>
 <ul>
   <li><code>mainResourceVariable</code>: <code>QueryVariable(page)</code></li>
   <li><code>dependentResourceVariables</code>: <code>Set(QueryVariable(book))</code></li>
@@ -316,11 +364,11 @@ PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
   <li><code>valueObjectVariablesGroupConcat</code>: <code>Set(QueryVariable(seqnum__Concat), QueryVariable(book__LinkValue__Concat))</code></li>
 </ul>
 <p>The resulting SELECT clause of the prequery looks as follows:</p>
-<pre class="prettyprint"><code class="language-sparql">SELECT DISTINCT 
-    ?page 
-    (GROUP_CONCAT(DISTINCT(?book); SEPARATOR=&#39;&#39;) AS ?book__Concat) 
+<pre class="prettyprint"><code class="language-sparql">SELECT DISTINCT
+    ?page
+    (GROUP_CONCAT(DISTINCT(?book); SEPARATOR=&#39;&#39;) AS ?book__Concat)
     (GROUP_CONCAT(DISTINCT(?seqnum); SEPARATOR=&#39;&#39;) AS ?seqnum__Concat)
-    (GROUP_CONCAT(DISTINCT(?book__LinkValue); SEPARATOR=&#39;&#39;) AS ?book__LinkValue__Concat) 
+    (GROUP_CONCAT(DISTINCT(?book__LinkValue); SEPARATOR=&#39;&#39;) AS ?book__LinkValue__Concat)
     WHERE {...}
     GROUP BY ?page
     ORDER BY ASC(?page)
@@ -331,12 +379,13 @@ PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
 <h3><a href="#main-query" name="main-query" class="anchor"><span class="anchor-link"></span></a>Main Query</h3>
 <p>The purpose of the main query is to get all requested information about the main resource, dependent resources, and value objects. The Iris of those resources and value objects were returned by the prequery. Since the prequery only returns resources and value objects matching the input query&rsquo;s criteria, the main query can specifically ask for more detailed information on these resources and values without having to reconsider these criteria.</p>
 <h4><a href="#generating-the-main-query" name="generating-the-main-query" class="anchor"><span class="anchor-link"></span></a>Generating the Main Query</h4>
-<p>The main query is a SPARQL CONSTRUCT query. Its generation is handled by the method <code>createMainQuery</code>. It takes three arguments: <code>mainResourceIris: Set[IriRef], dependentResourceIris: Set[IriRef], valueObjectIris: Set[IRI]</code>. From the given Iris, statements are generated that ask for complete information on <em>exactly</em> these resources and values. For any given resource Iri, only the values present in <code>valueObjectIris</code> are to be queried. This is achieved by using SPARQL&rsquo;s <code>VALUES</code> expression for the main resource and dependent resources as well as for values.</p>
+<p>The classes involved in generating prequeries can be found in <code>org.knora.webapi.responders.v2.search.gravsearch.mainquery</code>.</p>
+<p>The main query is a SPARQL CONSTRUCT query. Its generation is handled by the method <code>GravsearchMainQueryGenerator.createMainQuery</code>. It takes three arguments: <code>mainResourceIris: Set[IriRef], dependentResourceIris: Set[IriRef], valueObjectIris: Set[IRI]</code>. From the given Iris, statements are generated that ask for complete information on <em>exactly</em> these resources and values. For any given resource Iri, only the values present in <code>valueObjectIris</code> are to be queried. This is achieved by using SPARQL&rsquo;s <code>VALUES</code> expression for the main resource and dependent resources as well as for values.</p>
 <h4><a href="#processing-the-main-querys-results" name="processing-the-main-querys-results" class="anchor"><span class="anchor-link"></span></a>Processing the Main Query&rsquo;s results</h4>
-<p>When processing the main query&rsquo;s results, permissions are checked and resources and values that the user did not explicitly ask for in the input query are filtered out.</p>
+<p>When processing the main query&rsquo;s results, permissions are checked and resources and values that the user did not explicitly ask for in the input query are filtered out. This is implemented in <code>MainQueryResultProcessor</code>.</p>
 <p>The method <code>getMainQueryResultsWithFullGraphPattern</code> takes the main query&rsquo;s results as an input and makes sure that the client has sufficient permissions on the results. A main resource and its dependent resources and values are only returned if the user has view permissions on all the resources and value objects present in the main query. Otherwise the method suppresses the main resource. To do the permission checking, the results of the main query are passed to <code>ConstructResponseUtilV2</code> which transforms a <code>SparqlConstructResponse</code> (a set of RDF triples) into a structure organized by main resource Iris. In this structure, dependent resources and values are nested can be accessed via their main resource. <code>SparqlConstructResponse</code> suppresses all resources and values the user has insufficient permissions on. For each main resource, a check is performed for the presence of all resources and values after permission checking.</p>
 <p>The method <code>getRequestedValuesFromResultsWithFullGraphPattern</code> filters out those resources and values that the user does not want to be returned by the query. All the resources and values not present in the input query&rsquo;s CONSTRUCT clause are filtered out. This only happens after permission checking.</p>
-<p>The main resources that have been filtered out due to insufficient permissions are represented by the placeholder <code>ForbiddenResource</code>. This placeholder stands for a main resource that cannot be returned, nevertheless it informs the client that such a resource exists. This is necessary for a consistent behaviour when doing paging. </p>
+<p>The main resources that have been filtered out due to insufficient permissions are represented by the placeholder <code>ForbiddenResource</code>. This placeholder stands for a main resource that cannot be returned, nevertheless it informs the client that such a resource exists. This is necessary for a consistent behaviour when doing paging.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/design/api-v2/gravsearch.md" title="Edit this page" class="md-source-file md-edit">
@@ -345,7 +394,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-3.0.0-4-3a02d6f9
+4.0.0-0-d149894e-20181212-2153
 </span>
 </div>
 </article>

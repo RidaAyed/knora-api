@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../cloud">
-<title>Introduction · Knora Documentation</title>
+<title>v4.x.x Release Notes · Knora Documentation</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Introduction
+v4.x.x Release Notes
 </span>
 </div>
 </div>
@@ -135,7 +135,7 @@ dhlab-basel/Knora/docs
 
 </div>
 <ul>
-  <li><a href="../01-introduction/index.html" class="active page">Introduction</a>
+  <li><a href="../01-introduction/index.html" class="page">Introduction</a>
   <ul>
     <li><a href="../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
     <li><a href="../01-introduction/data-formats.html" class="page">Data Formats in Knora</a></li>
@@ -182,12 +182,19 @@ dhlab-basel/Knora/docs
     <li><a href="../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
     <li><a href="../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
-    <li><a href="../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
+    <li><a href="../00-release-notes/v4.x.x.html" class="active page">v4.x.x Release Notes</a></li>
     <li><a href="../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../00-release-notes/v4.x.x.html#v4-x-x-release-notes" class="header">v4.x.x Release Notes</a>
+  <ul>
+    <li><a href="../00-release-notes/v4.x.x.html#v4-0-0" class="header">v4.0.0</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
@@ -198,51 +205,35 @@ dhlab-basel/Knora/docs
 </div>
 </div>
 </div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../00-release-notes/v4.x.x.html#v4-x-x-release-notes" class="header">v4.x.x Release Notes</a>
+  <ul>
+    <li><a href="../00-release-notes/v4.x.x.html#v4-0-0" class="header">v4.0.0</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+</div>
+</div>
+</div>
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
-<!---
-Copyright © 2015-2018 the contributors (see Contributors.md).
-
-This file is part of Knora.
-
-Knora is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published
-by the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Knora is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public
-License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
--->
-<h1><a href="#introduction" name="introduction" class="anchor"><span class="anchor-link"></span></a>Introduction</h1>
-<div class="toc ">
+<h1><a href="#v4-x-x-release-notes" name="v4-x-x-release-notes" class="anchor"><span class="anchor-link"></span></a>v4.x.x Release Notes</h1>
+<h2><a href="#v4-0-0" name="v4-0-0" class="anchor"><span class="anchor-link"></span></a>v4.0.0</h2>
 <ul>
-  <li><a href="../01-introduction/what-is-knora.html" class="page">What Is Knora?</a>
-  <ul>
-    <li><a href="../01-introduction/what-is-knora.html#humanities-focused-data-storage" class="header">Humanities-Focused Data Storage</a></li>
-    <li><a href="../01-introduction/what-is-knora.html#powerful-searches" class="header">Powerful Searches</a></li>
-    <li><a href="../01-introduction/what-is-knora.html#access-control" class="header">Access Control</a></li>
-    <li><a href="../01-introduction/what-is-knora.html#data-history" class="header">Data History</a></li>
-    <li><a href="../01-introduction/what-is-knora.html#data-consistency" class="header">Data Consistency</a></li>
-    <li><a href="../01-introduction/what-is-knora.html#linked-open-data" class="header">Linked Open Data</a></li>
-    <li><a href="../01-introduction/what-is-knora.html#build-your-own-application" class="header">Build Your Own Application</a></li>
-  </ul></li>
-  <li><a href="../01-introduction/data-formats.html" class="page">Data Formats in Knora</a></li>
-  <li><a href="../01-introduction/standoff-rdf.html" class="page">Standoff/RDF Text Markup</a></li>
-  <li><a href="../01-introduction/example-project.html" class="page">An Example Project</a>
-  <ul>
-    <li><a href="../01-introduction/example-project.html#the-incunabula-ontology" class="header">The Incunabula Ontology</a></li>
-  </ul></li>
+  <li>MAJOR CHANGE: mapping creation request and response formats have changed (<a href="https://github.com/dhlab-basel/Knora/issues/1094">#1094</a>).</li>
+  <li>MINOR CHANGE: Update technical user docs (<a href="https://github.com/dhlab-basel/Knora/issues/1085">#1085</a>)</li>
+  <li>BUGFIX CHANGE: Fix permission checking in API v2 resource creation (<a href="https://github.com/dhlab-basel/Knora/issues/1104">#1104</a>)</li>
 </ul>
 </div>
-</div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/01-introduction/index.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/00-release-notes/v4.x.x.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -258,7 +249,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../index.html" title="Knora Documentation" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../00-release-notes/v3.x.x.html" title="v3.x.x Release Notes" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -267,17 +258,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Knora Documentation
+v3.x.x Release Notes
 </span>
 </div>
 </a>
-<a href="../01-introduction/what-is-knora.html" title="What Is Knora?" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../00-release-notes/next.html" title="Release Notes for Next Release" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-What Is Knora?
+Release Notes for Next Release
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

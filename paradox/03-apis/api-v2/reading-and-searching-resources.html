@@ -182,6 +182,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -200,7 +201,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 3.0.0-4-3a02d6f9
+<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
 </div>
 </nav>
 
@@ -272,7 +273,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>Operations for reading and searching resources can return responses in either the simple or the complex ontology schema. The complex schema is used by default. To receive a response in the simple schema, use the HTTP request header or URL parameter described in <a href="introduction.html#api-schema">API Schema</a>.</p>
 <p>Each Knora API v2 response describing one or more resources returns a single RDF graph. For example, a request for a single resource returns that resource and all its values. In a full-text search, the resource is returned with the values that matched the search criteria. A response to an extended search may represent a whole graph of interconnected resources.</p>
 <p>In JSON-LD, if only one resource is returned, it is the top-level object; if more than one resource is returned, they are represented as an array of objects of the <code>@graph</code> member of the top-level object (see <a href="https://json-ld.org/spec/latest/json-ld/#named-graphs">Named Graphs</a> in the JSON-LD specification).</p>
-<p>In the complex schema, dependent resources, i.e. resources that are referred to by other resources on the top level, are nested in link value objects.</p>
+<p>In the complex schema, dependent resources, i.e. resources that are referred to by other resources on the top level, are nested in link value objects. If resources on the top level are referred to by other resources and these links are part of the response, virtual incoming links are generated, see <a href="query-language.html">Gravsearch: Virtual Graph Search</a>) </p>
 <p>See the interfaces <code>Resource</code> and <code>ResourcesSequence</code> in module <code>ResourcesResponse</code> (exists for both API schemas: <code>ApiV2Simple</code> and <code>ApiV2WithValueObjects</code>).</p>
 <h2><a href="#get-the-representation-of-a-resource-by-its-iri" name="get-the-representation-of-a-resource-by-its-iri" class="anchor"><span class="anchor-link"></span></a>Get the Representation of a Resource by its IRI</h2>
 <h3><a href="#get-a-full-representation-of-a-resource-by-its-iri" name="get-a-full-representation-of-a-resource-by-its-iri" class="anchor"><span class="anchor-link"></span></a>Get a Full Representation of a Resource by its IRI</h3>
@@ -403,7 +404,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-3.0.0-4-3a02d6f9
+4.0.0-0-d149894e-20181212-2153
 </span>
 </div>
 </article>
