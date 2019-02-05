@@ -183,6 +183,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -202,7 +203,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
+<i class="md-icon">label_outline</i> 4.0.0-52-1d8a2d75
 </div>
 </nav>
 
@@ -233,7 +234,7 @@ dhlab-basel/Knora/docs
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <!---
-Copyright © 2015-2018 the contributors (see Contributors.md).
+Copyright © 2015-2019 the contributors (see Contributors.md).
 
 This file is part of Knora.
 
@@ -303,7 +304,7 @@ resourceParams = {
        ]
    },
    &#39;label&#39;: &quot;test resource&quot;,
-   &#39;project_id&#39;: &#39;http://data.knora.org/projects/testproject&#39;
+   &#39;project_id&#39;: &#39;http://rdfh.ch/projects/testproject&#39;
 }
 
 # the name of the file to be submitted
@@ -385,7 +386,7 @@ r = requests.post(&quot;http://host/v1/resources&quot;,
         &lt;knoraXmlImport:label&gt;Math Intelligencer&lt;/knoraXmlImport:label&gt;
         &lt;p0801-biblio:hasName knoraType=&quot;richtext_value&quot;&gt;Math Intelligencer&lt;/p0801-biblio:hasName&gt;
     &lt;/p0801-biblio:Journal&gt;
-    &lt;p0801-biblio:JournalArticle id=&quot;strings_in_the_16th_and_17th_centuries&quot;&gt;
+    &lt;p0801-biblio:JournalArticle id=&quot;strings_in_the_16th_and_17th_centuries&quot; creationDate=&quot;2019-01-09T15:45:54Z&quot;&gt;
         &lt;knoraXmlImport:label&gt;Strings in the 16th and 17th Centuries&lt;/knoraXmlImport:label&gt;
         &lt;p0801-biblio:p0801-beol__comment knoraType=&quot;richtext_value&quot; mapping_id=&quot;http://rdfh.ch/standoff/mappings/StandardMapping&quot;&gt;
             &lt;text xmlns=&quot;&quot;&gt;The most &lt;strong&gt;interesting&lt;/strong&gt; article in &lt;a class=&quot;salsah-link&quot; href=&quot;ref:math_intelligencer&quot;&gt;Math Intelligencer&lt;/a&gt;.&lt;/text&gt;
@@ -422,6 +423,8 @@ r = requests.post(&quot;http://host/v1/resources&quot;,
   <p>The child elements of <code>knoraXmlImport:resources</code> represent resources to be created. The order of these elements is unimportant.</p></li>
   <li>
   <p>Each resource must have an ID, which must be an XML <a href="https://www.w3.org/TR/REC-xml-names/#NT-NCName">NCName</a>, and must be unique within the file. These IDs are used only during the import, and will not be stored in the triplestore.</p></li>
+  <li>
+  <p>Each resource can optionally have a <code>creationDate</code> attribute, which can be an <a href="https://www.w3.org/TR/xmlschema11-2/#dateTime">xsd:dateTime</a> or an <a href="https://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">xsd:dateTimeStamp</a>. If <code>creationDate</code> is not supplied, the current time is used.</p></li>
   <li>
   <p>The first child element of each resource must be a <code>knoraXmlImport:label</code>, which will be stored as the resource&rsquo;s <code>rdfs:label</code>.</p></li>
   <li>
@@ -522,7 +525,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-4.0.0-0-d149894e-20181212-2153
+4.0.0-52-1d8a2d75
 </span>
 </div>
 </article>
@@ -564,7 +567,7 @@ Reading Values
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
 <div class="md-footer-copyright__highlight">
-Copyright 2015-2018 the contributors (see Contributors.md)
+Copyright 2015-2019 the contributors (see Contributors.md)
 </div>
 Powered by
 <a href="https://github.com/lightbend/paradox">Paradox</a>

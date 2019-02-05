@@ -183,6 +183,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -209,7 +210,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
+<i class="md-icon">label_outline</i> 4.0.0-52-1d8a2d75
 </div>
 </nav>
 
@@ -247,7 +248,7 @@ dhlab-basel/Knora/docs
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <!---
-Copyright © 2015-2018 the contributors (see Contributors.md).
+Copyright © 2015-2019 the contributors (see Contributors.md).
 
 This file is part of Knora.
 
@@ -336,20 +337,21 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h2><a href="#actor-supervision-and-creation" name="actor-supervision-and-creation" class="anchor"><span class="anchor-link"></span></a>Actor Supervision and Creation</h2>
 <p>At system start, the supervisor actors are created in <code>KnoraService.scala</code>:</p>
 <pre class="prettyprint"><code class="language-scala">/**
-  * The supervisor actor that forwards messages to responder actors to handle API requests.
-  */
-protected val responderManager: ActorRef = system.actorOf(Props(new ResponderManager with LiveActorMaker).withDispatcher(KnoraDispatchers.KnoraActorDispatcher), name = RESPONDER_MANAGER_ACTOR_NAME)
-
-/**
   * The supervisor actor that forwards messages to actors that deal with persistent storage.
   */
-protected val storeManager: ActorRef = system.actorOf(Props(new StoreManager with LiveActorMaker).withDispatcher(KnoraDispatchers.KnoraActorDispatcher), name = STORE_MANAGER_ACTOR_NAME)</code></pre>
+protected val storeManager: ActorRef = system.actorOf(Props(new StoreManager with LiveActorMaker).withDispatcher(KnoraDispatchers.KnoraActorDispatcher), name = StoreManagerActorName)
+
+
+/**
+  * The supervisor actor that forwards messages to responder actors to handle API requests.
+  */
+protected val responderManager: ActorRef = system.actorOf(Props(new ResponderManager(applicationStateActor, storeManager) with LiveActorMaker).withDispatcher(KnoraDispatchers.KnoraActorDispatcher), name = RESPONDER_MANAGER_ACTOR_NAME)</code></pre>
 <p>In most cases, there is only one instance of each supervised actor; such actors do their work asynchronously in futures, so there would be no advantage in using an actor pool. A few actors do have pools of instances, because they do their work synchronously; this allows concurrency to be controlled by setting the size of each pool. These pools are configured in <code>application.conf</code> under <code>akka.actor.deployment</code>.</p>
-<p><code>KnoraService</code> also starts the HTTP service:</p>
+<p><code>KnoraService</code> also starts the HTTP service after which the startup sequence is initiated:</p>
 <pre class="prettyprint"><code class="language-scala">/**
   * Starts the Knora API server.
   */
-def startService(withOntologies: Boolean): Unit = {
+def startService(skipLoadingOfOntologies: Boolean): Unit = {
 
     val bindingFuture: Future[Http.ServerBinding] = Http().bindAndHandle(Route.handlerFlow(apiRoutes), settings.internalKnoraApiHost, settings.internalKnoraApiPort)
 
@@ -359,12 +361,8 @@ def startService(withOntologies: Boolean): Unit = {
             // start monitoring reporters
             startReporters()
 
-            // Kick of startup tasks. This method returns when Running state is reached.
-            if (withOntologies) {
-                startupTaskRunner(true)
-            } else {
-                startupTaskRunner(false)
-            }
+            // Kick of startup procedure.
+            applicationStateActor ! InitStartUp(skipLoadingOfOntologies)
         }
         case Failure(ex) =&gt; {
             log.error(&quot;Failed to bind to {}:{}! - {}&quot;, settings.internalKnoraApiHost, settings.internalKnoraApiPort, ex.getMessage)
@@ -377,15 +375,16 @@ def startService(withOntologies: Boolean): Unit = {
 <ul>
   <li>Stopped: Application starting. Http layer is still not started.</li>
   <li>StartingUp: Http layer is started. Only &lsquo;/health&rsquo; and monitoring routes are working.</li>
-  <li>WaitingForRepository:</li>
-  <li>RepositoryReady:</li>
-  <li>CreatingCaches:</li>
-  <li>CachesReady:</li>
-  <li>LoadingOntologies:</li>
-  <li>OntologiesReady:</li>
+  <li>WaitingForRepository: Repository check is initiated but not yet finished.</li>
+  <li>RepositoryReady: Repository check has finished and repository is available.</li>
+  <li>CreatingCaches: Creating caches is initiated but not yet finished.</li>
+  <li>CachesReady: Caches are created and ready for use.</li>
+  <li>LoadingOntologies: Loading of ontologies is initiated but not yet finished.</li>
+  <li>OntologiesReady: Ontologies are loaded.</li>
   <li>MaintenanceMode: During backup or other maintenance tasks, so that access to the API is closed</li>
   <li>Running: Running state. All APIs are open.</li>
 </ul>
+<p>The startup sequence coordination is done by the <code>org.knora.webapi.app.ApplicationStateActor</code>. During the <code>WaitingForRepository</code> state, if the repository is not configured or available, the system will indefinitely retry to access it. This allows for prolonged startup times of the repository.</p>
 <h2><a href="#concurrency" name="concurrency" class="anchor"><span class="anchor-link"></span></a>Concurrency</h2>
 <p>In general, Knora is written in a functional style, avoiding shared mutable state. This makes it easier to reason about concurrency, and eliminates an important potential source of bugs (see <a href="http://curtclifton.net/papers/MoseleyMarks06a.pdf">Out of the Tar Pit</a>).</p>
 <p>The routes and actors in Knora use Akka&rsquo;s <code>ask</code> pattern, rather than the <code>tell</code> pattern, to send messages and receive responses, because this simplifies the code considerably (using <code>tell</code> would require actors to maintain complex mutable state), with no apparent reduction in performance.</p>
@@ -457,7 +456,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-4.0.0-0-d149894e-20181212-2153
+4.0.0-52-1d8a2d75
 </span>
 </div>
 </article>
@@ -499,7 +498,7 @@ Futures with Akka
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
 <div class="md-footer-copyright__highlight">
-Copyright 2015-2018 the contributors (see Contributors.md)
+Copyright 2015-2019 the contributors (see Contributors.md)
 </div>
 Powered by
 <a href="https://github.com/lightbend/paradox">Paradox</a>

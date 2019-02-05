@@ -183,6 +183,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -195,13 +196,12 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v2/knora-iris.html#project-short-codes" class="header">Project Short-Codes</a></li>
     <li><a href="../../03-apis/api-v2/knora-iris.html#iris-for-ontologies-and-ontology-entities" class="header">IRIs for Ontologies and Ontology Entities</a></li>
     <li><a href="../../03-apis/api-v2/knora-iris.html#iris-for-data" class="header">IRIs for Data</a></li>
-    <li><a href="../../03-apis/api-v2/knora-iris.html#knora-resource-permalinks" class="header">Knora Resource Permalinks</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
+<i class="md-icon">label_outline</i> 4.0.0-52-1d8a2d75
 </div>
 </nav>
 
@@ -219,7 +219,6 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v2/knora-iris.html#project-short-codes" class="header">Project Short-Codes</a></li>
     <li><a href="../../03-apis/api-v2/knora-iris.html#iris-for-ontologies-and-ontology-entities" class="header">IRIs for Ontologies and Ontology Entities</a></li>
     <li><a href="../../03-apis/api-v2/knora-iris.html#iris-for-data" class="header">IRIs for Data</a></li>
-    <li><a href="../../03-apis/api-v2/knora-iris.html#knora-resource-permalinks" class="header">Knora Resource Permalinks</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -231,7 +230,7 @@ dhlab-basel/Knora/docs
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <!---
-Copyright © 2015-2018 the contributors (see Contributors.md).
+Copyright © 2015-2019 the contributors (see Contributors.md).
 
 This file is part of Knora.
 
@@ -260,7 +259,6 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     <li><a href="../../03-apis/api-v2/knora-iris.html#shared-ontology-iris" class="header">Shared Ontology IRIs</a></li>
   </ul></li>
   <li><a href="../../03-apis/api-v2/knora-iris.html#iris-for-data" class="header">IRIs for Data</a></li>
-  <li><a href="../../03-apis/api-v2/knora-iris.html#knora-resource-permalinks" class="header">Knora Resource Permalinks</a></li>
 </ul>
 </div>
 <p>The IRIs used in Knora repositories and in the Knora API v2 follow certain conventions.</p>
@@ -337,8 +335,8 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li><code>http://api.knora.org/ontology/shared/example-box/simple/v2</code> (external, simple schema)</li>
 </ul>
 <h2><a href="#iris-for-data" name="iris-for-data" class="anchor"><span class="anchor-link"></span></a>IRIs for Data</h2>
-<p>Knora generates IRIs for data that it creates in the triplestore. Each generated data IRI contains one or more <a href="http://tools.ietf.org/html/rfc4122">UUID</a> identifiers to make it unique. To keep data IRIs relatively short, each UUID is <a href="http://tools.ietf.org/html/rfc4648">Base64</a> encoded, using the &lsquo;URL and Filename safe Base64 Alphabet&rsquo; specified in Table 2 of <a href="http://tools.ietf.org/html/rfc4648">RFC 4648</a>, without padding; thus each UUID is a 22-character string.</p>
-<p>Data IRIs are not currently intended to be dereferenced as URLs. Instead, each Knora resource will have a corresponding <a href="https://tools.ietf.org/html/draft-kunze-ark-18">ARK</a> URL, which will be handled by a server that redirects requests to the relevant Knora API server (see <a href="knora-iris.html#knora-resource-permalinks">Knora Resource Permalinks</a>). However, every generated data IRI begins with <code>http://rdfh.ch</code>. This domain is not currently used, but it is owned by the <a href="http://dasch.swiss/">DaSCH</a>, so it would be possible to make resource IRIs directly dereferenceable in the future.</p>
+<p>Knora generates IRIs for data that it creates in the triplestore. Each generated data IRI contains one or more <a href="http://tools.ietf.org/html/rfc4122">UUID</a> identifiers to make it unique. To keep data IRIs relatively short, each UUID is <a href="http://tools.ietf.org/html/rfc4648#section-5">base64url-encoded</a>, without padding; thus each UUID is a 22-character string.</p>
+<p>Data IRIs are not currently intended to be dereferenced as URLs. Instead, each Knora resource has a separate <a href="resource-permalinks.html">permalink</a>.</p>
 <p>A Knora value does not have a stable IRI throughout its version history. Each time a new version of a value is made, the new version gets a new IRI. Therefore, it would not make sense to publish Knora value IRIs. When designing ontologies for Knora projects, keep in mind that if you want something be directly citable, it needs to be a resource, not a value.</p>
 <p>The formats of generated data IRIs for different types of objects are as follows:</p>
 <ul>
@@ -353,8 +351,6 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li>Lists: <code>http://rdfh.ch/lists/PROJECT_SHORTCODE/LIST_UUID</code></li>
   <li>User: <code>http://rdfh.ch/users/USER_UUID</code></li>
 </ul>
-<h2><a href="#knora-resource-permalinks" name="knora-resource-permalinks" class="anchor"><span class="anchor-link"></span></a>Knora Resource Permalinks</h2>
-<p>TODO: document the use of <a href="https://tools.ietf.org/html/draft-kunze-ark-18">ARK</a> permalinks for Knora resources.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-v2/knora-iris.md" title="Edit this page" class="md-source-file md-edit">
@@ -363,7 +359,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-4.0.0-0-d149894e-20181212-2153
+4.0.0-52-1d8a2d75
 </span>
 </div>
 </article>
@@ -405,7 +401,7 @@ Reading and Searching Resources
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
 <div class="md-footer-copyright__highlight">
-Copyright 2015-2018 the contributors (see Contributors.md)
+Copyright 2015-2019 the contributors (see Contributors.md)
 </div>
 Powered by
 <a href="https://github.com/lightbend/paradox">Paradox</a>

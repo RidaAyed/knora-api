@@ -183,6 +183,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -203,7 +204,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
+<i class="md-icon">label_outline</i> 4.0.0-52-1d8a2d75
 </div>
 </nav>
 
@@ -235,7 +236,7 @@ dhlab-basel/Knora/docs
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <!---
-Copyright © 2015-2018 the contributors (see Contributors.md).
+Copyright © 2015-2019 the contributors (see Contributors.md).
 
 This file is part of Knora.
 
@@ -259,7 +260,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>Every resource that is created or hosted by Knora is identified by a unique id, a so called Internationalized Resource Identifier (IRI). The IRI is required for every API operation to identify the resource in question. A Knora IRI has itself the format of a URL. For some API operations, the IRI has to be URL-encoded (HTTP GET requests).</p>
 <p>Unlike Knora API v2, Knora API v1 uses internal IRIs, i.e. the actual IRIs that are stored in the triplestore (see <a href="../api-v2/knora-iris.html">Knora IRIs</a>).</p>
 <h2><a href="#v1-path-segment" name="v1-path-segment" class="anchor"><span class="anchor-link"></span></a>V1 Path Segment</h2>
-<p>Every request to API V1 includes <code>v1</code> as a path segment, e.g. <code>http://host/v1/resources/http%3A%2F%2Fdata.knora.org%2Fc5058f3a</code>. Accordingly, requests to another version of the API will require another path segment.</p>
+<p>Every request to API V1 includes <code>v1</code> as a path segment, e.g. <code>http://host/v1/resources/http%3A%2F%2Frdfh.ch%2Fc5058f3a</code>. Accordingly, requests to another version of the API will require another path segment.</p>
 <h2><a href="#knora-api-response-format" name="knora-api-response-format" class="anchor"><span class="anchor-link"></span></a>Knora API Response Format</h2>
 <p>In case an API request could be handled successfully, Knora responds with a 200 HTTP status code. The actual answer from Knora (the representation of the requested resource or information about the executed API operation) is sent in the HTTP body, encoded as JSON (using UTF-8). In this JSON, an API specific status code is sent (member <code>status</code>).</p>
 <p>The JSON formats are formally defined as TypeScript interfaces (located in <code>salsah/src/typescript_interfaces</code>). Build the HTML documentation of these interfaces by executing <code>make jsonformat</code> (see <code>docs/Readme.md</code> for further instructions).</p>
@@ -276,7 +277,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-4.0.0-0-d149894e-20181212-2153
+4.0.0-52-1d8a2d75
 </span>
 </div>
 </article>
@@ -318,7 +319,7 @@ Authentication
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
 <div class="md-footer-copyright__highlight">
-Copyright 2015-2018 the contributors (see Contributors.md)
+Copyright 2015-2019 the contributors (see Contributors.md)
 </div>
 Powered by
 <a href="https://github.com/lightbend/paradox">Paradox</a>

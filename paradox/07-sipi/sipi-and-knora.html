@@ -183,6 +183,7 @@ dhlab-basel/Knora/docs
     <li><a href="../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
+    <li><a href="../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
     <li><a href="../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -201,7 +202,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
+<i class="md-icon">label_outline</i> 4.0.0-52-1d8a2d75
 </div>
 </nav>
 
@@ -231,7 +232,7 @@ dhlab-basel/Knora/docs
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <!---
-Copyright © 2015-2018 the contributors (see Contributors.md).
+Copyright © 2015-2019 the contributors (see Contributors.md).
 
 This file is part of Knora.
 
@@ -360,8 +361,8 @@ r = requests.post(knora_url + &#39;/resources&#39;,
 <p>Each of these paths has to be handled by the browser by making a call to Sipi, obtaining the binary representation in the desired quality. To deal with different image quality levels, Sipi implements the <a href="http://iiif.io/api/image/2.0/">IIIF standard</a>. The different quality level paths are created by Knora in <code>ValueUtilV1</code>.</p>
 <p>Whenever Sipi serves a binary representation of a Knora file value (indicated by using the prefix <code>knora</code> in the path), it has to make a request to Knora&rsquo;s Sipi responder to get the user&rsquo;s permissions on the requested file. Sipi&rsquo;s request to Knora contains a cookie with the Knora session id the user has obtained when logging in to Knora: As a response to a successful login, Knora returns the user&rsquo;s session id and this id is automatically sent to Sipi by the browser, setting a second cookie for the communication with Sipi. The reason the Knora session id is set in two cookies, is the fact that cookies can not be shared among different domains. Since Knora and Sipi are likely to be running under different domains, this solution offers the necessary flexibility.</p>
 <h2><a href="#authentication-of-users-with-sipi" name="authentication-of-users-with-sipi" class="anchor"><span class="anchor-link"></span></a>Authentication of users with Sipi</h2>
-<p>Whenever a file is requested, Sipi asks Knora about the currents user&rsquo;s permissions on the given file. This is achieved by sharing the Knora session id with Sipi. When the user logs in to Knora using his browser (with Salsah1), a session cookie containing a JWT token representing the user is stored in the user&rsquo;s client. This session cookie is then read by Sipi and used to query for the user&rsquo;s image permissions.</p>
-<p>Currently this only works for Salsah1. Authentication of users using Salsah2 is still under development.</p>
+<p>Whenever a file is requested, Sipi asks Knora about the current user&rsquo;s permissions on the given file. This is achieved by sharing the Knora session cookie with Sipi. When the user logs in to Knora using his browser (using either <code>V1</code> or <code>V2</code> authentication route), a session cookie containing a JWT token representing the user is stored in the user&rsquo;s client. This session cookie is then read by Sipi and used to query for the user&rsquo;s image permissions.</p>
+<p>For the session cookie to be sent to Sipi, both the Knora API and Sipi endpoints need to be under the same domain, e.g., <code>api.example.com</code> and <code>iiif.example.com</code>.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/07-sipi/sipi-and-knora.md" title="Edit this page" class="md-source-file md-edit">
@@ -370,7 +371,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-4.0.0-0-d149894e-20181212-2153
+4.0.0-52-1d8a2d75
 </span>
 </div>
 </article>
@@ -412,7 +413,7 @@ Frequently Asked Questions
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
 <div class="md-footer-copyright__highlight">
-Copyright 2015-2018 the contributors (see Contributors.md)
+Copyright 2015-2019 the contributors (see Contributors.md)
 </div>
 Powered by
 <a href="https://github.com/lightbend/paradox">Paradox</a>

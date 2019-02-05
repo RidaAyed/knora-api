@@ -183,6 +183,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -200,7 +201,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
+<i class="md-icon">label_outline</i> 4.0.0-52-1d8a2d75
 </div>
 </nav>
 
@@ -229,7 +230,7 @@ dhlab-basel/Knora/docs
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <!---
-Copyright © 2015-2018 the contributors (see Contributors.md).
+Copyright © 2015-2019 the contributors (see Contributors.md).
 
 This file is part of Knora.
 
@@ -261,9 +262,16 @@ import com.typesafe.sbt.packager.docker.DockerPlugin.autoImport.{Docker, dockerR
 import com.typesafe.sbt.packager.docker.{Cmd, ExecCmd}
 import org.knora.Dependencies
 
+import scala.sys.process.Process
+
 //////////////////////////////////////
 // GLOBAL SETTINGS
 //////////////////////////////////////
+
+// custom docker-compose plugin settings
+lazy val GDB = config(&quot;gdb&quot;) extend Default
+
+lazy val GDBSIPI = config(&quot;gdbsipi&quot;) extend Default
 
 lazy val aggregatedProjects: Seq[ProjectReference] = Seq(docs, salsah1, webapi)
 
@@ -317,8 +325,6 @@ lazy val root = Project(id = &quot;knora&quot;, file(&quot;.&quot;))
 // DOCS (./docs)
 //////////////////////////////////////
 
-import scala.sys.process._
-
 // Define `Configuration` instances representing our different documentation trees
 lazy val ParadoxSite = config(&quot;paradox&quot;)
 
@@ -338,20 +344,20 @@ lazy val docs = knoraModule(&quot;docs&quot;)
             // Ghpages settings
             ghpagesNoJekyll := true,
             git.remoteRepo := &quot;git@github.com:dhlab-basel/Knora.git&quot;,
-            excludeFilter in ghpagesCleanSite :=
+            ghpagesCleanSite / excludeFilter :=
                     new FileFilter {
                         def accept(f: File) = (ghpagesRepository.value / &quot;CNAME&quot;).getCanonicalPath == f.getCanonicalPath
                     } || &quot;LICENSE.md&quot; || &quot;README.md&quot;,
 
             // (sbt-site) Customize the source directory
             // sourceDirectory in Jekyll := sourceDirectory.value / &quot;overview&quot;,
-            sourceDirectory in ParadoxSite := sourceDirectory.value / &quot;paradox&quot;,
+            ParadoxSite / sourceDirectory := sourceDirectory.value / &quot;paradox&quot;,
 
             // (sbt-site) Customize the output directory (subdirectory of site)
-            siteSubdirName in ParadoxSite := &quot;paradox&quot;,
+            ParadoxSite / siteSubdirName := &quot;paradox&quot;,
 
             // Set some paradox properties
-            paradoxProperties in ParadoxSite ++= Map(
+            ParadoxSite / paradoxProperties ++= Map(
                 &quot;project.name&quot; -&gt; &quot;Knora Documentation&quot;,
                 &quot;github.base_url&quot; -&gt; &quot;https://github.com/dhlab-basel/Knora&quot;,
                 &quot;image.base_url&quot; -&gt; &quot;.../assets/images&quot;,
@@ -361,7 +367,7 @@ lazy val docs = knoraModule(&quot;docs&quot;)
             ),
 
             // Paradox Material Theme Settings
-            paradoxMaterialTheme in ParadoxSite ~= {
+            ParadoxSite / paradoxMaterialTheme ~= {
                 _.withColor(&quot;blue&quot;, &quot;yellow&quot;)
                         .withRepository(uri(&quot;https://github.com/dhlab-basel/Knora/docs&quot;))
                         .withFavicon(&quot;cloud&quot;)
@@ -371,9 +377,9 @@ lazy val docs = knoraModule(&quot;docs&quot;)
                             uri(&quot;https://twitter.com/dhlabbasel&quot;)
                         )
                         .withLanguage(java.util.Locale.ENGLISH)
-                        .withCopyright(&quot;Copyright 2015-2018 the contributors (see Contributors.md)&quot;)
+                        .withCopyright(&quot;Copyright 2015-2019 the contributors (see Contributors.md)&quot;)
             },
-            mappings in makeSite ++= Seq(
+            makeSite / mappings ++= Seq(
                 file(&quot;docs/src/api-admin/index.html&quot;) -&gt; &quot;api-admin/index.html&quot;,
                 file(&quot;docs/src/api-admin/swagger.json&quot;) -&gt; &quot;api-admin/swagger.json&quot;
             ),
@@ -437,17 +443,17 @@ lazy val salsah1 = knoraModule(&quot;salsah1&quot;)
         .settings(
             Dependencies.salsahLibraryDependencies,
             logLevel := Level.Info,
-            fork in run := true,
-            javaOptions in run ++= javaRunOptions,
-            mainClass in(Compile, run) := Some(&quot;org.knora.salsah.Main&quot;),
-            fork in Test := true,
-            javaOptions in Test ++= javaTestOptions,
-            parallelExecution in Test := false,
+            run / fork := true,
+            run / javaOptions ++= javaRunOptions,
+            Compile / run / mainClass := Some(&quot;org.knora.salsah.Main&quot;),
+            Test / fork := true,
+            Test / javaOptions ++= javaTestOptions,
+            Test / parallelExecution := false,
             /* show full stack traces and test case durations */
-            testOptions in Test += Tests.Argument(&quot;-oDF&quot;)
+            Test / testOptions += Tests.Argument(&quot;-oDF&quot;)
         )
         .settings( // enable deployment staging with `sbt stage`
-            mappings in Universal ++= {
+            Universal / mappings ++= {
                 // copy the public folder
                 directory(&quot;salsah1/src/public&quot;) ++
                 // copy the configuration files to config directory
@@ -458,7 +464,7 @@ lazy val salsah1 = knoraModule(&quot;salsah1&quot;)
             // add &#39;config&#39; directory first in the classpath of the start script,
             scriptClasspath := Seq(&quot;../config/&quot;) ++ scriptClasspath.value,
             // need this here, but why?
-            mainClass in Compile := Some(&quot;org.knora.salsah.Main&quot;),
+            Compile / mainClass := Some(&quot;org.knora.salsah.Main&quot;),
 
             // add dockerCommands used to create the image
             // docker:stage, docker:publishLocal, docker:publish, docker:clean
@@ -658,7 +664,7 @@ lazy val webapi = knoraModule(&quot;webapi&quot;)
                 Cmd(&quot;FROM&quot;, &quot;openjdk:10-jre-slim-sid&quot;),
                 Cmd(&quot;LABEL&quot;, s&quot;&quot;&quot;MAINTAINER=&quot;${maintainer.value}&quot;&quot;&quot;&quot;),
                 // install wget
-                Cmd(&quot;RUN&quot;, &quot;apt-get -qq update &amp;&amp; apt-get install -y --no-install-recommends wget=1.19.5-2 &amp;&amp; rm -rf /var/lib/apt/lists/*&quot;),
+                Cmd(&quot;RUN&quot;, &quot;apt-get -qq update &amp;&amp; apt-get install -y --no-install-recommends wget &amp;&amp; rm -rf /var/lib/apt/lists/*&quot;),
                 // install yourkit profiler
                 Cmd(&quot;RUN&quot;, &quot;wget https://www.yourkit.com/download/docker/YourKit-JavaProfiler-2018.04-docker.zip -P /tmp/ &amp;&amp; unzip /tmp/YourKit-JavaProfiler-2018.04-docker.zip -d /usr/local &amp;&amp; rm /tmp/YourKit-JavaProfiler-2018.04-docker.zip&quot;),
 
@@ -735,7 +741,14 @@ The complete knora stack (graphdb, webapi, salsah1, sipi) can be started by invo
 
 </code></pre>
 <p>$ sbt dockerComposeUp</p>
-<pre><code><br/>This will build, publish locally and use the docker images for `webapi` and `salsah1`.
+<pre><code><br/>This will build, publish locally and use the docker images for `webapi` and `salsah1`. The versions defined in
+`project/Dependencies` will be used for `GraphDB` and `Sipi`.
+
+The following SBT tasks are available:
+
+- `$ sbt dockerComposeUp` - starts the whole stack and prints out a summary
+- `$ sbt dockerComposeRestart` - stops and the starts again the whole stack
+- `$ sbt dockerComposeStop` - stops the whole stack 
 
 
 ## Building Documentation
@@ -764,7 +777,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-4.0.0-0-d149894e-20181212-2153
+4.0.0-52-1d8a2d75
 </span>
 </div>
 </article>
@@ -806,7 +819,7 @@ Setup IntelliJ for development of Knora
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
 <div class="md-footer-copyright__highlight">
-Copyright 2015-2018 the contributors (see Contributors.md)
+Copyright 2015-2019 the contributors (see Contributors.md)
 </div>
 Powered by
 <a href="https://github.com/lightbend/paradox">Paradox</a>

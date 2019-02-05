@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../../../cloud">
-<title>Knora API v1 Design · Knora Documentation</title>
+<title>Archival Resource Key (ARK) Identifiers · Knora Documentation</title>
 <link rel="stylesheet" href="../../../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../../../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Knora API v1 Design
+Archival Resource Key (ARK) Identifiers
 </span>
 </div>
 </div>
@@ -189,11 +189,36 @@ dhlab-basel/Knora/docs
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../../05-internals/design/api-v2/ark.html#archival-resource-key-ark-identifiers" class="header">Archival Resource Key (ARK) Identifiers</a>
+  <ul>
+    <li><a href="../../../05-internals/design/api-v2/ark.html#requirements" class="header">Requirements</a></li>
+    <li><a href="../../../05-internals/design/api-v2/ark.html#design" class="header">Design</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
 <i class="md-icon">label_outline</i> 4.0.0-52-1d8a2d75
 </div>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../../05-internals/design/api-v2/ark.html#archival-resource-key-ark-identifiers" class="header">Archival Resource Key (ARK) Identifiers</a>
+  <ul>
+    <li><a href="../../../05-internals/design/api-v2/ark.html#requirements" class="header">Requirements</a></li>
+    <li><a href="../../../05-internals/design/api-v2/ark.html#design" class="header">Design</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 </div>
@@ -220,16 +245,61 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#knora-api-v1-design" name="knora-api-v1-design" class="anchor"><span class="anchor-link"></span></a>Knora API v1 Design</h1>
+<h1><a href="#archival-resource-key-ark-identifiers" name="archival-resource-key-ark-identifiers" class="anchor"><span class="anchor-link"></span></a>Archival Resource Key (ARK) Identifiers</h1>
 <div class="toc ">
 <ul>
-  <li><a href="../../../05-internals/design/api-v1/json.html" class="page">JSON in API v1</a></li>
-  <li><a href="../../../05-internals/design/api-v1/how-to-add-a-route.html" class="page">How to Add an API v1 Route</a></li>
+  <li><a href="../../../05-internals/design/api-v2/ark.html#requirements" class="header">Requirements</a></li>
+  <li><a href="../../../05-internals/design/api-v2/ark.html#design" class="header">Design</a>
+  <ul>
+    <li><a href="../../../05-internals/design/api-v2/ark.html#ark-url-format" class="header">ARK URL Format</a></li>
+    <li><a href="../../../05-internals/design/api-v2/ark.html#serving-ark-urls" class="header">Serving ARK URLs</a></li>
+    <li><a href="../../../05-internals/design/api-v2/ark.html#resolving-knora-ark-urls" class="header">Resolving Knora ARK URLs</a></li>
+  </ul></li>
 </ul>
 </div>
+<h2><a href="#requirements" name="requirements" class="anchor"><span class="anchor-link"></span></a>Requirements</h2>
+<p>Knora must produce an ARK URL for each resource. The ARK identifiers used by Knora must respect <a href="https://tools.ietf.org/html/draft-kunze-ark-18">the draft ARK specification</a>. The format of Knora’s ARK URLs must be able to change over time, while ensuring that previously generated ARK URLs still work.</p>
+<h2><a href="#design" name="design" class="anchor"><span class="anchor-link"></span></a>Design</h2>
+<h3><a href="#ark-url-format" name="ark-url-format" class="anchor"><span class="anchor-link"></span></a>ARK URL Format</h3>
+<p>The format of a Knora ARK URL is as follows:</p>
+<pre><code>http://HOST/ark:/NAAN/VERSION/PROJECT/RESOURCE_UUID[.TIMESTAMP]
+</code></pre>
+<ul>
+  <li>
+  <p><code>HOST</code>: the hostname of the ARK resolver.</p></li>
+  <li>
+  <p><code>NAAN</code>: the Name Assigning Authority Number (NAAN) that the ARK resolver uses.</p></li>
+  <li>
+  <p><code>VERSION</code>: the version of the Knora ARK URL format being used (always 1 for now).</p></li>
+  <li>
+  <p><code>PROJECT</code>: the <a href="../../../03-apis/api-v2/knora-iris.html#project-short-codes">short code</a> of the  project that the resource belongs to.</p></li>
+  <li>
+  <p><code>RESOURCE_UUID</code>: the resource&rsquo;s unique ID, which is normally a  <a href="http://tools.ietf.org/html/rfc4648#section-5">base64url-encoded</a> UUID, as described in  <a href="../../../03-apis/api-v2/knora-iris.html#iris-for-data">IRIs for Data</a>.</p></li>
+  <li>
+  <p><code>TIMESTAMP</code>: an optional timestamp indicating that the ARK URL represents  the state of the resource at a specific time in the past. The format  of the timestamp is an <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>  date in Coordinated universal time (UTC), including date, time, and a 9-digit  nano-of-second field, without the characters <code>-</code>, <code>:</code>, and <code>.</code> (because  <code>-</code> and <code>.</code> are reserved characters in ARK, and <code>:</code> would have to be URL-encoded).  Example: <code>20190118T102919000031660Z</code>.</p></li>
+</ul>
+<p>Following the ARK ID spec, <code>/</code> <a href="https://tools.ietf.org/html/draft-kunze-ark-18#section-2.5.1">represents object hierarchy</a> and <code>.</code> <a href="https://tools.ietf.org/html/draft-kunze-ark-18#section-2.5.2">represents an object variant</a>. A resource is thus contained in its project, which is contained in a repository (represented by the URL version number). A timestamp is a type of variant.</p>
+<p>Since sub-objects are optional, there is also implicitly an ARK URL for each project, as well as for the repository as a whole.</p>
+<p>The <code>RESOURCE_UUID</code> is processed as follows:</p>
+<ol>
+  <li>
+  <p>A check digit is calculated, using the algorithm in  the Scala class <code>org.knora.webapi.util.Base64UrlCheckDigit</code>, and appended  to the <code>RESOURCE_UUID</code>.</p></li>
+  <li>
+  <p>Any <code>-</code> characters in the resulting string are replaced with <code>=</code>, because  <code>base64url</code> encoding uses <code>-</code>, which is a reserved character in ARK URLs.</p></li>
+</ol>
+<p>For example, given the Knora resource IRI <code>http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ</code>, and using the DaSCH&rsquo;s ARK resolver hostname and NAAN, the corresponding ARK URL without a timestamp is:</p>
+<pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY
+</code></pre>
+<p>The same ARK URL with an optional timestamp is:</p>
+<pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY.20190118T102919000031660Z
+</code></pre>
+<h3><a href="#serving-ark-urls" name="serving-ark-urls" class="anchor"><span class="anchor-link"></span></a>Serving ARK URLs</h3>
+<p><code>SmartIri</code> converts Knora resource IRIs to ARK URLs. This conversion is invoked in <code>ReadResourceV2.toJsonLD</code>, when returning a resource&rsquo;s metadata in JSON-LD format.</p>
+<h3><a href="#resolving-knora-ark-urls" name="resolving-knora-ark-urls" class="anchor"><span class="anchor-link"></span></a>Resolving Knora ARK URLs</h3>
+<p>A Knora ARK URL is intended to be resolved by the <a href="https://github.com/dhlab-basel/ark-resolver">Knora ARK resolver</a>.</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/design/api-v1/index.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/design/api-v2/ark.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -245,7 +315,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../../../05-internals/design/principles/authentication.html" title="Authentication in Knora" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../../../05-internals/design/api-v2/gravsearch.html" title="Gravsearch Design" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -254,17 +324,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Authentication in Knora
+Gravsearch Design
 </span>
 </div>
 </a>
-<a href="../../../05-internals/design/api-v1/json.html" title="JSON in API v1" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../../05-internals/design/api-admin/index.html" title="Admin API Design" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-JSON in API v1
+Admin API Design
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

@@ -183,6 +183,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -194,14 +195,14 @@ dhlab-basel/Knora/docs
   <ul>
     <li><a href="../../../05-internals/design/api-v2/sipi.html#configuration" class="header">Configuration</a></li>
     <li><a href="../../../05-internals/design/api-v2/sipi.html#lua-scripts" class="header">Lua Scripts</a></li>
-    <li><a href="../../../05-internals/design/api-v2/sipi.html#sipiresponderv2" class="header">SipiResponderV2</a></li>
+    <li><a href="../../../05-internals/design/api-v2/sipi.html#sipiconnector" class="header">SipiConnector</a></li>
     <li><a href="../../../05-internals/design/api-v2/sipi.html#the-image-file-upload-workflow" class="header">The Image File Upload Workflow</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
+<i class="md-icon">label_outline</i> 4.0.0-52-1d8a2d75
 </div>
 </nav>
 
@@ -218,7 +219,7 @@ dhlab-basel/Knora/docs
   <ul>
     <li><a href="../../../05-internals/design/api-v2/sipi.html#configuration" class="header">Configuration</a></li>
     <li><a href="../../../05-internals/design/api-v2/sipi.html#lua-scripts" class="header">Lua Scripts</a></li>
-    <li><a href="../../../05-internals/design/api-v2/sipi.html#sipiresponderv2" class="header">SipiResponderV2</a></li>
+    <li><a href="../../../05-internals/design/api-v2/sipi.html#sipiconnector" class="header">SipiConnector</a></li>
     <li><a href="../../../05-internals/design/api-v2/sipi.html#the-image-file-upload-workflow" class="header">The Image File Upload Workflow</a></li>
   </ul></li>
 </ul>
@@ -231,7 +232,7 @@ dhlab-basel/Knora/docs
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <!---
-Copyright © 2015-2018 the contributors (see Contributors.md).
+Copyright © 2015-2019 the contributors (see Contributors.md).
 
 This file is part of Knora.
 
@@ -258,7 +259,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     <li><a href="../../../05-internals/design/api-v2/sipi.html#store-lua" class="header">store.lua</a></li>
     <li><a href="../../../05-internals/design/api-v2/sipi.html#delete-temp-file-lua" class="header">delete_temp_file.lua</a></li>
   </ul></li>
-  <li><a href="../../../05-internals/design/api-v2/sipi.html#sipiresponderv2" class="header">SipiResponderV2</a></li>
+  <li><a href="../../../05-internals/design/api-v2/sipi.html#sipiconnector" class="header">SipiConnector</a></li>
   <li><a href="../../../05-internals/design/api-v2/sipi.html#the-image-file-upload-workflow" class="header">The Image File Upload Workflow</a></li>
 </ul>
 </div>
@@ -271,11 +272,12 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>The <code>upload.lua</code> script is available at Sipi&rsquo;s <code>upload</code> route. It processes one or more file uploads submitted to Sipi. It converts uploaded images to JPEG 2000 format, and stores them in Sipi&rsquo;s <code>tmp</code> directory. The usage of this script is described in <a href="../../../03-apis/api-v2/editing-values.html#creating-file-values">Creating File Values</a>.</p>
 <p>Each time <code>upload.lua</code> processes a request, it also deletes old temporary files from <code>tmp</code> and (recursively) from any subdirectories. The maximum allowed age of temporary files can be set in Sipi&rsquo;s configuration file, using the parameter <code>max_temp_file_age</code>, which takes a value in seconds, and defaults to 86400 (1 day).</p>
 <h3><a href="#store-lua" name="store-lua" class="anchor"><span class="anchor-link"></span></a>store.lua</h3>
-<p>The <code>store.lua</code> script is available at Sipi&rsquo;s <code>store</code> route. It moves a file from temporary to permanent storage. It expects an HTTP <code>POST</code> request containing <code>application/x-www-form-urlencoded</code> data with the parameter <code>filename</code>, whose value is the internal Sipi-generated filename of the file to be moved.</p>
+<p>The <code>store.lua</code> script is available at Sipi&rsquo;s <code>store</code> route. It moves a file from temporary to permanent storage. It expects an HTTP <code>POST</code> request containing <code>application/x-www-form-urlencoded</code> data with the parameters <code>prefix</code> (the project shortcode) and <code>filename</code> (the internal Sipi-generated filename of the file to be moved).</p>
 <p>The JWT sent to this script must contain the key <code>knora-data</code>, whose value must be a JSON object containing:</p>
 <ul>
   <li><code>permission</code>: must be <code>StoreFile</code></li>
-  <li><code>filename</code>: must be the same as the filename submitted in the form data</li>
+  <li><code>prefix</code>: the project shortcode submitted in the form data</li>
+  <li><code>filename</code>: the filename submitted in the form data</li>
 </ul>
 <h3><a href="#delete-temp-file-lua" name="delete-temp-file-lua" class="anchor"><span class="anchor-link"></span></a>delete_temp_file.lua</h3>
 <p>The <code>delete_temp_file.lua</code> script is available at Sipi&rsquo;s <code>delete_temp_file</code> route. It is used only if Knora rejects a file value update request. It expects an HTTP <code>DELETE</code> request, with a filename as the last component of the URL.</p>
@@ -284,15 +286,15 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li><code>permission</code>: must be <code>DeleteTempFile</code></li>
   <li><code>filename</code>: must be the same as the filename submitted in the URL</li>
 </ul>
-<h2><a href="#sipiresponderv2" name="sipiresponderv2" class="anchor"><span class="anchor-link"></span></a>SipiResponderV2</h2>
-<p>In Knora, the responder <code>SipiResponderV2</code> handles all communication with Sipi. It blocks while processing each request, to ensure that the number of concurrent requests to Sipi is not greater than <code>akka.actor.deployment./responderManager/sipiRouterV2.nr-of-instances</code>. If it encounters an error, it returns <code>SipiException</code>.</p>
+<h2><a href="#sipiconnector" name="sipiconnector" class="anchor"><span class="anchor-link"></span></a>SipiConnector</h2>
+<p>In Knora, the <code>org.knora.webapi.iiif.SipiConnector</code> handles all communication with Sipi. It blocks while processing each request, to ensure that the number of concurrent requests to Sipi is not greater than <code>akka.actor.deployment./storeManager/iiifManager/sipiConnector.nr-of-instances</code>. If it encounters an error, it returns <code>SipiException</code>.</p>
 <h2><a href="#the-image-file-upload-workflow" name="the-image-file-upload-workflow" class="anchor"><span class="anchor-link"></span></a>The Image File Upload Workflow</h2>
 <ol>
   <li>The client uploads an image file to the <code>upload</code> route, which runs  <code>upload.lua</code>. The image is converted to JPEG 2000 and stored in Sipi&rsquo;s <code>tmp</code>  directory. In the response, the client receives the JPEG 2000&rsquo;s unique,  randomly generated filename.</li>
   <li>The client submits a JSON-LD request to a Knora route (<code>/v2/values</code> or <code>/v2/resources</code>)  to create or change a file value. The request includes Sipi&rsquo;s internal filename.</li>
-  <li>During parsing of this JSON-LD request, a <code>StillImageFileValueContentV2</code>  is constructed to represent the file value. During the construction of this  object, a <code>GetImageMetadataRequestV2</code> is sent to <code>SipiResponderV2</code>, which  uses Sipi&rsquo;s built-in <code>knora.json</code> route to get the rest of the file&rsquo;s  metadata.</li>
+  <li>During parsing of this JSON-LD request, a <code>StillImageFileValueContentV2</code>  is constructed to represent the file value. During the construction of this  object, a <code>GetImageMetadataRequestV2</code> is sent to <code>SipiConnector</code>, which  uses Sipi&rsquo;s built-in <code>knora.json</code> route to get the rest of the file&rsquo;s  metadata.</li>
   <li>A responder (<code>ResourcesResponderV2</code> or <code>ValuesResponderV2</code>) validates  the request and updates the triplestore. (If it is <code>ResourcesResponderV2</code>,  it asks <code>ValuesResponderV2</code> to generate SPARQL for the values.)</li>
-  <li>The responder that did the update calls <code>ValueUtilV2.doSipiPostUpdate</code>.  If the triplestore update was successful, this method sends  <code>MoveTemporaryFileToPermanentStorageRequestV2</code> to <code>SipiResponderV2</code>, which  makes a request to Sipi&rsquo;s <code>store</code> route. Otherwise, the same method sends  <code>DeleteTemporaryFileRequestV2</code> to <code>SipiResponderV2</code>, which makes a request  to Sipi&rsquo;s <code>delete_temp_file</code> route.</li>
+  <li>The responder that did the update calls <code>ValueUtilV2.doSipiPostUpdate</code>.  If the triplestore update was successful, this method sends  <code>MoveTemporaryFileToPermanentStorageRequestV2</code> to <code>SipiConnector</code>, which  makes a request to Sipi&rsquo;s <code>store</code> route. Otherwise, the same method sends  <code>DeleteTemporaryFileRequestV2</code> to <code>SipiConnector</code>, which makes a request  to Sipi&rsquo;s <code>delete_temp_file</code> route.</li>
 </ol>
 <p>If the request to Knora cannot be parsed, the temporary file is not deleted immediately, but it will be deleted during the processing of a subsequent request by Sipi&rsquo;s <code>upload</code> route.</p>
 <p>If Sipi&rsquo;s <code>store</code> route fails, Knora returns the <code>SipiException</code> to the client. In this case, manual intervention may be necessary to restore consistency between Knora and Sipi.</p>
@@ -305,7 +307,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-4.0.0-0-d149894e-20181212-2153
+4.0.0-52-1d8a2d75
 </span>
 </div>
 </article>
@@ -347,7 +349,7 @@ Gravsearch Design
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
 <div class="md-footer-copyright__highlight">
-Copyright 2015-2018 the contributors (see Contributors.md)
+Copyright 2015-2019 the contributors (see Contributors.md)
 </div>
 Powered by
 <a href="https://github.com/lightbend/paradox">Paradox</a>

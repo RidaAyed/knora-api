@@ -183,6 +183,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -192,17 +193,16 @@ dhlab-basel/Knora/docs
 <ul>
   <li><a href="../../03-apis/api-v2/authentication.html#authentication" class="header">Authentication</a>
   <ul>
-    <li><a href="../../03-apis/api-v2/authentication.html#login-and-logout" class="header">Login and Logout</a></li>
-    <li><a href="../../03-apis/api-v2/authentication.html#submitting-credentials" class="header">Submitting Credentials</a></li>
+    <li><a href="../../03-apis/api-v2/authentication.html#submitting-credentials" class="header">Submitting <em>Identifier/Password</em> Credentials</a></li>
+    <li><a href="../../03-apis/api-v2/authentication.html#access-token-session-login-and-logout" class="header">Access Token / Session / Login and Logout</a></li>
     <li><a href="../../03-apis/api-v2/authentication.html#checking-credentials" class="header">Checking Credentials</a></li>
     <li><a href="../../03-apis/api-v2/authentication.html#usage-scenarios" class="header">Usage Scenarios</a></li>
-    <li><a href="../../03-apis/api-v2/authentication.html#sipi-media-server-" class="header">Sipi (Media Server)</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
+<i class="md-icon">label_outline</i> 4.0.0-52-1d8a2d75
 </div>
 </nav>
 
@@ -217,11 +217,10 @@ dhlab-basel/Knora/docs
 <ul>
   <li><a href="../../03-apis/api-v2/authentication.html#authentication" class="header">Authentication</a>
   <ul>
-    <li><a href="../../03-apis/api-v2/authentication.html#login-and-logout" class="header">Login and Logout</a></li>
-    <li><a href="../../03-apis/api-v2/authentication.html#submitting-credentials" class="header">Submitting Credentials</a></li>
+    <li><a href="../../03-apis/api-v2/authentication.html#submitting-credentials" class="header">Submitting <em>Identifier/Password</em> Credentials</a></li>
+    <li><a href="../../03-apis/api-v2/authentication.html#access-token-session-login-and-logout" class="header">Access Token / Session / Login and Logout</a></li>
     <li><a href="../../03-apis/api-v2/authentication.html#checking-credentials" class="header">Checking Credentials</a></li>
     <li><a href="../../03-apis/api-v2/authentication.html#usage-scenarios" class="header">Usage Scenarios</a></li>
-    <li><a href="../../03-apis/api-v2/authentication.html#sipi-media-server-" class="header">Sipi (Media Server)</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -233,7 +232,7 @@ dhlab-basel/Knora/docs
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <!---
-Copyright © 2015-2018 the contributors (see Contributors.md).
+Copyright © 2015-2019 the contributors (see Contributors.md).
 
 This file is part of Knora.
 
@@ -253,38 +252,44 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h1><a href="#authentication" name="authentication" class="anchor"><span class="anchor-link"></span></a>Authentication</h1>
 <div class="toc ">
 <ul>
-  <li><a href="../../03-apis/api-v2/authentication.html#login-and-logout" class="header">Login and Logout</a></li>
-  <li><a href="../../03-apis/api-v2/authentication.html#submitting-credentials" class="header">Submitting Credentials</a></li>
+  <li><a href="../../03-apis/api-v2/authentication.html#submitting-credentials" class="header">Submitting <em>Identifier/Password</em> Credentials</a></li>
+  <li><a href="../../03-apis/api-v2/authentication.html#access-token-session-login-and-logout" class="header">Access Token / Session / Login and Logout</a></li>
   <li><a href="../../03-apis/api-v2/authentication.html#checking-credentials" class="header">Checking Credentials</a></li>
   <li><a href="../../03-apis/api-v2/authentication.html#usage-scenarios" class="header">Usage Scenarios</a></li>
-  <li><a href="../../03-apis/api-v2/authentication.html#sipi-media-server-" class="header">Sipi (Media Server)</a></li>
 </ul>
 </div>
-<h2><a href="#login-and-logout" name="login-and-logout" class="anchor"><span class="anchor-link"></span></a>Login and Logout</h2>
-<p>A client sends a POST request (e.g., <code>{&quot;identifier&quot;:&quot;usersemail&quot;,
-&quot;password&quot;:&quot;userspassword&quot;}</code>) to the <strong>/v2/authentication</strong> route with <em>identifier</em> and <em>password</em> in the body. The identifier can be the user&rsquo;s IRI, username, or email. If the credentials are valid, a <a href="https://jwt.io">JSON WEB Token</a> (JWT) will be sent back in the response (e.g., <code>{&quot;token&quot;: &quot;eyJ0eXAiOiJ...&quot;}</code>). On all subsequent calls to any route, this token can be sent with each request (instead of <em>identifier</em>/*password*). If the token is successfully validated, then the user is deemed authenticated.</p>
-<p>To <strong>logout</strong>, the client sends a DELETE request to the same route <strong>/v2/authentication</strong> and the token (either as an URL parameter or authorization header). This will invalidate the token.</p>
-<h2><a href="#submitting-credentials" name="submitting-credentials" class="anchor"><span class="anchor-link"></span></a>Submitting Credentials</h2>
-<p>When accessing any route and <em>identifier</em>/*password* credentials would need to be sent, we support two options to do so:</p>
+<p>Access to the Knora API can for certain operations require a user to authenticate. Authentication can be performed in two ways:</p>
+<ol>
+  <li>
+  <p>By providing an <em>identifier</em>/*password* combination where the <em>identifier</em> is either the user&rsquo;s IRI, username, or email address.</p></li>
+  <li>
+  <p>By providing an <em>access token</em></p></li>
+</ol>
+<h2><a href="#submitting-credentials" name="submitting-credentials" class="anchor"><span class="anchor-link"></span></a>Submitting <em>Identifier/Password</em> Credentials</h2>
+<p>When accessing any route and <em>identifier</em>/*password* or token credentials would need to be sent, we support two options to do so:</p>
 <ul>
-  <li>in the URL submitting the parameters <code>identifier</code> and <code>password</code>  (e.g., <a href="http://knora-host/v1/resources/resIri?identifier=userUrlEncodedEmail&password=pw">http://knora-host/v1/resources/resIri?identifier=userUrlEncodedEmail&password=pw</a>),  where the identifier can be the user&rsquo;s IRI, username, or email, and</li>
+  <li>in the URL submitting the parameters <code>identifier</code> and <code>password</code>  (e.g., <a href="http://knora-host/v1/resources/resIri?identifier=userUrlEncodedIdentifier&password=pw">http://knora-host/v1/resources/resIri?identifier=userUrlEncodedIdentifier&password=pw</a>),  where the identifier can be the user&rsquo;s IRI, username, or email, and</li>
   <li>in the HTTP header (<a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP basic  authentication</a>), where the  identifier can be the user&rsquo;s username or email (IRI not supported).</li>
 </ul>
 <p>When using Python&rsquo;s module <code>requests</code>, the credentials can simply be submitted as a tuple with each request using the param <code>auth</code> (<a href="http://docs.python-requests.org/en/master/user/authentication/#basic-authentication">python requests</a>).</p>
-<p>When accessing any route and the <em>token</em> would need to be sent, we support two options to do so:</p>
+<h2><a href="#access-token-session-login-and-logout" name="access-token-session-login-and-logout" class="anchor"><span class="anchor-link"></span></a>Access Token / Session / Login and Logout</h2>
+<p>A client can generate an <em>access token</em> by sending a POST request (e.g., <code>{&quot;identifier&quot;:&quot;usersemail&quot;,
+&quot;password&quot;:&quot;userspassword&quot;}</code>) to the <strong>/v2/authentication</strong> route with <em>identifier</em> and <em>password</em> in the body. The identifier can be the user&rsquo;s IRI, username, or email. If the credentials are valid, a <a href="https://jwt.io">JSON WEB Token</a> (JWT) will be sent back in the response (e.g., <code>{&quot;token&quot;: &quot;eyJ0eXAiOiJ...&quot;}</code>). Additionally, for web browser clients a session cookie containing the JWT token is also created, containing <code>KnoraAuthentication=eyJ0eXAiOiJ...</code>.</p>
+<p>When accessing any route, the <em>access token</em> would need to be supplied, we support three options to do so:</p>
 <ul>
-  <li>in the URL submitting the parameter <code>token</code> (e.g.,  <a href="http://knora-host/v1/resources/resIri?token=1234567890">http://knora-host/v1/resources/resIri?token=1234567890</a>)</li>
-  <li>in the HTTP authorization header with the  <a href="http://tools.ietf.org/html/rfc6750#section-2.1">HTTP bearer scheme</a>.</li>
+  <li>the session cookie,</li>
+  <li>in the URL submitting the parameter <code>token</code> (e.g., <a href="http://knora-host/v1/resources/resIri?token=1234567890">http://knora-host/v1/resources/resIri?token=1234567890</a>), and</li>
+  <li>in the HTTP authorization header with the <a href="http://tools.ietf.org/html/rfc6750#section-2.1">HTTP bearer scheme</a>.</li>
 </ul>
+<p>If the token is successfully validated, then the user is deemed authenticated.</p>
+<p>To <strong>logout</strong>, the client sends a DELETE request to the same route <strong>/v2/authentication</strong> and the <em>access token</em> in one of the three described ways. This will invalidate the access token, thus not allowing further request that would supply the invalidated token.</p>
 <h2><a href="#checking-credentials" name="checking-credentials" class="anchor"><span class="anchor-link"></span></a>Checking Credentials</h2>
-<p>To check the credentials, send a GET request to <strong>/v2/authentication</strong> with the credentials supplied as URL parameters or HTTP authentication headers as described before, .</p>
+<p>To check the credentials, send a GET request to <strong>/v2/authentication</strong> with the credentials supplied as URL parameters or HTTP authentication headers as described before.</p>
 <h2><a href="#usage-scenarios" name="usage-scenarios" class="anchor"><span class="anchor-link"></span></a>Usage Scenarios</h2>
 <ol>
   <li>Create token by logging-in, send token on each subsequent request, and logout when finished.</li>
   <li>Send email/password credentials on every request.</li>
 </ol>
-<h2><a href="#sipi-media-server-" name="sipi-media-server-" class="anchor"><span class="anchor-link"></span></a>Sipi (Media Server)</h2>
-<p>TODO (Should all be done with JWT)</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-v2/authentication.md" title="Edit this page" class="md-source-file md-edit">
@@ -293,7 +298,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-4.0.0-0-d149894e-20181212-2153
+4.0.0-52-1d8a2d75
 </span>
 </div>
 </article>
@@ -335,7 +340,7 @@ Knora IRIs
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
 <div class="md-footer-copyright__highlight">
-Copyright 2015-2018 the contributors (see Contributors.md)
+Copyright 2015-2019 the contributors (see Contributors.md)
 </div>
 Powered by
 <a href="https://github.com/lightbend/paradox">Paradox</a>

@@ -183,6 +183,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -201,7 +202,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
+<i class="md-icon">label_outline</i> 4.0.0-52-1d8a2d75
 </div>
 </nav>
 
@@ -231,7 +232,7 @@ dhlab-basel/Knora/docs
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <!---
-Copyright © 2015-2018 the contributors (see Contributors.md).
+Copyright © 2015-2019 the contributors (see Contributors.md).
 
 This file is part of Knora.
 
@@ -264,11 +265,11 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>Request and response messages should be designed following the patterns described in <a href="json-ld.html">JSON-LD Parsing and Formatting</a>. Each responder&rsquo;s request messages should extend a responder-specific trait, so that <code>ResponderManager</code> will know which responder to route those messages to.</p>
 <h2><a href="#write-a-responder" name="write-a-responder" class="anchor"><span class="anchor-link"></span></a>Write a Responder</h2>
 <p>Write an Akka actor class that extends <code>org.knora.webapi.responders.Responder</code>, and add it to the <code>org.knora.webapi.responders.v2</code> package.</p>
-<p>Give your responder a <code>receive()</code> method that handles each of your request message types by generating a <code>Future</code> containing a response message, and passing the <code>Future</code> to <code>ActorUtil.future2Message</code>. See <a href="../principles/futures-with-akka.html">Futures with Akka</a> and <a href="../principles/design-overview.html#error-handling">Error Handling</a> for details.</p>
+<p>Give your responder a <code>receive(msg: YourCustomType)</code> method that handles each of your request message types by generating a <code>Future</code> containing a response message.</p>
 <p>See <a href="../principles/design-overview.html#triplestore-access">Triplestore Access</a> for details of how to access the triplestore in your responder.</p>
-<p>Add the path of your responder to the <code>org.knora.webapi.responders</code> package object, and add code to <code>ResponderManager</code> to instantiate an Akka router for your actor. Then add a <code>case</code> to the <code>receive</code> method in <code>ResponderManager</code>, to match messages that extend your request message trait, and forward them to that responder&rsquo;s router.</p>
+<p>Add the path of your responder to the <code>org.knora.webapi.responders</code> package object, and add code to <code>ResponderManager</code> to instantiate the new responder. Then add a <code>case</code> to the <code>receive</code> method in <code>ResponderManager</code>, to match messages that extend your request message trait, and pass them them to that responder&rsquo;s receive method. The responder&rsquo;s resulting <code>Future</code> must be passed to the <code>ActorUtil.future2Message</code>. See <a href="../principles/futures-with-akka.html">Futures with Akka</a> and <a href="../principles/design-overview.html#error-handling">Error Handling</a> for details.</p>
 <h2><a href="#write-a-route" name="write-a-route" class="anchor"><span class="anchor-link"></span></a>Write a Route</h2>
-<p>Add an object to the <code>org.knora.webapi.routing.v2</code> package for your route, using the Akka HTTP <a href="https://doc.akka.io/docs/akka-http/current/routing-dsl/index.html">Routing DSL</a>. See the routes in that package for examples. Typically, each route route will construct a responder request message and pass it to <code>RouteUtilV2.runRdfRouteWithFuture</code> to handle the request.</p>
+<p>Add a class to the <code>org.knora.webapi.routing.v2</code> package for your route, using the Akka HTTP <a href="https://doc.akka.io/docs/akka-http/current/routing-dsl/index.html">Routing DSL</a>. See the routes in that package for examples. Typically, each route route will construct a responder request message and pass it to <code>RouteUtilV2.runRdfRouteWithFuture</code> to handle the request.</p>
 <p>Finally, add your <code>knoraApiPath</code> function to the <code>apiRoutes</code> member variable in <code>KnoraService</code>. Any exception thrown inside the route will be handled by the <code>KnoraExceptionHandler</code>, so that the correct client response (including the HTTP status code) will be returned.</p>
 </div>
 <div>
@@ -278,7 +279,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-4.0.0-0-d149894e-20181212-2153
+4.0.0-52-1d8a2d75
 </span>
 </div>
 </article>
@@ -320,7 +321,7 @@ JSON-LD Parsing and Formatting
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
 <div class="md-footer-copyright__highlight">
-Copyright 2015-2018 the contributors (see Contributors.md)
+Copyright 2015-2019 the contributors (see Contributors.md)
 </div>
 Powered by
 <a href="https://github.com/lightbend/paradox">Paradox</a>

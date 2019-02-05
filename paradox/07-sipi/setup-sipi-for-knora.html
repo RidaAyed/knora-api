@@ -183,6 +183,7 @@ dhlab-basel/Knora/docs
     <li><a href="../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
+    <li><a href="../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
     <li><a href="../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -195,12 +196,13 @@ dhlab-basel/Knora/docs
     <li><a href="../07-sipi/setup-sipi-for-knora.html#setup-and-execution" class="header">Setup and Execution</a></li>
     <li><a href="../07-sipi/setup-sipi-for-knora.html#using-sipi-in-test-mode" class="header">Using Sipi in Test Mode</a></li>
     <li><a href="../07-sipi/setup-sipi-for-knora.html#using-sipi-in-production-behind-a-proxy" class="header">Using Sipi in production behind a proxy</a></li>
+    <li><a href="../07-sipi/setup-sipi-for-knora.html#additional-sipi-environment-variables" class="header">Additional Sipi Environment Variables</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
+<i class="md-icon">label_outline</i> 4.0.0-52-1d8a2d75
 </div>
 </nav>
 
@@ -218,6 +220,7 @@ dhlab-basel/Knora/docs
     <li><a href="../07-sipi/setup-sipi-for-knora.html#setup-and-execution" class="header">Setup and Execution</a></li>
     <li><a href="../07-sipi/setup-sipi-for-knora.html#using-sipi-in-test-mode" class="header">Using Sipi in Test Mode</a></li>
     <li><a href="../07-sipi/setup-sipi-for-knora.html#using-sipi-in-production-behind-a-proxy" class="header">Using Sipi in production behind a proxy</a></li>
+    <li><a href="../07-sipi/setup-sipi-for-knora.html#additional-sipi-environment-variables" class="header">Additional Sipi Environment Variables</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -229,7 +232,7 @@ dhlab-basel/Knora/docs
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <!---
-Copyright © 2015-2018 the contributors (see Contributors.md).
+Copyright © 2015-2019 the contributors (see Contributors.md).
 
 This file is part of Knora.
 
@@ -312,6 +315,32 @@ answer = {
     original_filename = filename,
     file_type = &#39;IMAGE&#39;
 }</code></pre>
+<h2><a href="#additional-sipi-environment-variables" name="additional-sipi-environment-variables" class="anchor"><span class="anchor-link"></span></a>Additional Sipi Environment Variables</h2>
+<p>Additionaly, these environment variables can be used to further configure sipi:</p>
+<ul>
+  <li><code>SIPI_WEBAPI_HOSTNAME=localhost</code>: overrides <code>knora_path</code> in Sipi&rsquo;s config</li>
+  <li><code>SIPI_WEBAPI_PORT=3333</code>: overrides <code>knora_port</code> in Sipi&rsquo;s config</li>
+</ul>
+<p>These variables need to be explicitly used like in <code>sipi.ini-knora.lua</code>:</p>
+<pre class="prettyprint"><code class="language-lua">--
+-- Allows to set SIPI_WEBAPI_HOSTNAME environment variable and use its value.
+--
+local webapi_hostname = os.getenv(&quot;SIPI_WEBAPI_HOSTNAME&quot;)
+if webapi_hostname == nil then
+    webapi_hostname = config.knora_path
+end
+server.log(&quot;webapi_hostname: &quot; .. webapi_hostname, server.loglevel.LOG_DEBUG)
+
+--
+-- Allows to set SIPI_WEBAPI_PORT environment variable and use its value.
+--
+local webapi_port = os.getenv(&quot;SIPI_WEBAPI_PORT&quot;)
+if webapi_port == nil then
+    webapi_port = config.knora_port
+end
+server.log(&quot;webapi_port: &quot; .. webapi_port, server.loglevel.LOG_DEBUG)
+
+knora_url = &#39;http://&#39; .. webapi_hostname .. &#39;:&#39; .. webapi_port .. &#39;/admin/files/&#39; .. prefix .. &#39;/&#39; ..  identifier</code></pre>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/07-sipi/setup-sipi-for-knora.md" title="Edit this page" class="md-source-file md-edit">
@@ -320,7 +349,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-4.0.0-0-d149894e-20181212-2153
+4.0.0-52-1d8a2d75
 </span>
 </div>
 </article>
@@ -362,7 +391,7 @@ Interaction Between Sipi and Knora
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
 <div class="md-footer-copyright__highlight">
-Copyright 2015-2018 the contributors (see Contributors.md)
+Copyright 2015-2019 the contributors (see Contributors.md)
 </div>
 Powered by
 <a href="https://github.com/lightbend/paradox">Paradox</a>

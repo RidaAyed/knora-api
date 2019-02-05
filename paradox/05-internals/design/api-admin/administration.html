@@ -183,6 +183,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -202,14 +203,13 @@ dhlab-basel/Knora/docs
     <li><a href="../../../05-internals/design/api-admin/administration.html#basic-workflows-involving-permissions" class="header">Basic Workflows involving Permissions</a></li>
     <li><a href="../../../05-internals/design/api-admin/administration.html#implementation" class="header">Implementation</a></li>
     <li><a href="../../../05-internals/design/api-admin/administration.html#use-cases" class="header">Use Cases</a></li>
-    <li><a href="../../../05-internals/design/api-admin/administration.html#webapi-components" class="header">Webapi Components</a></li>
     <li><a href="../../../05-internals/design/api-admin/administration.html#redesign-questions-june-2016" class="header">Redesign / Questions June 2016</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
+<i class="md-icon">label_outline</i> 4.0.0-52-1d8a2d75
 </div>
 </nav>
 
@@ -234,7 +234,6 @@ dhlab-basel/Knora/docs
     <li><a href="../../../05-internals/design/api-admin/administration.html#basic-workflows-involving-permissions" class="header">Basic Workflows involving Permissions</a></li>
     <li><a href="../../../05-internals/design/api-admin/administration.html#implementation" class="header">Implementation</a></li>
     <li><a href="../../../05-internals/design/api-admin/administration.html#use-cases" class="header">Use Cases</a></li>
-    <li><a href="../../../05-internals/design/api-admin/administration.html#webapi-components" class="header">Webapi Components</a></li>
     <li><a href="../../../05-internals/design/api-admin/administration.html#redesign-questions-june-2016" class="header">Redesign / Questions June 2016</a></li>
   </ul></li>
 </ul>
@@ -247,7 +246,7 @@ dhlab-basel/Knora/docs
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <!---
-Copyright © 2015-2018 the contributors (see Contributors.md).
+Copyright © 2015-2019 the contributors (see Contributors.md).
 
 This file is part of Knora.
 
@@ -302,13 +301,6 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/.
     <li><a href="../../../05-internals/design/api-admin/administration.html#uc02-unibas-librarian" class="header">UC02: Unibas Librarian</a></li>
     <li><a href="../../../05-internals/design/api-admin/administration.html#uc03-crowdsourcing-project" class="header">UC03: Crowdsourcing Project</a></li>
     <li><a href="../../../05-internals/design/api-admin/administration.html#uc04-user-knora" class="header">UC04: User &ldquo;left&rdquo; Knora</a></li>
-  </ul></li>
-  <li><a href="../../../05-internals/design/api-admin/administration.html#webapi-components" class="header">Webapi Components</a>
-  <ul>
-    <li><a href="../../../05-internals/design/api-admin/administration.html#users-endpoint" class="header">Users Endpoint</a></li>
-    <li><a href="../../../05-internals/design/api-admin/administration.html#projects-endpoint" class="header">Projects Endpoint</a></li>
-    <li><a href="../../../05-internals/design/api-admin/administration.html#groups-endpoint" class="header">Groups Endpoint</a></li>
-    <li><a href="../../../05-internals/design/api-admin/administration.html#permissions-endpoint" class="header">Permissions Endpoint</a></li>
   </ul></li>
   <li><a href="../../../05-internals/design/api-admin/administration.html#redesign-questions-june-2016" class="header">Redesign / Questions June 2016</a></li>
 </ul>
@@ -763,341 +755,6 @@ knora-base:Creator</code>.</p>
   <li>
   <p><strong>Solution</strong>:<br/>The user&rsquo;s IRI is saved on each value change as part of the versioning mechanism. Exchanging the user&rsquo;s IRI in those places would count as &lsquo;rewriting history&rsquo;. So deleting a user will not be possible, instead the user will be set as <code>not active</code>.</p></li>
 </ul>
-<h2><a href="#webapi-components" name="webapi-components" class="anchor"><span class="anchor-link"></span></a>Webapi Components</h2>
-<p>For the management of <em>users</em>, <em>projects</em>, and <em>groups</em>, the Knora API following a resource centric approach, provides three endpoints corresponding to the three classes of objects that they have an effect on, namely:</p>
-<ul>
-  <li>Users Endpoint: <code>http://server:port/v1/users</code> - <code>knora-base:User</code></li>
-  <li>Projects Endpoint: <code>http://server:port/v1/projects</code> - <code>knora-base:knoraProject</code></li>
-  <li>Groups Endpoint: <code>http://server:port/v1/groups</code> - <code>knora-base:UserGroup</code></li>
-</ul>
-<p>All information regarding users, projects and groups is stored in the <code>http://www.knora.org/admin</code> named graph.</p>
-<h3><a href="#users-endpoint" name="users-endpoint" class="anchor"><span class="anchor-link"></span></a>Users Endpoint</h3>
-<ul>
-  <li>
-    <p><strong>Get users</strong></p>
-    <ul>
-      <li>
-      <p>GET: <code>/v1/users</code></p></li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Get user</strong></p>
-    <ul>
-      <li>
-      <p>GET:<code>/v1/users/&lt;userIri&gt;</code></p></li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Create user</strong>:</p>
-    <ul>
-      <li>Required permission: none, self-registration is allowed</li>
-      <li>Required information: email (unique), given name, family name, password, password, status, systemAdmin</li>
-      <li>Returns information about the newly created user</li>
-      <li>TypeScript Docs: userFormats - <code>CreateUserApiRequestV1</code></li>
-      <li>POST: <code>/v1/users/</code></li>
-      <li>BODY:</li>
-    </ul>
-  </li>
-</ul>
-<pre><code>{
-  &quot;email&quot;: &quot;donald.duck@example.org&quot;,
-  &quot;givenName&quot;: &quot;Donald&quot;,
-  &quot;familyName&quot;: &quot;Duck&quot;,
-  &quot;password&quot;: &quot;test&quot;,
-  &quot;status&quot;: true,
-  &quot;lang&quot;: &quot;en&quot;,
-  &quot;systemAdmin&quot;: false
-}
-</code></pre>
-<ul>
-  <li><strong>Update user information</strong>:
-    <ul>
-      <li>Required permission: SystemAdmin / User</li>
-      <li>Changeable information: email, given name, family name, password, status, SystemAdmin membership</li>
-      <li>Remark: There are four distinct use case / payload combination. It is not possible to mix cases, e.g., sending <code>newUserStatus</code> and basic user information at the same time will result in an error: (1) change password: oldPassword, newPassword, (2) change status: newUserStatus, (3) change system admin membership: newSystemAdminMembershipStatus, and (4) change basic user information: email, givenName, familyName, lang</li>
-      <li>TypeScript Docs: userFormats - ChangeUserApiRequestV1</li>
-      <li>PUT: <code>/v1/users/&lt;userIri&gt;</code></li>
-      <li>BODY:</li>
-    </ul>
-  </li>
-</ul>
-<pre><code>{
-  &quot;email&quot;: &quot;donald.big.duck@example.org&quot;,
-  &quot;givenName&quot;: &quot;Big Donald&quot;,
-  &quot;familyName&quot;: &quot;Duckmann&quot;,
-  &quot;lang&quot;: &quot;de&quot;
-}
-</code></pre>
-<ul>
-  <li><strong>Update user&rsquo;s password</strong>
-    <ul>
-      <li>Required permission: User</li>
-      <li>Changeable information: password</li>
-      <li>PUT: <code>/v1/users/&lt;userIri&gt;</code></li>
-      <li>BODY:</li>
-    </ul>
-  </li>
-</ul>
-<pre><code>{
-  &quot;oldPassword&quot;: &quot;test&quot;,
-  &quot;newPassword&quot;: &quot;test1234&quot;
-}
-</code></pre>
-<ul>
-  <li><strong>Delete user</strong>:
-    <ul>
-      <li>Required permission: SystemAdmin / User</li>
-      <li>Remark: The same as updating a user and changing <code>status</code> to <code>false</code>. To un-delete, set <code>status</code> to <code>true</code>.</li>
-      <li>PUT: <code>/v1/users/&lt;userIri&gt;</code></li>
-      <li>BODY:</li>
-    </ul>
-  </li>
-</ul>
-<pre><code>{
-  &quot;status&quot;: false // true or false
-}
-</code></pre>
-<ul>
-  <li>
-    <p><strong>Delete user (-\update user)</strong></p>
-    <ul>
-      <li>Required permission: SystemAdmin / User</li>
-      <li>Remark: The same as updating a user and changing <code>status</code> to <code>false</code>. To un-delete, set <code>status</code> to <code>true</code>.</li>
-      <li>DELETE: <code>/v1/projects/&lt;projectIri&gt;</code></li>
-      <li>BODY: empty</li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Get user&rsquo;s project memberships</strong></p>
-    <ul>
-      <li>
-      <p>GET: <code>/v1/users/projects/&lt;userIri&gt;</code></p></li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Add/remove user to/from project</strong>:</p>
-    <ul>
-      <li>Required permission: SystemAdmin / ProjectAdmin / User (if project self-assignment is enabled)</li>
-      <li>Required information: project IRI, user IRI</li>
-      <li>Effects: <code>knora-base:isInProject</code> user property</li>
-      <li>POST / DELETE: <code>/v1/users/projects/&lt;userIri&gt;/&lt;projectIri&gt;</code></li>
-      <li>BODY: empty</li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Get user&rsquo;s project admin memberships</strong></p>
-    <ul>
-      <li>
-      <p>GET: <code>/v1/users/projects-admin/&lt;userIri&gt;</code></p></li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Add/remove user to/from project admin group</strong></p>
-    <ul>
-      <li>Required permission: SystemAdmin / ProjectAdmin</li>
-      <li>Required information: project IRI, user IRI</li>
-      <li>Effects: <code>knora-base:isInProjectAdminGroup</code> user property</li>
-      <li>POST / DELETE: <code>/v1/users/projects-admin/&lt;userIri&gt;/&lt;projectIri&gt;</code></li>
-      <li>BODY: empty</li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Get user&rsquo;s group memberships</strong></p>
-    <ul>
-      <li>
-      <p>GET: <code>/v1/users/groups/&lt;userIri&gt;</code></p></li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Add/remove user to/from &lsquo;normal&rsquo; group</strong> (not <em>SystemAdmin</em> or <em>ProjectAdmin</em>):</p>
-    <ul>
-      <li>Required permission: SystemAdmin / hasProjectAllAdminPermission / hasProjectAllGroupAdminPermission / hasProjectRestrictedGroupAdminPermission (for this group) / User (if group self-assignment is enabled)</li>
-      <li>Required information: group IRI, user IRI</li>
-      <li>Effects: <code>knora-base:isInGroup</code></li>
-      <li>POST / DELETE: <code>/v1/users/groups/&lt;userIri&gt;/&lt;groupIri&gt;</code></li>
-      <li>BODY: empty</li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Add/remove user to/from system admin group</strong>:</p>
-    <ul>
-      <li>Required permission: SystemAdmin / User</li>
-      <li>Effects property: <code>knora-base:isInSystemAdminGroup</code> with value <code>true</code> or <code>false</code></li>
-      <li>PUT: <code>/v1/users/&lt;userIri&gt;</code></li>
-      <li>BODY:</li>
-    </ul>
-  </li>
-</ul>
-<pre><code>{
-  &quot;newSystemAdminMembershipStatus&quot;: false // true or false
-}
-</code></pre>
-<p>Example User Information stored in admin graph: :</p>
-<pre><code>&lt;http://rdfh.ch/users/91e19f1e01&gt; rdf:type knora-base:User ;
-     knora-base:email &quot;test@test.ch&quot;^^xsd:string ;
-     knora-base:givenName &quot;Administrator&quot;^^xsd:string ;
-     knora-base:familyName &quot;Admin&quot;^^xsd:string ;
-     knora-base:password &quot;$2a$10$fTEr/xVjPq7UBAy1O6KWKOM1scLhKGeRQdR4GTA997QPqHzXv0MnW&quot;^^xsd:string ;
-     knora-base:phone &quot;123456&quot; ;
-     knora-base:preferredLanguage &quot;de&quot;^^xsd:string ;
-     knora-base:status &quot;true&quot;^^xsd:boolean ;
-     knora-base:isInProject &lt;http://rdfh.ch/projects/[shortcode]&gt; ;
-     knora-base:isInSystemAdminGroup &quot;true&quot;^^xsd:boolean ;
-     knora-base:isInProjectAdminGroup &lt;http://rdfh.ch/projects/[shortcode]&gt; ;
-     knora-base:isInGroup &lt;http://rdfh.ch/groups/[shortcode]/[UUID]&gt; .
-</code></pre>
-<h3><a href="#projects-endpoint" name="projects-endpoint" class="anchor"><span class="anchor-link"></span></a>Projects Endpoint</h3>
-<ul>
-  <li><strong>Create project</strong>:
-    <ul>
-      <li>Required permission: SystemAdmin</li>
-      <li>Required information: shortname (unique; used for named graphs), status, selfjoin</li>
-      <li>Optional information: longname, description, keywords, logo</li>
-      <li>Returns information about the newly created project</li>
-      <li>Remark: There are two distinct use cases / payload combination: (1) change ontology and data graph: ontologygraph, datagraph, (2) basic project information: shortname, longname, description, keywords, logo, institution, status, selfjoin</li>
-      <li>TypeScript Docs: projectFormats - CreateProjectApiRequestV1</li>
-      <li>POST: <code>/v1/projects/</code></li>
-      <li>BODY:</li>
-    </ul>
-  </li>
-</ul>
-<pre><code>{
-  &quot;shortname&quot;: &quot;newproject&quot;,
-  &quot;longname&quot;: &quot;project longname&quot;,
-  &quot;description&quot;: &quot;project description&quot;,
-  &quot;keywords&quot;: &quot;keywords&quot;,
-  &quot;logo&quot;: &quot;/fu/bar/baz.jpg&quot;,
-  &quot;status&quot;: true,
-  &quot;selfjoin&quot;: false
-}
-</code></pre>
-<ul>
-  <li><strong>Update project information</strong>:
-    <ul>
-      <li>Required permission: SystemAdmin / ProjectAdmin</li>
-      <li>Changeable information: shortname, longname, description, keywords, logo, status, selfjoin</li>
-      <li>TypeScript Docs: projectFormats - ChangeProjectApiRequestV1</li>
-      <li>PUT: <code>/v1/projects/&lt;projectIri&gt;</code></li>
-      <li>BODY:</li>
-    </ul>
-  </li>
-</ul>
-<pre><code>{
-  &quot;shortname&quot;: &quot;newproject&quot;,
-  &quot;longname&quot;: &quot;project longname&quot;,
-  &quot;description&quot;: &quot;project description&quot;,
-  &quot;keywords&quot;: &quot;keywords&quot;,
-  &quot;logo&quot;: &quot;/fu/bar/baz.jpg&quot;,
-  &quot;status&quot;: true,
-  &quot;selfjoin&quot;: false
-}
-</code></pre>
-<ul>
-  <li>
-    <p><strong>Get project members</strong></p>
-    <ul>
-      <li>Required permission: SystemAdmin / ProjectAdmin</li>
-      <li>Required information: project IRI</li>
-      <li>GET: <code>/v1/projects/members/&lt;projectIri&gt;</code></li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Delete project (-\update project)</strong>:</p>
-    <ul>
-      <li>Required permission: SystemAdmin / ProjectAdmin</li>
-      <li>Remark: The same as updating a project and changing <code>status</code> to <code>false</code>. To un-delete, set <code>status</code> to <code>true</code>.</li>
-      <li>DELETE: <code>/v1/projects/&lt;projectIri&gt;</code></li>
-      <li>BODY: empty</li>
-    </ul>
-  </li>
-</ul>
-<p>Example Project Information stored in admin named graph: :</p>
-<pre><code>&lt;http://rdfh.ch/projects/[shortcode]&gt;
-     rdf:type knora-base:knoraProject ;
-     knora-base:projectShortname &quot;images&quot; ;
-     knora-base:projectShortcode &quot;00FF&quot; ;
-     knora-base:projectLongname &quot;Images Collection Demo&quot; ;
-     knora-base:projectOntology &lt;http://www.knora.org/ontology/00FF/images&gt; ;
-     knora-base:isActiveProject &quot;true&quot;^^xsd:boolean ;
-     knora-base:hasSelfJoinEnabled &quot;false&quot;^^xsd:boolean .
-</code></pre>
-<p>Migration Notes:</p>
-<p>The <code>knora-base:projectOntologyGraph</code> was renamed to <code>knora-base:projectOntology</code>. Also before it was a <code>xsd:string</code>, where now it needs to be an IRI. The <code>knora-base:projectDataGraph</code> is removed. The <code>knora-base:projectShortcode</code> property was added.</p>
-<h3><a href="#groups-endpoint" name="groups-endpoint" class="anchor"><span class="anchor-link"></span></a>Groups Endpoint</h3>
-<ul>
-  <li><strong>Create group</strong>:
-    <ul>
-      <li>Required permission: SystemAdmin / hasProjectAllAdminPermission / hasProjectAllGroupAdminPermission</li>
-      <li>Required information: name (unique inside project), project IRI</li>
-      <li>Optional information: group description</li>
-      <li>Returns information about the newly created group</li>
-      <li>TypeScript Docs: groupFormats - CreateGroupApiRequestV1</li>
-      <li>POST: <code>/v1/groups</code></li>
-      <li>BODY:</li>
-    </ul>
-  </li>
-</ul>
-<pre><code>{
-  &quot;name&quot;: &quot;NewGroup&quot;,
-  &quot;description&quot;: &quot;NewGroupDescription&quot;,
-  &quot;project&quot;: &quot;http://rdfh.ch/projects/00FF&quot;,
-  &quot;status&quot;: true,
-  &quot;selfjoin&quot;: false
-}
-</code></pre>
-<ul>
-  <li><strong>Update group information</strong>:
-    <ul>
-      <li>Required permission: SystemAdmin / hasProjectAllAdminPermission / hasProjectAllGroupAdminPermission / hasProjectRestrictedGroupAdminPermission (for this group)</li>
-      <li>Changeable information: name, description, status, selfjoin</li>
-      <li>TypeScript Docs: groupFormats - ChangeGroupApiRequestV1</li>
-      <li>PUT: <code>/v1/groups/&lt;groupIri&gt;</code></li>
-      <li>BODY:</li>
-    </ul>
-  </li>
-</ul>
-<pre><code>{
-  &quot;name&quot;: &quot;UpdatedGroupName&quot;,
-  &quot;description&quot;: &quot;UpdatedGroupDescription&quot;.
-  &quot;status&quot;: true,
-  &quot;selfjoin&quot;: false
-}
-</code></pre>
-<ul>
-  <li><strong>Delete group (-\update group)</strong>:
-    <ul>
-      <li>Required permission: SystemAdmin / hasProjectAllAdminPermission</li>
-      <li>Remark: The same as updating a group and changing <code>status</code> to <code>false</code>. To un-delete, set <code>status</code> to <code>true</code>.</li>
-      <li>DELETE: <code>/v1/groups/&lt;groupIri&gt;</code></li>
-    </ul>
-  </li>
-</ul>
-<p>Example Group Information stored in admin named graph: :</p>
-<pre><code>&lt;http://rdfh.ch/groups/[shortcode]/[UUID]&gt;
-     rdf:type knora-base:UserGroup ;
-     knora-base:groupName &quot;Name of the group&quot; ;
-     knora-base:groupDescription &quot;A description of the group&quot; ;
-     knora-base:belongsToProject &lt;http://rdfh.ch/projects/[UUID]&gt; ;
-     knora-base:status &quot;true&quot;^^xsd:boolean ;
-     knora-base:hasSelfJoinEnabled &quot;false&quot;^^xsd:boolean .
-</code></pre>
-<h3><a href="#permissions-endpoint" name="permissions-endpoint" class="anchor"><span class="anchor-link"></span></a>Permissions Endpoint</h3>
-<ul>
-  <li>
-    <p><strong>Add/change/delete administrative permissions</strong>:</p>
-    <ul>
-      <li>
-      <p>Required permission: SystemAdmin / hasProjectAllAdminPermission / hasProjectRightsAdminPermission</p></li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Add/change/delete default object access permissions</strong>:</p>
-    <ul>
-      <li>
-      <p>Required permission: SystemAdmin / hasProjectAllAdminPermission / hasProjectRightsAdminPermission</p></li>
-    </ul>
-  </li>
-</ul>
 <h2><a href="#redesign-questions-june-2016" name="redesign-questions-june-2016" class="anchor"><span class="anchor-link"></span></a>Redesign / Questions June 2016</h2>
 <ul>
   <li><strong>Permissions constrained to groups</strong>
@@ -1170,7 +827,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-4.0.0-0-d149894e-20181212-2153
+4.0.0-52-1d8a2d75
 </span>
 </div>
 </article>
@@ -1212,7 +869,7 @@ Development
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
 <div class="md-footer-copyright__highlight">
-Copyright 2015-2018 the contributors (see Contributors.md)
+Copyright 2015-2019 the contributors (see Contributors.md)
 </div>
 Powered by
 <a href="https://github.com/lightbend/paradox">Paradox</a>

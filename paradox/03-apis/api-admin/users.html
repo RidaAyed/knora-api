@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../../cloud">
-<title>Testing · Knora Documentation</title>
+<title>Users Endpoint · Knora Documentation</title>
 <link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Testing
+Users Endpoint
 </span>
 </div>
 </div>
@@ -189,40 +189,11 @@ dhlab-basel/Knora/docs
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="toc">Table of contents</label>
-<ul>
-  <li><a href="../../05-internals/development/testing.html#testing" class="header">Testing</a>
-  <ul>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-unit-tests" class="header">How to Write Unit Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-integration-tests" class="header">How to Write Integration Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-performance-simulation-tests" class="header">How to Write Performance / Simulation Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#custom-sbt-test-configurations" class="header">Custom SBT Test Configurations</a></li>
-  </ul></li>
-</ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
 <i class="md-icon">label_outline</i> 4.0.0-52-1d8a2d75
 </div>
-</nav>
-
-</div>
-</div>
-</div>
-<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="toc">Table of contents</label>
-<ul>
-  <li><a href="../../05-internals/development/testing.html#testing" class="header">Testing</a>
-  <ul>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-unit-tests" class="header">How to Write Unit Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-integration-tests" class="header">How to Write Integration Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-performance-simulation-tests" class="header">How to Write Performance / Simulation Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#custom-sbt-test-configurations" class="header">Custom SBT Test Configurations</a></li>
-  </ul></li>
-</ul>
 </nav>
 
 </div>
@@ -249,121 +220,184 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#testing" name="testing" class="anchor"><span class="anchor-link"></span></a>Testing</h1>
-<p>Prerequisite: Before running any tests, a supported triplestore needs to be started and initialized through a script inside the &ldquo;scripts&rdquo; folder. For example, when using &ldquo;GraphDB Free&rdquo;, the nedded script is &ldquo;graphdb-free-init-knora-test-unit.sh&rdquo;. Please note the occurrence of &ldquo;test-unit&rdquo; in the name of the script.</p>
-<h2><a href="#how-to-write-unit-tests" name="how-to-write-unit-tests" class="anchor"><span class="anchor-link"></span></a>How to Write Unit Tests</h2>
-<p>1) Inside a test, at the beginning, add the following (change the paths  to the test data as needed):</p>
-<pre class="prettyprint"><code class="language-scala">val rdfDataObjects = List (
-       RdfDataObject(path = &quot;_test_data/responders.v1.ValuesResponderV1Spec/incunabula-data.ttl&quot;, name = &quot;http://www.knora.org/data/incunabula&quot;)
-)
-</code></pre>
-<p>The data will be automatically loaded before any tests are executed. These tests should be stored inside the <code>src/test</code> folder hierarchy.</p>
-<p>2) Call the test from SBT:</p>
-<pre><code>// when using a GraphDB-SE
-sbt:knora&gt; webapi / test
-
-// when using a GraphDB-Free
-sbt:knora&gt; webapi / GDBFree / test
-</code></pre>
-<h2><a href="#how-to-write-integration-tests" name="how-to-write-integration-tests" class="anchor"><span class="anchor-link"></span></a>How to Write Integration Tests</h2>
-<p>The only difference between Integration and Unit tests is the location where they are stored and the way how they are called:</p>
-<p>1) Store tests inside the <code>src/it</code> folder hierarchy. 2) Call the tests from SBT: <code>sbt:knore&gt; webapi / it:test</code></p>
-<h2><a href="#how-to-write-performance-simulation-tests" name="how-to-write-performance-simulation-tests" class="anchor"><span class="anchor-link"></span></a>How to Write Performance / Simulation Tests</h2>
-<p>1) Store the performance and simulation tests inside the <code>src/test</code> and  the <code>src/it</code> folder hierarchy. 2) To call them, execute either <code>webapi / gatling:test</code> or <code>webapi / gatling-it:test</code>  from inside SBT.</p>
-<p>Bellow is an example of an simulation calling the <code>/admin/users</code> endpoint. The simulation ramps up 1000 users over 5 seconds, all accessing the <code>/admin/users</code> endpoint.</p>
-<pre class="prettyprint"><code class="language-scala">/*
- * Copyright © 2015-2019 the contributors (see Contributors.md).
- *
- * This file is part of Knora.
- *
- * Knora is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Knora is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with Knora.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
- */
-
-package org.knora.webapi.e2e
-
-import io.gatling.core.Predef._
-import io.gatling.http.Predef._
-import org.knora.webapi.E2ESimSpec
-import org.knora.webapi.messages.store.triplestoremessages.RdfDataObject
-
-import scala.concurrent.duration._
-
-/**
-  * Example Simulation Scenario:
-  *
-  * This simulation scenario accesses the users endpoint with
-  * 1000 users concurrently.
-  * */
-class ExampleE2ESimSpec extends E2ESimSpec {
-
-    override lazy val rdfDataObjects: Seq[RdfDataObject] = Seq.empty[RdfDataObject]
-
-    val protobolBuilder = http
-            .baseURL(&quot;http://localhost:3333&quot;)
-
-    val users = scenario(&quot;Users&quot;)
-            .exec(
-                http(&quot;Get all users&quot;)
-                .get(&quot;/admin/users&quot;)
-                .check(status.is(200))
-            )
-
-    val injections = Seq(rampUsers(1000) over 5.seconds)
-
-    val assertions = Seq(
-        global.responseTime.mean.lt(800)
-        , forAll.failedRequests.count.lt(1)
-    )
-
-    setUp(
-        users.inject(injections).protocols(protobolBuilder)
-    ).assertions(assertions)
-
+<h1><a href="#users-endpoint" name="users-endpoint" class="anchor"><span class="anchor-link"></span></a>Users Endpoint</h1>
+<ul>
+  <li>
+    <p><strong>Get users</strong></p>
+    <ul>
+      <li>
+      <p>GET: <code>/admin/users</code></p></li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Get user</strong></p>
+    <ul>
+      <li>
+      <p>GET:<code>/admin/users/&lt;userIri&gt;</code></p></li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Create user</strong>:</p>
+    <ul>
+      <li>Required permission: none, self-registration is allowed</li>
+      <li>Required information: email (unique), given name, family name, password, password, status, systemAdmin</li>
+      <li>Returns information about the newly created user</li>
+      <li>TypeScript Docs: userFormats - <code>CreateUserApiRequestV1</code></li>
+      <li>POST: <code>/admin/users/</code></li>
+      <li>BODY:</li>
+    </ul>
+  </li>
+</ul>
+<pre><code>{
+  &quot;email&quot;: &quot;donald.duck@example.org&quot;,
+  &quot;givenName&quot;: &quot;Donald&quot;,
+  &quot;familyName&quot;: &quot;Duck&quot;,
+  &quot;password&quot;: &quot;test&quot;,
+  &quot;status&quot;: true,
+  &quot;lang&quot;: &quot;en&quot;,
+  &quot;systemAdmin&quot;: false
 }
-
 </code></pre>
-<h2><a href="#custom-sbt-test-configurations" name="custom-sbt-test-configurations" class="anchor"><span class="anchor-link"></span></a>Custom SBT Test Configurations</h2>
-<p>For convenience, there are a number of custom test configurations defined inside <code>WebapiBuild.sbt</code>. These can be used together with the built-in test tasks like <code>test</code>, <code>testOnly</code>, <code>testQuick</code>.</p>
-<p>For use with GraphDB-SE (using <code>test/resources/graphdb-se.conf</code>) running normal tests:</p>
-<pre><code>sbt:knora&gt; webapi / test
-sbt:knora&gt; webapi / GDBSE / test
-sbt:knora&gt; webapi / gdbse:test
+<ul>
+  <li><strong>Update user information</strong>:
+    <ul>
+      <li>Required permission: SystemAdmin / User</li>
+      <li>Changeable information: email, given name, family name, password, status, SystemAdmin membership</li>
+      <li>Remark: There are four distinct use case / payload combination. It is not possible to mix cases, e.g., sending <code>newUserStatus</code> and basic user information at the same time will result in an error: (1) change password: oldPassword, newPassword, (2) change status: newUserStatus, (3) change system admin membership: newSystemAdminMembershipStatus, and (4) change basic user information: email, givenName, familyName, lang</li>
+      <li>TypeScript Docs: userFormats - ChangeUserApiRequestV1</li>
+      <li>PUT: <code>/admin/users/&lt;userIri&gt;</code></li>
+      <li>BODY:</li>
+    </ul>
+  </li>
+</ul>
+<pre><code>{
+  &quot;email&quot;: &quot;donald.big.duck@example.org&quot;,
+  &quot;givenName&quot;: &quot;Big Donald&quot;,
+  &quot;familyName&quot;: &quot;Duckmann&quot;,
+  &quot;lang&quot;: &quot;de&quot;
+}
 </code></pre>
-<p>For use with GraphDB-SE (using <code>it/resources/graphdb-se.conf</code>) running integration tests:</p>
-<pre><code>sbt:knora&gt; webapi / it:test
-sbt:knora&gt; webapi / GDBSEIt / test
-sbt:knora&gt; webapi / gdbse-it:test
+<ul>
+  <li><strong>Update user&rsquo;s password</strong>
+    <ul>
+      <li>Required permission: User</li>
+      <li>Changeable information: password</li>
+      <li>PUT: <code>/admin/users/&lt;userIri&gt;</code></li>
+      <li>BODY:</li>
+    </ul>
+  </li>
+</ul>
+<pre><code>{
+  &quot;oldPassword&quot;: &quot;test&quot;,
+  &quot;newPassword&quot;: &quot;test1234&quot;
+}
 </code></pre>
-<p>For use with GraphDB-Free (using <code>test/resources/graphdb-free.conf</code>) running normal tests:</p>
-<pre><code>sbt:knora&gt; webapi / GDBFree / test
-sbt:knora&gt; webapi / gdbfree:test
+<ul>
+  <li><strong>Delete user</strong>:
+    <ul>
+      <li>Required permission: SystemAdmin / User</li>
+      <li>Remark: The same as updating a user and changing <code>status</code> to <code>false</code>. To un-delete, set <code>status</code> to <code>true</code>.</li>
+      <li>PUT: <code>/admin/users/&lt;userIri&gt;</code></li>
+      <li>BODY:</li>
+    </ul>
+  </li>
+</ul>
+<pre><code>{
+  &quot;status&quot;: false // true or false
+}
 </code></pre>
-<p>For use with GraphDB-Free (using <code>it/resources/graphdb-free.conf</code>) running integration tests:</p>
-<pre><code>sbt:knora&gt; webapi / GDBFreeIt / test
-sbt:knora&gt; webapi / gdbfree-it:test
+<ul>
+  <li>
+    <p><strong>Delete user (-\update user)</strong></p>
+    <ul>
+      <li>Required permission: SystemAdmin / User</li>
+      <li>Remark: The same as updating a user and changing <code>status</code> to <code>false</code>. To un-delete, set <code>status</code> to <code>true</code>.</li>
+      <li>DELETE: <code>/admin/projects/&lt;projectIri&gt;</code></li>
+      <li>BODY: empty</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Get user&rsquo;s project memberships</strong></p>
+    <ul>
+      <li>
+      <p>GET: <code>/admin/users/projects/&lt;userIri&gt;</code></p></li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Add/remove user to/from project</strong>:</p>
+    <ul>
+      <li>Required permission: SystemAdmin / ProjectAdmin / User (if project self-assignment is enabled)</li>
+      <li>Required information: project IRI, user IRI</li>
+      <li>Effects: <code>knora-base:isInProject</code> user property</li>
+      <li>POST / DELETE: <code>/admin/users/projects/&lt;userIri&gt;/&lt;projectIri&gt;</code></li>
+      <li>BODY: empty</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Get user&rsquo;s project admin memberships</strong></p>
+    <ul>
+      <li>
+      <p>GET: <code>/admin/users/projects-admin/&lt;userIri&gt;</code></p></li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Add/remove user to/from project admin group</strong></p>
+    <ul>
+      <li>Required permission: SystemAdmin / ProjectAdmin</li>
+      <li>Required information: project IRI, user IRI</li>
+      <li>Effects: <code>knora-base:isInProjectAdminGroup</code> user property</li>
+      <li>POST / DELETE: <code>/v1/users/projects-admin/&lt;userIri&gt;/&lt;projectIri&gt;</code></li>
+      <li>BODY: empty</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Get user&rsquo;s group memberships</strong></p>
+    <ul>
+      <li>
+      <p>GET: <code>/admin/users/groups/&lt;userIri&gt;</code></p></li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Add/remove user to/from &lsquo;normal&rsquo; group</strong> (not <em>SystemAdmin</em> or <em>ProjectAdmin</em>):</p>
+    <ul>
+      <li>Required permission: SystemAdmin / hasProjectAllAdminPermission / hasProjectAllGroupAdminPermission / hasProjectRestrictedGroupAdminPermission (for this group) / User (if group self-assignment is enabled)</li>
+      <li>Required information: group IRI, user IRI</li>
+      <li>Effects: <code>knora-base:isInGroup</code></li>
+      <li>POST / DELETE: <code>/admin/users/groups/&lt;userIri&gt;/&lt;groupIri&gt;</code></li>
+      <li>BODY: empty</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Add/remove user to/from system admin group</strong>:</p>
+    <ul>
+      <li>Required permission: SystemAdmin / User</li>
+      <li>Effects property: <code>knora-base:isInSystemAdminGroup</code> with value <code>true</code> or <code>false</code></li>
+      <li>PUT: <code>/admin/users/&lt;userIri&gt;</code></li>
+      <li>BODY:</li>
+    </ul>
+  </li>
+</ul>
+<pre class="prettyprint"><code class="language-JSON">{
+  &quot;newSystemAdminMembershipStatus&quot;: false
+}
 </code></pre>
-<p>For use with Fuseki (using <code>test/resources/fuseki.conf</code>) running normal tests:</p>
-<pre><code>sbt:knora&gt; webapi / Fuseki / test
-sbt:knora&gt; webapi / fuseki:test
-</code></pre>
-<p>For use with Fuseki (using <code>it/resources/fuseki.conf</code>) running integration tests:</p>
-<pre><code>sbt:knora&gt; webapi / FusekiIt / test
-sbt:knora&gt; webapi / fuseki-it:test
+<p>Example User Information stored in admin graph: :</p>
+<pre><code>&lt;http://rdfh.ch/users/c266a56709&gt;
+    rdf:type knora-base:User ;
+    knora-base:username &quot;user01.user1&quot;^^xsd:string ;
+    knora-base:email &quot;user01.user1@example.com&quot;^^xsd:string ;
+    knora-base:givenName &quot;User01&quot;^^xsd:string ;
+    knora-base:familyName &quot;User&quot;^^xsd:string ;
+    knora-base:password &quot;$e0801$FGl9FDIWw+D83OeNPGmD9u2VTqIkJopIQECgmb2DSWQLS0TeKSvYoWAkbEv6KxePPlCI3CP9MmVHuvnWv8/kag==$mlegCYdGXt+ghuo8i0rLjgOiNnGDW604Q5g/v7zwBPU=&quot;^^xsd:string ;
+    knora-base:preferredLanguage &quot;de&quot;^^xsd:string ;
+    knora-base:status &quot;true&quot;^^xsd:boolean ;
+    knora-base:isInProject &lt;http://rdfh.ch/projects/00FF&gt; ;
+    knora-base:isInSystemAdminGroup &quot;false&quot;^^xsd:boolean ;
+    knora-base:isInProjectAdminGroup &lt;http://rdfh.ch/projects/00FF&gt; .
 </code></pre>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/development/testing.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-admin/users.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -379,7 +413,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../../05-internals/development/intellij-config.html" title="Setup IntelliJ for development of Knora" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../../03-apis/api-admin/overview.html" title="Admin Endpoint" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -388,17 +422,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Setup IntelliJ for development of Knora
+Admin Endpoint
 </span>
 </div>
 </a>
-<a href="../../05-internals/development/docker-cheat-sheet.html" title="Docker Cheat Sheet" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../03-apis/api-admin/projects.html" title="Projects Endpoint" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Docker Cheat Sheet
+Projects Endpoint
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

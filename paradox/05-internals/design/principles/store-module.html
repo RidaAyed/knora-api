@@ -183,6 +183,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -196,12 +197,13 @@ dhlab-basel/Knora/docs
     <li><a href="../../../05-internals/design/principles/store-module.html#lifecycle" class="header">Lifecycle</a></li>
     <li><a href="../../../05-internals/design/principles/store-module.html#http-based-triplestores" class="header">HTTP-based Triplestores</a></li>
     <li><a href="../../../05-internals/design/principles/store-module.html#embedded-triplestores" class="header">Embedded Triplestores</a></li>
+    <li><a href="../../../05-internals/design/principles/store-module.html#iiif-servers" class="header">IIIF Servers</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
+<i class="md-icon">label_outline</i> 4.0.0-52-1d8a2d75
 </div>
 </nav>
 
@@ -220,6 +222,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../../05-internals/design/principles/store-module.html#lifecycle" class="header">Lifecycle</a></li>
     <li><a href="../../../05-internals/design/principles/store-module.html#http-based-triplestores" class="header">HTTP-based Triplestores</a></li>
     <li><a href="../../../05-internals/design/principles/store-module.html#embedded-triplestores" class="header">Embedded Triplestores</a></li>
+    <li><a href="../../../05-internals/design/principles/store-module.html#iiif-servers" class="header">IIIF Servers</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -231,7 +234,7 @@ dhlab-basel/Knora/docs
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <!---
-Copyright © 2015-2018 the contributors (see Contributors.md).
+Copyright © 2015-2019 the contributors (see Contributors.md).
 
 This file is part of Knora.
 
@@ -269,12 +272,13 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
       <li><a href="../../../05-internals/design/principles/store-module.html#actor-messages" class="header">Actor Messages</a></li>
     </ul></li>
   </ul></li>
+  <li><a href="../../../05-internals/design/principles/store-module.html#iiif-servers" class="header">IIIF Servers</a></li>
 </ul>
 </div>
 <h2><a href="#overview" name="overview" class="anchor"><span class="anchor-link"></span></a>Overview</h2>
-<p>The store module houses the different types of data stores supported by Knora. At the moment, only triplestores are supported. The triplestore support is implemented in the <code>org.knora.webapi.store.triplestore</code> package.</p>
+<p>The store module houses the different types of data stores supported by Knora. At the moment, only triplestores and IIIF servers (Sipi) are supported. The triplestore support is implemented in the <code>org.knora.webapi.store.triplestore</code> package and the IIIF server support in <code>org.knora.webapi.store.iiif</code> package.</p>
 <h2><a href="#lifecycle" name="lifecycle" class="anchor"><span class="anchor-link"></span></a>Lifecycle</h2>
-<p>At the top level, the store package houses the <code>StoreManager</code>-Actor which is started when Knora starts. The <code>StoreManager</code> then starts the <code>TriplestoreManager</code> which in turn starts the correct actor implementation (e.g., GraphDB, Fuseki, embedded Jena, etc.).</p>
+<p>At the top level, the store package houses the <code>StoreManager</code>-Actor which is started when Knora starts. The <code>StoreManager</code> then starts the <code>TriplestoreManager</code> and <code>IIIFManager</code>, which each in turn starts their correct actor implementation.</p>
 <h2><a href="#http-based-triplestores" name="http-based-triplestores" class="anchor"><span class="anchor-link"></span></a>HTTP-based Triplestores</h2>
 <p>HTTP-based triplestore support is implemented in the <code>org.knora.webapi.triplestore.http</code> package.</p>
 <p>An HTTP-based triplestore is one that is accessed remotely over the HTTP protocol. <code>HttpTriplestoreConnector</code> supports the following triplestores:</p>
@@ -376,6 +380,8 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
         expectMsg(300.seconds, ResetTripleStoreContentACK())
     }
 </code></pre>
+<h2><a href="#iiif-servers" name="iiif-servers" class="anchor"><span class="anchor-link"></span></a>IIIF Servers</h2>
+<p>Currently, only support for SIPI is implemented in <code>org.knora.webapi.store.iiifSipiConnector</code>.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/design/principles/store-module.md" title="Edit this page" class="md-source-file md-edit">
@@ -384,7 +390,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-4.0.0-0-d149894e-20181212-2153
+4.0.0-52-1d8a2d75
 </span>
 </div>
 </article>
@@ -426,7 +432,7 @@ Triplestore Updates
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
 <div class="md-footer-copyright__highlight">
-Copyright 2015-2018 the contributors (see Contributors.md)
+Copyright 2015-2019 the contributors (see Contributors.md)
 </div>
 Powered by
 <a href="https://github.com/lightbend/paradox">Paradox</a>

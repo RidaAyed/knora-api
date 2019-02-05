@@ -183,6 +183,7 @@ dhlab-basel/Knora/docs
     <li><a href="00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
+    <li><a href="00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
     <li><a href="00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -200,7 +201,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
+<i class="md-icon">label_outline</i> 4.0.0-52-1d8a2d75
 </div>
 </nav>
 
@@ -229,7 +230,7 @@ dhlab-basel/Knora/docs
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <!---
-Copyright © 2015-2018 the contributors (see Contributors.md).
+Copyright © 2015-2019 the contributors (see Contributors.md).
 
 This file is part of Knora.
 
@@ -263,6 +264,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     <li><a href="faq.html#can-a-project-use-classes-or-properties-defined-in-another-projects-ontology-" class="header">Can a project use classes or properties defined in another project&rsquo;s ontology?</a></li>
     <li><a href="faq.html#why-doesnt-knora-use-rdfs-domain-and-rdfs-range-for-consistency-checking-" class="header">Why doesn&rsquo;t Knora use <code>rdfs:domain</code> and <code>rdfs:range</code> for consistency checking?</a></li>
     <li><a href="faq.html#can-a-user-created-property-be-an-owl-transitiveproperty-" class="header">Can a user-created property be an <code>owl:TransitiveProperty</code>?</a></li>
+    <li><a href="faq.html#should-0-0-0-0-or-localhost-be-used-to-access-knora-locally" class="header">Should <code>0.0.0.0</code> or <code>localhost</code> be used to access Knora locally</a></li>
   </ul></li>
 </ul>
 </div>
@@ -301,6 +303,9 @@ data:book1 example:hasAuthor data:oxygen .
 <p>Since the property is transitive, a link from <code>Foo1</code> to <code>Foo3</code> is now inferred. But this should not be allowed, because the owner of <code>Foo2</code> does not have permission to add a link to <code>Foo1</code>.</p>
 <p>Moreover, even if the owner of <code>Foo2</code> did have that permission, the inferred link would not have a <code>knora-base:LinkValue</code> (a reification), which every Knora link must have. The <code>LinkValue</code> is what stores metadata about the creator of the link, its creation date, its permissions, and so on (see <a href="02-knora-ontologies/knora-base.html#linkvalue">LinkValue</a>).</p>
 <p>Finally, if an update to one resource could modify another resource, this would violate Knora&rsquo;s model of transaction integrity, in which each transaction can modify only one resource (see <a href="05-internals/design/principles/triplestore-updates.html#application-level-locking">Application-level Locking</a>). Knora would then be unable to ensure that concurrent transactions do not interfere with each other.</p>
+<h3><a href="#should-0-0-0-0-or-localhost-be-used-to-access-knora-locally" name="should-0-0-0-0-or-localhost-be-used-to-access-knora-locally" class="anchor"><span class="anchor-link"></span></a>Should <code>0.0.0.0</code> or <code>localhost</code> be used to access Knora locally</h3>
+<p>When running locally with the default configuration, if you want authorization cookies to be shared between <code>webapi</code> and <code>sipi</code>, then both <code>webapi</code> and <code>sipi</code> must be accessed over <code>0.0.0.0</code>, or otherwise, the cookie will not be sent to <code>sipi</code>.</p>
+<p>If no authorization cookie sharing is necessary, then both <code>0.0.0.0</code> and <code>localhost</code>will work.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/faq.md" title="Edit this page" class="md-source-file md-edit">
@@ -309,7 +314,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-4.0.0-0-d149894e-20181212-2153
+4.0.0-52-1d8a2d75
 </span>
 </div>
 </article>
@@ -351,7 +356,7 @@ Release Notes
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
 <div class="md-footer-copyright__highlight">
-Copyright 2015-2018 the contributors (see Contributors.md)
+Copyright 2015-2019 the contributors (see Contributors.md)
 </div>
 Powered by
 <a href="https://github.com/lightbend/paradox">Paradox</a>

@@ -183,6 +183,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -193,13 +194,14 @@ dhlab-basel/Knora/docs
   <li><a href="../../03-apis/api-v2/editing-resources.html#editing-resources" class="header">Editing Resources</a>
   <ul>
     <li><a href="../../03-apis/api-v2/editing-resources.html#creating-a-resource" class="header">Creating a Resource</a></li>
-    <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resource" class="header">Modifying a Resource</a></li>
+    <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-values" class="header">Modifying a Resource&rsquo;s Values</a></li>
+    <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-metadata" class="header">Modifying a Resource&rsquo;s Metadata</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
+<i class="md-icon">label_outline</i> 4.0.0-52-1d8a2d75
 </div>
 </nav>
 
@@ -215,7 +217,8 @@ dhlab-basel/Knora/docs
   <li><a href="../../03-apis/api-v2/editing-resources.html#editing-resources" class="header">Editing Resources</a>
   <ul>
     <li><a href="../../03-apis/api-v2/editing-resources.html#creating-a-resource" class="header">Creating a Resource</a></li>
-    <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resource" class="header">Modifying a Resource</a></li>
+    <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-values" class="header">Modifying a Resource&rsquo;s Values</a></li>
+    <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-metadata" class="header">Modifying a Resource&rsquo;s Metadata</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -227,7 +230,7 @@ dhlab-basel/Knora/docs
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <!---
-Copyright © 2015-2018 the contributors (see Contributors.md).
+Copyright © 2015-2019 the contributors (see Contributors.md).
 
 This file is part of Knora.
 
@@ -248,7 +251,8 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <div class="toc ">
 <ul>
   <li><a href="../../03-apis/api-v2/editing-resources.html#creating-a-resource" class="header">Creating a Resource</a></li>
-  <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resource" class="header">Modifying a Resource</a></li>
+  <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-values" class="header">Modifying a Resource&rsquo;s Values</a></li>
+  <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-metadata" class="header">Modifying a Resource&rsquo;s Metadata</a></li>
 </ul>
 </div>
 <h2><a href="#creating-a-resource" name="creating-a-resource" class="anchor"><span class="anchor-link"></span></a>Creating a Resource</h2>
@@ -353,7 +357,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   }
 }
 </code></pre>
-<p>Permissions for the new resource can be given by adding <code>knora-api:hasPermissions</code>. For example:</p>
+<p>Permissions for the new resource can be given by adding <code>knora-api:hasPermissions</code>, and a custom creation date can be specified by adding <code>knora-api:creationDate</code> (an <a href="https://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">xsd:dateTimeStamp</a>). For example:</p>
 <pre class="prettyprint"><code class="language-jsonld">{
   &quot;@type&quot; : &quot;anything:Thing&quot;,
   &quot;anything:hasBoolean&quot; : {
@@ -364,7 +368,11 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     &quot;@id&quot; : &quot;http://rdfh.ch/projects/0001&quot;
   },
   &quot;rdfs:label&quot; : &quot;test thing&quot;,
-  &quot;knora-api:hasPermissions&quot; : &quot;CR knora-base:Creator|V http://rdfh.ch/groups/0001/thing-searcher&quot;
+  &quot;knora-api:hasPermissions&quot; : &quot;CR knora-base:Creator|V http://rdfh.ch/groups/0001/thing-searcher&quot;,
+  &quot;knora-api:creationDate&quot; : {
+    &quot;@type&quot; : &quot;xsd:dateTimeStamp&quot;,
+    &quot;@value&quot; : &quot;2019-01-09T15:45:54.502951Z&quot;
+  }
   &quot;@context&quot; : {
     &quot;rdf&quot; : &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;,
     &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
@@ -378,8 +386,56 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>If permissions are not given, configurable default permissions are used (see <a href="../../05-internals/design/api-admin/administration.html#default-object-access-permissions">Default Object Access Permissions</a>).</p>
 <p>To create a resource, the user must have permission to create resources in the specified project.</p>
 <p>The response is a JSON-LD document containing a <a href="reading-and-searching-resources.html#get-the-preview-of-a-resource-by-its-iri">preview</a> of the resource.</p>
-<h2><a href="#modifying-a-resource" name="modifying-a-resource" class="anchor"><span class="anchor-link"></span></a>Modifying a Resource</h2>
-<p>To modify a resource, you can modify its values; see <a href="editing-values.html">Editing Values</a>.</p>
+<h2><a href="#modifying-a-resources-values" name="modifying-a-resources-values" class="anchor"><span class="anchor-link"></span></a>Modifying a Resource&rsquo;s Values</h2>
+<p>See <a href="editing-values.html">Editing Values</a>.</p>
+<h2><a href="#modifying-a-resources-metadata" name="modifying-a-resources-metadata" class="anchor"><span class="anchor-link"></span></a>Modifying a Resource&rsquo;s Metadata</h2>
+<p>You can modify the following metadata attached to a resource:</p>
+<ul>
+  <li>label</li>
+  <li>permissions</li>
+  <li>last modification date</li>
+</ul>
+<p>To do this, use this route:</p>
+<pre><code>HTTP PUT to http://host/v2/resources
+</code></pre>
+<p>The request body is a JSON-LD object containing the following information about the resource:</p>
+<ul>
+  <li><code>@id</code>: the resource&rsquo;s IRI</li>
+  <li><code>@type</code>: the resource&rsquo;s class IRI</li>
+  <li><code>knora-api:lastModificationDate</code>: an <code>xsd:dateTimeStamp</code> representing the last modification date that is currently attached to the resource, if any</li>
+</ul>
+<p>The submitted JSON-LD object must also contain one or more of the following predicates, representing the metadata you want to change:</p>
+<ul>
+  <li><code>rdfs:label</code>: a string</li>
+  <li><code>knora-api:hasPermissions</code>, in the format described in <a href="../../02-knora-ontologies/knora-base.html#permissions">Permissions</a></li>
+  <li><code>knora-api:newModificationDate</code>: an <a href="https://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">xsd:dateTimeStamp</a>.  This is used to make sure that the resource has not been modified by someone else since you last read it.</li>
+</ul>
+<p>Here is an example:</p>
+<pre class="prettyprint"><code class="language-jsonld">{
+  &quot;@id&quot; : &quot;http://rdfh.ch/0001/a-thing&quot;,
+  &quot;@type&quot; : &quot;anything:Thing&quot;,
+  &quot;rdfs:label&quot; : &quot;this is the new label&quot;,
+  &quot;knora-api:hasPermissions&quot; : &quot;CR knora-base:Creator|M knora-base:ProjectMember|V knora-base:ProjectMember&quot;,
+  &quot;knora-api:lastModificationDate&quot; : {
+    &quot;@type&quot; : &quot;xsd:dateTimeStamp&quot;,
+    &quot;@value&quot; : &quot;2017-11-20T15:55:17Z&quot;
+  }
+  &quot;knora-api:newModificationDate&quot; : {
+    &quot;@type&quot; : &quot;xsd:dateTimeStamp&quot;,
+    &quot;@value&quot; : &quot;2018-12-21T16:56:18Z&quot;
+  },
+  &quot;@context&quot; : {
+    &quot;rdf&quot; : &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;,
+    &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
+    &quot;rdfs&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#&quot;,
+    &quot;xsd&quot; : &quot;http://www.w3.org/2001/XMLSchema#&quot;,
+    &quot;anything&quot; : &quot;http://0.0.0.0:3333/ontology/0001/anything/v2#&quot;
+  }
+}
+</code></pre>
+<p>If you submit a <code>knora-api:lastModificationDate</code> that is different from the resource&rsquo;s actual last modification date, you will get an HTTP 409 (Conflict) error.</p>
+<p>If you submit a <code>knora-api:newModificationDate</code> that is earlier than the resource&rsquo;s <code>knora-api:lastModificationDate</code>, you will get an HTTP 400 (Bad Request) error.</p>
+<p>A successful response is an HTTP 200 (OK) status containing a confirmation message.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-v2/editing-resources.md" title="Edit this page" class="md-source-file md-edit">
@@ -388,7 +444,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-4.0.0-0-d149894e-20181212-2153
+4.0.0-52-1d8a2d75
 </span>
 </div>
 </article>
@@ -430,7 +486,7 @@ Editing Values
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
 <div class="md-footer-copyright__highlight">
-Copyright 2015-2018 the contributors (see Contributors.md)
+Copyright 2015-2019 the contributors (see Contributors.md)
 </div>
 Powered by
 <a href="https://github.com/lightbend/paradox">Paradox</a>

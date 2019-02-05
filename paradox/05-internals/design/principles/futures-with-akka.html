@@ -183,6 +183,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -204,7 +205,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 4.0.0-0-d149894e-20181212-2153
+<i class="md-icon">label_outline</i> 4.0.0-52-1d8a2d75
 </div>
 </nav>
 
@@ -237,7 +238,7 @@ dhlab-basel/Knora/docs
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
 <!---
-Copyright © 2015-2018 the contributors (see Contributors.md).
+Copyright © 2015-2019 the contributors (see Contributors.md).
 
 This file is part of Knora.
 
@@ -374,11 +375,9 @@ val totalFuture = for {
 <p>The <code>yield</code> returns an object of the same type as the generators, which all have to produce the same type (e.g. <code>Future</code>).</p>
 <h2><a href="#execution-contexts" name="execution-contexts" class="anchor"><span class="anchor-link"></span></a>Execution Contexts</h2>
 <p>Whenever you use a future, there has to be an implicit &lsquo;execution context&rsquo; in scope. <a href="http://docs.scala-lang.org/overviews/core/futures.html">Scala&rsquo;s documentation on futures</a> says, &lsquo;you can think of execution contexts as thread pools&rsquo;.</p>
-<p>If you don&rsquo;t have an execution context in scope, you&rsquo;ll get a compile error asking you to include one, and suggesting that you could use <code>import scala.concurrent.ExecutionContext.Implicits.global</code>. Don&rsquo;t do this, because the global Scala execution context is not the most efficient option. Instead, Knora&rsquo;s <code>Responder</code> trait provides a suitable implicit execution context:</p>
-<pre class="prettyprint"><code class="language-scala">/**
-  * The execution context for futures created in Knora actors.
-  */
-protected implicit val executionContext: ExecutionContext = system.dispatchers.lookup(KnoraDispatchers.KnoraActorDispatcher)</code></pre>
+<p>If you don&rsquo;t have an execution context in scope, you&rsquo;ll get a compile error asking you to include one, and suggesting that you could use <code>import scala.concurrent.ExecutionContext.Implicits.global</code>. Don&rsquo;t do this, because the global Scala execution context is not the most efficient option. Instead, use Knora&rsquo;s custom execution context like so:</p>
+<pre class="prettyprint"><code class="language-scala">implicit val executionContext: ExecutionContext = system.dispatchers.lookup(KnoraDispatchers.KnoraActorDispatcher)
+</code></pre>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/design/principles/futures-with-akka.md" title="Edit this page" class="md-source-file md-edit">
@@ -387,7 +386,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-4.0.0-0-d149894e-20181212-2153
+4.0.0-52-1d8a2d75
 </span>
 </div>
 </article>
@@ -429,7 +428,7 @@ HTTP Module
 <div class="md-footer-meta__inner md-grid">
 <div class="md-footer-copyright">
 <div class="md-footer-copyright__highlight">
-Copyright 2015-2018 the contributors (see Contributors.md)
+Copyright 2015-2019 the contributors (see Contributors.md)
 </div>
 Powered by
 <a href="https://github.com/lightbend/paradox">Paradox</a>

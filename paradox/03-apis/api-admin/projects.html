@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../../cloud">
-<title>Testing · Knora Documentation</title>
+<title>Projects Endpoint · Knora Documentation</title>
 <link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Testing
+Projects Endpoint
 </span>
 </div>
 </div>
@@ -191,12 +191,12 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../05-internals/development/testing.html#testing" class="header">Testing</a>
+  <li><a href="../../03-apis/api-admin/projects.html#projects-endpoint" class="header">Projects Endpoint</a>
   <ul>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-unit-tests" class="header">How to Write Unit Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-integration-tests" class="header">How to Write Integration Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-performance-simulation-tests" class="header">How to Write Performance / Simulation Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#custom-sbt-test-configurations" class="header">Custom SBT Test Configurations</a></li>
+    <li><a href="../../03-apis/api-admin/projects.html#endpoint-overview" class="header">Endpoint Overview</a></li>
+    <li><a href="../../03-apis/api-admin/projects.html#project-operations" class="header">Project Operations</a></li>
+    <li><a href="../../03-apis/api-admin/projects.html#project-member-operations" class="header">Project Member Operations</a></li>
+    <li><a href="../../03-apis/api-admin/projects.html#example-data" class="header">Example Data</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -215,12 +215,12 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../05-internals/development/testing.html#testing" class="header">Testing</a>
+  <li><a href="../../03-apis/api-admin/projects.html#projects-endpoint" class="header">Projects Endpoint</a>
   <ul>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-unit-tests" class="header">How to Write Unit Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-integration-tests" class="header">How to Write Integration Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-performance-simulation-tests" class="header">How to Write Performance / Simulation Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#custom-sbt-test-configurations" class="header">Custom SBT Test Configurations</a></li>
+    <li><a href="../../03-apis/api-admin/projects.html#endpoint-overview" class="header">Endpoint Overview</a></li>
+    <li><a href="../../03-apis/api-admin/projects.html#project-operations" class="header">Project Operations</a></li>
+    <li><a href="../../03-apis/api-admin/projects.html#project-member-operations" class="header">Project Member Operations</a></li>
+    <li><a href="../../03-apis/api-admin/projects.html#example-data" class="header">Example Data</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -249,121 +249,94 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#testing" name="testing" class="anchor"><span class="anchor-link"></span></a>Testing</h1>
-<p>Prerequisite: Before running any tests, a supported triplestore needs to be started and initialized through a script inside the &ldquo;scripts&rdquo; folder. For example, when using &ldquo;GraphDB Free&rdquo;, the nedded script is &ldquo;graphdb-free-init-knora-test-unit.sh&rdquo;. Please note the occurrence of &ldquo;test-unit&rdquo; in the name of the script.</p>
-<h2><a href="#how-to-write-unit-tests" name="how-to-write-unit-tests" class="anchor"><span class="anchor-link"></span></a>How to Write Unit Tests</h2>
-<p>1) Inside a test, at the beginning, add the following (change the paths  to the test data as needed):</p>
-<pre class="prettyprint"><code class="language-scala">val rdfDataObjects = List (
-       RdfDataObject(path = &quot;_test_data/responders.v1.ValuesResponderV1Spec/incunabula-data.ttl&quot;, name = &quot;http://www.knora.org/data/incunabula&quot;)
-)
-</code></pre>
-<p>The data will be automatically loaded before any tests are executed. These tests should be stored inside the <code>src/test</code> folder hierarchy.</p>
-<p>2) Call the test from SBT:</p>
-<pre><code>// when using a GraphDB-SE
-sbt:knora&gt; webapi / test
-
-// when using a GraphDB-Free
-sbt:knora&gt; webapi / GDBFree / test
-</code></pre>
-<h2><a href="#how-to-write-integration-tests" name="how-to-write-integration-tests" class="anchor"><span class="anchor-link"></span></a>How to Write Integration Tests</h2>
-<p>The only difference between Integration and Unit tests is the location where they are stored and the way how they are called:</p>
-<p>1) Store tests inside the <code>src/it</code> folder hierarchy. 2) Call the tests from SBT: <code>sbt:knore&gt; webapi / it:test</code></p>
-<h2><a href="#how-to-write-performance-simulation-tests" name="how-to-write-performance-simulation-tests" class="anchor"><span class="anchor-link"></span></a>How to Write Performance / Simulation Tests</h2>
-<p>1) Store the performance and simulation tests inside the <code>src/test</code> and  the <code>src/it</code> folder hierarchy. 2) To call them, execute either <code>webapi / gatling:test</code> or <code>webapi / gatling-it:test</code>  from inside SBT.</p>
-<p>Bellow is an example of an simulation calling the <code>/admin/users</code> endpoint. The simulation ramps up 1000 users over 5 seconds, all accessing the <code>/admin/users</code> endpoint.</p>
-<pre class="prettyprint"><code class="language-scala">/*
- * Copyright © 2015-2019 the contributors (see Contributors.md).
- *
- * This file is part of Knora.
- *
- * Knora is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Knora is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with Knora.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
- */
-
-package org.knora.webapi.e2e
-
-import io.gatling.core.Predef._
-import io.gatling.http.Predef._
-import org.knora.webapi.E2ESimSpec
-import org.knora.webapi.messages.store.triplestoremessages.RdfDataObject
-
-import scala.concurrent.duration._
-
-/**
-  * Example Simulation Scenario:
-  *
-  * This simulation scenario accesses the users endpoint with
-  * 1000 users concurrently.
-  * */
-class ExampleE2ESimSpec extends E2ESimSpec {
-
-    override lazy val rdfDataObjects: Seq[RdfDataObject] = Seq.empty[RdfDataObject]
-
-    val protobolBuilder = http
-            .baseURL(&quot;http://localhost:3333&quot;)
-
-    val users = scenario(&quot;Users&quot;)
-            .exec(
-                http(&quot;Get all users&quot;)
-                .get(&quot;/admin/users&quot;)
-                .check(status.is(200))
-            )
-
-    val injections = Seq(rampUsers(1000) over 5.seconds)
-
-    val assertions = Seq(
-        global.responseTime.mean.lt(800)
-        , forAll.failedRequests.count.lt(1)
-    )
-
-    setUp(
-        users.inject(injections).protocols(protobolBuilder)
-    ).assertions(assertions)
-
+<h1><a href="#projects-endpoint" name="projects-endpoint" class="anchor"><span class="anchor-link"></span></a>Projects Endpoint</h1>
+<h2><a href="#endpoint-overview" name="endpoint-overview" class="anchor"><span class="anchor-link"></span></a>Endpoint Overview</h2>
+<p><strong>Project Operations:</strong> - <code>GET:  /admin/projects</code> : return all projects - <code>POST: /admin/projects</code> : create a new project - <code>GET: /admin/projects/[identifier]</code> : returns a single project identified either through iri, shortname, or shortcode - <code>PUT: /admin/projects/[identifier]</code> : update a project identified by iri - <code>DELETE: /admin/projects/[identifier]</code> : update project status to false</p>
+<p><strong>Project Member Operations:</strong> - <code>GET: /admin/projects/members/[identifier]</code> : returns all members part of a project identified through iri, shortname or shortcode</p>
+<p><strong>Project Admin Member Operations:</strong> - <code>GET: /admin/projects/admin-members/[identifier]</code> : returns all admin members part of a project identified through iri, shortname or shortcode</p>
+<p><strong>Project Keyword Operations:</strong> - <code>GET: /admin/projects/keywords</code> : returns all unique keywords for all projects as a list - <code>GET: /admin/projects/keywords/[identifier]</code> : returns all keywords for a single project</p>
+<p><strong>Project Restricted View Settings Operations:</strong> - <code>GET: /admin/projects/[identifier]/RestrictedViewSettings</code> : returns the project&rsquo;s restricted view settings</p>
+<h2><a href="#project-operations" name="project-operations" class="anchor"><span class="anchor-link"></span></a>Project Operations</h2>
+<h3><a href="#create-a-new-project-" name="create-a-new-project-" class="anchor"><span class="anchor-link"></span></a>Create a new project:</h3>
+<ul>
+  <li>Required permission: SystemAdmin</li>
+  <li>Required information: shortname (unique; used for named graphs), status, selfjoin</li>
+  <li>Optional information: longname, description, keywords, logo</li>
+  <li>Returns information about the newly created project</li>
+  <li>Remark: There are two distinct use cases / payload combination: (1) change ontology and data graph: ontologygraph, datagraph, (2) basic project information: shortname, longname, description, keywords, logo, institution, status, selfjoin</li>
+  <li>TypeScript Docs: projectFormats - CreateProjectApiRequestV1</li>
+  <li>POST: <code>/admin/projects/</code></li>
+  <li>BODY:</li>
+</ul>
+<pre class="prettyprint"><code class="language-JSON">{
+  &quot;shortname&quot;: &quot;newproject&quot;,
+  &quot;longname&quot;: &quot;project longname&quot;,
+  &quot;description&quot;: &quot;project description&quot;,
+  &quot;keywords&quot;: &quot;keywords&quot;,
+  &quot;logo&quot;: &quot;/fu/bar/baz.jpg&quot;,
+  &quot;status&quot;: true,
+  &quot;selfjoin&quot;: false
 }
-
 </code></pre>
-<h2><a href="#custom-sbt-test-configurations" name="custom-sbt-test-configurations" class="anchor"><span class="anchor-link"></span></a>Custom SBT Test Configurations</h2>
-<p>For convenience, there are a number of custom test configurations defined inside <code>WebapiBuild.sbt</code>. These can be used together with the built-in test tasks like <code>test</code>, <code>testOnly</code>, <code>testQuick</code>.</p>
-<p>For use with GraphDB-SE (using <code>test/resources/graphdb-se.conf</code>) running normal tests:</p>
-<pre><code>sbt:knora&gt; webapi / test
-sbt:knora&gt; webapi / GDBSE / test
-sbt:knora&gt; webapi / gdbse:test
+<h3><a href="#update-project-information-" name="update-project-information-" class="anchor"><span class="anchor-link"></span></a>Update project information:</h3>
+<ul>
+  <li>Required permission: SystemAdmin / ProjectAdmin</li>
+  <li>Changeable information: shortname, longname, description, keywords, logo, status, selfjoin</li>
+  <li>TypeScript Docs: projectFormats - ChangeProjectApiRequestV1</li>
+  <li>PUT: <code>/admin/projects/&lt;projectIri&gt;</code></li>
+  <li>BODY:</li>
+</ul>
+<pre class="prettyprint"><code class="language-JSON">{
+  &quot;shortname&quot;: &quot;newproject&quot;,
+  &quot;longname&quot;: &quot;project longname&quot;,
+  &quot;description&quot;: &quot;project description&quot;,
+  &quot;keywords&quot;: &quot;keywords&quot;,
+  &quot;logo&quot;: &quot;/fu/bar/baz.jpg&quot;,
+  &quot;status&quot;: true,
+  &quot;selfjoin&quot;: false
+}
 </code></pre>
-<p>For use with GraphDB-SE (using <code>it/resources/graphdb-se.conf</code>) running integration tests:</p>
-<pre><code>sbt:knora&gt; webapi / it:test
-sbt:knora&gt; webapi / GDBSEIt / test
-sbt:knora&gt; webapi / gdbse-it:test
-</code></pre>
-<p>For use with GraphDB-Free (using <code>test/resources/graphdb-free.conf</code>) running normal tests:</p>
-<pre><code>sbt:knora&gt; webapi / GDBFree / test
-sbt:knora&gt; webapi / gdbfree:test
-</code></pre>
-<p>For use with GraphDB-Free (using <code>it/resources/graphdb-free.conf</code>) running integration tests:</p>
-<pre><code>sbt:knora&gt; webapi / GDBFreeIt / test
-sbt:knora&gt; webapi / gdbfree-it:test
-</code></pre>
-<p>For use with Fuseki (using <code>test/resources/fuseki.conf</code>) running normal tests:</p>
-<pre><code>sbt:knora&gt; webapi / Fuseki / test
-sbt:knora&gt; webapi / fuseki:test
-</code></pre>
-<p>For use with Fuseki (using <code>it/resources/fuseki.conf</code>) running integration tests:</p>
-<pre><code>sbt:knora&gt; webapi / FusekiIt / test
-sbt:knora&gt; webapi / fuseki-it:test
+<h3><a href="#delete-project-update-project-status-" name="delete-project-update-project-status-" class="anchor"><span class="anchor-link"></span></a>Delete project (update project status):</h3>
+<ul>
+  <li>Required permission: SystemAdmin / ProjectAdmin</li>
+  <li>Remark: The same as updating a project and changing <code>status</code> to <code>false</code>. To un-delete, set <code>status</code> to <code>true</code>.</li>
+  <li>DELETE: <code>/admin/projects/&lt;projectIri&gt;</code></li>
+  <li>BODY: empty</li>
+</ul>
+<h2><a href="#project-member-operations" name="project-member-operations" class="anchor"><span class="anchor-link"></span></a>Project Member Operations</h2>
+<h3><a href="#get-project-members-" name="get-project-members-" class="anchor"><span class="anchor-link"></span></a>Get project members:</h3>
+<ul>
+  <li>Required permission: SystemAdmin / ProjectAdmin</li>
+  <li>Required information: project IRI</li>
+  <li>GET: <code>/admin/projects/members/&lt;projectIri&gt;</code></li>
+</ul>
+<h3><a href="#restricted-view-settings-operations" name="restricted-view-settings-operations" class="anchor"><span class="anchor-link"></span></a>Restricted View Settings Operations</h3>
+<p>Operates on the following properties:  - <code>knora-base:projectRestrictedViewSize</code> - takes the IIIF size value  - <code>knora-base:projectRestrictedViewWatermark</code> - takes the path to the watermark image. <strong>Currently not used.</strong></p>
+<h4><a href="#get-the-restricted-view-settings-" name="get-the-restricted-view-settings-" class="anchor"><span class="anchor-link"></span></a>Get the restricted view settings:</h4>
+<ul>
+  <li>Required permission: none</li>
+  <li>Required information: <code>identifier</code>. The <code>identifier</code> can be the project&rsquo;s IRI, shortocde or shortname.</li>
+  <li>GET: <code>/admin/projects/[identifier]/RestrictedViewSettings</code></li>
+</ul>
+<h2><a href="#example-data" name="example-data" class="anchor"><span class="anchor-link"></span></a>Example Data</h2>
+<p>The following is an example for project information stored in admin named graph:</p>
+<pre><code>&lt;http://rdfh.ch/projects/00FF&gt;
+    rdf:type knora-base:knoraProject ;
+    knora-base:projectShortname &quot;images&quot;^^xsd:string ;
+    knora-base:projectShortcode &quot;00FF&quot;^^xsd:string ;
+    knora-base:projectLongname &quot;Image Collection Demo&quot;^^xsd:string ;
+    knora-base:projectDescription &quot;A demo project of a collection of images&quot;@en ;
+    knora-base:projectKeyword &quot;images&quot;^^xsd:string,
+                              &quot;collection&quot;^^xsd:string ;
+    knora-base:projectRestrictedViewSize &quot;!512,512&quot;^^xsd:string ;
+    knora-base:projectRestrictedViewWatermark &quot;path_to_image&quot;^^xsd:string ;
+    knora-base:belongsToInstitution &lt;http://rdfh.ch/institutions/dhlab-basel&gt; ;
+    knora-base:status &quot;true&quot;^^xsd:boolean ;
+    knora-base:hasSelfJoinEnabled &quot;false&quot;^^xsd:boolean .
 </code></pre>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/development/testing.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-admin/projects.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -379,7 +352,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../../05-internals/development/intellij-config.html" title="Setup IntelliJ for development of Knora" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../../03-apis/api-admin/users.html" title="Users Endpoint" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -388,17 +361,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Setup IntelliJ for development of Knora
+Users Endpoint
 </span>
 </div>
 </a>
-<a href="../../05-internals/development/docker-cheat-sheet.html" title="Docker Cheat Sheet" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../03-apis/api-admin/groups.html" title="Groups Endpoint" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Docker Cheat Sheet
+Groups Endpoint
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

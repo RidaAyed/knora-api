@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../../cloud">
-<title>Testing · Knora Documentation</title>
+<title>Resource Permalinks · Knora Documentation</title>
 <link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Testing
+Resource Permalinks
 </span>
 </div>
 </div>
@@ -191,12 +191,11 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../05-internals/development/testing.html#testing" class="header">Testing</a>
+  <li><a href="../../03-apis/api-v2/resource-permalinks.html#resource-permalinks" class="header">Resource Permalinks</a>
   <ul>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-unit-tests" class="header">How to Write Unit Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-integration-tests" class="header">How to Write Integration Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-performance-simulation-tests" class="header">How to Write Performance / Simulation Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#custom-sbt-test-configurations" class="header">Custom SBT Test Configurations</a></li>
+    <li><a href="../../03-apis/api-v2/resource-permalinks.html#obtaining-ark-urls" class="header">Obtaining ARK URLs</a></li>
+    <li><a href="../../03-apis/api-v2/resource-permalinks.html#resolving-knora-ark-urls" class="header">Resolving Knora ARK URLs</a></li>
+    <li><a href="../../03-apis/api-v2/resource-permalinks.html#knora-ark-url-format" class="header">Knora ARK URL Format</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -215,12 +214,11 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../05-internals/development/testing.html#testing" class="header">Testing</a>
+  <li><a href="../../03-apis/api-v2/resource-permalinks.html#resource-permalinks" class="header">Resource Permalinks</a>
   <ul>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-unit-tests" class="header">How to Write Unit Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-integration-tests" class="header">How to Write Integration Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#how-to-write-performance-simulation-tests" class="header">How to Write Performance / Simulation Tests</a></li>
-    <li><a href="../../05-internals/development/testing.html#custom-sbt-test-configurations" class="header">Custom SBT Test Configurations</a></li>
+    <li><a href="../../03-apis/api-v2/resource-permalinks.html#obtaining-ark-urls" class="header">Obtaining ARK URLs</a></li>
+    <li><a href="../../03-apis/api-v2/resource-permalinks.html#resolving-knora-ark-urls" class="header">Resolving Knora ARK URLs</a></li>
+    <li><a href="../../03-apis/api-v2/resource-permalinks.html#knora-ark-url-format" class="header">Knora ARK URL Format</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -249,121 +247,62 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#testing" name="testing" class="anchor"><span class="anchor-link"></span></a>Testing</h1>
-<p>Prerequisite: Before running any tests, a supported triplestore needs to be started and initialized through a script inside the &ldquo;scripts&rdquo; folder. For example, when using &ldquo;GraphDB Free&rdquo;, the nedded script is &ldquo;graphdb-free-init-knora-test-unit.sh&rdquo;. Please note the occurrence of &ldquo;test-unit&rdquo; in the name of the script.</p>
-<h2><a href="#how-to-write-unit-tests" name="how-to-write-unit-tests" class="anchor"><span class="anchor-link"></span></a>How to Write Unit Tests</h2>
-<p>1) Inside a test, at the beginning, add the following (change the paths  to the test data as needed):</p>
-<pre class="prettyprint"><code class="language-scala">val rdfDataObjects = List (
-       RdfDataObject(path = &quot;_test_data/responders.v1.ValuesResponderV1Spec/incunabula-data.ttl&quot;, name = &quot;http://www.knora.org/data/incunabula&quot;)
-)
-</code></pre>
-<p>The data will be automatically loaded before any tests are executed. These tests should be stored inside the <code>src/test</code> folder hierarchy.</p>
-<p>2) Call the test from SBT:</p>
-<pre><code>// when using a GraphDB-SE
-sbt:knora&gt; webapi / test
-
-// when using a GraphDB-Free
-sbt:knora&gt; webapi / GDBFree / test
-</code></pre>
-<h2><a href="#how-to-write-integration-tests" name="how-to-write-integration-tests" class="anchor"><span class="anchor-link"></span></a>How to Write Integration Tests</h2>
-<p>The only difference between Integration and Unit tests is the location where they are stored and the way how they are called:</p>
-<p>1) Store tests inside the <code>src/it</code> folder hierarchy. 2) Call the tests from SBT: <code>sbt:knore&gt; webapi / it:test</code></p>
-<h2><a href="#how-to-write-performance-simulation-tests" name="how-to-write-performance-simulation-tests" class="anchor"><span class="anchor-link"></span></a>How to Write Performance / Simulation Tests</h2>
-<p>1) Store the performance and simulation tests inside the <code>src/test</code> and  the <code>src/it</code> folder hierarchy. 2) To call them, execute either <code>webapi / gatling:test</code> or <code>webapi / gatling-it:test</code>  from inside SBT.</p>
-<p>Bellow is an example of an simulation calling the <code>/admin/users</code> endpoint. The simulation ramps up 1000 users over 5 seconds, all accessing the <code>/admin/users</code> endpoint.</p>
-<pre class="prettyprint"><code class="language-scala">/*
- * Copyright © 2015-2019 the contributors (see Contributors.md).
- *
- * This file is part of Knora.
- *
- * Knora is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Knora is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with Knora.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
- */
-
-package org.knora.webapi.e2e
-
-import io.gatling.core.Predef._
-import io.gatling.http.Predef._
-import org.knora.webapi.E2ESimSpec
-import org.knora.webapi.messages.store.triplestoremessages.RdfDataObject
-
-import scala.concurrent.duration._
-
-/**
-  * Example Simulation Scenario:
-  *
-  * This simulation scenario accesses the users endpoint with
-  * 1000 users concurrently.
-  * */
-class ExampleE2ESimSpec extends E2ESimSpec {
-
-    override lazy val rdfDataObjects: Seq[RdfDataObject] = Seq.empty[RdfDataObject]
-
-    val protobolBuilder = http
-            .baseURL(&quot;http://localhost:3333&quot;)
-
-    val users = scenario(&quot;Users&quot;)
-            .exec(
-                http(&quot;Get all users&quot;)
-                .get(&quot;/admin/users&quot;)
-                .check(status.is(200))
-            )
-
-    val injections = Seq(rampUsers(1000) over 5.seconds)
-
-    val assertions = Seq(
-        global.responseTime.mean.lt(800)
-        , forAll.failedRequests.count.lt(1)
-    )
-
-    setUp(
-        users.inject(injections).protocols(protobolBuilder)
-    ).assertions(assertions)
-
+<h1><a href="#resource-permalinks" name="resource-permalinks" class="anchor"><span class="anchor-link"></span></a>Resource Permalinks</h1>
+<div class="toc ">
+<ul>
+  <li><a href="../../03-apis/api-v2/resource-permalinks.html#obtaining-ark-urls" class="header">Obtaining ARK URLs</a></li>
+  <li><a href="../../03-apis/api-v2/resource-permalinks.html#resolving-knora-ark-urls" class="header">Resolving Knora ARK URLs</a></li>
+  <li><a href="../../03-apis/api-v2/resource-permalinks.html#knora-ark-url-format" class="header">Knora ARK URL Format</a></li>
+</ul>
+</div>
+<p>Knora provides a permanent, citable URL for each resource. These URLs use <a href="http://n2t.net/e/ark_ids.html">Archival Resource Key (ARK) Identifiers</a>, and are designed to stay the same even if the resource itself is moved from one Knora repository to another.</p>
+<h2><a href="#obtaining-ark-urls" name="obtaining-ark-urls" class="anchor"><span class="anchor-link"></span></a>Obtaining ARK URLs</h2>
+<p>The ARK URL of each resource is provided as the object of its <code>knora-api:arkUrl</code> property (in both the simple schema and the complex schema). For example:</p>
+<pre class="prettyprint"><code class="language-jsonld">{
+  &quot;@id&quot; : &quot;http://rdfh.ch/0803/2a6221216701&quot;,
+  &quot;@type&quot; : &quot;incunabula:book&quot;,
+  &quot;knora-api:arkUrl&quot; : {
+    &quot;@type&quot; : &quot;xsd:anyURI&quot;,
+    &quot;@value&quot; : &quot;http://ark.dasch.swiss/ark:/72163/1/0803/2a6221216701W&quot;
+  },
+  &quot;knora-api:attachedToProject&quot; : {
+    &quot;@id&quot; : &quot;http://rdfh.ch/projects/0803&quot;
+  },
+  &quot;knora-api:attachedToUser&quot; : {
+    &quot;@id&quot; : &quot;http://rdfh.ch/users/91e19f1e01&quot;
+  },
+  &quot;knora-api:creationDate&quot; : {
+    &quot;@type&quot; : &quot;xsd:dateTimeStamp&quot;,
+    &quot;@value&quot; : &quot;2016-03-02T15:05:21Z&quot;
+  },
+  &quot;knora-api:hasPermissions&quot; : &quot;CR knora-base:Creator|M knora-base:ProjectMember|V knora-base:KnownUser|RV knora-base:UnknownUser&quot;,
+  &quot;rdfs:label&quot; : &quot;Reise ins Heilige Land&quot;,
+  &quot;@context&quot; : {
+    &quot;rdf&quot; : &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;,
+    &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
+    &quot;rdfs&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#&quot;,
+    &quot;incunabula&quot; : &quot;http://0.0.0.0:3333/ontology/0803/incunabula/v2#&quot;,
+    &quot;xsd&quot; : &quot;http://www.w3.org/2001/XMLSchema#&quot;
+  }
 }
-
 </code></pre>
-<h2><a href="#custom-sbt-test-configurations" name="custom-sbt-test-configurations" class="anchor"><span class="anchor-link"></span></a>Custom SBT Test Configurations</h2>
-<p>For convenience, there are a number of custom test configurations defined inside <code>WebapiBuild.sbt</code>. These can be used together with the built-in test tasks like <code>test</code>, <code>testOnly</code>, <code>testQuick</code>.</p>
-<p>For use with GraphDB-SE (using <code>test/resources/graphdb-se.conf</code>) running normal tests:</p>
-<pre><code>sbt:knora&gt; webapi / test
-sbt:knora&gt; webapi / GDBSE / test
-sbt:knora&gt; webapi / gdbse:test
+<h2><a href="#resolving-knora-ark-urls" name="resolving-knora-ark-urls" class="anchor"><span class="anchor-link"></span></a>Resolving Knora ARK URLs</h2>
+<p>A Knora ARK URL is intended to be resolved by the <a href="https://github.com/dhlab-basel/ark-resolver">Knora ARK resolver</a>.</p>
+<h2><a href="#knora-ark-url-format" name="knora-ark-url-format" class="anchor"><span class="anchor-link"></span></a>Knora ARK URL Format</h2>
+<p>The format of a Knora ARK URL is as follows:</p>
+<pre><code>http://HOST/ark:/NAAN/VERSION/PROJECT/RESOURCE_UUID[.TIMESTAMP]
 </code></pre>
-<p>For use with GraphDB-SE (using <code>it/resources/graphdb-se.conf</code>) running integration tests:</p>
-<pre><code>sbt:knora&gt; webapi / it:test
-sbt:knora&gt; webapi / GDBSEIt / test
-sbt:knora&gt; webapi / gdbse-it:test
+<p>For details, see <a href="../../05-internals/design/api-v2/ark.html">Archival Resource Key (ARK) Identifiers</a>.</p>
+<p>For example, given the Knora resource IRI <code>http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ</code>, and using the DaSCH&rsquo;s ARK resolver hostname and NAAN, the corresponding ARK URL without a timestamp is:</p>
+<pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY
 </code></pre>
-<p>For use with GraphDB-Free (using <code>test/resources/graphdb-free.conf</code>) running normal tests:</p>
-<pre><code>sbt:knora&gt; webapi / GDBFree / test
-sbt:knora&gt; webapi / gdbfree:test
+<p>The same ARK URL with an optional timestamp is:</p>
+<pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY.20190118T102919000031660Z
 </code></pre>
-<p>For use with GraphDB-Free (using <code>it/resources/graphdb-free.conf</code>) running integration tests:</p>
-<pre><code>sbt:knora&gt; webapi / GDBFreeIt / test
-sbt:knora&gt; webapi / gdbfree-it:test
-</code></pre>
-<p>For use with Fuseki (using <code>test/resources/fuseki.conf</code>) running normal tests:</p>
-<pre><code>sbt:knora&gt; webapi / Fuseki / test
-sbt:knora&gt; webapi / fuseki:test
-</code></pre>
-<p>For use with Fuseki (using <code>it/resources/fuseki.conf</code>) running integration tests:</p>
-<pre><code>sbt:knora&gt; webapi / FusekiIt / test
-sbt:knora&gt; webapi / fuseki-it:test
-</code></pre>
+<p>Without a timestamp, a Knora ARK URL refers to the latest version of the resource at the time when the URL is resolved. Knora currently returns only ARK URLs without timestamps, because querying past versions of resources is not yet implemented (<a href="https://github.com/dhlab-basel/Knora/issues/1115">#1115</a>). When it is implemented, Knora will also return ARK URLs with timestamps.</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/development/testing.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-v2/resource-permalinks.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -379,7 +318,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../../05-internals/development/intellij-config.html" title="Setup IntelliJ for development of Knora" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../../03-apis/api-v2/tei-xml.html" title="TEI/XML: Converting Standoff to TEI/XML" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -388,17 +327,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Setup IntelliJ for development of Knora
+TEI/XML: Converting Standoff to TEI/XML
 </span>
 </div>
 </a>
-<a href="../../05-internals/development/docker-cheat-sheet.html" title="Docker Cheat Sheet" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../03-apis/api-admin/index.html" title="Knora Admin API" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Docker Cheat Sheet
+Knora Admin API
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">
