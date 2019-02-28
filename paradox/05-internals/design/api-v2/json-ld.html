@@ -184,6 +184,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v6.x.x.html" class="page">v6.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -203,7 +204,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 5.0.0
+<i class="md-icon">label_outline</i> 6.0.0
 </div>
 </nav>
 
@@ -360,12 +361,12 @@ trait KnoraReadV2[C &lt;: KnoraReadV2[C]] {
 <h2><a href="#selecting-the-response-schema" name="selecting-the-response-schema" class="anchor"><span class="anchor-link"></span></a>Selecting the Response Schema</h2>
 <p>Most routes complete by calling <code>RouteUtilV2.runRdfRouteWithFuture</code>, which calls the response message&rsquo;s <code>toJsonLDDocument</code> method. The <code>runRdfRouteWithFuture</code> function has a parameter that enables the route to select the schema that should be used in the response. It is up to each route to determine what the appropriate response schema should be. Some routes support only one response schema. Others allow the client to choose. To use the schema requested by the client, the route can call <code>RouteUtilV2.getOntologySchema</code>:</p>
 <pre class="prettyprint"><code class="language-scala">RouteUtilV2.runRdfRouteWithFuture(
-    requestMessageFuture,
-    requestContext,
-    settings,
-    responderManager,
-    log,
-    RouteUtilV2.getOntologySchema(requestContext)
+    requestMessageF = requestMessageFuture,
+    requestContext = requestContext,
+    settings = settings,
+    responderManager = responderManager,
+    log = log,
+    responseSchema = RouteUtilV2.getOntologySchema(requestContext)
 )</code></pre>
 <p>If the route only supports one schema, it can specify the schema directly instead:</p>
 <pre class="prettyprint"><code class="language-scala">RouteUtilV2.runRdfRouteWithFuture(
@@ -386,7 +387,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-5.0.0
+6.0.0
 </span>
 </div>
 </article>

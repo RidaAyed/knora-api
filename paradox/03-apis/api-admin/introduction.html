@@ -184,6 +184,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v6.x.x.html" class="page">v6.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -206,7 +207,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 5.0.0
+<i class="md-icon">label_outline</i> 6.0.0
 </div>
 </nav>
 
@@ -276,7 +277,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>Every resource that is created or hosted by Knora is identified by a unique ID called an Internationalized Resource Identifier (<a href="http://tools.ietf.org/html/rfc3987">IRI</a>). The IRI is required for every API operation to identify the resource in question. A Knora IRI has itself the format of a URL. For some API operations, the IRI has to be URL-encoded (HTTP GET requests).</p>
 <p>Unlike the Knora API v2, the admin API uses internal IRIs, i.e. the actual IRIs that are stored in the triplestore (see <a href="../api-v2/knora-iris.html">Knora IRIs</a>).</p>
 <h2><a href="#admin-path-segment" name="admin-path-segment" class="anchor"><span class="anchor-link"></span></a>Admin Path Segment</h2>
-<p>Every request to Admin API includes <code>admin</code> as a path segment, e.g. <code>http://host/admin/users/http%3A%2F%2Frdfh.ch%2Fusers%2Froot</code>.</p>
+<p>Every request to Admin API includes <code>admin</code> as a path segment, e.g. <code>http://host/admin/users/iri/http%3A%2F%2Frdfh.ch%2Fusers%2Froot</code>.</p>
 <h2><a href="#admin-api-response-format" name="admin-api-response-format" class="anchor"><span class="anchor-link"></span></a>Admin API Response Format</h2>
 <p>If an API request is handled successfully, Knora responds with a 200 HTTP status code. The actual answer from Knora (the representation of the requested resource or information about the executed API operation) is sent in the HTTP body, encoded as JSON.</p>
 <h2><a href="#placeholder-host-in-sample-urls" name="placeholder-host-in-sample-urls" class="anchor"><span class="anchor-link"></span></a>Placeholder <code>host</code> in sample URLs</h2>
@@ -295,7 +296,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-5.0.0
+6.0.0
 </span>
 </div>
 </article>

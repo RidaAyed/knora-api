@@ -184,6 +184,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v6.x.x.html" class="page">v6.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -193,7 +194,7 @@ dhlab-basel/Knora/docs
 <ul>
   <li><a href="../../03-apis/api-v2/authentication.html#authentication" class="header">Authentication</a>
   <ul>
-    <li><a href="../../03-apis/api-v2/authentication.html#submitting-credentials" class="header">Submitting <em>Identifier/Password</em> Credentials</a></li>
+    <li><a href="../../03-apis/api-v2/authentication.html#submitting-password-credentials" class="header">Submitting Password Credentials</a></li>
     <li><a href="../../03-apis/api-v2/authentication.html#access-token-session-login-and-logout" class="header">Access Token / Session / Login and Logout</a></li>
     <li><a href="../../03-apis/api-v2/authentication.html#checking-credentials" class="header">Checking Credentials</a></li>
     <li><a href="../../03-apis/api-v2/authentication.html#usage-scenarios" class="header">Usage Scenarios</a></li>
@@ -202,7 +203,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 5.0.0
+<i class="md-icon">label_outline</i> 6.0.0
 </div>
 </nav>
 
@@ -217,7 +218,7 @@ dhlab-basel/Knora/docs
 <ul>
   <li><a href="../../03-apis/api-v2/authentication.html#authentication" class="header">Authentication</a>
   <ul>
-    <li><a href="../../03-apis/api-v2/authentication.html#submitting-credentials" class="header">Submitting <em>Identifier/Password</em> Credentials</a></li>
+    <li><a href="../../03-apis/api-v2/authentication.html#submitting-password-credentials" class="header">Submitting Password Credentials</a></li>
     <li><a href="../../03-apis/api-v2/authentication.html#access-token-session-login-and-logout" class="header">Access Token / Session / Login and Logout</a></li>
     <li><a href="../../03-apis/api-v2/authentication.html#checking-credentials" class="header">Checking Credentials</a></li>
     <li><a href="../../03-apis/api-v2/authentication.html#usage-scenarios" class="header">Usage Scenarios</a></li>
@@ -252,7 +253,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h1><a href="#authentication" name="authentication" class="anchor"><span class="anchor-link"></span></a>Authentication</h1>
 <div class="toc ">
 <ul>
-  <li><a href="../../03-apis/api-v2/authentication.html#submitting-credentials" class="header">Submitting <em>Identifier/Password</em> Credentials</a></li>
+  <li><a href="../../03-apis/api-v2/authentication.html#submitting-password-credentials" class="header">Submitting Password Credentials</a></li>
   <li><a href="../../03-apis/api-v2/authentication.html#access-token-session-login-and-logout" class="header">Access Token / Session / Login and Logout</a></li>
   <li><a href="../../03-apis/api-v2/authentication.html#checking-credentials" class="header">Checking Credentials</a></li>
   <li><a href="../../03-apis/api-v2/authentication.html#usage-scenarios" class="header">Usage Scenarios</a></li>
@@ -261,20 +262,26 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>Access to the Knora API can for certain operations require a user to authenticate. Authentication can be performed in two ways:</p>
 <ol>
   <li>
-  <p>By providing an <em>identifier</em>/*password* combination where the <em>identifier</em> is either the user&rsquo;s IRI, username, or email address.</p></li>
+    <p>By providing <em>password credentials</em>, which are a combination of a <em>identifier</em> and  <em>password</em>. The user <em>identifier</em> can be one of the following:</p>
+    <ul>
+      <li>the user&rsquo;s IRI,</li>
+      <li>the user&rsquo;s Email, or</li>
+      <li>the user&rsquo;s Username.</li>
+    </ul>
+  </li>
   <li>
   <p>By providing an <em>access token</em></p></li>
 </ol>
-<h2><a href="#submitting-credentials" name="submitting-credentials" class="anchor"><span class="anchor-link"></span></a>Submitting <em>Identifier/Password</em> Credentials</h2>
-<p>When accessing any route and <em>identifier</em>/*password* or token credentials would need to be sent, we support two options to do so:</p>
+<h2><a href="#submitting-password-credentials" name="submitting-password-credentials" class="anchor"><span class="anchor-link"></span></a>Submitting Password Credentials</h2>
+<p>When accessing any route and password credentials would need to be sent, we support two options to do so:</p>
 <ul>
-  <li>in the URL submitting the parameters <code>identifier</code> and <code>password</code>  (e.g., <a href="http://knora-host/v1/resources/resIri?identifier=userUrlEncodedIdentifier&password=pw">http://knora-host/v1/resources/resIri?identifier=userUrlEncodedIdentifier&password=pw</a>),  where the identifier can be the user&rsquo;s IRI, username, or email, and</li>
-  <li>in the HTTP header (<a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP basic  authentication</a>), where the  identifier can be the user&rsquo;s username or email (IRI not supported).</li>
+  <li>in the URL submitting the parameters <code>iri</code> / <code>email</code> / <code>username</code> and <code>password</code>  (e.g., <a href="http://knora-host/v1/resources/resIri?email=userUrlEncodedIdentifier&password=pw">http://knora-host/v1/resources/resIri?email=userUrlEncodedIdentifier&password=pw</a>), and</li>
+  <li>in the HTTP header (<a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP basic  authentication</a>), where the  identifier can be the user&rsquo;s email (IRI and username not supported).</li>
 </ul>
 <p>When using Python&rsquo;s module <code>requests</code>, the credentials can simply be submitted as a tuple with each request using the param <code>auth</code> (<a href="http://docs.python-requests.org/en/master/user/authentication/#basic-authentication">python requests</a>).</p>
 <h2><a href="#access-token-session-login-and-logout" name="access-token-session-login-and-logout" class="anchor"><span class="anchor-link"></span></a>Access Token / Session / Login and Logout</h2>
-<p>A client can generate an <em>access token</em> by sending a POST request (e.g., <code>{&quot;identifier&quot;:&quot;usersemail&quot;,
-&quot;password&quot;:&quot;userspassword&quot;}</code>) to the <strong>/v2/authentication</strong> route with <em>identifier</em> and <em>password</em> in the body. The identifier can be the user&rsquo;s IRI, username, or email. If the credentials are valid, a <a href="https://jwt.io">JSON WEB Token</a> (JWT) will be sent back in the response (e.g., <code>{&quot;token&quot;: &quot;eyJ0eXAiOiJ...&quot;}</code>). Additionally, for web browser clients a session cookie containing the JWT token is also created, containing <code>KnoraAuthentication=eyJ0eXAiOiJ...</code>.</p>
+<p>A client can generate an <em>access token</em> by sending a POST request (e.g., <code>{&quot;identifier_type&quot;:&quot;identifier_value&quot;,
+&quot;password&quot;:&quot;password_value&quot;}</code>) to the <strong>/v2/authentication</strong> route with <em>identifier</em> and <em>password</em> in the body. The <code>identifier_type</code> can be <code>iri</code>, <code>email</code>, or <code>username</code>. If the credentials are valid, a <a href="https://jwt.io">JSON WEB Token</a> (JWT) will be sent back in the response (e.g., <code>{&quot;token&quot;: &quot;eyJ0eXAiOiJ...&quot;}</code>). Additionally, for web browser clients a session cookie containing the JWT token is also created, containing <code>KnoraAuthentication=eyJ0eXAiOiJ...</code>.</p>
 <p>When accessing any route, the <em>access token</em> would need to be supplied, we support three options to do so:</p>
 <ul>
   <li>the session cookie,</li>
@@ -298,7 +305,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-5.0.0
+6.0.0
 </span>
 </div>
 </article>

@@ -184,16 +184,48 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v6.x.x.html" class="page">v6.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../03-apis/api-admin/users.html#users-endpoint" class="header">Users Endpoint</a>
+  <ul>
+    <li><a href="../../03-apis/api-admin/users.html#endpoint-overview" class="header">Endpoint Overview</a></li>
+    <li><a href="../../03-apis/api-admin/users.html#user-operations" class="header">User Operations</a></li>
+    <li><a href="../../03-apis/api-admin/users.html#users-project-membership-operations" class="header">User&rsquo;s project membership operations</a></li>
+    <li><a href="../../03-apis/api-admin/users.html#users-group-membership-operations" class="header">User&rsquo;s group membership operations</a></li>
+    <li><a href="../../03-apis/api-admin/users.html#example-data" class="header">Example Data</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 5.0.0
+<i class="md-icon">label_outline</i> 6.0.0
 </div>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../03-apis/api-admin/users.html#users-endpoint" class="header">Users Endpoint</a>
+  <ul>
+    <li><a href="../../03-apis/api-admin/users.html#endpoint-overview" class="header">Endpoint Overview</a></li>
+    <li><a href="../../03-apis/api-admin/users.html#user-operations" class="header">User Operations</a></li>
+    <li><a href="../../03-apis/api-admin/users.html#users-project-membership-operations" class="header">User&rsquo;s project membership operations</a></li>
+    <li><a href="../../03-apis/api-admin/users.html#users-group-membership-operations" class="header">User&rsquo;s group membership operations</a></li>
+    <li><a href="../../03-apis/api-admin/users.html#example-data" class="header">Example Data</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 </div>
@@ -221,34 +253,47 @@ You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <h1><a href="#users-endpoint" name="users-endpoint" class="anchor"><span class="anchor-link"></span></a>Users Endpoint</h1>
+<h2><a href="#endpoint-overview" name="endpoint-overview" class="anchor"><span class="anchor-link"></span></a>Endpoint Overview</h2>
+<p><strong>User Operations:</strong> - <code>GET: /admin/users</code> : return all users - <code>GET: /admin/users/[iri | email | username]/&lt;identifier&gt;</code> : return single user identified by [IRI | email | username] - <code>POST: /admin/users/</code> : create new user - <code>PUT: /admin/users/iri/&lt;userIri&gt;/BasicUserInformation</code> : update user&rsquo;s basic user information - <code>PUT: /admin/users/iri/&lt;userIri&gt;/Password</code> : update user&rsquo;s password - <code>PUT: /admin/users/iri/&lt;userIri&gt;/Status</code> : update user&rsquo;s status - <code>DELETE: /admin/users/iri/&lt;userIri&gt;</code> : delete user (set status to false)</p>
+<p><strong>User&rsquo;s project membership operations</strong></p>
 <ul>
-  <li>
-    <p><strong>Get users</strong></p>
-    <ul>
-      <li>
-      <p>GET: <code>/admin/users</code></p></li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Get user</strong></p>
-    <ul>
-      <li>
-      <p>GET:<code>/admin/users/&lt;userIri&gt;</code></p></li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Create user</strong>:</p>
-    <ul>
-      <li>Required permission: none, self-registration is allowed</li>
-      <li>Required information: email (unique), given name, family name, password, password, status, systemAdmin</li>
-      <li>Returns information about the newly created user</li>
-      <li>TypeScript Docs: userFormats - <code>CreateUserApiRequestV1</code></li>
-      <li>POST: <code>/admin/users/</code></li>
-      <li>BODY:</li>
-    </ul>
-  </li>
+  <li><code>GET: /admin/users/iri/&lt;userIri&gt;/project-memberships</code> : get user&rsquo;s project memberships</li>
+  <li><code>POST: /admin/users/iri/&lt;userIri&gt;/project-memberships/&lt;projectIri&gt;</code> : add user to project (to ProjectMember group)</li>
+  <li><code>DELETE: /admin/users/iri/&lt;userIri&gt;/project-memberships/&lt;projectIri&gt;</code> : remove user from project (to ProjectMember group)</li>
 </ul>
-<pre><code>{
+<p><strong>User&rsquo;s group membership operations</strong></p>
+<ul>
+  <li><code>GET: /admin/users/iri/&lt;userIri&gt;/project-admin-memberships</code> : get user&rsquo;s ProjectAdmin group memberships</li>
+  <li><code>POST: /admin/users/iri/&lt;userIri&gt;/project-admin-memberships/&lt;projectIri&gt;</code> : add user to ProjectAdmin group</li>
+  <li><code>DELETE: /admin/users/iri/&lt;userIri&gt;/project-admin-memberships/&lt;projectIri&gt;</code> : remove user from ProjectAdmin group</li>
+  <li>
+  <p><code>GET: /admin/users/iri/&lt;userIri&gt;/group-memberships</code> : get user&rsquo;s normal group memberships</p></li>
+  <li><code>POST: /admin/users/iri/&lt;userIri&gt;/group-memberships/&lt;groupIri&gt;</code> : add user to normal group</li>
+  <li><code>DELETE: /admin/users/iri/&lt;userIri&gt;/group-memberships/&lt;groupIri&gt;</code> : remove user from normal group</li>
+  <li>
+  <p><code>PUT: /admin/users/iri/&lt;userIri&gt;/SystemAdmin</code> : Add/remove user to/from SystemAdmin group</p></li>
+</ul>
+<h2><a href="#user-operations" name="user-operations" class="anchor"><span class="anchor-link"></span></a>User Operations</h2>
+<h3><a href="#get-users" name="get-users" class="anchor"><span class="anchor-link"></span></a>Get users</h3>
+<ul>
+  <li>Required permission: SystemAdmin</li>
+  <li>GET: <code>/admin/users</code></li>
+</ul>
+<h3><a href="#get-user" name="get-user" class="anchor"><span class="anchor-link"></span></a>Get user</h3>
+<ul>
+  <li>Required permission: SystemAdmin / self</li>
+  <li>GET:<code>/admin/users/[iri | email | username ]/&lt;identifier&gt;</code></li>
+</ul>
+<h3><a href="#create-user" name="create-user" class="anchor"><span class="anchor-link"></span></a>Create user</h3>
+<ul>
+  <li>Required permission: none, self-registration is allowed</li>
+  <li>Required information: email (unique), given name, family name, password, password, status, systemAdmin</li>
+  <li>Returns information about the newly created user</li>
+  <li>TypeScript Docs: userFormats - <code>CreateUserApiRequestV1</code></li>
+  <li>POST: <code>/admin/users</code></li>
+  <li>
+  <p>BODY:</p>
+  <pre><code>{
   &quot;email&quot;: &quot;donald.duck@example.org&quot;,
   &quot;givenName&quot;: &quot;Donald&quot;,
   &quot;familyName&quot;: &quot;Duck&quot;,
@@ -257,131 +302,109 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   &quot;lang&quot;: &quot;en&quot;,
   &quot;systemAdmin&quot;: false
 }
-</code></pre>
-<ul>
-  <li><strong>Update user information</strong>:
-    <ul>
-      <li>Required permission: SystemAdmin / User</li>
-      <li>Changeable information: email, given name, family name, password, status, SystemAdmin membership</li>
-      <li>Remark: There are four distinct use case / payload combination. It is not possible to mix cases, e.g., sending <code>newUserStatus</code> and basic user information at the same time will result in an error: (1) change password: oldPassword, newPassword, (2) change status: newUserStatus, (3) change system admin membership: newSystemAdminMembershipStatus, and (4) change basic user information: email, givenName, familyName, lang</li>
-      <li>TypeScript Docs: userFormats - ChangeUserApiRequestV1</li>
-      <li>PUT: <code>/admin/users/&lt;userIri&gt;</code></li>
-      <li>BODY:</li>
-    </ul>
-  </li>
+</code></pre></li>
 </ul>
-<pre><code>{
+<h3><a href="#update-basic-user-information-" name="update-basic-user-information-" class="anchor"><span class="anchor-link"></span></a>Update basic user information**</h3>
+<ul>
+  <li>Required permission: SystemAdmin / self</li>
+  <li>Changeable information: email, given name, family name, password, status, SystemAdmin membership</li>
+  <li>Remark: There are four distinct use case / payload combination. It is not possible to mix cases, e.g., sending <code>newUserStatus</code> and basic user information at the same time will result in an error: (1) change password: oldPassword, newPassword, (2) change status: newUserStatus, (3) change system admin membership: newSystemAdminMembershipStatus, and (4) change basic user information: email, givenName, familyName, lang</li>
+  <li>TypeScript Docs: userFormats - ChangeUserApiRequestV1</li>
+  <li>PUT: <code>/admin/users/iri/&lt;userIri&gt;/BasicUserInformation</code></li>
+  <li>
+  <p>BODY:</p>
+  <pre><code>{
   &quot;email&quot;: &quot;donald.big.duck@example.org&quot;,
   &quot;givenName&quot;: &quot;Big Donald&quot;,
   &quot;familyName&quot;: &quot;Duckmann&quot;,
   &quot;lang&quot;: &quot;de&quot;
 }
-</code></pre>
-<ul>
-  <li><strong>Update user&rsquo;s password</strong>
-    <ul>
-      <li>Required permission: User</li>
-      <li>Changeable information: password</li>
-      <li>PUT: <code>/admin/users/&lt;userIri&gt;</code></li>
-      <li>BODY:</li>
-    </ul>
-  </li>
+</code></pre></li>
 </ul>
-<pre><code>{
+<h3><a href="#update-users-password" name="update-users-password" class="anchor"><span class="anchor-link"></span></a>Update user&rsquo;s password</h3>
+<ul>
+  <li>Required permission: SystemAdmin / self</li>
+  <li>Changeable information: password</li>
+  <li>PUT: <code>/admin/users/iri/&lt;userIri&gt;/Password</code></li>
+  <li>
+  <p>BODY:</p>
+  <pre><code>{
   &quot;oldPassword&quot;: &quot;test&quot;,
   &quot;newPassword&quot;: &quot;test1234&quot;
 }
-</code></pre>
-<ul>
-  <li><strong>Delete user</strong>:
-    <ul>
-      <li>Required permission: SystemAdmin / User</li>
-      <li>Remark: The same as updating a user and changing <code>status</code> to <code>false</code>. To un-delete, set <code>status</code> to <code>true</code>.</li>
-      <li>PUT: <code>/admin/users/&lt;userIri&gt;</code></li>
-      <li>BODY:</li>
-    </ul>
-  </li>
+</code></pre></li>
 </ul>
-<pre><code>{
+<h3><a href="#delete-user" name="delete-user" class="anchor"><span class="anchor-link"></span></a>Delete user</h3>
+<ul>
+  <li>Required permission: SystemAdmin / self</li>
+  <li>Remark: The same as updating a user and changing <code>status</code> to <code>false</code>. To un-delete, set <code>status</code> to <code>true</code>.</li>
+  <li>PUT: <code>/admin/users/iri/&lt;userIri&gt;/Status</code></li>
+  <li>
+  <p>BODY:</p>
+  <pre><code>{
   &quot;status&quot;: false // true or false
 }
-</code></pre>
-<ul>
-  <li>
-    <p><strong>Delete user (-\update user)</strong></p>
-    <ul>
-      <li>Required permission: SystemAdmin / User</li>
-      <li>Remark: The same as updating a user and changing <code>status</code> to <code>false</code>. To un-delete, set <code>status</code> to <code>true</code>.</li>
-      <li>DELETE: <code>/admin/projects/&lt;projectIri&gt;</code></li>
-      <li>BODY: empty</li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Get user&rsquo;s project memberships</strong></p>
-    <ul>
-      <li>
-      <p>GET: <code>/admin/users/projects/&lt;userIri&gt;</code></p></li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Add/remove user to/from project</strong>:</p>
-    <ul>
-      <li>Required permission: SystemAdmin / ProjectAdmin / User (if project self-assignment is enabled)</li>
-      <li>Required information: project IRI, user IRI</li>
-      <li>Effects: <code>knora-base:isInProject</code> user property</li>
-      <li>POST / DELETE: <code>/admin/users/projects/&lt;userIri&gt;/&lt;projectIri&gt;</code></li>
-      <li>BODY: empty</li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Get user&rsquo;s project admin memberships</strong></p>
-    <ul>
-      <li>
-      <p>GET: <code>/admin/users/projects-admin/&lt;userIri&gt;</code></p></li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Add/remove user to/from project admin group</strong></p>
-    <ul>
-      <li>Required permission: SystemAdmin / ProjectAdmin</li>
-      <li>Required information: project IRI, user IRI</li>
-      <li>Effects: <code>knora-base:isInProjectAdminGroup</code> user property</li>
-      <li>POST / DELETE: <code>/v1/users/projects-admin/&lt;userIri&gt;/&lt;projectIri&gt;</code></li>
-      <li>BODY: empty</li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Get user&rsquo;s group memberships</strong></p>
-    <ul>
-      <li>
-      <p>GET: <code>/admin/users/groups/&lt;userIri&gt;</code></p></li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Add/remove user to/from &lsquo;normal&rsquo; group</strong> (not <em>SystemAdmin</em> or <em>ProjectAdmin</em>):</p>
-    <ul>
-      <li>Required permission: SystemAdmin / hasProjectAllAdminPermission / hasProjectAllGroupAdminPermission / hasProjectRestrictedGroupAdminPermission (for this group) / User (if group self-assignment is enabled)</li>
-      <li>Required information: group IRI, user IRI</li>
-      <li>Effects: <code>knora-base:isInGroup</code></li>
-      <li>POST / DELETE: <code>/admin/users/groups/&lt;userIri&gt;/&lt;groupIri&gt;</code></li>
-      <li>BODY: empty</li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Add/remove user to/from system admin group</strong>:</p>
-    <ul>
-      <li>Required permission: SystemAdmin / User</li>
-      <li>Effects property: <code>knora-base:isInSystemAdminGroup</code> with value <code>true</code> or <code>false</code></li>
-      <li>PUT: <code>/admin/users/&lt;userIri&gt;</code></li>
-      <li>BODY:</li>
-    </ul>
-  </li>
+</code></pre></li>
 </ul>
-<pre class="prettyprint"><code class="language-JSON">{
+<h3><a href="#delete-user-update-user-" name="delete-user-update-user-" class="anchor"><span class="anchor-link"></span></a>Delete user (-\update user)**</h3>
+<ul>
+  <li>Required permission: SystemAdmin / self</li>
+  <li>Remark: The same as updating a user and changing <code>status</code> to <code>false</code>. To un-delete, set <code>status</code> to <code>true</code>.</li>
+  <li>DELETE: <code>/admin/users/iri/&lt;userIri&gt;</code></li>
+  <li>BODY: empty</li>
+</ul>
+<h2><a href="#users-project-membership-operations" name="users-project-membership-operations" class="anchor"><span class="anchor-link"></span></a>User&rsquo;s project membership operations</h2>
+<h3><a href="#get-users-project-memberships" name="get-users-project-memberships" class="anchor"><span class="anchor-link"></span></a>Get user&rsquo;s project memberships</h3>
+<ul>
+  <li>GET: <code>/admin/users/iri/&lt;userIri&gt;/project-memberships</code></li>
+</ul>
+<h3><a href="#add-remove-user-to-from-project" name="add-remove-user-to-from-project" class="anchor"><span class="anchor-link"></span></a>Add/remove user to/from project</h3>
+<ul>
+  <li>Required permission: SystemAdmin / ProjectAdmin / self (if project self-assignment is enabled)</li>
+  <li>Required information: project IRI, user IRI</li>
+  <li>Effects: <code>knora-base:isInProject</code> user property</li>
+  <li>POST / DELETE: <code>/admin/users/iri/&lt;userIri&gt;/projects/&lt;projectIri&gt;</code></li>
+  <li>BODY: empty</li>
+</ul>
+<h2><a href="#users-group-membership-operations" name="users-group-membership-operations" class="anchor"><span class="anchor-link"></span></a>User&rsquo;s group membership operations</h2>
+<h3><a href="#get-users-project-admin-memberships" name="get-users-project-admin-memberships" class="anchor"><span class="anchor-link"></span></a>Get user&rsquo;s project admin memberships</h3>
+<ul>
+  <li>GET: <code>/admin/users/iri/&lt;userIri&gt;/project-admin-memberships</code></li>
+</ul>
+<h3><a href="#add-remove-user-to-from-project-admin-group" name="add-remove-user-to-from-project-admin-group" class="anchor"><span class="anchor-link"></span></a>Add/remove user to/from project admin group</h3>
+<ul>
+  <li>Required permission: SystemAdmin / ProjectAdmin</li>
+  <li>Required information: project IRI, user IRI</li>
+  <li>Effects: <code>knora-base:isInProjectAdminGroup</code> user property</li>
+  <li>POST / DELETE: <code>/admin/users/iri/&lt;userIri&gt;/project-admin-memberships/&lt;projectIri&gt;</code></li>
+  <li>BODY: empty</li>
+</ul>
+<h3><a href="#get-users-group-memberships-" name="get-users-group-memberships-" class="anchor"><span class="anchor-link"></span></a>Get user&rsquo;s group memberships**</h3>
+<ul>
+  <li>GET: <code>/admin/users/iri/&lt;userIri&gt;/group-memberships</code></li>
+</ul>
+<h3><a href="#add-remove-user-to-from-group-not-or-" name="add-remove-user-to-from-group-not-or-" class="anchor"><span class="anchor-link"></span></a>Add/remove user to/from &lsquo;normal&rsquo; group** (not <em>SystemAdmin</em> or <em>ProjectAdmin</em>)</h3>
+<ul>
+  <li>Required permission: SystemAdmin / hasProjectAllAdminPermission / hasProjectAllGroupAdminPermission / hasProjectRestrictedGroupAdminPermission (for this group) / User (if group self-assignment is enabled)</li>
+  <li>Required information: group IRI, user IRI</li>
+  <li>Effects: <code>knora-base:isInGroup</code></li>
+  <li>POST / DELETE: <code>/admin/users/iri/&lt;userIri&gt;/group-memberships/&lt;groupIri&gt;</code></li>
+  <li>BODY: empty</li>
+</ul>
+<h3><a href="#add-remove-user-to-from-system-admin-group" name="add-remove-user-to-from-system-admin-group" class="anchor"><span class="anchor-link"></span></a>Add/remove user to/from system admin group</h3>
+<ul>
+  <li>Required permission: SystemAdmin / self</li>
+  <li>Effects property: <code>knora-base:isInSystemAdminGroup</code> with value <code>true</code> or <code>false</code></li>
+  <li>PUT: <code>/admin/users/iri/&lt;userIri&gt;/SystemAdmin</code></li>
+  <li>
+  <p>BODY:</p>
+  <pre class="prettyprint"><code class="language-JSON">{
   &quot;newSystemAdminMembershipStatus&quot;: false
 }
-</code></pre>
-<p>Example User Information stored in admin graph: :</p>
+</code></pre></li>
+</ul>
+<h2><a href="#example-data" name="example-data" class="anchor"><span class="anchor-link"></span></a>Example Data</h2>
+<p>The following is an example for user information stored in the <code>admin</code> named graph:</p>
 <pre><code>&lt;http://rdfh.ch/users/c266a56709&gt;
     rdf:type knora-base:User ;
     knora-base:username &quot;user01.user1&quot;^^xsd:string ;
@@ -403,7 +426,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-5.0.0
+6.0.0
 </span>
 </div>
 </article>

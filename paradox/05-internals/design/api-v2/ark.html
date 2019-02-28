@@ -184,6 +184,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v6.x.x.html" class="page">v6.x.x Release Notes</a></li>
     <li><a href="../../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -200,7 +201,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 5.0.0
+<i class="md-icon">label_outline</i> 6.0.0
 </div>
 </nav>
 
@@ -276,7 +277,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li>
   <p><code>RESOURCE_UUID</code>: the resource&rsquo;s unique ID, which is normally a  <a href="http://tools.ietf.org/html/rfc4648#section-5">base64url-encoded</a> UUID, as described in  <a href="../../../03-apis/api-v2/knora-iris.html#iris-for-data">IRIs for Data</a>.</p></li>
   <li>
-  <p><code>TIMESTAMP</code>: an optional timestamp indicating that the ARK URL represents  the state of the resource at a specific time in the past. The format  of the timestamp is an <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>  date in Coordinated universal time (UTC), including date, time, and a 9-digit  nano-of-second field, without the characters <code>-</code>, <code>:</code>, and <code>.</code> (because  <code>-</code> and <code>.</code> are reserved characters in ARK, and <code>:</code> would have to be URL-encoded).  Example: <code>20190118T102919000031660Z</code>.</p></li>
+  <p><code>TIMESTAMP</code>: an optional timestamp indicating that the ARK URL represents  the state of the resource at a specific time in the past. The format  of the timestamp is an <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>  date in Coordinated universal time (UTC), including date, time, and an optional  nano-of-second field (of at most 9 digits), without the characters <code>-</code>, <code>:</code>, and <code>.</code> (because  <code>-</code> and <code>.</code> are reserved characters in ARK, and <code>:</code> would have to be URL-encoded).  Example: <code>20180528T155203897Z</code>.</p></li>
 </ul>
 <p>Following the ARK ID spec, <code>/</code> <a href="https://tools.ietf.org/html/draft-kunze-ark-18#section-2.5.1">represents object hierarchy</a> and <code>.</code> <a href="https://tools.ietf.org/html/draft-kunze-ark-18#section-2.5.2">represents an object variant</a>. A resource is thus contained in its project, which is contained in a repository (represented by the URL version number). A timestamp is a type of variant.</p>
 <p>Since sub-objects are optional, there is also implicitly an ARK URL for each project, as well as for the repository as a whole.</p>
@@ -291,7 +292,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY
 </code></pre>
 <p>The same ARK URL with an optional timestamp is:</p>
-<pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY.20190118T102919000031660Z
+<pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY.20180528T155203897Z
 </code></pre>
 <h3><a href="#serving-ark-urls" name="serving-ark-urls" class="anchor"><span class="anchor-link"></span></a>Serving ARK URLs</h3>
 <p><code>SmartIri</code> converts Knora resource IRIs to ARK URLs. This conversion is invoked in <code>ReadResourceV2.toJsonLD</code>, when returning a resource&rsquo;s metadata in JSON-LD format.</p>
@@ -305,7 +306,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-5.0.0
+6.0.0
 </span>
 </div>
 </article>

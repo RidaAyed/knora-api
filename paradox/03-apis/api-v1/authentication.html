@@ -184,6 +184,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v6.x.x.html" class="page">v6.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -202,7 +203,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 5.0.0
+<i class="md-icon">label_outline</i> 6.0.0
 </div>
 </nav>
 
@@ -266,7 +267,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>There are two possibilities to do so:</p>
 <ul>
   <li>in the URL submitting the parameters <code>email</code> and <code>password</code> (e.g., <a href="http://knora-host/v1/resources/resIri?email=userUrlEncodedEmail&password=pw">http://knora-host/v1/resources/resIri?email=userUrlEncodedEmail&password=pw</a>)</li>
-  <li>in the HTTP authorization header (<a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP basic authentication</a>) when doing a HTTP request to the API When using Python&rsquo;s module <code>requests</code>, the credentials can simply be submitted as a tuple with each request using the param <code>auth</code> (<a href="http://docs.python-requests.org/en/master/user/authentication/#basic-authentication">python requests</a>).</li>
+  <li>in the HTTP authorization header (<a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP basic authentication</a>) when doing a HTTP request to the API When using Python&rsquo;s module <code>requests</code>, the credentials (email / password) can simply be submitted as a tuple with each request using the param <code>auth</code> (<a href="http://docs.python-requests.org/en/master/user/authentication/#basic-authentication">python requests</a>).</li>
 </ul>
 <p>An alternative way for accessing all routes is to simply supply the <em>email</em> and <em>password</em> credentials on each request either as URL parameters or in the HTTP authorization header.</p>
 <h2><a href="#checking-credentials" name="checking-credentials" class="anchor"><span class="anchor-link"></span></a>Checking Credentials</h2>
@@ -284,7 +285,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-5.0.0
+6.0.0
 </span>
 </div>
 </article>

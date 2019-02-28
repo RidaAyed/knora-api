@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../cloud">
-<title>Data Formats in Knora · Knora Documentation</title>
+<title>v6.x.x Release Notes · Knora Documentation</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Data Formats in Knora
+v6.x.x Release Notes
 </span>
 </div>
 </div>
@@ -138,7 +138,7 @@ dhlab-basel/Knora/docs
   <li><a href="../01-introduction/index.html" class="page">Introduction</a>
   <ul>
     <li><a href="../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
-    <li><a href="../01-introduction/data-formats.html" class="active page">Data Formats in Knora</a></li>
+    <li><a href="../01-introduction/data-formats.html" class="page">Data Formats in Knora</a></li>
     <li><a href="../01-introduction/standoff-rdf.html" class="page">Standoff/RDF Text Markup</a></li>
     <li><a href="../01-introduction/example-project.html" class="page">An Example Project</a></li>
   </ul></li>
@@ -184,12 +184,19 @@ dhlab-basel/Knora/docs
     <li><a href="../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
     <li><a href="../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
-    <li><a href="../00-release-notes/v6.x.x.html" class="page">v6.x.x Release Notes</a></li>
+    <li><a href="../00-release-notes/v6.x.x.html" class="active page">v6.x.x Release Notes</a></li>
     <li><a href="../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../00-release-notes/v6.x.x.html#v6-x-x-release-notes" class="header">v6.x.x Release Notes</a>
+  <ul>
+    <li><a href="../00-release-notes/v6.x.x.html#v6-0-0" class="header">v6.0.0</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
@@ -200,71 +207,48 @@ dhlab-basel/Knora/docs
 </div>
 </div>
 </div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../00-release-notes/v6.x.x.html#v6-x-x-release-notes" class="header">v6.x.x Release Notes</a>
+  <ul>
+    <li><a href="../00-release-notes/v6.x.x.html#v6-0-0" class="header">v6.0.0</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+</div>
+</div>
+</div>
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
-<!---
-Copyright © 2015-2019 the contributors (see Contributors.md).
-
-This file is part of Knora.
-
-Knora is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published
-by the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Knora is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public
-License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
--->
-<h1><a href="#data-formats-in-knora" name="data-formats-in-knora" class="anchor"><span class="anchor-link"></span></a>Data Formats in Knora</h1>
-<div class="toc ">
+<h1><a href="#v6-x-x-release-notes" name="v6-x-x-release-notes" class="anchor"><span class="anchor-link"></span></a>v6.x.x Release Notes</h1>
+<h2><a href="#v6-0-0" name="v6-0-0" class="anchor"><span class="anchor-link"></span></a>v6.0.0</h2>
 <ul>
+  <li>
+  <p>MAJOR: Use HTTP POST to mark resources and values as deleted (<a href="https://github.com/dhlab-basel/Knora/issues/1203">#1203</a>)</p></li>
+  <li>
+  <p>MAJOR: Reorganize user and project routes (<a href="https://github.com/dhlab-basel/Knora/issues/1209">#1209</a>)</p></li>
+  <li>
+  <p>FEATURE: Secure routes returning user informations (<a href="https://github.com/dhlab-basel/Knora/issues/961">#961</a>)</p></li>
+  <li>
+  <p>MAJOR: Change all <code>xsd:dateTimeStamp</code> to <code>xsd:dateTime</code> in the triplestore (<a href="https://github.com/dhlab-basel/Knora/issues/1211">#1211</a>).  Existing data must be updated; see <code>upgrade/1211-datetime</code> for instructions.</p></li>
+  <li>
+  <p>FIX: Ignore order of attributes when comparing standoff (<a href="https://github.com/dhlab-basel/Knora/issues/1224">#1224</a>).</p></li>
+  <li>
+  <p>FEATURE: Query version history (<a href="https://github.com/dhlab-basel/Knora/issues/1214">#1214</a>)</p></li>
+  <li>
+  <p>FIX: Don&rsquo;t allow conflicting cardinalities (<a href="https://github.com/dhlab-basel/Knora/issues/1229">#1229</a>)</p></li>
+  <li>
+  <p>MAJOR: Remove preview file values (<a href="https://github.com/dhlab-basel/Knora/issues/1230">#1230</a>). Existing data must be updated;  see <code>upgrade/1230-delete-previews</code> for instructions.</p></li>
 </ul>
 </div>
-<p>As explained in <a href="what-is-knora.html">What Is Knora?</a>, Knora stores data in a small number of formats that are suitable for long-term preservation while facilitating data reuse.</p>
-<p>The following is a non-exhaustive list of data formats and how their content can be stored and managed by Knora:</p>
-<table>
-  <thead>
-    <tr>
-      <th>Original Format </th>
-      <th>Format in Knora </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Text (XML, LaTeX, Microsoft Word, etc.) </td>
-      <td><a href="../03-apis/api-v2/editing-resources.html">Knora resources</a> (RDF) containing <a href="standoff-rdf.html">Standoff/RDF</a> </td>
-    </tr>
-    <tr>
-      <td>Tabular data, including relational databases </td>
-      <td><a href="../03-apis/api-v2/editing-resources.html">Knora resources</a> </td>
-    </tr>
-    <tr>
-      <td>Data in tree or graph structures </td>
-      <td><a href="../03-apis/api-v2/editing-resources.html">Knora resources</a> </td>
-    </tr>
-    <tr>
-      <td>Images (JPEG, PNG, etc.) </td>
-      <td>JPEG 2000 files stored by <a href="https://github.com/dhlab-basel/Sipi">Sipi</a> </td>
-    </tr>
-    <tr>
-      <td>Audio and video files </td>
-      <td>Audio and video files stored by <a href="https://github.com/dhlab-basel/Sipi">Sipi</a> (in archival formats to be determined) </td>
-    </tr>
-    <tr>
-      <td>PDF </td>
-      <td>Can be stored by Sipi, but data reuse is improved by extracting the text for storage as <a href="standoff-rdf.html">Standoff/RDF</a> </td>
-    </tr>
-  </tbody>
-</table>
-</div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/01-introduction/data-formats.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/00-release-notes/v6.x.x.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -280,7 +264,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../01-introduction/what-is-knora.html" title="What Is Knora?" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../00-release-notes/v5.x.x.html" title="v5.x.x Release Notes" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -289,17 +273,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-What Is Knora?
+v5.x.x Release Notes
 </span>
 </div>
 </a>
-<a href="../01-introduction/standoff-rdf.html" title="Standoff/RDF Text Markup" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../00-release-notes/next.html" title="Release Notes for Next Release" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Standoff/RDF Text Markup
+Release Notes for Next Release
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

@@ -184,6 +184,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v6.x.x.html" class="page">v6.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -201,7 +202,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 5.0.0
+<i class="md-icon">label_outline</i> 6.0.0
 </div>
 </nav>
 
@@ -257,13 +258,17 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </div>
 <p>Knora provides a permanent, citable URL for each resource. These URLs use <a href="http://n2t.net/e/ark_ids.html">Archival Resource Key (ARK) Identifiers</a>, and are designed to stay the same even if the resource itself is moved from one Knora repository to another.</p>
 <h2><a href="#obtaining-ark-urls" name="obtaining-ark-urls" class="anchor"><span class="anchor-link"></span></a>Obtaining ARK URLs</h2>
-<p>The ARK URL of each resource is provided as the object of its <code>knora-api:arkUrl</code> property (in both the simple schema and the complex schema). For example:</p>
+<p>A resource is always returned with two ARK URLs: one that will always refer to the latest version of the resource (<code>knora-api:arkUrl</code>), and one that refers specifically to the version being returned (<code>knora-api:versionArkUrl</code>). For example:</p>
 <pre class="prettyprint"><code class="language-jsonld">{
   &quot;@id&quot; : &quot;http://rdfh.ch/0803/2a6221216701&quot;,
   &quot;@type&quot; : &quot;incunabula:book&quot;,
   &quot;knora-api:arkUrl&quot; : {
     &quot;@type&quot; : &quot;xsd:anyURI&quot;,
     &quot;@value&quot; : &quot;http://ark.dasch.swiss/ark:/72163/1/0803/2a6221216701W&quot;
+  },
+  &quot;knora-api:versionArkUrl&quot; : {
+    &quot;@type&quot; : &quot;xsd:anyURI&quot;,
+    &quot;@value&quot; : &quot;http://ark.dasch.swiss/ark:/72163/1/0803/2a6221216701W.20180528T155203897Z&quot;
   },
   &quot;knora-api:attachedToProject&quot; : {
     &quot;@id&quot; : &quot;http://rdfh.ch/projects/0803&quot;
@@ -275,7 +280,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     &quot;@type&quot; : &quot;xsd:dateTimeStamp&quot;,
     &quot;@value&quot; : &quot;2016-03-02T15:05:21Z&quot;
   },
-  &quot;knora-api:hasPermissions&quot; : &quot;CR knora-base:Creator|M knora-base:ProjectMember|V knora-base:KnownUser|RV knora-base:UnknownUser&quot;,
+  &quot;knora-api:hasPermissions&quot; : &quot;CR knora-base:Creator|M knora-base:ProjectMember|V knora-base:KnownUser&quot;,
   &quot;rdfs:label&quot; : &quot;Reise ins Heilige Land&quot;,
   &quot;@context&quot; : {
     &quot;rdf&quot; : &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;,
@@ -286,6 +291,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   }
 }
 </code></pre>
+<p>For more information on getting past versions of resources, see <a href="reading-and-searching-resources.html#get-a-full-representation-of-a-version-of-a-resource-by-iri">Get a Full Representation of a Version of a Resource by IRI</a> and <a href="reading-and-searching-resources.html#get-the-version-history-of-a-resource">Get the Version History of a Resource</a>.</p>
 <h2><a href="#resolving-knora-ark-urls" name="resolving-knora-ark-urls" class="anchor"><span class="anchor-link"></span></a>Resolving Knora ARK URLs</h2>
 <p>A Knora ARK URL is intended to be resolved by the <a href="https://github.com/dhlab-basel/ark-resolver">Knora ARK resolver</a>.</p>
 <h2><a href="#knora-ark-url-format" name="knora-ark-url-format" class="anchor"><span class="anchor-link"></span></a>Knora ARK URL Format</h2>
@@ -297,7 +303,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY
 </code></pre>
 <p>The same ARK URL with an optional timestamp is:</p>
-<pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY.20190118T102919000031660Z
+<pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY.20180604T085622513Z
 </code></pre>
 <p>Without a timestamp, a Knora ARK URL refers to the latest version of the resource at the time when the URL is resolved. Knora currently returns only ARK URLs without timestamps, because querying past versions of resources is not yet implemented (<a href="https://github.com/dhlab-basel/Knora/issues/1115">#1115</a>). When it is implemented, Knora will also return ARK URLs with timestamps.</p>
 </div>
@@ -308,7 +314,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-5.0.0
+6.0.0
 </span>
 </div>
 </article>

@@ -184,6 +184,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v6.x.x.html" class="page">v6.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -194,7 +195,7 @@ dhlab-basel/Knora/docs
   <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#reading-and-searching-resources" class="header">Reading and Searching Resources</a>
   <ul>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#responses-describing-resources" class="header">Responses Describing Resources</a></li>
-    <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-the-representation-of-a-resource-by-its-iri" class="header">Get the Representation of a Resource by its IRI</a></li>
+    <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-the-representation-of-a-resource-by-iri" class="header">Get the Representation of a Resource by IRI</a></li>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-a-graph-of-resources" class="header">Get a Graph of Resources</a></li>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#search-for-resources" class="header">Search for Resources</a></li>
   </ul></li>
@@ -202,7 +203,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 5.0.0
+<i class="md-icon">label_outline</i> 6.0.0
 </div>
 </nav>
 
@@ -218,7 +219,7 @@ dhlab-basel/Knora/docs
   <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#reading-and-searching-resources" class="header">Reading and Searching Resources</a>
   <ul>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#responses-describing-resources" class="header">Responses Describing Resources</a></li>
-    <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-the-representation-of-a-resource-by-its-iri" class="header">Get the Representation of a Resource by its IRI</a></li>
+    <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-the-representation-of-a-resource-by-iri" class="header">Get the Representation of a Resource by IRI</a></li>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-a-graph-of-resources" class="header">Get a Graph of Resources</a></li>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#search-for-resources" class="header">Search for Resources</a></li>
   </ul></li>
@@ -253,10 +254,12 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <div class="toc ">
 <ul>
   <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#responses-describing-resources" class="header">Responses Describing Resources</a></li>
-  <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-the-representation-of-a-resource-by-its-iri" class="header">Get the Representation of a Resource by its IRI</a>
+  <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-the-representation-of-a-resource-by-iri" class="header">Get the Representation of a Resource by IRI</a>
   <ul>
-    <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-a-full-representation-of-a-resource-by-its-iri" class="header">Get a Full Representation of a Resource by its IRI</a></li>
-    <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-the-preview-of-a-resource-by-its-iri" class="header">Get the preview of a resource by its IRI</a></li>
+    <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-a-full-representation-of-a-resource-by-iri" class="header">Get a Full Representation of a Resource by IRI</a></li>
+    <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-a-full-representation-of-a-version-of-a-resource-by-iri" class="header">Get a Full Representation of a Version of a Resource by IRI</a></li>
+    <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-the-version-history-of-a-resource" class="header">Get the Version History of a Resource</a></li>
+    <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-the-preview-of-a-resource-by-iri" class="header">Get the preview of a resource by IRI</a></li>
   </ul></li>
   <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-a-graph-of-resources" class="header">Get a Graph of Resources</a></li>
   <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#search-for-resources" class="header">Search for Resources</a>
@@ -276,8 +279,8 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>In JSON-LD, if only one resource is returned, it is the top-level object; if more than one resource is returned, they are represented as an array of objects of the <code>@graph</code> member of the top-level object (see <a href="https://json-ld.org/spec/latest/json-ld/#named-graphs">Named Graphs</a> in the JSON-LD specification).</p>
 <p>In the complex schema, dependent resources, i.e. resources that are referred to by other resources on the top level, are nested in link value objects. If resources on the top level are referred to by other resources and these links are part of the response, virtual incoming links are generated, see <a href="query-language.html">Gravsearch: Virtual Graph Search</a>) </p>
 <p>See the interfaces <code>Resource</code> and <code>ResourcesSequence</code> in module <code>ResourcesResponse</code> (exists for both API schemas: <code>ApiV2Simple</code> and <code>ApiV2WithValueObjects</code>).</p>
-<h2><a href="#get-the-representation-of-a-resource-by-its-iri" name="get-the-representation-of-a-resource-by-its-iri" class="anchor"><span class="anchor-link"></span></a>Get the Representation of a Resource by its IRI</h2>
-<h3><a href="#get-a-full-representation-of-a-resource-by-its-iri" name="get-a-full-representation-of-a-resource-by-its-iri" class="anchor"><span class="anchor-link"></span></a>Get a Full Representation of a Resource by its IRI</h3>
+<h2><a href="#get-the-representation-of-a-resource-by-iri" name="get-the-representation-of-a-resource-by-iri" class="anchor"><span class="anchor-link"></span></a>Get the Representation of a Resource by IRI</h2>
+<h3><a href="#get-a-full-representation-of-a-resource-by-iri" name="get-a-full-representation-of-a-resource-by-iri" class="anchor"><span class="anchor-link"></span></a>Get a Full Representation of a Resource by IRI</h3>
 <p>A full representation of resource can be obtained by making a GET request to the API providing its IRI. Because a Knora IRI has the format of a URL, its IRI has to be URL-encoded.</p>
 <p>To get the resource with the IRI <code>http://rdfh.ch/c5058f3a</code> (a book from the sample Incunabula project, which is included in the Knora API server&rsquo;s test data), make a HTTP GET request to the <code>resources</code> route (path segment <code>resources</code> in the API call) and append the URL-encoded IRI:</p>
 <pre><code>HTTP GET to http://host/v2/resources/http%3A%2F%2Frdfh.ch%2Fc5058f3a
@@ -286,7 +289,53 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>More formally, the URL looks like this:</p>
 <pre><code>HTTP GET to http://host/v2/resources/resourceIRI(/anotherResourceIri)*
 </code></pre>
-<h3><a href="#get-the-preview-of-a-resource-by-its-iri" name="get-the-preview-of-a-resource-by-its-iri" class="anchor"><span class="anchor-link"></span></a>Get the preview of a resource by its IRI</h3>
+<h3><a href="#get-a-full-representation-of-a-version-of-a-resource-by-iri" name="get-a-full-representation-of-a-version-of-a-resource-by-iri" class="anchor"><span class="anchor-link"></span></a>Get a Full Representation of a Version of a Resource by IRI</h3>
+<p>To get a specific past version of a resource, use the route described in <a href="reading-and-searching-resources.html#get-a-full-representation-of-a-resource-by-iri">Get a Full Representation of a Resource by IRI</a>, and add the URL parameter <code>?version=TIMESTAMP</code>, where <code>TIMESTAMP</code> is an <a href="https://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">xsd:dateTimeStamp</a> in the UTC timezone. The timestamp can either be URL-encoded, or submitted with all punctuation (<code>-</code>, <code>:</code>, and <code>.</code>) removed (this is to accept timestamps from Knora&rsquo;s <a href="resource-permalinks.html">ARK URLs</a>).</p>
+<p>The resource will be returned with the values that it had at the specified time. Since Knora only versions values, not resource metadata (e.g. <code>rdfs:label</code>), the current metadata will be returned.</p>
+<p>The returned resource will include the predicate <code>knora-api:versionDate</code>, containing the timestamp that was submitted, and its <code>knora-api:versionArkUrl</code> (see <a href="resource-permalinks.html">Resource Permalinks</a>) will contain the same timestamp.</p>
+<h3><a href="#get-the-version-history-of-a-resource" name="get-the-version-history-of-a-resource" class="anchor"><span class="anchor-link"></span></a>Get the Version History of a Resource</h3>
+<p>To get a list of the changes that have been made to a resource since its creation, use this route:</p>
+<pre><code>HTTP GET to http://host/v2/resources/history/resourceIRI[?startDate=START_DATE&amp;endDate=END_DATE]
+</code></pre>
+<p>The resource IRI must be URL-encoded. The start and end dates are optional, and are URL-encoded timestamps in <a href="https://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">xsd:dateTimeStamp</a> format. The start date is inclusive, and the end date is exclusive. If the start date is not provided, the resource&rsquo;s history since its creation is returned. If the end date is not provided, the resource&rsquo;s history up to the present is returned.</p>
+<p>The response is a list of changes made to the resource, in reverse chronological order. Each entry has the properties <code>knora-api:author</code> (the IRI of the user who made the change) and <code>knora-api:versionDate</code> (the date when the change was made). For example:</p>
+<pre class="prettyprint"><code class="language-jsonld">{
+  &quot;@graph&quot; : [ {
+    &quot;knora-api:author&quot; : {
+      &quot;@id&quot; : &quot;http://rdfh.ch/users/BhkfBc3hTeS_IDo-JgXRbQ&quot;
+    },
+    &quot;knora-api:versionDate&quot; : {
+      &quot;@type&quot; : &quot;xsd:dateTimeStamp&quot;,
+      &quot;@value&quot; : &quot;2019-02-11T09:05:10Z&quot;
+    }
+  }, {
+    &quot;knora-api:author&quot; : {
+      &quot;@id&quot; : &quot;http://rdfh.ch/users/9XBCrDV3SRa7kS1WwynB4Q&quot;
+    },
+    &quot;knora-api:versionDate&quot; : {
+      &quot;@type&quot; : &quot;xsd:dateTimeStamp&quot;,
+      &quot;@value&quot; : &quot;2019-02-10T10:30:10Z&quot;
+    }
+  }, {
+    &quot;knora-api:author&quot; : {
+      &quot;@id&quot; : &quot;http://rdfh.ch/users/BhkfBc3hTeS_IDo-JgXRbQ&quot;
+    },
+    &quot;knora-api:versionDate&quot; : {
+      &quot;@type&quot; : &quot;xsd:dateTimeStamp&quot;,
+      &quot;@value&quot; : &quot;2019-02-10T10:05:10Z&quot;
+    }
+  } ],
+  &quot;@context&quot; : {
+    &quot;rdf&quot; : &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;,
+    &quot;rdfs&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#&quot;,
+    &quot;xsd&quot; : &quot;http://www.w3.org/2001/XMLSchema#&quot;,
+    &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;
+  }
+}
+</code></pre>
+<p>The entries include all the dates when the resource&rsquo;s values were created or modified (within the requested date range), as well as the date when the resource was created (if the requested date range allows it). Each date is included only once. Since Knora only versions values, not resource metadata (e.g. <code>rdfs:label</code>), changes to a resource&rsquo;s metadata are not included in its version history.</p>
+<p>To request the resource as it was at each of these dates, see <a href="reading-and-searching-resources.html#get-a-full-representation-of-a-version-of-a-resource-by-iri">Get a Full Representation of a Version of a Resource by IRI</a>. For consistency in citation, we recommend using these dates when requesting resource versions.</p>
+<h3><a href="#get-the-preview-of-a-resource-by-iri" name="get-the-preview-of-a-resource-by-iri" class="anchor"><span class="anchor-link"></span></a>Get the preview of a resource by IRI</h3>
 <p>In some cases, the client may only want to request the preview of a resource, which just provides its metadata (e.g. its IRI, <code>rdfs:label</code>, and type), without its values.</p>
 <p>This works exactly like making a conventional resource request, using the path segment <code>resourcespreview</code>:</p>
 <pre><code>HTTP GET to http://host/v2/resourcespreview/resourceIRI(/anotherResourceIri)*
@@ -405,7 +454,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-5.0.0
+6.0.0
 </span>
 </div>
 </article>

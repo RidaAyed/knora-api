@@ -184,6 +184,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v6.x.x.html" class="page">v6.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -196,13 +197,14 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-admin/projects.html#endpoint-overview" class="header">Endpoint Overview</a></li>
     <li><a href="../../03-apis/api-admin/projects.html#project-operations" class="header">Project Operations</a></li>
     <li><a href="../../03-apis/api-admin/projects.html#project-member-operations" class="header">Project Member Operations</a></li>
+    <li><a href="../../03-apis/api-admin/projects.html#project-admin-member-operations" class="header">Project Admin Member Operations</a></li>
     <li><a href="../../03-apis/api-admin/projects.html#example-data" class="header">Example Data</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 5.0.0
+<i class="md-icon">label_outline</i> 6.0.0
 </div>
 </nav>
 
@@ -220,6 +222,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-admin/projects.html#endpoint-overview" class="header">Endpoint Overview</a></li>
     <li><a href="../../03-apis/api-admin/projects.html#project-operations" class="header">Project Operations</a></li>
     <li><a href="../../03-apis/api-admin/projects.html#project-member-operations" class="header">Project Member Operations</a></li>
+    <li><a href="../../03-apis/api-admin/projects.html#project-admin-member-operations" class="header">Project Admin Member Operations</a></li>
     <li><a href="../../03-apis/api-admin/projects.html#example-data" class="header">Example Data</a></li>
   </ul></li>
 </ul>
@@ -251,11 +254,11 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <h1><a href="#projects-endpoint" name="projects-endpoint" class="anchor"><span class="anchor-link"></span></a>Projects Endpoint</h1>
 <h2><a href="#endpoint-overview" name="endpoint-overview" class="anchor"><span class="anchor-link"></span></a>Endpoint Overview</h2>
-<p><strong>Project Operations:</strong> - <code>GET:  /admin/projects</code> : return all projects - <code>POST: /admin/projects</code> : create a new project - <code>GET: /admin/projects/[identifier]</code> : returns a single project identified either through iri, shortname, or shortcode - <code>PUT: /admin/projects/[identifier]</code> : update a project identified by iri - <code>DELETE: /admin/projects/[identifier]</code> : update project status to false</p>
-<p><strong>Project Member Operations:</strong> - <code>GET: /admin/projects/members/[identifier]</code> : returns all members part of a project identified through iri, shortname or shortcode</p>
-<p><strong>Project Admin Member Operations:</strong> - <code>GET: /admin/projects/admin-members/[identifier]</code> : returns all admin members part of a project identified through iri, shortname or shortcode</p>
-<p><strong>Project Keyword Operations:</strong> - <code>GET: /admin/projects/keywords</code> : returns all unique keywords for all projects as a list - <code>GET: /admin/projects/keywords/[identifier]</code> : returns all keywords for a single project</p>
-<p><strong>Project Restricted View Settings Operations:</strong> - <code>GET: /admin/projects/[identifier]/RestrictedViewSettings</code> : returns the project&rsquo;s restricted view settings</p>
+<p><strong>Project Operations:</strong> - <code>GET:  /admin/projects</code> : return all projects - <code>POST: /admin/projects</code> : create a new project - <code>GET: /admin/projects/[iri | shortname | shortcode]/&lt;identifier&gt;</code> : returns a single project identified either through iri, shortname, or shortcode - <code>PUT: /admin/projects/iri/&lt;identifier&gt;</code> : update a project identified by iri - <code>DELETE: /admin/projects/iri/&lt;identifier&gt;</code> : update project status to false</p>
+<p><strong>Project Member Operations:</strong> - <code>GET: /admin/projects/[iri | shortname | shortcode]/&lt;identifier&gt;/members</code> : returns all members part of a project identified through iri, shortname or shortcode</p>
+<p><strong>Project Admin Member Operations:</strong> - <code>GET: /admin/projects/[iri | shortname | shortcode]/&lt;identifier&gt;/admin-members</code> : returns all admin members part of a project identified through iri, shortname or shortcode</p>
+<p><strong>Project Keyword Operations:</strong> - <code>GET: /admin/projects/Keywords</code> : returns all unique keywords for all projects as a list - <code>GET: /admin/projects/iri/&lt;identifier&gt;/Keywords</code> : returns all keywords for a single project</p>
+<p><strong>Project Restricted View Settings Operations:</strong> - <code>GET: /admin/projects/iri/&lt;identifier&gt;/RestrictedViewSettings</code> : returns the project&rsquo;s restricted view settings</p>
 <h2><a href="#project-operations" name="project-operations" class="anchor"><span class="anchor-link"></span></a>Project Operations</h2>
 <h3><a href="#create-a-new-project-" name="create-a-new-project-" class="anchor"><span class="anchor-link"></span></a>Create a new project:</h3>
 <ul>
@@ -266,9 +269,9 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li>Remark: There are two distinct use cases / payload combination: (1) change ontology and data graph: ontologygraph, datagraph, (2) basic project information: shortname, longname, description, keywords, logo, institution, status, selfjoin</li>
   <li>TypeScript Docs: projectFormats - CreateProjectApiRequestV1</li>
   <li>POST: <code>/admin/projects/</code></li>
-  <li>BODY:</li>
-</ul>
-<pre class="prettyprint"><code class="language-JSON">{
+  <li>
+  <p>BODY:</p>
+  <pre class="prettyprint"><code class="language-JSON">{
   &quot;shortname&quot;: &quot;newproject&quot;,
   &quot;longname&quot;: &quot;project longname&quot;,
   &quot;description&quot;: &quot;project description&quot;,
@@ -277,16 +280,17 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   &quot;status&quot;: true,
   &quot;selfjoin&quot;: false
 }
-</code></pre>
+</code></pre></li>
+</ul>
 <h3><a href="#update-project-information-" name="update-project-information-" class="anchor"><span class="anchor-link"></span></a>Update project information:</h3>
 <ul>
   <li>Required permission: SystemAdmin / ProjectAdmin</li>
   <li>Changeable information: shortname, longname, description, keywords, logo, status, selfjoin</li>
   <li>TypeScript Docs: projectFormats - ChangeProjectApiRequestV1</li>
-  <li>PUT: <code>/admin/projects/&lt;projectIri&gt;</code></li>
-  <li>BODY:</li>
-</ul>
-<pre class="prettyprint"><code class="language-JSON">{
+  <li>PUT: <code>/admin/projects/iri/&lt;projectIri&gt;</code></li>
+  <li>
+  <p>BODY:</p>
+  <pre class="prettyprint"><code class="language-JSON">{
   &quot;shortname&quot;: &quot;newproject&quot;,
   &quot;longname&quot;: &quot;project longname&quot;,
   &quot;description&quot;: &quot;project description&quot;,
@@ -295,31 +299,39 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   &quot;status&quot;: true,
   &quot;selfjoin&quot;: false
 }
-</code></pre>
+</code></pre></li>
+</ul>
 <h3><a href="#delete-project-update-project-status-" name="delete-project-update-project-status-" class="anchor"><span class="anchor-link"></span></a>Delete project (update project status):</h3>
 <ul>
   <li>Required permission: SystemAdmin / ProjectAdmin</li>
   <li>Remark: The same as updating a project and changing <code>status</code> to <code>false</code>. To un-delete, set <code>status</code> to <code>true</code>.</li>
-  <li>DELETE: <code>/admin/projects/&lt;projectIri&gt;</code></li>
+  <li>DELETE: <code>/admin/projects/iri/&lt;projectIri&gt;</code></li>
   <li>BODY: empty</li>
 </ul>
 <h2><a href="#project-member-operations" name="project-member-operations" class="anchor"><span class="anchor-link"></span></a>Project Member Operations</h2>
 <h3><a href="#get-project-members-" name="get-project-members-" class="anchor"><span class="anchor-link"></span></a>Get project members:</h3>
 <ul>
   <li>Required permission: SystemAdmin / ProjectAdmin</li>
-  <li>Required information: project IRI</li>
-  <li>GET: <code>/admin/projects/members/&lt;projectIri&gt;</code></li>
+  <li>Required information: project identifier</li>
+  <li>GET: <code>/admin/projects/[iri | shortname | shortcode]/&lt;identifier&gt;/members</code></li>
+</ul>
+<h2><a href="#project-admin-member-operations" name="project-admin-member-operations" class="anchor"><span class="anchor-link"></span></a>Project Admin Member Operations</h2>
+<h3><a href="#get-project-members-" name="get-project-members-" class="anchor"><span class="anchor-link"></span></a>Get project members:</h3>
+<ul>
+  <li>Required permission: SystemAdmin / ProjectAdmin</li>
+  <li>Required information: project identifier</li>
+  <li>GET: <code>/admin/projects/[iri | shortname | shortcode]/&lt;identifier&gt;/admin-members</code></li>
 </ul>
 <h3><a href="#restricted-view-settings-operations" name="restricted-view-settings-operations" class="anchor"><span class="anchor-link"></span></a>Restricted View Settings Operations</h3>
 <p>Operates on the following properties:  - <code>knora-base:projectRestrictedViewSize</code> - takes the IIIF size value  - <code>knora-base:projectRestrictedViewWatermark</code> - takes the path to the watermark image. <strong>Currently not used.</strong></p>
 <h4><a href="#get-the-restricted-view-settings-" name="get-the-restricted-view-settings-" class="anchor"><span class="anchor-link"></span></a>Get the restricted view settings:</h4>
 <ul>
-  <li>Required permission: none</li>
-  <li>Required information: <code>identifier</code>. The <code>identifier</code> can be the project&rsquo;s IRI, shortocde or shortname.</li>
-  <li>GET: <code>/admin/projects/[identifier]/RestrictedViewSettings</code></li>
+  <li>Required permission: ProjectAdmin</li>
+  <li>Required information: <code>identifier</code>. The <code>identifier</code> can be the project&rsquo;s IRI, shortname or shortcode.</li>
+  <li>GET: <code>/admin/projects/[iri | shortname | shortcode]/&lt;identifier&gt;/RestrictedViewSettings</code></li>
 </ul>
 <h2><a href="#example-data" name="example-data" class="anchor"><span class="anchor-link"></span></a>Example Data</h2>
-<p>The following is an example for project information stored in admin named graph:</p>
+<p>The following is an example for project information stored in the <code>admin</code> named graph:</p>
 <pre><code>&lt;http://rdfh.ch/projects/00FF&gt;
     rdf:type knora-base:knoraProject ;
     knora-base:projectShortname &quot;images&quot;^^xsd:string ;
@@ -342,7 +354,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-5.0.0
+6.0.0
 </span>
 </div>
 </article>

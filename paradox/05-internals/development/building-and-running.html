@@ -184,6 +184,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v6.x.x.html" class="page">v6.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -203,7 +204,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 5.0.0
+<i class="md-icon">label_outline</i> 6.0.0
 </div>
 </nav>
 
@@ -298,7 +299,7 @@ $ ./graphdb-se-local-init-knora-test-unit.sh
 <h2><a href="#continuous-integration" name="continuous-integration" class="anchor"><span class="anchor-link"></span></a>Continuous Integration</h2>
 <p>For continuous integration testing, we use Travis-CI. Every commit pushed to the git repository or every pull request, triggers the build. Additionaly, in Github there is a litle checkmark beside every commit, signaling the status of the build (successful, unsucessful, ongoing).</p>
 <p>The build that is executed on Travis-CI is defined in <code>.travis.yml</code> situated in the root folder of the project, and looks like this:</p>
-<pre class="prettyprint"><code class="language-yml">dist: trusty
+<pre class="prettyprint"><code class="language-yml">dist: xenial
 
 sudo: required
 
@@ -397,27 +398,28 @@ jobs:
         # print out Sipi logs
         - cd $TRAVIS_BUILD_DIR/sipi/ &amp;&amp; docker-compose logs
     # testing docs generation
-    - stage: test
-      script:
-        # install the necessary packages
-        - sudo apt-get install -y graphviz software-properties-common
-        - sudo apt-add-repository -y ppa:rael-gc/rvm
-        - sudo apt-get update
-        - sudo apt-get --allow-unauthenticated install rvm
-        - rvm reload
-        - rvm install ruby 2.5.1
-        - rvm use 2.5.1 --default
-        - ruby -v
-        # install bundler
-        - gem install bundler
-        # install jekyll
-        # - gem install jekyll -v 3.8.1
-        # install typedoc
-        - npm install --global typedoc
-        # install jekyll dependencies
-        - cd $TRAVIS_BUILD_DIR/docs/src/jekyll &amp;&amp; bundle install
-        # compile and build all docs (paradox, typescript, jekyll)
-        - cd $TRAVIS_BUILD_DIR/ &amp;&amp; sbt docs/makeSite
+    #- stage: test
+    #  script:
+    #    # install the necessary packages
+    #    - sudo apt-get install -y graphviz software-properties-common
+    #    - sudo apt-add-repository -y ppa:rael-gc/rvm
+    #    - sudo apt-get update
+    #    - sudo apt-get --allow-unauthenticated install rvm
+    #    - rvm reload
+    #    - rvm install ruby 2.5.1
+    #    - rvm use 2.5.1 --default
+    #    - ruby -v
+    #    # install bundler
+    #    - gem install bundler
+    #    # install jekyll
+    #    # - gem install jekyll -v 3.8.1
+    #    # install typedoc
+    #    - npm i npm@latest -g
+    #    - npm install --global typedoc
+    #    # install jekyll dependencies
+    #    - cd $TRAVIS_BUILD_DIR/docs/src/jekyll &amp;&amp; bundle install
+    #    # compile and build all docs (paradox, typescript, jekyll)
+    #    - cd $TRAVIS_BUILD_DIR/ &amp;&amp; sbt docs/makeSite
     # Salsah browser tests
     #- stage: test
     #  script:
@@ -523,7 +525,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-5.0.0
+6.0.0
 </span>
 </div>
 </article>

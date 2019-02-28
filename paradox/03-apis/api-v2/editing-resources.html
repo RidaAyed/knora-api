@@ -184,6 +184,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
+    <li><a href="../../00-release-notes/v6.x.x.html" class="page">v6.x.x Release Notes</a></li>
     <li><a href="../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -196,12 +197,13 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v2/editing-resources.html#creating-a-resource" class="header">Creating a Resource</a></li>
     <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-values" class="header">Modifying a Resource&rsquo;s Values</a></li>
     <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-metadata" class="header">Modifying a Resource&rsquo;s Metadata</a></li>
+    <li><a href="../../03-apis/api-v2/editing-resources.html#deleting-a-resource" class="header">Deleting a Resource</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 5.0.0
+<i class="md-icon">label_outline</i> 6.0.0
 </div>
 </nav>
 
@@ -219,6 +221,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v2/editing-resources.html#creating-a-resource" class="header">Creating a Resource</a></li>
     <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-values" class="header">Modifying a Resource&rsquo;s Values</a></li>
     <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-metadata" class="header">Modifying a Resource&rsquo;s Metadata</a></li>
+    <li><a href="../../03-apis/api-v2/editing-resources.html#deleting-a-resource" class="header">Deleting a Resource</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -253,6 +256,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li><a href="../../03-apis/api-v2/editing-resources.html#creating-a-resource" class="header">Creating a Resource</a></li>
   <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-values" class="header">Modifying a Resource&rsquo;s Values</a></li>
   <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-metadata" class="header">Modifying a Resource&rsquo;s Metadata</a></li>
+  <li><a href="../../03-apis/api-v2/editing-resources.html#deleting-a-resource" class="header">Deleting a Resource</a></li>
 </ul>
 </div>
 <h2><a href="#creating-a-resource" name="creating-a-resource" class="anchor"><span class="anchor-link"></span></a>Creating a Resource</h2>
@@ -402,13 +406,13 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <ul>
   <li><code>@id</code>: the resource&rsquo;s IRI</li>
   <li><code>@type</code>: the resource&rsquo;s class IRI</li>
-  <li><code>knora-api:lastModificationDate</code>: an <code>xsd:dateTimeStamp</code> representing the last modification date that is currently attached to the resource, if any</li>
+  <li><code>knora-api:lastModificationDate</code>: an <code>xsd:dateTimeStamp</code> representing the last modification date that is currently attached to the resource, if any. This is used to make sure that the resource has not been modified by someone else since you last read it.</li>
 </ul>
 <p>The submitted JSON-LD object must also contain one or more of the following predicates, representing the metadata you want to change:</p>
 <ul>
   <li><code>rdfs:label</code>: a string</li>
   <li><code>knora-api:hasPermissions</code>, in the format described in <a href="../../02-knora-ontologies/knora-base.html#permissions">Permissions</a></li>
-  <li><code>knora-api:newModificationDate</code>: an <a href="https://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">xsd:dateTimeStamp</a>.  This is used to make sure that the resource has not been modified by someone else since you last read it.</li>
+  <li><code>knora-api:newModificationDate</code>: an <a href="https://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">xsd:dateTimeStamp</a>.</li>
 </ul>
 <p>Here is an example:</p>
 <pre class="prettyprint"><code class="language-jsonld">{
@@ -436,6 +440,36 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>If you submit a <code>knora-api:lastModificationDate</code> that is different from the resource&rsquo;s actual last modification date, you will get an HTTP 409 (Conflict) error.</p>
 <p>If you submit a <code>knora-api:newModificationDate</code> that is earlier than the resource&rsquo;s <code>knora-api:lastModificationDate</code>, you will get an HTTP 400 (Bad Request) error.</p>
 <p>A successful response is an HTTP 200 (OK) status containing a confirmation message.</p>
+<h2><a href="#deleting-a-resource" name="deleting-a-resource" class="anchor"><span class="anchor-link"></span></a>Deleting a Resource</h2>
+<p>Knora does not normally delete resources; instead, it marks them as deleted, which means that they do not appear in normal query results.</p>
+<p>To mark a resource as deleted, use this route:</p>
+<pre><code>HTTP POST to http://host/v2/resources/delete
+</code></pre>
+<p>The request body is a JSON-LD object containing the following information about the resource:</p>
+<ul>
+  <li><code>@id</code>: the resource&rsquo;s IRI</li>
+  <li><code>@type</code>: the resource&rsquo;s class IRI</li>
+  <li><code>knora-api:lastModificationDate</code>: an <code>xsd:dateTimeStamp</code> representing the last modification date that is currently attached to the resource, if any. This is used to make sure that the resource has not been modified by someone else since you last read it.</li>
+</ul>
+<pre class="prettyprint"><code class="language-jsonld">{
+  &quot;@id&quot; : &quot;http://rdfh.ch/0001/a-thing&quot;,
+  &quot;@type&quot; : &quot;anything:Thing&quot;,
+  &quot;knora-api:lastModificationDate&quot; : {
+    &quot;@type&quot; : &quot;xsd:dateTimeStamp&quot;,
+    &quot;@value&quot; : &quot;2019-02-05T17:05:35.776747Z&quot;
+  },
+  &quot;knora-api:deleteComment&quot; : &quot;This resource was created by mistake.&quot;,
+  &quot;@context&quot; : {
+    &quot;rdf&quot; : &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;,
+    &quot;knora-api&quot; : &quot;http://api.knora.org/ontology/knora-api/v2#&quot;,
+    &quot;rdfs&quot; : &quot;http://www.w3.org/2000/01/rdf-schema#&quot;,
+    &quot;xsd&quot; : &quot;http://www.w3.org/2001/XMLSchema#&quot;,
+    &quot;anything&quot; : &quot;http://0.0.0.0:3333/ontology/0001/anything/v2#&quot;
+  }
+}
+</code></pre>
+<p>The optional property <code>knora-api:deleteComment</code> specifies a comment to be attached to the resource, explaining why it has been marked as deleted.</p>
+<p>The response is a JSON-LD document containing the predicate <code>knora-api:result</code> with a confirmation message.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-v2/editing-resources.md" title="Edit this page" class="md-source-file md-edit">
@@ -444,7 +478,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-5.0.0
+6.0.0
 </span>
 </div>
 </article>

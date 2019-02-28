@@ -184,6 +184,7 @@ dhlab-basel/Knora/docs
     <li><a href="../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
     <li><a href="../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
     <li><a href="../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
+    <li><a href="../00-release-notes/v6.x.x.html" class="page">v6.x.x Release Notes</a></li>
     <li><a href="../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
     <li><a href="../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
@@ -202,7 +203,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 5.0.0
+<i class="md-icon">label_outline</i> 6.0.0
 </div>
 </nav>
 
@@ -355,7 +356,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>Resources can have properties that point to other resources; see <a href="knora-base.html#links-between-resources">Links Between Resources</a>. A resource grants permissions to groups of users; see <a href="knora-base.html#authorisation">Authorisation</a>.</p>
 <h4><a href="#representations" name="representations" class="anchor"><span class="anchor-link"></span></a>Representations</h4>
 <p>It is not practical to store all data in RDF. In particular, RDF is not a good storage medium for binary data such as images. Therefore, Knora stores such data outside the triplestore, in ordinary files. A resource can have metadata about a file attached to it. The technical term for such a resource in Knora is a <strong>Representation</strong>. For each file, there is a <code>kb:FileValue</code> in the triplestore containing metadata about the file (see <a href="knora-base.html#filevalue">FileValue</a>). Knora uses <a href="https://github.com/dhlab-basel/Sipi">Sipi</a> to store files. The <a href="../03-apis/index.html">Knora APIs</a> provide ways to create file values using Knora and Sipi.</p>
-<p>A resource that has a file value must belong to one of the subclasses of <code>kb:Representation</code>. Its subclasses, which are intended to be used directly in data, include:</p>
+<p>A resource that has a file value must belong to one of the subclasses of <code>kb:Representation</code>. Its subclasses include:</p>
 <dl>
   <dt><code>StillImageRepresentation</code></dt>
   <dd>
@@ -376,15 +377,16 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <dd>
   <p>A representation containing a document (such as a PDF file) that is not a text file.</p></dd>
 </dl>
+<p>These classes can be used directly in data, but it is often better to make subclasses of them, to include metadata about the files being stored.</p>
 <p>The base class of all these classes is <code>Representation</code>, which is not intended to be used directly. It has this property, which its subclasses override:</p>
 <dl>
-  <dt><code>hasFileValue</code> (1-n)
+  <dt><code>hasFileValue</code> (1)
   </dt>
   <dd>
-  <p>Points to one or more file values.</p></dd>
+  <p>Points to a file value.</p></dd>
 </dl>
 <p>There are two ways for a project to design classes for representations. The simpler way is to create a resource class that represents a thing in the world (such as <code>ex:Painting</code>) and also belongs to a subclass of <code>Representation</code>. This is adequate if the class can have only one type of file attached to it. For example, if paintings are represented only by still images, <code>ex:Painting</code> could be a subclass of <code>StillImageRepresentation</code>. This is the only approach supported in <a href="../03-apis/api-v1/index.html">Knora API v1</a>.</p>
-<p>The more flexible approach, which is supported by <a href="../03-apis/api-v2/index.html">Knora API v2</a>, is for each <code>ex:Painting</code> to use the <code>kb:hasRepresentation</code> property to point to other resources containing files that represent the painting. Each of these other resources can extend a different subclass of <code>Representation</code>. For example, a painting could have a <code>StillImageRepresentation</code> as well as a <code>DDDrepresentation</code>.</p>
+<p>The more flexible approach, which is supported by <a href="../03-apis/api-v2/index.html">Knora API v2</a>, is for each <code>ex:Painting</code> to link (using <code>kb:hasRepresentation</code> or a subproperty) to other resources containing files that represent the painting. Each of these other resources can extend a different subclass of <code>Representation</code>. For example, a painting could have a <code>StillImageRepresentation</code> as well as a <code>DDDrepresentation</code>.</p>
 <h4><a href="#standard-resource-classes" name="standard-resource-classes" class="anchor"><span class="anchor-link"></span></a>Standard Resource Classes</h4>
 <p>In general, each project using Knora must define its own subclasses of <code>kb:Resource</code>. However, the Knora base ontology provides some standard subclasses of <code>kb:Resource</code>, which are intended to be used by any project:</p>
 <dl>
@@ -1143,7 +1145,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-5.0.0
+6.0.0
 </span>
 </div>
 </article>
