@@ -204,7 +204,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 6.0.0
+<i class="md-icon">label_outline</i> 7.0.0-10-002eca45-20190603-0947
 </div>
 </nav>
 
@@ -323,7 +323,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li>GET: <code>/admin/projects/[iri | shortname | shortcode]/&lt;identifier&gt;/admin-members</code></li>
 </ul>
 <h3><a href="#restricted-view-settings-operations" name="restricted-view-settings-operations" class="anchor"><span class="anchor-link"></span></a>Restricted View Settings Operations</h3>
-<p>Operates on the following properties:  - <code>knora-base:projectRestrictedViewSize</code> - takes the IIIF size value  - <code>knora-base:projectRestrictedViewWatermark</code> - takes the path to the watermark image. <strong>Currently not used.</strong></p>
+<p>Operates on the following properties:  - <code>knora-admin:projectRestrictedViewSize</code> - takes the IIIF size value  - <code>knora-admin:projectRestrictedViewWatermark</code> - takes the path to the watermark image. <strong>Currently not used.</strong></p>
 <h4><a href="#get-the-restricted-view-settings-" name="get-the-restricted-view-settings-" class="anchor"><span class="anchor-link"></span></a>Get the restricted view settings:</h4>
 <ul>
   <li>Required permission: ProjectAdmin</li>
@@ -333,18 +333,18 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h2><a href="#example-data" name="example-data" class="anchor"><span class="anchor-link"></span></a>Example Data</h2>
 <p>The following is an example for project information stored in the <code>admin</code> named graph:</p>
 <pre><code>&lt;http://rdfh.ch/projects/00FF&gt;
-    rdf:type knora-base:knoraProject ;
-    knora-base:projectShortname &quot;images&quot;^^xsd:string ;
-    knora-base:projectShortcode &quot;00FF&quot;^^xsd:string ;
-    knora-base:projectLongname &quot;Image Collection Demo&quot;^^xsd:string ;
-    knora-base:projectDescription &quot;A demo project of a collection of images&quot;@en ;
-    knora-base:projectKeyword &quot;images&quot;^^xsd:string,
+    rdf:type knora-admin:knoraProject ;
+    knora-admin:projectShortname &quot;images&quot;^^xsd:string ;
+    knora-admin:projectShortcode &quot;00FF&quot;^^xsd:string ;
+    knora-admin:projectLongname &quot;Image Collection Demo&quot;^^xsd:string ;
+    knora-admin:projectDescription &quot;A demo project of a collection of images&quot;@en ;
+    knora-admin:projectKeyword &quot;images&quot;^^xsd:string,
                               &quot;collection&quot;^^xsd:string ;
-    knora-base:projectRestrictedViewSize &quot;!512,512&quot;^^xsd:string ;
-    knora-base:projectRestrictedViewWatermark &quot;path_to_image&quot;^^xsd:string ;
-    knora-base:belongsToInstitution &lt;http://rdfh.ch/institutions/dhlab-basel&gt; ;
-    knora-base:status &quot;true&quot;^^xsd:boolean ;
-    knora-base:hasSelfJoinEnabled &quot;false&quot;^^xsd:boolean .
+    knora-admin:projectRestrictedViewSize &quot;!512,512&quot;^^xsd:string ;
+    knora-admin:projectRestrictedViewWatermark &quot;path_to_image&quot;^^xsd:string ;
+    knora-admin:belongsToInstitution &lt;http://rdfh.ch/institutions/dhlab-basel&gt; ;
+    knora-admin:status &quot;true&quot;^^xsd:boolean ;
+    knora-admin:hasSelfJoinEnabled &quot;false&quot;^^xsd:boolean .
 </code></pre>
 </div>
 <div>
@@ -354,7 +354,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-6.0.0
+7.0.0-10-002eca45-20190603-0947
 </span>
 </div>
 </article>

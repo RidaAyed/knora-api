@@ -201,7 +201,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 6.0.0
+<i class="md-icon">label_outline</i> 7.0.0-10-002eca45-20190603-0947
 </div>
 </nav>
 
@@ -286,6 +286,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>Requests for ontology metadata can return information about more than one ontology, unlike other requests for ontology information. To get metadata about all ontologies:</p>
 <pre><code>HTTP GET to http://host/v2/ontologies/metadata
 </code></pre>
+<p>If you submit a project IRI in the <code>X-Knora-Accept-Project</code> header, only the ontologies for that project will be returned.</p>
 <p>The response is in the complex API v2 schema. Sample response:</p>
 <pre class="prettyprint"><code class="language-jsonld">{
   &quot;@graph&quot; : [ {
@@ -331,10 +332,11 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   }
 }
 </code></pre>
-<p>To get metadata about the ontologies that belong to a particular project:</p>
-<pre><code>HTTP GET to http://host/v2/ontologies/metadata/PROJECT_IRI
+<p>To get metadata about the ontologies that belong to one or more particular projects:</p>
+<pre><code>HTTP GET to http://host/v2/ontologies/metadata/PROJECT_IRI[/PROJECT_IRI...]
 </code></pre>
-<p>The project IRI must be URL-encoded. Example response for the <code>images</code> test project (project IRI <code>http://rdfh.ch/projects/00FF</code>):</p>
+<p>The project IRIs must be URL-encoded.</p>
+<p>Example response for the <code>images</code> test project (project IRI <code>http://rdfh.ch/projects/00FF</code>):</p>
 <pre class="prettyprint"><code class="language-jsonld">{
   &quot;@id&quot; : &quot;http://0.0.0.0:3333/ontology/00FF/images/v2&quot;,
   &quot;@type&quot; : &quot;owl:Ontology&quot;,
@@ -1355,7 +1357,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-6.0.0
+7.0.0-10-002eca45-20190603-0947
 </span>
 </div>
 </article>

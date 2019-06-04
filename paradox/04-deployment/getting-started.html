@@ -196,7 +196,6 @@ dhlab-basel/Knora/docs
   <ul>
     <li><a href="../04-deployment/getting-started.html#choosing-and-setting-up-a-triplestore" class="header">Choosing and Setting Up a Triplestore</a></li>
     <li><a href="../04-deployment/getting-started.html#creating-a-test-installation" class="header">Creating a Test Installation</a></li>
-    <li><a href="../04-deployment/getting-started.html#transforming-data-when-ontologies-change" class="header">Transforming Data When Ontologies Change</a></li>
     <li><a href="../04-deployment/getting-started.html#selectively-disabling-routes" class="header">Selectively Disabling Routes</a></li>
     <li><a href="../04-deployment/getting-started.html#startup-flags" class="header">Startup Flags</a></li>
   </ul></li>
@@ -204,7 +203,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 6.0.0
+<i class="md-icon">label_outline</i> 7.0.0-10-002eca45-20190603-0947
 </div>
 </nav>
 
@@ -221,7 +220,6 @@ dhlab-basel/Knora/docs
   <ul>
     <li><a href="../04-deployment/getting-started.html#choosing-and-setting-up-a-triplestore" class="header">Choosing and Setting Up a Triplestore</a></li>
     <li><a href="../04-deployment/getting-started.html#creating-a-test-installation" class="header">Creating a Test Installation</a></li>
-    <li><a href="../04-deployment/getting-started.html#transforming-data-when-ontologies-change" class="header">Transforming Data When Ontologies Change</a></li>
     <li><a href="../04-deployment/getting-started.html#selectively-disabling-routes" class="header">Selectively Disabling Routes</a></li>
     <li><a href="../04-deployment/getting-started.html#startup-flags" class="header">Startup Flags</a></li>
   </ul></li>
@@ -287,60 +285,13 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h3><a href="#run-a-supported-triplestore" name="run-a-supported-triplestore" class="anchor"><span class="anchor-link"></span></a>Run a supported triplestore</h3>
 <p>See the chapters on <a href="../05-internals/development/graphdb.html">Starting GraphDB</a> and <a href="../05-internals/development/fuseki.html">Starting Fuseki</a> on how to start a supported triplestore.</p>
 <h3><a href="#creating-and-running-the-webapi-server-distribution-package" name="creating-and-running-the-webapi-server-distribution-package" class="anchor"><span class="anchor-link"></span></a>Creating and running the WEBAPI Server distribution package</h3>
-<p>To create a deployment package for the WEBAPI Server, please run from inside the <code>knora/webapi</code> folder the following commands:</p>
-<pre><code>$ sbt stage
-$ cd target/universal/stage
+<p>To create a deployment package for the WEBAPI Server, please run from inside the top level <code>knora</code> folder the following commands:</p>
+<pre><code>$ sbt webapi/stage
+$ cd webapi/target/universal/stage
 $ ./bin/webapi -J-Xms1G J-Xmx1G
 </code></pre>
 <h3><a href="#downloading-and-running-sipi" name="downloading-and-running-sipi" class="anchor"><span class="anchor-link"></span></a>Downloading and running Sipi</h3>
 <p>Download <a href="https://github.com/dhlab-basel/Sipi">Sipi</a> and install from source by following the <a href="https://dhlab-basel.github.io/Sipi/documentation/index.html">Sipi Manual</a>. For running and setting up Sipi for Knora, please see <a href="../07-sipi/index.html">The Sipi Media Server</a>.</p>
-<h2><a href="#transforming-data-when-ontologies-change" name="transforming-data-when-ontologies-change" class="anchor"><span class="anchor-link"></span></a>Transforming Data When Ontologies Change</h2>
-<p>When there is a change in Knora&rsquo;s ontologies or in a project-specific ontology, it may be necessary to update existing data to conform to the new ontology. This can be done directly in SPARQL, but for simple transformations, Knora includes a command-line program that works on RDF data files in <a href="https://www.w3.org/TR/turtle/">Turtle</a> format. You can run it from SBT:</p>
-<pre><code>    &gt; runMain org.knora.webapi.util.TransformData --help
-    [info] Running org.knora.webapi.util.TransformData --help
-    [info]
-    [info] Updates the structure of Knora repository data to accommodate changes in Knora.
-    [info]
-    [info] Usage: org.knora.webapi.util.TransformData -t [deleted|permissions|strings|standoff|all] input output
-    [info]
-    [info]   -t, --transform  &lt;arg&gt;   Selects a transformation. Available transformations:
-    [info]                            &#39;deleted&#39; (adds missing &#39;knora-base:isDeleted&#39;
-    [info]                            statements), &#39;permissions&#39; (combines old-style
-    [info]                            multiple permission statements into single permission
-    [info]                            statements), &#39;strings&#39; (adds missing valueHasString),
-    [info]                            &#39;standoff&#39; (transforms old-style standoff into
-    [info]                            new-style standoff), &#39;creator&#39; (transforms existing
-    [info]                            &#39;knora-base:Owner&#39; group inside permissions to
-    [info]                            &#39;knora-base:Creator&#39;), &#39;owner&#39; (gives
-    [info]                            &#39;knora-base:Creator&#39; CR permissions to correspond to
-    [info]                            the previous behaviour for owners - use with care as
-    [info]                            it will add permissions that where not there before),
-    [info]                            &#39;all&#39; (all of the above minus &#39;owner&#39;)
-    [info]       --help               Show help message
-    [info]
-    [info]  trailing arguments:
-    [info]   input (required)    Input Turtle file
-    [info]   output (required)   Output Turtle file
-</code></pre>
-<p>The currently available transformations are:</p>
-<ul>
-  <li>
-  <p>deleted<br/>Adds <code>knora-base:isDeleted false</code> to resources and values that don&rsquo;t have a <code>knora-base:isDeleted</code> predicate.</p></li>
-  <li>
-  <p>permissions<br/>Combines old-style permission statements (<code>hasViewPermission</code>, <code>hasModifyPermission</code>, etc.) into one <code>hasPermissions</code> statement per resource or value, as described in <a href="../02-knora-ontologies/knora-base.html#permissions">Permissions</a>.</p></li>
-  <li>
-  <p>strings<br/>Adds missing <code>valueHasString</code> statements to Knora value objects.</p></li>
-  <li>
-  <p>standoff<br/>Transforms old-style standoff markup (containing tag names as strings) to new-style standoff markup (using different OWL class names for different tags).</p></li>
-  <li>
-  <p>creator<br/>Transforms existing <code>knora-base:Owner</code> group inside permissions to <code>knora-base:Creator</code>.</p></li>
-  <li>
-  <p>owner<br/>Gives <code>knora-base:Creator</code> <strong>CR permissions</strong> to correspond to the previous behaviour for owners. Use with care as it will add permissions that where not there before.</p></li>
-  <li>
-  <p>all<br/>Runs all of the above transformations.</p></li>
-</ul>
-<p>Transformations that are not needed have no effect, so it is safe to use <code>-t all</code>.</p>
-<p>The program uses the Turtle parsing and formatting library from <a href="http://rdf4j.org/">RDF4J</a>. Additional transformations can be implemented as subclasses of <code>org.eclipse.rdf4j.rio.RDFHandler</code>.</p>
 <h2><a href="#selectively-disabling-routes" name="selectively-disabling-routes" class="anchor"><span class="anchor-link"></span></a>Selectively Disabling Routes</h2>
 <p>In <code>application.conf</code> the setting <code>app.routes-to-reject</code> contains a list of strings, representing routes which should be rejected.</p>
 <p>For Example, the string <code>&quot;v1/users&quot;</code> would lead to rejection of any route which contains this string.</p>
@@ -363,7 +314,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-6.0.0
+7.0.0-10-002eca45-20190603-0947
 </span>
 </div>
 </article>

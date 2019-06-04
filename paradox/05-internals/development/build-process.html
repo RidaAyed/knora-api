@@ -197,12 +197,15 @@ dhlab-basel/Knora/docs
     <li><a href="../../05-internals/development/build-process.html#sbt-build-configuration" class="header">SBT Build Configuration</a></li>
     <li><a href="../../05-internals/development/build-process.html#building-deployment-packages" class="header">Building Deployment Packages</a></li>
     <li><a href="../../05-internals/development/build-process.html#building-docker-images" class="header">Building Docker Images</a></li>
+    <li><a href="../../05-internals/development/build-process.html#running-the-knora-stack-graphdb-webapi-salsah1-sipi-" class="header">Running the Knora Stack (graphdb, webapi, salsah1, sipi)</a></li>
+    <li><a href="../../05-internals/development/build-process.html#building-documentation" class="header">Building Documentation</a></li>
+    <li><a href="../../05-internals/development/build-process.html#publishing-documentation" class="header">Publishing Documentation</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 6.0.0
+<i class="md-icon">label_outline</i> 7.0.0-10-002eca45-20190603-0947
 </div>
 </nav>
 
@@ -220,6 +223,9 @@ dhlab-basel/Knora/docs
     <li><a href="../../05-internals/development/build-process.html#sbt-build-configuration" class="header">SBT Build Configuration</a></li>
     <li><a href="../../05-internals/development/build-process.html#building-deployment-packages" class="header">Building Deployment Packages</a></li>
     <li><a href="../../05-internals/development/build-process.html#building-docker-images" class="header">Building Docker Images</a></li>
+    <li><a href="../../05-internals/development/build-process.html#running-the-knora-stack-graphdb-webapi-salsah1-sipi-" class="header">Running the Knora Stack (graphdb, webapi, salsah1, sipi)</a></li>
+    <li><a href="../../05-internals/development/build-process.html#building-documentation" class="header">Building Documentation</a></li>
+    <li><a href="../../05-internals/development/build-process.html#publishing-documentation" class="header">Publishing Documentation</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -254,6 +260,9 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li><a href="../../05-internals/development/build-process.html#sbt-build-configuration" class="header">SBT Build Configuration</a></li>
   <li><a href="../../05-internals/development/build-process.html#building-deployment-packages" class="header">Building Deployment Packages</a></li>
   <li><a href="../../05-internals/development/build-process.html#building-docker-images" class="header">Building Docker Images</a></li>
+  <li><a href="../../05-internals/development/build-process.html#running-the-knora-stack-graphdb-webapi-salsah1-sipi-" class="header">Running the Knora Stack (graphdb, webapi, salsah1, sipi)</a></li>
+  <li><a href="../../05-internals/development/build-process.html#building-documentation" class="header">Building Documentation</a></li>
+  <li><a href="../../05-internals/development/build-process.html#publishing-documentation" class="header">Publishing Documentation</a></li>
 </ul>
 </div>
 <h2><a href="#sbt-build-configuration" name="sbt-build-configuration" class="anchor"><span class="anchor-link"></span></a>SBT Build Configuration</h2>
@@ -734,41 +743,31 @@ def knoraModule(name: String): Project =
 </ul>
 <p>The tasks can be scoped by prefixing <code>salsah1/</code> or <code>webapi/</code>, e.g., to only run <code>sbt docker:stage</code> for the <code>webapi</code> project, run:</p>
 <pre class="prettyprint"><code class="language-bash">$ sbt webapi/docker:stage
-```` 
-
-## Running the Knora Stack (graphdb, webapi, salsah1, sipi)
-
-The complete knora stack (graphdb, webapi, salsah1, sipi) can be started by invoking the following SBT task:
-
 </code></pre>
-<p>$ sbt dockerComposeUp</p>
-<pre><code><br/>This will build, publish locally and use the docker images for `webapi` and `salsah1`. The versions defined in
-`project/Dependencies` will be used for `GraphDB` and `Sipi`.
-
-The following SBT tasks are available:
-
-- `$ sbt dockerComposeUp` - starts the whole stack and prints out a summary
-- `$ sbt dockerComposeRestart` - stops and the starts again the whole stack
-- `$ sbt dockerComposeStop` - stops the whole stack 
-
-
-## Building Documentation
-
-The complete Knora documentation site is built by invoking the following tasks:
-
-- `$ sbt docs/makeSite` - generates the documentation which can be found under `docs/target/site/`
-- `$ sbt docs/previewSite` - previews the generated site by launching a static web server
-- `$ sbt docs/previewAuto` - previews the generated site by launching a dynamic server updating its content at each modification in your source files.
-
-Both preview tasks launch the server on port `4000` and attempt to connect your browser to `http://localhost:4000/`.
-
-
-## Publishing Documentation
-
-To publish the documentation, you need to be on the `develop` branch and then execute the following task:
-
+<h2><a href="#running-the-knora-stack-graphdb-webapi-salsah1-sipi-" name="running-the-knora-stack-graphdb-webapi-salsah1-sipi-" class="anchor"><span class="anchor-link"></span></a>Running the Knora Stack (graphdb, webapi, salsah1, sipi)</h2>
+<p>The complete knora stack (graphdb, webapi, salsah1, sipi) can be started by invoking the following SBT task:</p>
+<pre class="prettyprint"><code class="language-bash">$ sbt dockerComposeUp
 </code></pre>
-<p>$ sbt docs/ghpagesPushSite ```</p>
+<p>This will build, publish locally and use the docker images for <code>webapi</code> and <code>salsah1</code>. The versions defined in <code>project/Dependencies</code> will be used for <code>GraphDB</code> and <code>Sipi</code>.</p>
+<p>The following SBT tasks are available:</p>
+<ul>
+  <li><code>$ sbt dockerComposeUp</code> - starts the whole stack and prints out a summary</li>
+  <li><code>$ sbt dockerComposeRestart</code> - stops and the starts again the whole stack</li>
+  <li><code>$ sbt dockerComposeStop</code> - stops the whole stack</li>
+</ul>
+<h2><a href="#building-documentation" name="building-documentation" class="anchor"><span class="anchor-link"></span></a>Building Documentation</h2>
+<p>There are some prerequisites described in the <a href="https://github.com/dhlab-basel/Knora/blob/develop/docs/Readme.md">docs/Readme.md</a>.</p>
+<p>The complete Knora documentation site is built by invoking the following tasks:</p>
+<ul>
+  <li><code>$ sbt docs/makeSite</code> - generates the documentation which can be found under <code>docs/target/site/</code></li>
+  <li><code>$ sbt docs/previewSite</code> - previews the generated site by launching a static web server</li>
+  <li><code>$ sbt docs/previewAuto</code> - previews the generated site by launching a dynamic server updating its content at each modification in your source files.</li>
+</ul>
+<p>Both preview tasks launch the server on port <code>4000</code> and attempt to connect your browser to <code>http://localhost:4000/</code>.</p>
+<h2><a href="#publishing-documentation" name="publishing-documentation" class="anchor"><span class="anchor-link"></span></a>Publishing Documentation</h2>
+<p>To publish the documentation, you need to be on the <code>develop</code> branch and then execute the following task:</p>
+<pre class="prettyprint"><code class="language-bash">$ sbt docs/ghpagesPushSite
+</code></pre>
 <p>This task will build all documentation and publish it to the <code>gh-pages</code> branch.</p>
 </div>
 <div>
@@ -778,7 +777,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-6.0.0
+7.0.0-10-002eca45-20190603-0947
 </span>
 </div>
 </article>

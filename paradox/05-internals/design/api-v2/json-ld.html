@@ -204,7 +204,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 6.0.0
+<i class="md-icon">label_outline</i> 7.0.0-10-002eca45-20190603-0947
 </div>
 </nav>
 
@@ -320,7 +320,7 @@ trait KnoraJsonLDRequestReaderV2[C] {
     valueType: SmartIri &lt;- Future(jsonLDObject.requireStringWithValidation(JsonLDConstants.TYPE, stringFormatter.toSmartIriWithErr))</code></pre>
 <p>The validation function (in this case <code>stringFormatter.toSmartIriWithErr</code>) has to take two arguments: a string to be validated, and a function that that throws an exception if the string is invalid. The return value of <code>requireStringWithValidation</code> is the return value of the validation function, which in this case is a <code>SmartIri</code>. If the string is invalid, <code>requireStringWithValidation</code> throws <code>BadRequestException</code>.</p>
 <p>It is also possible to get and validate an optional JSON-LD object member:</p>
-<pre class="prettyprint"><code class="language-scala">val maybeDateValueHasStartEra: Option[DateEraV2] = jsonLDObject.maybeStringWithValidation(OntologyConstants.KnoraApiV2WithValueObjects.DateValueHasStartEra, DateEraV2.parse)</code></pre>
+<pre class="prettyprint"><code class="language-scala">val maybeDateValueHasStartEra: Option[DateEraV2] = jsonLDObject.maybeStringWithValidation(OntologyConstants.KnoraApiV2Complex.DateValueHasStartEra, DateEraV2.parse)</code></pre>
 <p>Here <code>JsonLDObject.maybeStringWithValidation</code> returns an <code>Option</code> that contains the return value of the validation function (<code>DateEraV2.parse</code>) if it was given, otherwise <code>None</code>.</p>
 <h2><a href="#returning-a-json-ld-response" name="returning-a-json-ld-response" class="anchor"><span class="anchor-link"></span></a>Returning a JSON-LD Response</h2>
 <p>Each API response is represented by a message class that extends <code>KnoraResponseV2</code>, which has a method <code>toJsonLDDocument</code> that specifies the target ontology schema:</p>
@@ -337,7 +337,7 @@ trait KnoraResponseV2 {
       * @param targetSchema the Knora API schema to be used in the JSON-LD document.
       * @return a [[JsonLDDocument]] representing the response.
       */
-    def toJsonLDDocument(targetSchema: ApiV2Schema, settings: SettingsImpl): JsonLDDocument
+    def toJsonLDDocument(targetSchema: ApiV2Schema, settings: SettingsImpl, schemaOptions: Set[SchemaOption]): JsonLDDocument
 }</code></pre>
 <p>The implementation of this method constructs a <code>JsonLDDocument</code>, in which all object keys are full IRIs (no prefixes are used), but in which the JSON-LD context also specifies the prefixes that will be used when the document is returned to the client. The function <code>JsonLDUtil.makeContext</code> is a convenient way to construct the JSON-LD context.</p>
 <p>Since <code>toJsonLDDocument</code> has to return an object that uses the specified ontology schema, the recommended design is to separate schema conversion as much as possible from JSON-LD generation. As a first step, schema conversion (or at the very least, the conversion of Knora type IRIs to the target schema) can be done via an implementation of <code>KnoraReadV2</code>:</p>
@@ -352,10 +352,14 @@ trait KnoraReadV2[C &lt;: KnoraReadV2[C]] {
 }</code></pre>
 <p>This means that the response message class has the method <code>toOntologySchema</code>, which returns a copy of the same message, with Knora type IRIs (and perhaps other content) adjusted for the target schema. (See <a href="smart-iris.html">Smart IRIs</a> on how to convert Knora type IRIs to the target schema.)</p>
 <p>The response message class could then have a private method called <code>generateJsonLD</code>, which generates a <code>JsonLDDocument</code> that has the correct structure for the target schema, like this:</p>
-<pre class="prettyprint"><code class="language-scala">private def generateJsonLD(targetSchema: ApiV2Schema, settings: SettingsImpl): JsonLDDocument = {</code></pre>
+<pre class="prettyprint"><code class="language-scala">private def generateJsonLD(targetSchema: ApiV2Schema, settings: SettingsImpl, schemaOptions: Set[SchemaOption]): JsonLDDocument = {</code></pre>
 <p>This way, the implementation of <code>toJsonLDDocument</code> can call <code>toOntologySchema</code>, then construct a <code>JsonLDDocument</code> from the resulting object. For example:</p>
-<pre class="prettyprint"><code class="language-scala">def toJsonLDDocument(targetSchema: ApiV2Schema, settings: SettingsImpl): JsonLDDocument = {
-    toOntologySchema(targetSchema).generateJsonLD(targetSchema, settings)
+<pre class="prettyprint"><code class="language-scala">override def toJsonLDDocument(targetSchema: ApiV2Schema, settings: SettingsImpl, schemaOptions: Set[SchemaOption] = Set.empty): JsonLDDocument = {
+    toOntologySchema(targetSchema).generateJsonLD(
+        targetSchema = targetSchema,
+        settings = settings,
+        schemaOptions = schemaOptions
+    )
 }
 </code></pre>
 <h2><a href="#selecting-the-response-schema" name="selecting-the-response-schema" class="anchor"><span class="anchor-link"></span></a>Selecting the Response Schema</h2>
@@ -366,16 +370,18 @@ trait KnoraReadV2[C &lt;: KnoraReadV2[C]] {
     settings = settings,
     responderManager = responderManager,
     log = log,
-    responseSchema = RouteUtilV2.getOntologySchema(requestContext)
+    targetSchema = targetSchema,
+    schemaOptions = schemaOptions
 )</code></pre>
 <p>If the route only supports one schema, it can specify the schema directly instead:</p>
 <pre class="prettyprint"><code class="language-scala">RouteUtilV2.runRdfRouteWithFuture(
-    requestMessageFuture,
-    requestContext,
-    settings,
-    responderManager,
-    log,
-    ApiV2WithValueObjects
+    requestMessageF = requestMessageFuture,
+    requestContext = requestContext,
+    settings = settings,
+    responderManager = responderManager,
+    log = log,
+    targetSchema = ApiV2Complex,
+    schemaOptions = RouteUtilV2.getSchemaOptions(requestContext)
 )</code></pre>
 <h2><a href="#generating-other-rdf-formats" name="generating-other-rdf-formats" class="anchor"><span class="anchor-link"></span></a>Generating Other RDF Formats</h2>
 <p><code>RouteUtilV2.runRdfRouteWithFuture</code> implements <a href="http://tools.ietf.org/html/rfc7231#section-5.3.2">HTTP content negotiation</a>, and converts JSON-LD responses into <a href="https://www.w3.org/TR/turtle/">Turtle</a> or <a href="https://www.w3.org/TR/rdf-syntax-grammar/">RDF/XML</a> as appropriate.</p>
@@ -387,7 +393,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-6.0.0
+7.0.0-10-002eca45-20190603-0947
 </span>
 </div>
 </article>

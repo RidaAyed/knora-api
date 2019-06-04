@@ -204,7 +204,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 6.0.0
+<i class="md-icon">label_outline</i> 7.0.0-10-002eca45-20190603-0947
 </div>
 </nav>
 
@@ -254,7 +254,16 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <h1><a href="#users-endpoint" name="users-endpoint" class="anchor"><span class="anchor-link"></span></a>Users Endpoint</h1>
 <h2><a href="#endpoint-overview" name="endpoint-overview" class="anchor"><span class="anchor-link"></span></a>Endpoint Overview</h2>
-<p><strong>User Operations:</strong> - <code>GET: /admin/users</code> : return all users - <code>GET: /admin/users/[iri | email | username]/&lt;identifier&gt;</code> : return single user identified by [IRI | email | username] - <code>POST: /admin/users/</code> : create new user - <code>PUT: /admin/users/iri/&lt;userIri&gt;/BasicUserInformation</code> : update user&rsquo;s basic user information - <code>PUT: /admin/users/iri/&lt;userIri&gt;/Password</code> : update user&rsquo;s password - <code>PUT: /admin/users/iri/&lt;userIri&gt;/Status</code> : update user&rsquo;s status - <code>DELETE: /admin/users/iri/&lt;userIri&gt;</code> : delete user (set status to false)</p>
+<p><strong>User Operations:</strong></p>
+<ul>
+  <li><code>GET: /admin/users</code> : return all users</li>
+  <li><code>GET: /admin/users/[iri | email | username]/&lt;identifier&gt;</code> : return single user identified by [IRI | email | username]</li>
+  <li><code>POST: /admin/users/</code> : create new user</li>
+  <li><code>PUT: /admin/users/iri/&lt;userIri&gt;/BasicUserInformation</code> : update user&rsquo;s basic user information</li>
+  <li><code>PUT: /admin/users/iri/&lt;userIri&gt;/Password</code> : update user&rsquo;s password</li>
+  <li><code>PUT: /admin/users/iri/&lt;userIri&gt;/Status</code> : update user&rsquo;s status</li>
+  <li><code>DELETE: /admin/users/iri/&lt;userIri&gt;</code> : delete user (set status to false)</li>
+</ul>
 <p><strong>User&rsquo;s project membership operations</strong></p>
 <ul>
   <li><code>GET: /admin/users/iri/&lt;userIri&gt;/project-memberships</code> : get user&rsquo;s project memberships</li>
@@ -297,6 +306,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   &quot;email&quot;: &quot;donald.duck@example.org&quot;,
   &quot;givenName&quot;: &quot;Donald&quot;,
   &quot;familyName&quot;: &quot;Duck&quot;,
+  &quot;username&quot;: &quot;donald.duck&quot;,
   &quot;password&quot;: &quot;test&quot;,
   &quot;status&quot;: true,
   &quot;lang&quot;: &quot;en&quot;,
@@ -308,12 +318,12 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <ul>
   <li>Required permission: SystemAdmin / self</li>
   <li>Changeable information: email, given name, family name, password, status, SystemAdmin membership</li>
-  <li>Remark: There are four distinct use case / payload combination. It is not possible to mix cases, e.g., sending <code>newUserStatus</code> and basic user information at the same time will result in an error: (1) change password: oldPassword, newPassword, (2) change status: newUserStatus, (3) change system admin membership: newSystemAdminMembershipStatus, and (4) change basic user information: email, givenName, familyName, lang</li>
-  <li>TypeScript Docs: userFormats - ChangeUserApiRequestV1</li>
+  <li>TypeScript Docs: userFormats - ChangeUserApiRequestADM</li>
   <li>PUT: <code>/admin/users/iri/&lt;userIri&gt;/BasicUserInformation</code></li>
   <li>
   <p>BODY:</p>
   <pre><code>{
+  &quot;username&quot;: &quot;donald.big.duck&quot;,
   &quot;email&quot;: &quot;donald.big.duck@example.org&quot;,
   &quot;givenName&quot;: &quot;Big Donald&quot;,
   &quot;familyName&quot;: &quot;Duckmann&quot;,
@@ -329,7 +339,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li>
   <p>BODY:</p>
   <pre><code>{
-  &quot;oldPassword&quot;: &quot;test&quot;,
+  &quot;requesterPassword&quot;: &quot;test&quot;,
   &quot;newPassword&quot;: &quot;test1234&quot;
 }
 </code></pre></li>
@@ -363,7 +373,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li>Required permission: SystemAdmin / ProjectAdmin / self (if project self-assignment is enabled)</li>
   <li>Required information: project IRI, user IRI</li>
   <li>Effects: <code>knora-base:isInProject</code> user property</li>
-  <li>POST / DELETE: <code>/admin/users/iri/&lt;userIri&gt;/projects/&lt;projectIri&gt;</code></li>
+  <li>POST / DELETE: <code>/admin/users/iri/&lt;userIri&gt;/project-memberships/&lt;projectIri&gt;</code></li>
   <li>BODY: empty</li>
 </ul>
 <h2><a href="#users-group-membership-operations" name="users-group-membership-operations" class="anchor"><span class="anchor-link"></span></a>User&rsquo;s group membership operations</h2>
@@ -406,17 +416,17 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h2><a href="#example-data" name="example-data" class="anchor"><span class="anchor-link"></span></a>Example Data</h2>
 <p>The following is an example for user information stored in the <code>admin</code> named graph:</p>
 <pre><code>&lt;http://rdfh.ch/users/c266a56709&gt;
-    rdf:type knora-base:User ;
-    knora-base:username &quot;user01.user1&quot;^^xsd:string ;
-    knora-base:email &quot;user01.user1@example.com&quot;^^xsd:string ;
-    knora-base:givenName &quot;User01&quot;^^xsd:string ;
-    knora-base:familyName &quot;User&quot;^^xsd:string ;
-    knora-base:password &quot;$e0801$FGl9FDIWw+D83OeNPGmD9u2VTqIkJopIQECgmb2DSWQLS0TeKSvYoWAkbEv6KxePPlCI3CP9MmVHuvnWv8/kag==$mlegCYdGXt+ghuo8i0rLjgOiNnGDW604Q5g/v7zwBPU=&quot;^^xsd:string ;
-    knora-base:preferredLanguage &quot;de&quot;^^xsd:string ;
-    knora-base:status &quot;true&quot;^^xsd:boolean ;
-    knora-base:isInProject &lt;http://rdfh.ch/projects/00FF&gt; ;
-    knora-base:isInSystemAdminGroup &quot;false&quot;^^xsd:boolean ;
-    knora-base:isInProjectAdminGroup &lt;http://rdfh.ch/projects/00FF&gt; .
+    rdf:type knora-admin:User ;
+    knora-admin:username &quot;user01.user1&quot;^^xsd:string ;
+    knora-admin:email &quot;user01.user1@example.com&quot;^^xsd:string ;
+    knora-admin:givenName &quot;User01&quot;^^xsd:string ;
+    knora-admin:familyName &quot;User&quot;^^xsd:string ;
+    knora-admin:password &quot;$e0801$FGl9FDIWw+D83OeNPGmD9u2VTqIkJopIQECgmb2DSWQLS0TeKSvYoWAkbEv6KxePPlCI3CP9MmVHuvnWv8/kag==$mlegCYdGXt+ghuo8i0rLjgOiNnGDW604Q5g/v7zwBPU=&quot;^^xsd:string ;
+    knora-admin:preferredLanguage &quot;de&quot;^^xsd:string ;
+    knora-admin:status &quot;true&quot;^^xsd:boolean ;
+    knora-admin:isInProject &lt;http://rdfh.ch/projects/00FF&gt; ;
+    knora-admin:isInSystemAdminGroup &quot;false&quot;^^xsd:boolean ;
+    knora-admin:isInProjectAdminGroup &lt;http://rdfh.ch/projects/00FF&gt; .
 </code></pre>
 </div>
 <div>
@@ -426,7 +436,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-6.0.0
+7.0.0-10-002eca45-20190603-0947
 </span>
 </div>
 </article>

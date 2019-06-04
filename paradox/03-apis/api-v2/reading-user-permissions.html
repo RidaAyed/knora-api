@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../../cloud">
-<title>Admin Endpoint · Knora Documentation</title>
+<title>Reading the Users Permissions on Resources and Values · Knora Documentation</title>
 <link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Admin Endpoint
+Reading the Users Permissions on Resources and Values
 </span>
 </div>
 </div>
@@ -219,19 +219,21 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public
-License along with Knora.  If not, see <http://www.gnu.org/licenses/.
+License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#admin-endpoint" name="admin-endpoint" class="anchor"><span class="anchor-link"></span></a>Admin Endpoint</h1>
-<p>For the management of <em>users</em>, <em>projects</em>, and <em>groups</em>, the Knora API following a resource centric approach, provides three endpoints corresponding to the three classes of objects that they have an effect on, namely:</p>
+<h1><a href="#reading-the-users-permissions-on-resources-and-values" name="reading-the-users-permissions-on-resources-and-values" class="anchor"><span class="anchor-link"></span></a>Reading the User&rsquo;s Permissions on Resources and Values</h1>
+<p>In the <a href="introduction.html#api-schema">complex API schema</a>, each resource and value is returned with the predicate <code>knora-api:userHasPermission</code>. The object of this predicate is a string containing a permission code, which indicates the requesting user&rsquo;s maximum permission on the resource or value. These are the possible permission codes, in ascending order:</p>
 <ul>
-  <li>Users Endpoint: <code>http://server:port/admin/users</code> - <code>knora-base:User</code></li>
-  <li>Projects Endpoint: <code>http://server:port/admin/projects</code> - <code>knora-base:knoraProject</code></li>
-  <li>Groups Endpoint: <code>http://server:port/admin/groups</code> - <code>knora-base:UserGroup</code></li>
+  <li><code>RV</code>: restricted view permission (least privileged)</li>
+  <li><code>V</code>: view permission</li>
+  <li><code>M</code> modify permission</li>
+  <li><code>D</code>: delete permission</li>
+  <li><code>CR</code>: change rights permission (most privileged)</li>
 </ul>
-<p>All information regarding users, projects and groups is stored in the <code>http://www.knora.org/admin</code> named graph.</p>
+<p>Each permission implies all lesser permissions. For more details, see <a href="../../02-knora-ontologies/knora-base.html#permissions">Permissions</a>.</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-admin/overview.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-v2/reading-user-permissions.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -247,7 +249,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../../03-apis/api-admin/introduction.html" title="Introduction: Using the Admin API" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../../03-apis/api-v2/reading-and-searching-resources.html" title="Reading and Searching Resources" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -256,17 +258,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Introduction: Using the Admin API
+Reading and Searching Resources
 </span>
 </div>
 </a>
-<a href="../../03-apis/api-admin/users.html" title="Users Endpoint" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../03-apis/api-v2/getting-lists.html" title="Getting Lists" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Users Endpoint
+Getting Lists
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

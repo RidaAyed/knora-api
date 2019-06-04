@@ -203,7 +203,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 6.0.0
+<i class="md-icon">label_outline</i> 7.0.0-10-002eca45-20190603-0947
 </div>
 </nav>
 
@@ -991,23 +991,29 @@ select * where {
   <dd>
   <p>The user&rsquo;s given name.</p></dd>
 </dl>
-<p>Knora&rsquo;s concept of access control is that an object (a resource or value) can grant permissions to groups of users (but not to individual users). There are four built-in groups:</p>
+<p>Knora&rsquo;s concept of access control is that an object (a resource or value) can grant permissions to groups of users (but not to individual users). There are several built-in groups:</p>
 <dl>
-  <dt><code>UnknownUser</code></dt>
+  <dt><code>knora-admin:UnknownUser</code></dt>
   <dd>
   <p>Any user who has not logged into Knora is automatically assigned to this group.</p></dd>
-  <dt><code>KnownUser</code></dt>
+  <dt><code>knora-admin:KnownUser</code></dt>
   <dd>
   <p>Any user who has logged into Knora is automatically assigned to this group.</p></dd>
-  <dt><code>ProjectMember</code></dt>
+  <dt><code>knora-admin:ProjectMember</code></dt>
   <dd>
   <p>When checking a user&rsquo;s permissions on an object, the user is automatically assigned to this group if she is a member of the project that the object belongs to.</p></dd>
-  <dt><code>Creator</code></dt>
+  <dt><code>knora-admin:Creator</code></dt>
   <dd>
   <p>When checking a user&rsquo;s permissions on an object, the user is automatically assigned to this group if he is the creator of the object.</p></dd>
+  <dt><code>knora-admin:ProjectAdmin</code></dt>
+  <dd>
+  <p>When checking a user&rsquo;s permissions on an object, the user is automatically assigned to this group if she is an administrator of the project that the object belongs to.</p></dd>
+  <dt><code>knora-admin:SystemAdmin</code></dt>
+  <dd>
+  <p>The group of Knora system administrators.</p></dd>
 </dl>
-<p>A user-created ontology can define additional groups, which must belong to the OWL class <code>kb:UserGroup</code>.</p>
-<p>There is one built-in <code>SystemUser</code>, which is the creator of link values created automatically for resource references in standoff markup (see <a href="knora-base.html#standofflinktag">StandoffLinkTag</a>).</p>
+<p>A user-created ontology can define additional groups, which must belong to the OWL class <code>knora-admin:UserGroup</code>.</p>
+<p>There is one built-in <code>knora-admin:SystemUser</code>, which is the creator of link values created automatically for resource references in standoff markup (see <a href="knora-base.html#standofflinktag">StandoffLinkTag</a>).</p>
 <h3><a href="#permissions" name="permissions" class="anchor"><span class="anchor-link"></span></a>Permissions</h3>
 <p>An object can grant the following permissions, which are stored in a compact format in a single string. This string is the object of the predicate <code>kb:hasPermissions</code>, which is required on every <code>kb:Resource</code> and <code>kb:Value</code>.</p>
 <ol>
@@ -1029,11 +1035,11 @@ select * where {
 <ul>
   <li>Each permission is represented by the one-letter or two-letter abbreviation given above.</li>
   <li>Each permission abbreviation is followed by a space, then a comma-separated list of groups that the permission is granted to.</li>
-  <li>The IRIs of built-in groups are shortened using the <code>knora-base</code> prefix.</li>
+  <li>The IRIs of built-in groups are shortened using the <code>knora-admin</code> prefix.</li>
   <li>Multiple permissions are separated by a vertical bar (<code>|</code>).</li>
 </ul>
 <p>For example, if an object grants view permission to unknown and known users, and modify permission to project members, the resulting permission literal would be:</p>
-<pre><code>V knora-base:UnknownUser,knora-base:KnownUser|M knora-base:ProjectMember
+<pre><code>V knora-admin:UnknownUser,knora-admin:KnownUser|M knora-admin:ProjectMember
 </code></pre>
 <h3><a href="#consistency-checking" name="consistency-checking" class="anchor"><span class="anchor-link"></span></a>Consistency Checking</h3>
 <p>Knora tries to enforce repository consistency by checking constraints that are specified in the Knora base ontology and in user-created ontologies. Three types of consistency rules are enforced:</p>
@@ -1145,7 +1151,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-6.0.0
+7.0.0-10-002eca45-20190603-0947
 </span>
 </div>
 </article>

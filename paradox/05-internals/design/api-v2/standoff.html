@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../../../cloud">
-<title>Ontology Schemas · Knora Documentation</title>
+<title>Standoff Markup · Knora Documentation</title>
 <link rel="stylesheet" href="../../../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../../../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Ontology Schemas
+Standoff Markup
 </span>
 </div>
 </div>
@@ -192,10 +192,12 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../../05-internals/design/api-v2/ontology-schemas.html#ontology-schemas" class="header">Ontology Schemas</a>
+  <li><a href="../../../05-internals/design/api-v2/standoff.html#standoff-markup" class="header">Standoff Markup</a>
   <ul>
-    <li><a href="../../../05-internals/design/api-v2/ontology-schemas.html#ontologyschema-type" class="header">OntologySchema Type</a></li>
-    <li><a href="../../../05-internals/design/api-v2/ontology-schemas.html#generation-of-ontologies-in-external-schemas" class="header">Generation of Ontologies in External Schemas</a></li>
+    <li><a href="../../../05-internals/design/api-v2/standoff.html#requirements" class="header">Requirements</a></li>
+    <li><a href="../../../05-internals/design/api-v2/standoff.html#rdf-design" class="header">RDF Design</a></li>
+    <li><a href="../../../05-internals/design/api-v2/standoff.html#querying-standoff" class="header">Querying Standoff</a></li>
+    <li><a href="../../../05-internals/design/api-v2/standoff.html#conversion-between-standoff-and-xml" class="header">Conversion Between Standoff and XML</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -214,10 +216,12 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../../05-internals/design/api-v2/ontology-schemas.html#ontology-schemas" class="header">Ontology Schemas</a>
+  <li><a href="../../../05-internals/design/api-v2/standoff.html#standoff-markup" class="header">Standoff Markup</a>
   <ul>
-    <li><a href="../../../05-internals/design/api-v2/ontology-schemas.html#ontologyschema-type" class="header">OntologySchema Type</a></li>
-    <li><a href="../../../05-internals/design/api-v2/ontology-schemas.html#generation-of-ontologies-in-external-schemas" class="header">Generation of Ontologies in External Schemas</a></li>
+    <li><a href="../../../05-internals/design/api-v2/standoff.html#requirements" class="header">Requirements</a></li>
+    <li><a href="../../../05-internals/design/api-v2/standoff.html#rdf-design" class="header">RDF Design</a></li>
+    <li><a href="../../../05-internals/design/api-v2/standoff.html#querying-standoff" class="header">Querying Standoff</a></li>
+    <li><a href="../../../05-internals/design/api-v2/standoff.html#conversion-between-standoff-and-xml" class="header">Conversion Between Standoff and XML</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -246,171 +250,46 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#ontology-schemas" name="ontology-schemas" class="anchor"><span class="anchor-link"></span></a>Ontology Schemas</h1>
+<h1><a href="#standoff-markup" name="standoff-markup" class="anchor"><span class="anchor-link"></span></a>Standoff Markup</h1>
 <div class="toc ">
 <ul>
-  <li><a href="../../../05-internals/design/api-v2/ontology-schemas.html#ontologyschema-type" class="header">OntologySchema Type</a></li>
-  <li><a href="../../../05-internals/design/api-v2/ontology-schemas.html#generation-of-ontologies-in-external-schemas" class="header">Generation of Ontologies in External Schemas</a></li>
+  <li><a href="../../../05-internals/design/api-v2/standoff.html#requirements" class="header">Requirements</a></li>
+  <li><a href="../../../05-internals/design/api-v2/standoff.html#rdf-design" class="header">RDF Design</a></li>
+  <li><a href="../../../05-internals/design/api-v2/standoff.html#querying-standoff" class="header">Querying Standoff</a></li>
+  <li><a href="../../../05-internals/design/api-v2/standoff.html#conversion-between-standoff-and-xml" class="header">Conversion Between Standoff and XML</a></li>
 </ul>
 </div>
-<h2><a href="#ontologyschema-type" name="ontologyschema-type" class="anchor"><span class="anchor-link"></span></a>OntologySchema Type</h2>
-<p>As explained in <a href="../../../03-apis/api-v2/introduction.html#api-schema">API Schema</a>, Knora can represent the same RDF data in different forms: an &ldquo;internal schema&rdquo; for use in the triplestore, and different &ldquo;external schemas&rdquo; for use in Knora API v2. Different schemas use different IRIs, as explained in <a href="../../../03-apis/api-v2/knora-iris.html">Knora IRIs</a>. Internally, Knora uses a <a href="smart-iris.html">SmartIri</a> class to convert IRIs between schemas.</p>
-<p>The data type representing a schema itself is <code>OntologySchema</code>, which uses the <a href="https://alvinalexander.com/scala/benefits-of-sealed-traits-in-scala-java-enums">sealed trait</a> pattern:</p>
-<pre class="prettyprint"><code class="language-scala">package org.knora.webapi
-
-/**
-  * Indicates the schema that a Knora ontology or ontology entity conforms to.
-  */
-sealed trait OntologySchema
-
-/**
-  * The schema of Knora ontologies and entities that are used in the triplestore.
-  */
-case object InternalSchema extends OntologySchema
-
-/**
-  * The schema of Knora ontologies and entities that are used in API v2.
-  */
-sealed trait ApiV2Schema extends OntologySchema
-
-/**
-  * The simple schema for representing Knora ontologies and entities. This schema represents values as literals
-  * when possible.
-  */
-case object ApiV2Simple extends ApiV2Schema
-
-/**
-  * The default (or complex) schema for representing Knora ontologies and entities. This
-  * schema always represents values as objects.
-  */
-case object ApiV2Complex extends ApiV2Schema
-
-/**
-  * A trait representing options that can be submitted to configure an ontology schema.
-  */
-sealed trait SchemaOption
-
-/**
-  * A trait representing options that affect the rendering of markup when text values are returned.
-  */
-sealed trait MarkupRendering extends SchemaOption
-
-/**
-  * Indicates that markup should be rendered as XML when text values are returned.
-  */
-case object MarkupAsXml extends MarkupRendering
-
-/**
-  * Indicates that markup should not be returned with text values, because it will be requested
-  * separately as standoff.
-  */
-case object MarkupAsStandoff extends MarkupRendering
-
-/**
-  * Indicates that no markup should be returned with text values. Used only internally.
-  */
-case object NoMarkup extends MarkupRendering
-
-/**
-  * Utility functions for working with schema options.
-  */
-object SchemaOptions {
-    /**
-      * A set of schema options for querying all standoff markup along with text values.
-      */
-    val ForStandoffWithTextValues: Set[SchemaOption] = Set(MarkupAsXml)
-
-    /**
-      * A set of schema options for querying standoff markup separately from text values.
-      */
-    val ForStandoffSeparateFromTextValues: Set[SchemaOption] = Set(MarkupAsStandoff)
-
-    /**
-      * Determines whether standoff should be queried when a text value is queried.
-      *
-      * @param targetSchema the target API schema.
-      * @param schemaOptions the schema options submitted with the request.
-      * @return `true` if standoff should be queried.
-      */
-    def queryStandoffWithTextValues(targetSchema: ApiV2Schema, schemaOptions: Set[SchemaOption]): Boolean = {
-        targetSchema == ApiV2Complex &amp;&amp; !schemaOptions.contains(MarkupAsStandoff)
-    }
-
-    /**
-      * Determines whether markup should be rendered as XML.
-      *
-      * @param targetSchema the target API schema.
-      * @param schemaOptions the schema options submitted with the request.
-      * @return `true` if markup should be rendered as XML.
-      */
-    def renderMarkupAsXml(targetSchema: ApiV2Schema, schemaOptions: Set[SchemaOption]): Boolean = {
-        targetSchema == ApiV2Complex &amp;&amp; !schemaOptions.contains(MarkupAsStandoff)
-    }
-
-    /**
-      * Determines whether markup should be rendered as standoff, separately from text values.
-      *
-      * @param targetSchema the target API schema.
-      * @param schemaOptions the schema options submitted with the request.
-      * @return `true` if markup should be rendered as standoff.
-      */
-    def renderMarkupAsStandoff(targetSchema: ApiV2Schema, schemaOptions: Set[SchemaOption]): Boolean = {
-        targetSchema == ApiV2Complex &amp;&amp; schemaOptions.contains(MarkupAsStandoff)
-    }
-}</code></pre>
-<p>This class hierarchy allows method declarations to restrict the schemas they accept. A method that can accept any schema can take a parameter of type <code>OntologySchema</code>, while a method that accepts only external schemas can take a parameter of type <code>ApiV2Schema</code>. For examples, see <a href="content-wrappers.html">Content Wrappers</a>.</p>
-<h2><a href="#generation-of-ontologies-in-external-schemas" name="generation-of-ontologies-in-external-schemas" class="anchor"><span class="anchor-link"></span></a>Generation of Ontologies in External Schemas</h2>
-<p>Ontologies are stored only in the internal schema, and are converted on the fly to external schemas. For each external schema, there is a Scala object in <code>org.knora.webapi.messages.v2.responder.ontologymessages</code> that provides rules for this conversion:</p>
+<h2><a href="#requirements" name="requirements" class="anchor"><span class="anchor-link"></span></a>Requirements</h2>
+<p>In Knora, text with markup is stored using <a href="http://uahost.uantwerpen.be/lse/index.php/lexicon/markup-standoff/">standoff markup</a>, i.e. markup that is stored separately from the content it applies to.</p>
+<p>Knora&rsquo;s standoff design is based on these requirements:</p>
 <ul>
-  <li><code>KnoraApiV2SimpleTransformationRules</code> for the API v2 simple schema</li>
-  <li><code>KnoraApiV2WithValueObjectsTransformationRules</code> for the API v2 complex schema</li>
+  <li>
+  <p><a href="https://en.wikipedia.org/wiki/Overlapping_markup">Overlapping markup</a> should be supported.</p></li>
+  <li>
+  <p>Markup should be stored as RDF, so it can be searched and analysed using the same tools that are used  with other data managed by Knora.</p></li>
+  <li>
+  <p>In particular, <a href="../../../03-apis/api-v2/query-language.html">Gravsearch</a> queries should be able  to specify search criteria that refer to the markup tags attached to a text, together with  any other search criteria relating to the resource that contains the text.</p></li>
+  <li>
+  <p>It should be possible to import any XML document into Knora, store the markup as standoff, and  at any time export the document as an equivalent XML document.</p></li>
 </ul>
-<p>Since these are Scala objects rather than classes, they are initialised before the Akka <code>ActorSystem</code> starts, and therefore need a special instance of Knora&rsquo;s <code>StringFormatter</code> class (see <a href="smart-iris.html#implementation">Smart IRIs</a>).</p>
-<p>Each of these rule objects implements this trait:</p>
-<pre class="prettyprint"><code class="language-scala">/**
-  * A trait for objects that provide rules for converting an ontology from the internal schema to an external schema.
-  */
-trait OntologyTransformationRules {
-    /**
-      * The metadata to be used for the transformed ontology.
-      */
-    val ontologyMetadata: OntologyMetadataV2
-
-    /**
-      * Properties to remove from the ontology before converting it to the target schema.
-      */
-    val internalPropertiesToRemove: Set[SmartIri]
-
-    /**
-      * Classes to remove from the ontology before converting it to the target schema.
-      */
-    val internalClassesToRemove: Set[SmartIri]
-
-    /**
-      * After the ontology has been converted to the target schema, these cardinalities must be
-      * added to the specified classes.
-      */
-    val externalCardinalitiesToAdd: Map[SmartIri, Map[SmartIri, KnoraCardinalityInfo]]
-
-    /**
-      * Classes that need to be added to the ontology after converting it to the target schema.
-      */
-    val externalClassesToAdd: Map[SmartIri, ReadClassInfoV2]
-
-    /**
-      * Properties that need to be added to the ontology after converting it to the target schema.
-      */
-    val externalPropertiesToAdd: Map[SmartIri, ReadPropertyInfoV2]
-}
-</code></pre>
-<p>These rules are applied to <code>knora-base</code> as well as to user-created ontologies. For example, <code>knora-base:Resource</code> has different cardinalities depending on its schema (<code>knora-api:Resource</code> has an additional cardinality on <code>knora-api:hasIncomingLink</code>), and this is therefore also true of its user-created subclasses. The transformation is implemented:</p>
+<h2><a href="#rdf-design" name="rdf-design" class="anchor"><span class="anchor-link"></span></a>RDF Design</h2>
+<p>See <a href="../../../02-knora-ontologies/knora-base.html#text-with-standoff-markup">Text with Standoff Markup</a>.</p>
+<h2><a href="#querying-standoff" name="querying-standoff" class="anchor"><span class="anchor-link"></span></a>Querying Standoff</h2>
+<p>Since the number of standoff tags that can be attached to a text value is unlimited, standoff is queried in pages of a limited size, to avoid requesting huge SPARQL query results from the triplestore.</p>
+<p>When <code>ResourcesResponderV2</code> or <code>SearchResponderV2</code> need to return a text value with all its markup, they first query the text value with at most one page of standoff. If the text value has more than one page of standoff, <code>ConstructResponseUtilV2.makeTextValueContentV2</code> then sends a <code>GetRemainingStandoffFromTextValueRequestV2</code> message to <code>StandoffResponderV2</code>, which queries the rest of the standoff in the text value, one page at a time. The resulting standoff is concatenated together and returned.</p>
+<p>To optimise query performance:</p>
 <ul>
-  <li>In the implementations of the <code>toOntologySchema</code> method in classes defined in  <code>OntologyMessagesV2.scala</code>: <code>ReadOntologyV2</code>, <code>ReadClassInfoV2</code>, <code>ClassInfoContentV2</code>,  <code>PropertyInfoContentV2</code>, and <code>OntologyMetadataV2</code>.</li>
-  <li>In <code>OntologyResponderV2.getEntityInfoResponseV2</code>, which handles requests for  specific ontology entities. If the requested entity is hard-coded in a transformation  rule, this method returns the hard-coded external entity, otherwise it returns the relevant  internal entity.</li>
+  <li>
+  <p>Each text value with standoff has the predicate <code>knora-base:valueHasMaxStandoffStartIndex</code>, so that when Knora  queries a page of standoff, it knows whether it has reached the last page.</p></li>
+  <li>
+  <p>The last path component of the IRI of a standoff tag is the integer object of its  <code>knora-base:standoffTagHasStartIndex</code> predicate. When querying standoff, it is necessary to convert  the IRI objects of <code>knora-base:standoffTagHasStartParent</code> and <code>knora-base:standoffTagHasEndParent</code> to  integer indexes (the start indexes of those tags). Including each tag&rsquo;s start index in its IRI makes it  unnecessary to query the parent tags to determine their start indexes.</p></li>
 </ul>
+<h2><a href="#conversion-between-standoff-and-xml" name="conversion-between-standoff-and-xml" class="anchor"><span class="anchor-link"></span></a>Conversion Between Standoff and XML</h2>
+<p><code>XMLToStandoffUtil</code> does the low-level conversion of documents between standoff and XML, using a simple data structure to represent standoff. This data structure knows nothing about RDF, and each standoff tag contains its XML element name and namespace and those of its attributes.</p>
+<p>In Knora, it is possible to define <a href="../../../03-apis/api-v2/xml-to-standoff-mapping.html">mappings</a> to control how standoff/RDF is converted to XML and vice versa. Different mappings can be used to convert the same standoff/RDF to different sorts of XML documents. <code>StandoffTagUtilV2</code> converts between standoff/RDF and XML using mappings, delegating the lower-level work to <code>XMLToStandoffUtil</code>.</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/design/api-v2/ontology-schemas.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/design/api-v2/standoff.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -426,7 +305,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../../../05-internals/design/api-v2/overview.html" title="API v2 Design Overview" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../../../05-internals/design/api-v2/gravsearch.html" title="Gravsearch Design" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -435,17 +314,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-API v2 Design Overview
+Gravsearch Design
 </span>
 </div>
 </a>
-<a href="../../../05-internals/design/api-v2/smart-iris.html" title="Smart IRIs" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../../05-internals/design/api-v2/ark.html" title="Archival Resource Key (ARK) Identifiers" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Smart IRIs
+Archival Resource Key (ARK) Identifiers
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">
