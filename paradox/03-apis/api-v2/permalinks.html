@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../../cloud">
-<title>Resource Permalinks · Knora Documentation</title>
+<title>Permalinks · Knora Documentation</title>
 <link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Resource Permalinks
+Permalinks
 </span>
 </div>
 </div>
@@ -192,11 +192,11 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../03-apis/api-v2/resource-permalinks.html#resource-permalinks" class="header">Resource Permalinks</a>
+  <li><a href="../../03-apis/api-v2/permalinks.html#permalinks" class="header">Permalinks</a>
   <ul>
-    <li><a href="../../03-apis/api-v2/resource-permalinks.html#obtaining-ark-urls" class="header">Obtaining ARK URLs</a></li>
-    <li><a href="../../03-apis/api-v2/resource-permalinks.html#resolving-knora-ark-urls" class="header">Resolving Knora ARK URLs</a></li>
-    <li><a href="../../03-apis/api-v2/resource-permalinks.html#knora-ark-url-format" class="header">Knora ARK URL Format</a></li>
+    <li><a href="../../03-apis/api-v2/permalinks.html#obtaining-ark-urls" class="header">Obtaining ARK URLs</a></li>
+    <li><a href="../../03-apis/api-v2/permalinks.html#resolving-knora-ark-urls" class="header">Resolving Knora ARK URLs</a></li>
+    <li><a href="../../03-apis/api-v2/permalinks.html#knora-ark-url-format" class="header">Knora ARK URL Format</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -215,11 +215,11 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../03-apis/api-v2/resource-permalinks.html#resource-permalinks" class="header">Resource Permalinks</a>
+  <li><a href="../../03-apis/api-v2/permalinks.html#permalinks" class="header">Permalinks</a>
   <ul>
-    <li><a href="../../03-apis/api-v2/resource-permalinks.html#obtaining-ark-urls" class="header">Obtaining ARK URLs</a></li>
-    <li><a href="../../03-apis/api-v2/resource-permalinks.html#resolving-knora-ark-urls" class="header">Resolving Knora ARK URLs</a></li>
-    <li><a href="../../03-apis/api-v2/resource-permalinks.html#knora-ark-url-format" class="header">Knora ARK URL Format</a></li>
+    <li><a href="../../03-apis/api-v2/permalinks.html#obtaining-ark-urls" class="header">Obtaining ARK URLs</a></li>
+    <li><a href="../../03-apis/api-v2/permalinks.html#resolving-knora-ark-urls" class="header">Resolving Knora ARK URLs</a></li>
+    <li><a href="../../03-apis/api-v2/permalinks.html#knora-ark-url-format" class="header">Knora ARK URL Format</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -248,27 +248,54 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#resource-permalinks" name="resource-permalinks" class="anchor"><span class="anchor-link"></span></a>Resource Permalinks</h1>
+<h1><a href="#permalinks" name="permalinks" class="anchor"><span class="anchor-link"></span></a>Permalinks</h1>
 <div class="toc ">
 <ul>
-  <li><a href="../../03-apis/api-v2/resource-permalinks.html#obtaining-ark-urls" class="header">Obtaining ARK URLs</a></li>
-  <li><a href="../../03-apis/api-v2/resource-permalinks.html#resolving-knora-ark-urls" class="header">Resolving Knora ARK URLs</a></li>
-  <li><a href="../../03-apis/api-v2/resource-permalinks.html#knora-ark-url-format" class="header">Knora ARK URL Format</a></li>
+  <li><a href="../../03-apis/api-v2/permalinks.html#obtaining-ark-urls" class="header">Obtaining ARK URLs</a></li>
+  <li><a href="../../03-apis/api-v2/permalinks.html#resolving-knora-ark-urls" class="header">Resolving Knora ARK URLs</a></li>
+  <li><a href="../../03-apis/api-v2/permalinks.html#knora-ark-url-format" class="header">Knora ARK URL Format</a>
+  <ul>
+    <li><a href="../../03-apis/api-v2/permalinks.html#ark-urls-for-resources" class="header">ARK URLs for Resources</a></li>
+    <li><a href="../../03-apis/api-v2/permalinks.html#ark-urls-for-values" class="header">ARK URLs for Values</a></li>
+  </ul></li>
 </ul>
 </div>
-<p>Knora provides a permanent, citable URL for each resource. These URLs use <a href="http://n2t.net/e/ark_ids.html">Archival Resource Key (ARK) Identifiers</a>, and are designed to stay the same even if the resource itself is moved from one Knora repository to another.</p>
+<p>Knora provides a permanent, citable URL for each resource and value. These URLs use <a href="http://n2t.net/e/ark_ids.html">Archival Resource Key (ARK) Identifiers</a>, and are designed to remain valid even if the resource itself is moved from one Knora repository to another.</p>
 <h2><a href="#obtaining-ark-urls" name="obtaining-ark-urls" class="anchor"><span class="anchor-link"></span></a>Obtaining ARK URLs</h2>
-<p>A resource is always returned with two ARK URLs: one that will always refer to the latest version of the resource (<code>knora-api:arkUrl</code>), and one that refers specifically to the version being returned (<code>knora-api:versionArkUrl</code>). For example:</p>
+<p>In the <a href="introduction.html#api-schema">complex schema</a>, a resource or value is always returned with two ARK URLs: one that will always refer to the latest version of the resource or value (<code>knora-api:arkUrl</code>), and one that refers specifically to the version being returned (<code>knora-api:versionArkUrl</code>). For example:</p>
 <pre class="prettyprint"><code class="language-jsonld">{
   &quot;@id&quot; : &quot;http://rdfh.ch/0803/2a6221216701&quot;,
   &quot;@type&quot; : &quot;incunabula:book&quot;,
+  &quot;incunabula:book_comment&quot; : {
+    &quot;@id&quot; : &quot;http://rdfh.ch/0803/2a6221216701/values/56c287fc9505&quot;,
+    &quot;@type&quot; : &quot;knora-api:TextValue&quot;,
+    &quot;knora-api:arkUrl&quot; : {
+      &quot;@type&quot; : &quot;xsd:anyURI&quot;,
+      &quot;@value&quot; : &quot;http://ark.dasch.swiss/ark:/72163/1/0803/2a6221216701W/dhaRsvZATjmOxhCOOzHqewB&quot;
+    },
+    &quot;knora-api:versionArkUrl&quot; : {
+      &quot;@type&quot; : &quot;xsd:anyURI&quot;,
+      &quot;@value&quot; : &quot;http://ark.dasch.swiss/ark:/72163/1/0803/2a6221216701W/dhaRsvZATjmOxhCOOzHqewB.20160302T150521Z&quot;
+    },
+    &quot;knora-api:attachedToUser&quot; : {
+      &quot;@id&quot; : &quot;http://rdfh.ch/users/91e19f1e01&quot;
+    },
+    &quot;knora-api:hasPermissions&quot; : &quot;CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:UnknownUser&quot;,
+    &quot;knora-api:userHasPermission&quot; : &quot;V&quot;,
+    &quot;knora-api:valueAsString&quot; : &quot;Katalogaufnahme anhand ISTC und v.d.Haegen&quot;,
+    &quot;knora-api:valueCreationDate&quot; : {
+      &quot;@type&quot; : &quot;xsd:dateTimeStamp&quot;,
+      &quot;@value&quot; : &quot;2016-03-02T15:05:21Z&quot;
+    },
+    &quot;knora-api:valueHasUUID&quot; : &quot;dhaRsvZATjmOxhCOOzHqew&quot;
+  },
   &quot;knora-api:arkUrl&quot; : {
     &quot;@type&quot; : &quot;xsd:anyURI&quot;,
     &quot;@value&quot; : &quot;http://ark.dasch.swiss/ark:/72163/1/0803/2a6221216701W&quot;
   },
   &quot;knora-api:versionArkUrl&quot; : {
     &quot;@type&quot; : &quot;xsd:anyURI&quot;,
-    &quot;@value&quot; : &quot;http://ark.dasch.swiss/ark:/72163/1/0803/2a6221216701W.20180528T155203897Z&quot;
+    &quot;@value&quot; : &quot;http://ark.dasch.swiss/ark:/72163/1/0803/2a6221216701W.20160302T150521Z&quot;
   },
   &quot;knora-api:attachedToProject&quot; : {
     &quot;@id&quot; : &quot;http://rdfh.ch/projects/0803&quot;
@@ -280,7 +307,8 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     &quot;@type&quot; : &quot;xsd:dateTimeStamp&quot;,
     &quot;@value&quot; : &quot;2016-03-02T15:05:21Z&quot;
   },
-  &quot;knora-api:hasPermissions&quot; : &quot;CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:KnownUser&quot;,
+  &quot;knora-api:hasPermissions&quot; : &quot;CR knora-admin:Creator|M knora-admin:ProjectMember|V knora-admin:UnknownUser&quot;,
+  &quot;knora-api:userHasPermission&quot; : &quot;V&quot;,
   &quot;rdfs:label&quot; : &quot;Reise ins Heilige Land&quot;,
   &quot;@context&quot; : {
     &quot;rdf&quot; : &quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;,
@@ -291,24 +319,42 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   }
 }
 </code></pre>
-<p>For more information on getting past versions of resources, see <a href="reading-and-searching-resources.html#get-a-full-representation-of-a-version-of-a-resource-by-iri">Get a Full Representation of a Version of a Resource by IRI</a> and <a href="reading-and-searching-resources.html#get-the-version-history-of-a-resource">Get the Version History of a Resource</a>.</p>
+<p>In the <a href="introduction.html#api-schema">simple schema</a>, resources are returned with ARK URLs, but values are returned as literals, so ARK URLs are not provided for values.</p>
+<p>For more information on getting past versions of resources and values, see:</p>
+<ul>
+  <li><a href="reading-and-searching-resources.html#get-a-full-representation-of-a-version-of-a-resource-by-iri">Get a Full Representation of a Version of a Resource by IRI</a></li>
+  <li><a href="reading-and-searching-resources.html#get-a-version-of-a-value-in-a-resource">Get a Version of a Value in a Resource</a></li>
+  <li><a href="reading-and-searching-resources.html#get-the-version-history-of-a-resource">Get the Version History of a Resource</a></li>
+</ul>
 <h2><a href="#resolving-knora-ark-urls" name="resolving-knora-ark-urls" class="anchor"><span class="anchor-link"></span></a>Resolving Knora ARK URLs</h2>
 <p>A Knora ARK URL is intended to be resolved by the <a href="https://github.com/dhlab-basel/ark-resolver">Knora ARK resolver</a>.</p>
 <h2><a href="#knora-ark-url-format" name="knora-ark-url-format" class="anchor"><span class="anchor-link"></span></a>Knora ARK URL Format</h2>
-<p>The format of a Knora ARK URL is as follows:</p>
+<p>For details, see <a href="../../05-internals/design/api-v2/ark.html">Archival Resource Key (ARK) Identifiers</a>.</p>
+<h3><a href="#ark-urls-for-resources" name="ark-urls-for-resources" class="anchor"><span class="anchor-link"></span></a>ARK URLs for Resources</h3>
+<p>The format of a Knora resource ARK URL is as follows:</p>
 <pre><code>http://HOST/ark:/NAAN/VERSION/PROJECT/RESOURCE_UUID[.TIMESTAMP]
 </code></pre>
-<p>For details, see <a href="../../05-internals/design/api-v2/ark.html">Archival Resource Key (ARK) Identifiers</a>.</p>
 <p>For example, given the Knora resource IRI <code>http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ</code>, and using the DaSCH&rsquo;s ARK resolver hostname and NAAN, the corresponding ARK URL without a timestamp is:</p>
 <pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY
 </code></pre>
 <p>The same ARK URL with an optional timestamp is:</p>
 <pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY.20180604T085622513Z
 </code></pre>
-<p>Without a timestamp, a Knora ARK URL refers to the latest version of the resource at the time when the URL is resolved.</p>
+<p>Without a timestamp, a Knora resource ARK URL refers to the latest version of the resource at the time when the URL is resolved.</p>
+<h3><a href="#ark-urls-for-values" name="ark-urls-for-values" class="anchor"><span class="anchor-link"></span></a>ARK URLs for Values</h3>
+<p>The format of a Knora value ARK URL is as follows:</p>
+<pre><code>http://HOST/ark:/NAAN/VERSION/PROJECT/RESOURCE_UUID/VALUE_UUID[.TIMESTAMP]
+</code></pre>
+<p>For example, given a value with <code>knora-api:valueHasUUID &quot;4OOf3qJUTnCDXlPNnygSzQ&quot;</code> in the resource <code>http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ</code>, and using the DaSCH&rsquo;s ARK resolver hostname and NAAN, the corresponding ARK URL without a timestamp is:</p>
+<pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY/4OOf3qJUTnCDXlPNnygSzQX
+</code></pre>
+<p>The same ARK URL with an optional timestamp is:</p>
+<pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY/4OOf3qJUTnCDXlPNnygSzQX.20180604T085622513Z
+</code></pre>
+<p>Without a timestamp, a Knora value ARK URL refers to the latest version of the value at the time when the URL is resolved.</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-v2/resource-permalinks.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-v2/permalinks.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>

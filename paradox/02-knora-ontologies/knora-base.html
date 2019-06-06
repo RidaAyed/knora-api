@@ -404,6 +404,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>The Knora base ontology defines a set of OWL classes that are derived from <code>kb:Value</code> and represent different types of structured values found in humanities data. This set of classes may not be extended by user-created ontologies.</p>
 <p>A value is always part of one particular resource, which points to it using some property derived from <code>hasValue</code>. For example, a user-created ontology could specify a <code>Book</code> class with a property <code>hasSummary</code> (derived from <code>hasValue</code>), and that property could have a <code>knora-base:objectClassConstraint</code> of <code>TextValue</code>. This would mean that the summary of each book is represented as a <code>TextValue</code>.</p>
 <p>Knora values are versioned. Existing values are not modified. Instead, a new version of an existing value is created. The new version is linked to the old version via the <code>previousValue</code> property.</p>
+<p>Since each value version has a different IRI, there is no IRI that can be used to cite the value, such that it will always refer to the latest version of the value. Therefore, the latest version of each value has a separate UUID, as the object of the property <code>valueHasUUID</code>. When a new version of the value is created, this UUID is moved to the new version. This makes it possible to cite the latest version of a value by searching for the UUID.</p>
 <p>&ldquo;Deleting&rdquo; a value means marking it with <code>kb:isDeleted</code>. An optional <code>kb:deleteComment</code> may be added to explain why the value has been marked as deleted. Deleted values are normally hidden.</p>
 <p>Most types of values are marked as deleted without creating a new version of the value. However, link values must be treated as a special case. Before a <code>LinkValue</code> can be marked as deleted, its reference count must be decremented to 0. Therefore, a new version of the <code>LinkValue</code> is made, with a reference count of 0, and it is this new version that is marked as deleted.</p>
 <p>To simplify the enforcement of ontology constraints, and for consistency with resource updates, no new versions of a deleted value can be made; it is not possible to undelete. Instead, if desired, a new value can be created by copying data from a deleted value.</p>
@@ -433,6 +434,10 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   </dt>
   <dd>
   <p>The previous version of the value.</p></dd>
+  <dt><code>valueHasUUID</code> (0-1)
+  </dt>
+  <dd>
+  <p>The UUID that refers to all versions of the value. Only the latest version of the value has this property.</p></dd>
   <dt><code>isDeleted</code> (1)
   </dt>
   <dd>

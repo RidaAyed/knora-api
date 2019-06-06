@@ -337,7 +337,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </ul>
 <h2><a href="#iris-for-data" name="iris-for-data" class="anchor"><span class="anchor-link"></span></a>IRIs for Data</h2>
 <p>Knora generates IRIs for data that it creates in the triplestore. Each generated data IRI contains one or more <a href="http://tools.ietf.org/html/rfc4122">UUID</a> identifiers to make it unique. To keep data IRIs relatively short, each UUID is <a href="http://tools.ietf.org/html/rfc4648#section-5">base64url-encoded</a>, without padding; thus each UUID is a 22-character string.</p>
-<p>Data IRIs are not currently intended to be dereferenced as URLs. Instead, each Knora resource has a separate <a href="resource-permalinks.html">permalink</a>.</p>
+<p>Data IRIs are not currently intended to be dereferenced as URLs. Instead, each Knora resource has a separate <a href="permalinks.html">permalink</a>.</p>
 <p>A Knora value does not have a stable IRI throughout its version history. Each time a new version of a value is made, the new version gets a new IRI. Therefore, it would not make sense to publish Knora value IRIs. When designing ontologies for Knora projects, keep in mind that if you want something be directly citable, it needs to be a resource, not a value.</p>
 <p>The formats of generated data IRIs for different types of objects are as follows:</p>
 <ul>

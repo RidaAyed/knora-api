@@ -261,6 +261,8 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <ul>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-a-full-representation-of-a-resource-by-iri" class="header">Get a Full Representation of a Resource by IRI</a></li>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-a-full-representation-of-a-version-of-a-resource-by-iri" class="header">Get a Full Representation of a Version of a Resource by IRI</a></li>
+    <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-a-value-in-a-resource" class="header">Get a Value in a Resource</a></li>
+    <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-a-version-of-a-value-in-a-resource" class="header">Get a Version of a Value in a Resource</a></li>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-the-version-history-of-a-resource" class="header">Get the Version History of a Resource</a></li>
     <li><a href="../../03-apis/api-v2/reading-and-searching-resources.html#get-the-preview-of-a-resource-by-iri" class="header">Get the preview of a resource by IRI</a></li>
   </ul></li>
@@ -388,9 +390,19 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <pre><code>HTTP GET to http://host/v2/resources/resourceIRI(/anotherResourceIri)*
 </code></pre>
 <h3><a href="#get-a-full-representation-of-a-version-of-a-resource-by-iri" name="get-a-full-representation-of-a-version-of-a-resource-by-iri" class="anchor"><span class="anchor-link"></span></a>Get a Full Representation of a Version of a Resource by IRI</h3>
-<p>To get a specific past version of a resource, use the route described in <a href="reading-and-searching-resources.html#get-a-full-representation-of-a-resource-by-iri">Get a Full Representation of a Resource by IRI</a>, and add the URL parameter <code>?version=TIMESTAMP</code>, where <code>TIMESTAMP</code> is an <a href="https://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">xsd:dateTimeStamp</a> in the UTC timezone. The timestamp can either be URL-encoded, or submitted with all punctuation (<code>-</code>, <code>:</code>, and <code>.</code>) removed (this is to accept timestamps from Knora&rsquo;s <a href="resource-permalinks.html">ARK URLs</a>).</p>
+<p>To get a specific past version of a resource, use the route described in <a href="reading-and-searching-resources.html#get-a-full-representation-of-a-resource-by-iri">Get a Full Representation of a Resource by IRI</a>, and add the URL parameter <code>?version=TIMESTAMP</code>, where <code>TIMESTAMP</code> is an <a href="https://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">xsd:dateTimeStamp</a> in the UTC timezone. The timestamp can either be URL-encoded, or submitted with all punctuation (<code>-</code>, <code>:</code>, and <code>.</code>) removed (this is to accept timestamps from Knora&rsquo;s <a href="permalinks.html">ARK URLs</a>).</p>
 <p>The resource will be returned with the values that it had at the specified time. Since Knora only versions values, not resource metadata (e.g. <code>rdfs:label</code>), the current metadata will be returned.</p>
-<p>The returned resource will include the predicate <code>knora-api:versionDate</code>, containing the timestamp that was submitted, and its <code>knora-api:versionArkUrl</code> (see <a href="resource-permalinks.html">Resource Permalinks</a>) will contain the same timestamp.</p>
+<p>The returned resource will include the predicate <code>knora-api:versionDate</code>, containing the timestamp that was submitted, and its <code>knora-api:versionArkUrl</code> (see <a href="permalinks.html">Resource Permalinks</a>) will contain the same timestamp.</p>
+<h3><a href="#get-a-value-in-a-resource" name="get-a-value-in-a-resource" class="anchor"><span class="anchor-link"></span></a>Get a Value in a Resource</h3>
+<p>To get a specific value of a resource, use this route:</p>
+<pre><code>HTTP GET to http://host//v2/values/resourceIRI/valueUUID
+</code></pre>
+<p>The resource IRI must be URL-encoded. The path element <code>valueUUID</code> is the string object of the value&rsquo;s <code>knora-api:valueHasUUID</code>.</p>
+<p>The value will be returned within its containing resource, in the same format as for <a href="reading-and-searching-resources.html#responses-describing-resources">Responses Describing Resources</a>, but without any of the resource&rsquo;s other values.</p>
+<h3><a href="#get-a-version-of-a-value-in-a-resource" name="get-a-version-of-a-value-in-a-resource" class="anchor"><span class="anchor-link"></span></a>Get a Version of a Value in a Resource</h3>
+<p>To get a particular version of a specific value of a resource, use the route described in <a href="reading-and-searching-resources.html#get-a-value-in-a-resource">Get a Value in a Resource</a>, and add the URL parameter <code>?version=TIMESTAMP</code>, where <code>TIMESTAMP</code> is an <a href="https://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">xsd:dateTimeStamp</a> in the UTC timezone. The timestamp can either be URL-encoded, or submitted with all punctuation (<code>-</code>, <code>:</code>, and <code>.</code>) removed (this is to accept timestamps from Knora&rsquo;s <a href="permalinks.html">ARK URLs</a>).</p>
+<p>The value will be returned within its containing resource, in the same format as for <a href="reading-and-searching-resources.html#responses-describing-resources">Responses Describing Resources</a>, but without any of the resource&rsquo;s other values.</p>
+<p>Since Knora only versions values, not resource metadata (e.g. <code>rdfs:label</code>), the current resource metadata will be returned.</p>
 <h3><a href="#get-the-version-history-of-a-resource" name="get-the-version-history-of-a-resource" class="anchor"><span class="anchor-link"></span></a>Get the Version History of a Resource</h3>
 <p>To get a list of the changes that have been made to a resource since its creation, use this route:</p>
 <pre><code>HTTP GET to http://host/v2/resources/history/resourceIRI[?startDate=START_DATE&amp;endDate=END_DATE]
@@ -548,7 +560,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>To facilitate the development of tabular user interfaces for data entry, it is possible to get a paged list of all the resources belonging to a particular class in a given project, sorted by the value of a property:</p>
 <pre><code>HTTP GET to http://host/v2/resources?resourceClass=RESOURCE_CLASS_IRI&amp;page=PAGE[&amp;orderByProperty=PROPERTY_IRI]
 </code></pre>
-<p>This is useful only if the project does not contain a large amount of data; otherwise, you should use <a href="query-language.html">Gravsearch</a>) to search using more specific criteria.</p>
+<p>This is useful only if the project does not contain a large amount of data; otherwise, you should use <a href="query-language.html">Gravsearch</a> to search using more specific criteria.</p>
 <p>The HTTP header <code>X-Knora-Accept-Project</code> must be submitted; its value is a Knora project IRI. In the request URL, the values of <code>resourceClass</code> and <code>orderByProperty</code> are URL-encoded IRIs in the <a href="introduction.html#api-schema">complex schema</a>. The <code>orderByProperty</code> parameter is optional; if it is not supplied, resources will be sorted alphabetically by resource IRI (an arbitrary but consistent order). The value of <code>page</code> is a 0-based integer page number. Paging works as it does in <a href="query-language.html">Gravsearch</a>).</p>
 </div>
 <div>

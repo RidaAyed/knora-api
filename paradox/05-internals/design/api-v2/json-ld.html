@@ -360,8 +360,7 @@ trait KnoraReadV2[C &lt;: KnoraReadV2[C]] {
         settings = settings,
         schemaOptions = schemaOptions
     )
-}
-</code></pre>
+}</code></pre>
 <h2><a href="#selecting-the-response-schema" name="selecting-the-response-schema" class="anchor"><span class="anchor-link"></span></a>Selecting the Response Schema</h2>
 <p>Most routes complete by calling <code>RouteUtilV2.runRdfRouteWithFuture</code>, which calls the response message&rsquo;s <code>toJsonLDDocument</code> method. The <code>runRdfRouteWithFuture</code> function has a parameter that enables the route to select the schema that should be used in the response. It is up to each route to determine what the appropriate response schema should be. Some routes support only one response schema. Others allow the client to choose. To use the schema requested by the client, the route can call <code>RouteUtilV2.getOntologySchema</code>:</p>
 <pre class="prettyprint"><code class="language-scala">RouteUtilV2.runRdfRouteWithFuture(

@@ -259,11 +259,11 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </ul>
 </div>
 <h2><a href="#requirements" name="requirements" class="anchor"><span class="anchor-link"></span></a>Requirements</h2>
-<p>Knora must produce an ARK URL for each resource. The ARK identifiers used by Knora must respect <a href="https://tools.ietf.org/html/draft-kunze-ark-18">the draft ARK specification</a>. The format of Knora’s ARK URLs must be able to change over time, while ensuring that previously generated ARK URLs still work.</p>
+<p>Knora must produce an ARK URL for each resource and each value. The ARK identifiers used by Knora must respect <a href="https://tools.ietf.org/html/draft-kunze-ark-18">the draft ARK specification</a>. The format of Knora’s ARK URLs must be able to change over time, while ensuring that previously generated ARK URLs still work.</p>
 <h2><a href="#design" name="design" class="anchor"><span class="anchor-link"></span></a>Design</h2>
 <h3><a href="#ark-url-format" name="ark-url-format" class="anchor"><span class="anchor-link"></span></a>ARK URL Format</h3>
 <p>The format of a Knora ARK URL is as follows:</p>
-<pre><code>http://HOST/ark:/NAAN/VERSION/PROJECT/RESOURCE_UUID[.TIMESTAMP]
+<pre><code>http://HOST/ark:/NAAN/VERSION/PROJECT/RESOURCE_UUID[/VALUE_UUID][.TIMESTAMP]
 </code></pre>
 <ul>
   <li>
@@ -277,14 +277,16 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li>
   <p><code>RESOURCE_UUID</code>: the resource&rsquo;s unique ID, which is normally a  <a href="http://tools.ietf.org/html/rfc4648#section-5">base64url-encoded</a> UUID, as described in  <a href="../../../03-apis/api-v2/knora-iris.html#iris-for-data">IRIs for Data</a>.</p></li>
   <li>
+  <p><code>VALUE_UUID</code>: optionally, the <code>knora-base:valueHasUUID</code> of one of the  resource&rsquo;s values, normally a  <a href="http://tools.ietf.org/html/rfc4648#section-5">base64url-encoded</a> UUID, as described in  <a href="../../../03-apis/api-v2/knora-iris.html#iris-for-data">IRIs for Data</a>.</p></li>
+  <li>
   <p><code>TIMESTAMP</code>: an optional timestamp indicating that the ARK URL represents  the state of the resource at a specific time in the past. The format  of the timestamp is an <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>  date in Coordinated universal time (UTC), including date, time, and an optional  nano-of-second field (of at most 9 digits), without the characters <code>-</code>, <code>:</code>, and <code>.</code> (because  <code>-</code> and <code>.</code> are reserved characters in ARK, and <code>:</code> would have to be URL-encoded).  Example: <code>20180528T155203897Z</code>.</p></li>
 </ul>
-<p>Following the ARK ID spec, <code>/</code> <a href="https://tools.ietf.org/html/draft-kunze-ark-18#section-2.5.1">represents object hierarchy</a> and <code>.</code> <a href="https://tools.ietf.org/html/draft-kunze-ark-18#section-2.5.2">represents an object variant</a>. A resource is thus contained in its project, which is contained in a repository (represented by the URL version number). A timestamp is a type of variant.</p>
+<p>Following the ARK ID spec, <code>/</code> <a href="https://tools.ietf.org/html/draft-kunze-ark-18#section-2.5.1">represents object hierarchy</a> and <code>.</code> <a href="https://tools.ietf.org/html/draft-kunze-ark-18#section-2.5.2">represents an object variant</a>. A value is thus contained in a resource, which is contained in its project, which is contained in a repository (represented by the URL version number). A timestamp is a type of variant.</p>
 <p>Since sub-objects are optional, there is also implicitly an ARK URL for each project, as well as for the repository as a whole.</p>
-<p>The <code>RESOURCE_UUID</code> is processed as follows:</p>
+<p>The <code>RESOURCE_UUID</code> and <code>VALUE_UUID</code> are processed as follows:</p>
 <ol>
   <li>
-  <p>A check digit is calculated, using the algorithm in  the Scala class <code>org.knora.webapi.util.Base64UrlCheckDigit</code>, and appended  to the <code>RESOURCE_UUID</code>.</p></li>
+  <p>A check digit is calculated, using the algorithm in  the Scala class <code>org.knora.webapi.util.Base64UrlCheckDigit</code>, and appended  to the UUID.</p></li>
   <li>
   <p>Any <code>-</code> characters in the resulting string are replaced with <code>=</code>, because  <code>base64url</code> encoding uses <code>-</code>, which is a reserved character in ARK URLs.</p></li>
 </ol>
@@ -293,6 +295,12 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </code></pre>
 <p>The same ARK URL with an optional timestamp is:</p>
 <pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY.20180528T155203897Z
+</code></pre>
+<p>Given a value with <code>knora-api:valueHasUUID &quot;4OOf3qJUTnCDXlPNnygSzQ&quot;</code> in the resource <code>http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ</code>, and using the DaSCH&rsquo;s ARK resolver hostname and NAAN, the corresponding ARK URL without a timestamp is:</p>
+<pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY/4OOf3qJUTnCDXlPNnygSzQX
+</code></pre>
+<p>The same ARK URL with an optional timestamp is:</p>
+<pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY/4OOf3qJUTnCDXlPNnygSzQX.20180604T085622513Z
 </code></pre>
 <h3><a href="#serving-ark-urls" name="serving-ark-urls" class="anchor"><span class="anchor-link"></span></a>Serving ARK URLs</h3>
 <p><code>SmartIri</code> converts Knora resource IRIs to ARK URLs. This conversion is invoked in <code>ReadResourceV2.toJsonLD</code>, when returning a resource&rsquo;s metadata in JSON-LD format.</p>
