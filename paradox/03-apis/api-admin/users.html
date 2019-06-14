@@ -205,7 +205,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 7.0.0-32-e39736c6-20190612-1147
+<i class="md-icon">label_outline</i> 8.0.0
 </div>
 </nav>
 
@@ -291,7 +291,12 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </ul>
 <h3><a href="#get-user" name="get-user" class="anchor"><span class="anchor-link"></span></a>Get user</h3>
 <ul>
-  <li>Required permission: SystemAdmin / self</li>
+  <li>Required permission:
+    <ul>
+      <li>SystemAdmin / self: for getting all properties</li>
+      <li>All other users: for getting only the public properties (<code>givenName</code> and <code>familyName</code>)</li>
+    </ul>
+  </li>
   <li>GET:<code>/admin/users/[iri | email | username ]/&lt;identifier&gt;</code></li>
 </ul>
 <h3><a href="#create-user" name="create-user" class="anchor"><span class="anchor-link"></span></a>Create user</h3>
@@ -437,7 +442,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-7.0.0-32-e39736c6-20190612-1147
+8.0.0
 </span>
 </div>
 </article>

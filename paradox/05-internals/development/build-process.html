@@ -206,7 +206,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 7.0.0-32-e39736c6-20190612-1147
+<i class="md-icon">label_outline</i> 8.0.0
 </div>
 </nav>
 
@@ -314,12 +314,15 @@ lazy val root = Project(id = &quot;knora&quot;, file(&quot;.&quot;))
             Dependencies.sysProps := sys.props.toString(),
             Dependencies.sysEnvs := sys.env.toString(),
 
+            // these can be set by the user as system environment variables
             ThisBuild / Dependencies.gdbHomePath := sys.env.getOrElse(&quot;KNORA_GDB_HOME&quot;, sys.props(&quot;user.dir&quot;) + &quot;/triplestores/graphdb/home&quot;),
             ThisBuild / Dependencies.gdbLicensePath := sys.env.getOrElse(&quot;KNORA_GDB_LICENSE&quot;, sys.props(&quot;user.dir&quot;) + &quot;/triplestores/graphdb/graphdb.license&quot;),
 
+            // use these values for variable substitution in the docker-compose.yml
             variablesForSubstitution := Map(
                 &quot;KNORA_GDB_HOME&quot; -&gt; Dependencies.gdbHomePath.value,
                 &quot;KNORA_GDB_LICENSE &quot; -&gt; Dependencies.gdbLicensePath.value,
+                &quot;KNORA_GDB_TYPE&quot; -&gt; Dependencies.gdbTypeString,
                 &quot;KNORA_GDB_IMAGE&quot; -&gt; Dependencies.gdbImage.value,
                 &quot;SIPI_VERSION_TAG&quot; -&gt; Dependencies.sipiVersion.value,
                 &quot;KNORA_VERSION_TAG&quot; -&gt; version.value
@@ -759,6 +762,12 @@ def knoraModule(name: String): Project =
   <li><code>$ sbt dockerComposeRestart</code> - stops and the starts again the whole stack</li>
   <li><code>$ sbt dockerComposeStop</code> - stops the whole stack</li>
 </ul>
+<p>Running the whole Knora stack requires some configuration, which can be done through environment variables. These can be set in the shell before running <code>sbt</code>:</p>
+<ul>
+  <li><code>KNORA_GDB_TYPE</code> - the type of GraphDB (SE or FREE). Possible values are <code>graphdb-se</code> or <code>graphdb-free</code>.  The default value is <code>graphdb-se</code>.</li>
+  <li><code>KNORA_GDB_HOME</code> - the path to folder where the GraphDB data will be stored. Default is <code>GITREPOROOT/triplestores/graphdb/home</code>.</li>
+  <li><code>KNORA_GDB_LICENSE</code> - the path to the GraphDB-SE license. Default is <code>GITREPOROOT/triplestores/graphdb/graphdb.license</code>.</li>
+</ul>
 <h2><a href="#building-documentation" name="building-documentation" class="anchor"><span class="anchor-link"></span></a>Building Documentation</h2>
 <p>There are some prerequisites described in the <a href="https://github.com/dhlab-basel/Knora/blob/develop/docs/Readme.md">docs/Readme.md</a>.</p>
 <p>The complete Knora documentation site is built by invoking the following tasks:</p>
@@ -781,7 +790,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-7.0.0-32-e39736c6-20190612-1147
+8.0.0
 </span>
 </div>
 </article>
