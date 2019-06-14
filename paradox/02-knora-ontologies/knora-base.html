@@ -158,6 +158,7 @@ dhlab-basel/Knora/docs
   <ul>
     <li><a href="../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
     <li><a href="../04-deployment/configuration.html" class="page">Configuration</a></li>
+    <li><a href="../04-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
   </ul></li>
   <li><a href="../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -198,12 +199,13 @@ dhlab-basel/Knora/docs
     <li><a href="../02-knora-ontologies/knora-base.html#the-knora-data-model" class="header">The Knora Data Model</a></li>
     <li><a href="../02-knora-ontologies/knora-base.html#summary-of-restrictions-on-user-created-ontologies" class="header">Summary of Restrictions on User-Created Ontologies</a></li>
     <li><a href="../02-knora-ontologies/knora-base.html#standardisation" class="header">Standardisation</a></li>
+    <li><a href="../02-knora-ontologies/knora-base.html#knora-ontology-versions" class="header">Knora Ontology Versions</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 7.0.0-10-002eca45-20190603-0947
+<i class="md-icon">label_outline</i> 7.0.0-32-e39736c6-20190612-1147
 </div>
 </nav>
 
@@ -222,6 +224,7 @@ dhlab-basel/Knora/docs
     <li><a href="../02-knora-ontologies/knora-base.html#the-knora-data-model" class="header">The Knora Data Model</a></li>
     <li><a href="../02-knora-ontologies/knora-base.html#summary-of-restrictions-on-user-created-ontologies" class="header">Summary of Restrictions on User-Created Ontologies</a></li>
     <li><a href="../02-knora-ontologies/knora-base.html#standardisation" class="header">Standardisation</a></li>
+    <li><a href="../02-knora-ontologies/knora-base.html#knora-ontology-versions" class="header">Knora Ontology Versions</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -276,6 +279,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     <li><a href="../02-knora-ontologies/knora-base.html#restrictions-on-properties" class="header">Restrictions on properties</a></li>
   </ul></li>
   <li><a href="../02-knora-ontologies/knora-base.html#standardisation" class="header">Standardisation</a></li>
+  <li><a href="../02-knora-ontologies/knora-base.html#knora-ontology-versions" class="header">Knora Ontology Versions</a></li>
 </ul>
 </div>
 <h2><a href="#overview" name="overview" class="anchor"><span class="anchor-link"></span></a>Overview</h2>
@@ -1147,7 +1151,9 @@ select * where {
   <li>Each of its base properties that has a Knora IRI must also be a Knora resource property.</li>
 </ul>
 <h2><a href="#standardisation" name="standardisation" class="anchor"><span class="anchor-link"></span></a>Standardisation</h2>
-<p>The <a href="http://dasch.swiss/">DaSCH</a> intends to coordinate the standardisation of generally useful entities proposed in user-created ontologies. We envisage a process in which two or more projects would initiate the process by starting a public discussion on proposed entities to be shared. Once a consensus was reached, the <a href="http://dasch.swiss/">DaSCH</a> would publish these entities in an ontology that could be used by multiple projects, and would ensure that such ontologies are not subsequently modified in ways that break compatibility with existing data. Functionality may be added to Knora to facilitate this process.</p>
+<p>The <a href="http://dasch.swiss/">DaSCH</a> intends to coordinate the standardisation of generally useful entities proposed in user-created ontologies. We envisage a process in which two or more projects would initiate the process by starting a public discussion on proposed entities to be shared. Once a consensus was reached, the <a href="http://dasch.swiss/">DaSCH</a> would publish these entities in a <a href="../03-apis/api-v2/knora-iris.html#shared-ontologies">shared ontology</a>).</p>
+<h2><a href="#knora-ontology-versions" name="knora-ontology-versions" class="anchor"><span class="anchor-link"></span></a>Knora Ontology Versions</h2>
+<p>The Knora base ontology has the property <code>kb:ontologyVersion</code>, whose object is a string that indicates the deployed version of all the Knora built-in ontologies. This allows the <a href="../04-deployment/updates.html">repository update program</a> to determine which repository updates are needed when Knora is upgraded.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/02-knora-ontologies/knora-base.md" title="Edit this page" class="md-source-file md-edit">
@@ -1156,7 +1162,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-7.0.0-10-002eca45-20190603-0947
+7.0.0-32-e39736c6-20190612-1147
 </span>
 </div>
 </article>

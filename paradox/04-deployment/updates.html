@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../cloud">
-<title>Introduction · Knora Documentation</title>
+<title>Updating Repositories When Upgrading Knora · Knora Documentation</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Introduction
+Updating Repositories When Upgrading Knora
 </span>
 </div>
 </div>
@@ -144,7 +144,7 @@ dhlab-basel/Knora/docs
   </ul></li>
   <li><a href="../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
   <ul>
-    <li><a href="../02-knora-ontologies/introduction.html" class="active page">Introduction</a></li>
+    <li><a href="../02-knora-ontologies/introduction.html" class="page">Introduction</a></li>
     <li><a href="../02-knora-ontologies/knora-base.html" class="page">The Knora Base Ontology</a></li>
     <li><a href="../02-knora-ontologies/salsah-gui.html" class="page">The SALSAH GUI Ontology</a></li>
   </ul></li>
@@ -158,7 +158,7 @@ dhlab-basel/Knora/docs
   <ul>
     <li><a href="../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
     <li><a href="../04-deployment/configuration.html" class="page">Configuration</a></li>
-    <li><a href="../04-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
+    <li><a href="../04-deployment/updates.html" class="active page">Updating Repositories When Upgrading Knora</a></li>
   </ul></li>
   <li><a href="../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -193,11 +193,11 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../02-knora-ontologies/introduction.html#introduction" class="header">Introduction</a>
+  <li><a href="../04-deployment/updates.html#updating-repositories-when-upgrading-knora" class="header">Updating Repositories When Upgrading Knora</a>
   <ul>
-    <li><a href="../02-knora-ontologies/introduction.html#resource-description-framework-rdf-" class="header">Resource Description Framework (RDF)</a></li>
-    <li><a href="../02-knora-ontologies/introduction.html#built-in-ontologies-and-user-created-ontologies" class="header">Built-in Ontologies and User-Created Ontologies</a></li>
-    <li><a href="../02-knora-ontologies/introduction.html#shared-ontologies" class="header">Shared Ontologies</a></li>
+    <li><a href="../04-deployment/updates.html#upgrading-from-knora-7-0-0-or-later" class="header">Upgrading from Knora 7.0.0 or Later</a></li>
+    <li><a href="../04-deployment/updates.html#upgrading-from-knora-6-0-0-or-6-0-1" class="header">Upgrading from Knora 6.0.0 or 6.0.1</a></li>
+    <li><a href="../04-deployment/updates.html#upgrading-from-knora-5-0-0" class="header">Upgrading from Knora 5.0.0</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -216,11 +216,11 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../02-knora-ontologies/introduction.html#introduction" class="header">Introduction</a>
+  <li><a href="../04-deployment/updates.html#updating-repositories-when-upgrading-knora" class="header">Updating Repositories When Upgrading Knora</a>
   <ul>
-    <li><a href="../02-knora-ontologies/introduction.html#resource-description-framework-rdf-" class="header">Resource Description Framework (RDF)</a></li>
-    <li><a href="../02-knora-ontologies/introduction.html#built-in-ontologies-and-user-created-ontologies" class="header">Built-in Ontologies and User-Created Ontologies</a></li>
-    <li><a href="../02-knora-ontologies/introduction.html#shared-ontologies" class="header">Shared Ontologies</a></li>
+    <li><a href="../04-deployment/updates.html#upgrading-from-knora-7-0-0-or-later" class="header">Upgrading from Knora 7.0.0 or Later</a></li>
+    <li><a href="../04-deployment/updates.html#upgrading-from-knora-6-0-0-or-6-0-1" class="header">Upgrading from Knora 6.0.0 or 6.0.1</a></li>
+    <li><a href="../04-deployment/updates.html#upgrading-from-knora-5-0-0" class="header">Upgrading from Knora 5.0.0</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -249,31 +249,25 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#introduction" name="introduction" class="anchor"><span class="anchor-link"></span></a>Introduction</h1>
-<div class="toc ">
-<ul>
-  <li><a href="../02-knora-ontologies/introduction.html#resource-description-framework-rdf-" class="header">Resource Description Framework (RDF)</a></li>
-  <li><a href="../02-knora-ontologies/introduction.html#built-in-ontologies-and-user-created-ontologies" class="header">Built-in Ontologies and User-Created Ontologies</a></li>
-  <li><a href="../02-knora-ontologies/introduction.html#shared-ontologies" class="header">Shared Ontologies</a></li>
-</ul>
-</div>
-<h2><a href="#resource-description-framework-rdf-" name="resource-description-framework-rdf-" class="anchor"><span class="anchor-link"></span></a>Resource Description Framework (RDF)</h2>
-<p>Knora uses a hierarchy of ontologies based on the Resource Description Framework (<a href="http://www.w3.org/TR/2014/NOTE-rdf11-primer-20140624/">RDF</a>), RDF Schema (<a href="http://www.w3.org/TR/2014/REC-rdf-schema-20140225/">RDFS</a>), and the Web Ontology Language (<a href="https://www.w3.org/TR/owl2-quick-reference/">OWL</a>). Both RDFS and OWL are expressed in RDF. RDF expresses information as a set of statements (called <em>triples</em>). A triple consists of a subject, a predicate, and an object:</p>
-<p><img src="introduction-fig1.dot.png" alt="Figure 1" title="Figure 1" /></p>
-<p>The object may be either a literal value (such as a name or number) or another subject. Thus it is possible to create complex graphs that connect many subjects, like this:</p>
-<p><img src="introduction-fig2.dot.png" alt="Figure 2" title="Figure 2" /></p>
-<p>In RDF, each subject and predicate has a unique, URL-like identifier called an Internationalized Resource Identifier (<a href="http://tools.ietf.org/html/rfc3987">IRI</a>). Within a given project, IRIs typically differ only in their last component (the &ldquo;local part&rdquo;), which is often the fragment following a <code>#</code> character. Such IRIs share a long &ldquo;prefix&rdquo;. In <a href="http://www.w3.org/TR/turtle/">Turtle</a> and similar formats for writing RDF, a short prefix label can be defined to represent the long prefix. Then an IRI can be written as a prefix label and a local part, separated by a colon (<code>:</code>). For example, if the &ldquo;example&rdquo; project&rsquo;s long prefix is <code>http://www.example.org/rdf#</code>, and it contains subjects with IRIs like <code>http://www.example.org/rdf#book</code>, we can define the prefix label <code>ex</code> to represent the prefix label, and write prefixed names for IRIs:</p>
-<p><img src="introduction-fig3.dot.png" alt="Figure 3" title="Figure 3" /></p>
-<h2><a href="#built-in-ontologies-and-user-created-ontologies" name="built-in-ontologies-and-user-created-ontologies" class="anchor"><span class="anchor-link"></span></a>Built-in Ontologies and User-Created Ontologies</h2>
-<p>To ensure the interoperability of data produced by different projects, each project must describe its data model by creating one or more ontologies that extend Knora&rsquo;s built-in ontologies. The main built-in ontology in Knora is <a href="knora-base.html">knora-base</a>.</p>
-<h2><a href="#shared-ontologies" name="shared-ontologies" class="anchor"><span class="anchor-link"></span></a>Shared Ontologies</h2>
-<p>Knora does not normally allow a project to use classes or properties defined in an ontology that belongs to another project. Each project must be free to change its own ontologies, but this is not possible if they have been used in ontologies or data created by other projects.</p>
-<p>However, an ontology can be defined as shared, meaning that it can be used by multiple projects, and that its creators will not change it in ways that could affect other ontologies or data that are based on it. Specifically, in a shared ontology, existing classes and properties cannot safely be changed, but new ones can be added. (It is not even safe to add an optional cardinality to an existing class, because this could cause subclasses to violate the rule that a class cannot have a cardinality on property P as well as a cardinality on a subproperty of P; see <a href="knora-base.html#restrictions-on-classes">Restrictions on Classes</a>.)</p>
-<p>A standardisation process for shared ontologies is planned (issue <a href="https://github.com/dhlab-basel/Knora/issues/523">#523</a>).</p>
-<p>For more details about shared ontologies, see <a href="../03-apis/api-v2/knora-iris.html#shared-ontology-iris">Shared Ontology IRIs</a>.</p>
+<h1><a href="#updating-repositories-when-upgrading-knora" name="updating-repositories-when-upgrading-knora" class="anchor"><span class="anchor-link"></span></a>Updating Repositories When Upgrading Knora</h1>
+<p>When a new version of Knora introduces changes that are not backwards-compatible with existing data, you will need to update your repository. Follow the instructions below for the Knora version that you are upgrading from.</p>
+<h2><a href="#upgrading-from-knora-7-0-0-or-later" name="upgrading-from-knora-7-0-0-or-later" class="anchor"><span class="anchor-link"></span></a>Upgrading from Knora 7.0.0 or Later</h2>
+<p>Follow the instructions in <code>upgrade/README.md</code>.</p>
+<h2><a href="#upgrading-from-knora-6-0-0-or-6-0-1" name="upgrading-from-knora-6-0-0-or-6-0-1" class="anchor"><span class="anchor-link"></span></a>Upgrading from Knora 6.0.0 or 6.0.1</h2>
+<ol>
+  <li>Follow the instructions in <code>upgrade/old/1263-knora-admin/README.md</code>.</li>
+  <li>Follow the instructions in <code>upgrade/README.md</code>.</li>
+</ol>
+<h2><a href="#upgrading-from-knora-5-0-0" name="upgrading-from-knora-5-0-0" class="anchor"><span class="anchor-link"></span></a>Upgrading from Knora 5.0.0</h2>
+<ol>
+  <li>Follow the instructions in <code>upgrade/old/1211-datetime/README.md</code>.</li>
+  <li>Follow the instructions in <code>upgrade/old/1230-delete-previews/README.md</code>.</li>
+  <li>Follow the instructions in <code>upgrade/old/1263-knora-admin/README.md</code>.</li>
+  <li>Follow the instructions in <code>upgrade/README.md</code>.</li>
+</ol>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/02-knora-ontologies/introduction.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/04-deployment/updates.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -289,7 +283,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../02-knora-ontologies/index.html" title="Knora Ontologies" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../04-deployment/configuration.html" title="Configuration" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -298,17 +292,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Knora Ontologies
+Configuration
 </span>
 </div>
 </a>
-<a href="../02-knora-ontologies/knora-base.html" title="The Knora Base Ontology" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../05-internals/index.html" title="Knora Internals" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-The Knora Base Ontology
+Knora Internals
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

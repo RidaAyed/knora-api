@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../../cloud">
-<title>Docker Cheat Sheet · Knora Documentation</title>
+<title>Updating Repositories · Knora Documentation</title>
 <link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Docker Cheat Sheet
+Updating Repositories
 </span>
 </div>
 </div>
@@ -193,13 +193,10 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../05-internals/development/docker-cheat-sheet.html#docker-cheat-sheet" class="header">Docker Cheat Sheet</a>
+  <li><a href="../../05-internals/development/updating-repositories.html#updating-repositories" class="header">Updating Repositories</a>
   <ul>
-    <li><a href="../../05-internals/development/docker-cheat-sheet.html#lifecycle" class="header">Lifecycle</a></li>
-    <li><a href="../../05-internals/development/docker-cheat-sheet.html#starting-and-stopping" class="header">Starting and Stopping</a></li>
-    <li><a href="../../05-internals/development/docker-cheat-sheet.html#info" class="header">Info</a></li>
-    <li><a href="../../05-internals/development/docker-cheat-sheet.html#executing-commands" class="header">Executing Commands</a></li>
-    <li><a href="../../05-internals/development/docker-cheat-sheet.html#images" class="header">Images</a></li>
+    <li><a href="../../05-internals/development/updating-repositories.html#adding-an-update-plugin" class="header">Adding an Update Plugin</a></li>
+    <li><a href="../../05-internals/development/updating-repositories.html#testing-update-plugins" class="header">Testing Update Plugins</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -218,13 +215,10 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../05-internals/development/docker-cheat-sheet.html#docker-cheat-sheet" class="header">Docker Cheat Sheet</a>
+  <li><a href="../../05-internals/development/updating-repositories.html#updating-repositories" class="header">Updating Repositories</a>
   <ul>
-    <li><a href="../../05-internals/development/docker-cheat-sheet.html#lifecycle" class="header">Lifecycle</a></li>
-    <li><a href="../../05-internals/development/docker-cheat-sheet.html#starting-and-stopping" class="header">Starting and Stopping</a></li>
-    <li><a href="../../05-internals/development/docker-cheat-sheet.html#info" class="header">Info</a></li>
-    <li><a href="../../05-internals/development/docker-cheat-sheet.html#executing-commands" class="header">Executing Commands</a></li>
-    <li><a href="../../05-internals/development/docker-cheat-sheet.html#images" class="header">Images</a></li>
+    <li><a href="../../05-internals/development/updating-repositories.html#adding-an-update-plugin" class="header">Adding an Update Plugin</a></li>
+    <li><a href="../../05-internals/development/updating-repositories.html#testing-update-plugins" class="header">Testing Update Plugins</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -253,61 +247,39 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#docker-cheat-sheet" name="docker-cheat-sheet" class="anchor"><span class="anchor-link"></span></a>Docker Cheat Sheet</h1>
-<div class="toc ">
+<h1><a href="#updating-repositories" name="updating-repositories" class="anchor"><span class="anchor-link"></span></a>Updating Repositories</h1>
+<p>As explained in <a href="../../02-knora-ontologies/knora-base.html#knora-ontology-versions">Knora Ontology Versions</a>, the <code>knora-base</code> ontology contains a version string to ensure compatibility between a repository and a given version of Knora. The same version string is therefore hard-coded in the Knora source code, in the string constant <code>org.knora.webapi.KnoraBaseVersion</code>. The format of this string is currently <code>PR NNNN</code>, where <code>NNNN</code> is the number of a GitHub pull request. Each time a pull request introduces changes that are not compatible with existing data, the following must happen:</p>
 <ul>
-  <li><a href="../../05-internals/development/docker-cheat-sheet.html#lifecycle" class="header">Lifecycle</a></li>
-  <li><a href="../../05-internals/development/docker-cheat-sheet.html#starting-and-stopping" class="header">Starting and Stopping</a></li>
-  <li><a href="../../05-internals/development/docker-cheat-sheet.html#info" class="header">Info</a></li>
-  <li><a href="../../05-internals/development/docker-cheat-sheet.html#executing-commands" class="header">Executing Commands</a></li>
-  <li><a href="../../05-internals/development/docker-cheat-sheet.html#images" class="header">Images</a></li>
+  <li>
+  <p>The <code>knora-base</code> version string must be updated in <code>knora-base.ttl</code> and  in the string constant <code>org.knora.webapi.KnoraBaseVersion</code>. This version  string must contain the number of the last pull request that introduced  a breaking change.</p></li>
+  <li>
+  <p>A plugin must be added to the  <a href="../../04-deployment/updates.html">repository update program</a>, to update  existing repositories to work with the new version of Knora. The plugin will  be used by <code>update-repository.py</code> if needed.</p></li>
 </ul>
-</div>
-<p>A complete cheat sheet can be found <a href="https://github.com/wsargent/docker-cheat-sheet">here</a></p>
-<h2><a href="#lifecycle" name="lifecycle" class="anchor"><span class="anchor-link"></span></a>Lifecycle</h2>
+<h2><a href="#adding-an-update-plugin" name="adding-an-update-plugin" class="anchor"><span class="anchor-link"></span></a>Adding an Update Plugin</h2>
+<p>An update plugin is a Python module, which must be put in a subdirectory of <code>upgrade/plugins</code>. The name of the plugin&rsquo;s directory must be <code>prNNNN</code>, where <code>NNNN</code> is the pull request number. That directory must have a subdirectory called <code>knora-ontologies</code>, containing the following built-in Knora ontologies with any modifications introduced by that pull request:</p>
 <ul>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/create">docker create</a> creates a container but does not start it.</li>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/run">docker run</a> creates and starts a container in one operation.</li>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/rename/">docker rename</a> allows the container to be renamed.</li>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/rm">docker rm</a> deletes a container.</li>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/update/">docker update</a> updates a container&rsquo;s resource limits.</li>
+  <li><code>knora-admin.ttl</code></li>
+  <li><code>knora-base.ttl</code></li>
+  <li><code>salsah-gui.ttl</code></li>
+  <li><code>standoff-onto.ttl</code></li>
 </ul>
-<p>If you want a transient container, <code>docker run --rm</code> will remove the container after it stops.</p>
-<p>If you want to map a directory on the host to a docker container, <code>docker run -v $HOSTDIR:$DOCKERDIR</code>.</p>
-<h2><a href="#starting-and-stopping" name="starting-and-stopping" class="anchor"><span class="anchor-link"></span></a>Starting and Stopping</h2>
-<ul>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/start">docker start</a> starts a container so it is running.</li>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/stop">docker stop</a> stops a running container.</li>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/restart">docker restart</a> stops and starts a container.</li>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/pause/">docker pause</a> pauses a running container, &ldquo;freezing&rdquo; it in place.</li>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/attach">docker attach</a> will connect to a running container.</li>
-</ul>
-<h2><a href="#info" name="info" class="anchor"><span class="anchor-link"></span></a>Info</h2>
-<ul>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/ps">docker ps</a> shows running containers.</li>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/logs">docker logs</a> gets logs from container. (You can use a custom log driver, but logs is only available for json-file and journald in 1.10)</li>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/inspect">docker inspect</a> looks at all the info on a container (including IP address).</li>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/events">docker events</a> gets events from container.</li>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/port">docker port</a> shows public facing port of container.</li>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/top">docker top</a> shows running processes in container.</li>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/stats">docker stats</a> shows containers&rsquo; resource usage statistics.</li>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/diff">docker diff</a> shows changed files in the container&rsquo;s FS.</li>
-</ul>
-<p><code>docker ps -a</code> shows running and stopped containers.</p>
-<p><code>docker stats --all</code> shows a running list of containers.</p>
-<h2><a href="#executing-commands" name="executing-commands" class="anchor"><span class="anchor-link"></span></a>Executing Commands</h2>
-<ul>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/exec">docker exec</a> to execute a command in container.</li>
-</ul>
-<p>To enter a running container, attach a new shell process to a running container called foo, use: <code>docker exec -it foo /bin/bash</code>.</p>
-<h2><a href="#images" name="images" class="anchor"><span class="anchor-link"></span></a>Images</h2>
-<ul>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/images">docker images</a> shows all images.</li>
-  <li><a href="https://docs.docker.com/engine/reference/commandline/build">docker build</a> creates image from Dockerfile.</li>
-</ul>
+<p>The <code>knora-base.ttl</code> file must contain a <code>knora-base:ontologyVersion</code> that matches the pull request number.</p>
+<p>Each plugin module must be in a file called <code>update.py</code>, and must contain a class called <code>GraphTransformer</code>, defined like this:</p>
+<pre class="prettyprint"><code class="language-python">import rdflib
+from updatelib import rdftools
+
+class GraphTransformer(rdftools.GraphTransformer):
+    def transform(self, graph):
+        # Do the transformation
+</code></pre>
+<p>The <code>transform</code> method takes an <code>rdflib.graph.Graph</code> and returns a transformed graph (which may be the same graph instance or a new one). See the <a href="https://rdflib.readthedocs.io/en/stable/index.html">rdflib documentation</a> for details of that class.</p>
+<p>This method will be called once for each named graph downloaded from the triplestore.</p>
+<p>The <code>updatelib.rdftools</code> library provides convenience functions for working with RDF data.</p>
+<h2><a href="#testing-update-plugins" name="testing-update-plugins" class="anchor"><span class="anchor-link"></span></a>Testing Update Plugins</h2>
+<p>Each plugin should have a unit test that can be run by <a href="https://docs.pytest.org/en/latest/index.html">pytest</a>. To run all the plugin unit tests, run the script <code>./test.sh</code> in the <code>upgrade</code> directory.</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/development/docker-cheat-sheet.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/development/updating-repositories.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -323,7 +295,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../../05-internals/development/testing.html" title="Testing" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../../05-internals/development/docker-compose.html" title="Starting the Knora Stack inside Docker Container" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -332,17 +304,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Testing
+Starting the Knora Stack inside Docker Container
 </span>
 </div>
 </a>
-<a href="../../05-internals/development/monitoring.html" title="Monitoring Knora" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../06-salsah/index.html" title="The SALSAH 1 GUI" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Monitoring Knora
+The SALSAH 1 GUI
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">
