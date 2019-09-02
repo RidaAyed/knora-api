@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="description" content="docs">
+<meta name="generator" content="Paradox, paradox-material-theme=0.4.0, mkdocs-material=2.2.2">
+
+<meta name="lang:clipboard.copy" content="Copy to clipboard">
+<meta name="lang:clipboard.copied" content="Copied to clipboard">
+<meta name="lang:search.result.none" content="No matching documents">
+<meta name="lang:search.result.one" content="1 matching document">
+<meta name="lang:search.result.other" content="# matching documents">
+<meta name="lang:search.language" content="">
+<meta name="lang:search.tokenizer" content="[\s\-]+">
+
+
+<meta name="description" content="docs">
+<link rel="shortcut icon" href="../../../cloud">
+<title>Client API Code Generation Framework · Knora Documentation</title>
+<link rel="stylesheet" href="../../../assets/stylesheets/application.7a4cdee3.css">
+<link rel="stylesheet" href="../../../assets/stylesheets/application-palette.792431c1.css">
+<link rel="stylesheet" href="../../../lib/material__tabs/dist/mdc.tabs.min.css">
+<link rel="stylesheet" href="../../../lib/prettify/prettify.css">
+<script src="../../../lib/modernizr/modernizr.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+<style>
+body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}
+code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../../../assets/stylesheets/paradox-material-theme.css">
+</head>
+<body
+data-md-color-primary="blue"
+data-md-color-accent="yellow"
+>
+<input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+<input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+<label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+<header class="md-header" data-md-component="header">
+<nav class="md-header-nav md-grid">
+<div class="md-flex">
+<div class="md-flex__cell md-flex__cell--shrink">
+<a href="../../../index.html" title="Knora Documentation" class="md-header-nav__button md-logo">
+<i class="md-icon">cloud</i>
+</a>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch">
+<div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+<span class="md-header-nav__topic">
+Knora Documentation
+</span>
+<span class="md-header-nav__topic">
+Client API Code Generation Framework
+</span>
+</div>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="search"></label>
+<div class="md-search__inner">
+<form class="md-search__form" name="search">
+<input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+<label class="md-icon md-search__icon" for="search"></label>
+<button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix>
+<div class="md-search-result" data-md-component="result">
+<div class="md-search-result__meta">
+Type to start searching
+</div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<div class="md-header-nav__source">
+<a href="https://github.com/dhlab-basel/Knora/docs"
+title="Go to repository"
+class="md-source"
+data-md-source="github">
+<div class="md-source__icon">
+<i class="fa fa-github"></i>
+</div>
+<div class="md-source__repository">
+dhlab-basel/Knora/docs
+</div>
+</a>
+
+</div>
+</div>
+</div>
+</nav>
+</header>
+
+<div class="md-container">
+<main class="md-main">
+<div class="md-main__inner md-grid" data-md-component="container">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--primary" data-md-level="0" style="visibility: hidden">
+<label class="md-nav__title md-nav__title--site" for="drawer">
+<span class="md-nav__button md-logo">
+<i class="md-icon">cloud</i>
+</span>
+<a href="../../../index.html" title="Knora Documentation">
+Knora Documentation
+</a>
+</label>
+<div class="md-nav__source">
+<a href="https://github.com/dhlab-basel/Knora/docs"
+title="Go to repository"
+class="md-source"
+data-md-source="github">
+<div class="md-source__icon">
+<i class="fa fa-github"></i>
+</div>
+<div class="md-source__repository">
+dhlab-basel/Knora/docs
+</div>
+</a>
+
+</div>
+<ul>
+  <li><a href="../../../01-introduction/index.html" class="page">Introduction</a>
+  <ul>
+    <li><a href="../../../01-introduction/what-is-knora.html" class="page">What Is Knora?</a></li>
+    <li><a href="../../../01-introduction/data-formats.html" class="page">Data Formats in Knora</a></li>
+    <li><a href="../../../01-introduction/standoff-rdf.html" class="page">Standoff/RDF Text Markup</a></li>
+    <li><a href="../../../01-introduction/example-project.html" class="page">An Example Project</a></li>
+  </ul></li>
+  <li><a href="../../../02-knora-ontologies/index.html" class="page">Knora Ontologies</a>
+  <ul>
+    <li><a href="../../../02-knora-ontologies/introduction.html" class="page">Introduction</a></li>
+    <li><a href="../../../02-knora-ontologies/knora-base.html" class="page">The Knora Base Ontology</a></li>
+    <li><a href="../../../02-knora-ontologies/salsah-gui.html" class="page">The SALSAH GUI Ontology</a></li>
+  </ul></li>
+  <li><a href="../../../03-apis/index.html" class="page">The Knora APIs</a>
+  <ul>
+    <li><a href="../../../03-apis/api-v1/index.html" class="page">Knora API v1</a></li>
+    <li><a href="../../../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
+    <li><a href="../../../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
+  </ul></li>
+  <li><a href="../../../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
+  <ul>
+    <li><a href="../../../04-publishing-deployment/publishing.html" class="page">Publishing</a></li>
+    <li><a href="../../../04-publishing-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+    <li><a href="../../../04-publishing-deployment/configuration.html" class="page">Configuration</a></li>
+    <li><a href="../../../04-publishing-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
+  </ul></li>
+  <li><a href="../../../05-internals/index.html" class="page">Knora Internals</a>
+  <ul>
+    <li><a href="../../../05-internals/design/index.html" class="page">Design</a></li>
+    <li><a href="../../../05-internals/development/index.html" class="page">Development</a></li>
+  </ul></li>
+  <li><a href="../../../06-salsah/index.html" class="page">The SALSAH 1 GUI</a></li>
+  <li><a href="../../../07-sipi/index.html" class="page">The Sipi Media Server</a>
+  <ul>
+    <li><a href="../../../07-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
+    <li><a href="../../../07-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
+  </ul></li>
+  <li><a href="../../../faq.html" class="page">Frequently Asked Questions</a></li>
+  <li><a href="../../../00-release-notes/index.html" class="page">Release Notes</a>
+  <ul>
+    <li><a href="../../../00-release-notes/v1.1.0.html" class="page">v1.1.0 Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v1.2.0.html" class="page">v1.2.0 Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v1.3.0.html" class="page">v1.3.0 Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v1.4.0.html" class="page">v1.4.0 Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v1.5.0.html" class="page">v1.5.0 Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v1.6.0.html" class="page">v1.6.0 Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v1.7.0.html" class="page">v1.7.x Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v2.x.x.html" class="page">v2.x.x Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v3.x.x.html" class="page">v3.x.x Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v4.x.x.html" class="page">v4.x.x Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
+    <li><a href="../../../00-release-notes/v6.x.x.html" class="page">v6.x.x Release Notes</a></li>
+    <li><a href="../../../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
+    <li><a href="../../../00-release-notes/migration.html" class="page">Migration Notes</a></li>
+  </ul></li>
+</ul>
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../../05-internals/design/client-api/index.html#client-api-code-generation-framework" class="header">Client API Code Generation Framework</a>
+  <ul>
+    <li><a href="../../../05-internals/design/client-api/index.html#requirements" class="header">Requirements</a></li>
+    <li><a href="../../../05-internals/design/client-api/index.html#implementation" class="header">Implementation</a></li>
+    <li><a href="../../../05-internals/design/client-api/index.html#client-function-dsl" class="header">Client Function DSL</a></li>
+    <li><a href="../../../05-internals/design/client-api/index.html#generated-classes" class="header">Generated Classes</a></li>
+    <li><a href="../../../05-internals/design/client-api/index.html#testing" class="header">Testing</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+<div class="md-nav__title--site md-version" title="Version">
+<i class="md-icon">label_outline</i> 8.1.0-7-g32aaca2
+</div>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../../05-internals/design/client-api/index.html#client-api-code-generation-framework" class="header">Client API Code Generation Framework</a>
+  <ul>
+    <li><a href="../../../05-internals/design/client-api/index.html#requirements" class="header">Requirements</a></li>
+    <li><a href="../../../05-internals/design/client-api/index.html#implementation" class="header">Implementation</a></li>
+    <li><a href="../../../05-internals/design/client-api/index.html#client-function-dsl" class="header">Client Function DSL</a></li>
+    <li><a href="../../../05-internals/design/client-api/index.html#generated-classes" class="header">Generated Classes</a></li>
+    <li><a href="../../../05-internals/design/client-api/index.html#testing" class="header">Testing</a></li>
+  </ul></li>
+</ul>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset">
+<div class="md-content__searchable">
+<!---
+Copyright © 2015-2019 the contributors (see Contributors.md).
+
+This file is part of Knora.
+
+Knora is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Knora is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<h1><a href="#client-api-code-generation-framework" name="client-api-code-generation-framework" class="anchor"><span class="anchor-link"></span></a>Client API Code Generation Framework</h1>
+<div class="toc ">
+<ul>
+  <li><a href="../../../05-internals/design/client-api/index.html#requirements" class="header">Requirements</a></li>
+  <li><a href="../../../05-internals/design/client-api/index.html#implementation" class="header">Implementation</a></li>
+  <li><a href="../../../05-internals/design/client-api/index.html#client-function-dsl" class="header">Client Function DSL</a>
+  <ul>
+    <li><a href="../../../05-internals/design/client-api/index.html#http-operations" class="header">HTTP Operations</a></li>
+    <li><a href="../../../05-internals/design/client-api/index.html#function-calls" class="header">Function Calls</a></li>
+  </ul></li>
+  <li><a href="../../../05-internals/design/client-api/index.html#generated-classes" class="header">Generated Classes</a></li>
+  <li><a href="../../../05-internals/design/client-api/index.html#testing" class="header">Testing</a>
+  <ul>
+    <li><a href="../../../05-internals/design/client-api/index.html#library-test-stubs" class="header">Library Test Stubs</a></li>
+    <li><a href="../../../05-internals/design/client-api/index.html#test-requests-and-responses" class="header">Test Requests and Responses</a></li>
+  </ul></li>
+</ul>
+</div>
+<h2><a href="#requirements" name="requirements" class="anchor"><span class="anchor-link"></span></a>Requirements</h2>
+<ul>
+  <li>Simplify the development of clients that work with Knora APIs.</li>
+  <li>Reduce the need for manual changes in client code when Knora APIs change.</li>
+  <li>At minimum, generate client API code in
+    <ul>
+      <li>TypeScript</li>
+      <li>Python</li>
+    </ul>
+  </li>
+  <li>Generate:
+    <ul>
+      <li>Endpoint definitions containing function definitions in the target language.</li>
+      <li>Class definitions corresponding to the built-in classes that Knora uses in its APIs.</li>
+    </ul>
+  </li>
+  <li>Include client function definitions in Knora route definitions.</li>
+</ul>
+<p>In the future, it would also be useful to generate project-specific client APIs, with class definitions corresponding to project-specific classes.</p>
+<h2><a href="#implementation" name="implementation" class="anchor"><span class="anchor-link"></span></a>Implementation</h2>
+<p>Client APIs are defined in Scala and extend the <code>ClientApi</code> trait. There is currently an implementation for the admin API, called <code>AdminClientApi</code>. A <code>ClientApi</code> contains one or more <code>KnoraRoute</code> implementations that extend <code>ClientEndpoint</code>. Each endpoint defines functions to be generated for performing API operations that use the route.</p>
+<p>The route <code>ClientApiRoute</code> generates all available client APIs for a specified target, returning source code in a Zip file. For instructions on using this route, see <a href="../../development/generating-client-apis.html">Generating Client API Code</a>.</p>
+<p>This route has a front end, <code>GeneratorFrontEnd</code>, which that gets API class definitions from <code>OntologyResponderV2</code> and transforms them into a data structure that is suitable for code generation. The route supports different back ends for different targets. A back end determines which files need to be generated, generates each file using a Twirl template, and arranges the files in the correct directory structure.</p>
+<p>Currently one back end, <code>TypeScriptBackEnd</code>, is implemented; it generates code for use with <a href="https://github.com/dhlab-basel/knora-api-js-lib">knora-api-js-lib</a>.</p>
+<h2><a href="#client-function-dsl" name="client-function-dsl" class="anchor"><span class="anchor-link"></span></a>Client Function DSL</h2>
+<p>Client function definitions are written in a Scala DSL. A function definition looks like this:</p>
+<pre class="prettyprint"><code class="language-scala">private val getUserGroupMembershipsFunction: ClientFunction =
+    &quot;getUserGroupMemberships&quot; description &quot;Gets a user&#39;s group memberships.&quot; params (
+        &quot;iri&quot; description &quot;The user&#39;s IRI.&quot; paramType UriDatatype
+        ) doThis {
+        httpGet(path = str(&quot;iri&quot;) / arg(&quot;iri&quot;) / str(&quot;group-memberships&quot;))
+    } returns GroupsResponse</code></pre>
+<p>The <code>description</code> keyword specifies a documentation comment describing the function. A function has <code>params</code>, each of which also has a <code>description</code>, as well as a <code>paramType</code>. Built-in types are defined in <code>ClientApi.scala</code> and extend <code>ClientObjectType</code>. Class types can be constructed using the <code>classRef</code> function, as shown above. If a parameter is optional, use <code>paramOptionType</code> instead of <code>paramType</code>.</p>
+<p>The <code>doThis</code> keyword introduces the body of a function, which can be either an HTTP operation or a function call. After the <code>doThis</code> block, <code>returns</code> specifies the return type of the function.</p>
+<h3><a href="#http-operations" name="http-operations" class="anchor"><span class="anchor-link"></span></a>HTTP Operations</h3>
+<p>An HTTP operation is introduced by <code>httpGet</code>, <code>httpPost</code>, <code>httpPut</code>, or <code>httpDelete</code>; it takes a <code>path</code> and (if it <code>httpPost</code> or <code>httpPut</code>) an optional request body. The path consists of elements separated by slashes. Each element is either <code>str()</code> representing a string literal, <code>arg</code> representing an argument that was passed to the function, or <code>argMember()</code> representing a member of an argument.</p>
+<p>URL parameters can be added like this:</p>
+<pre class="prettyprint"><code class="language-scala">private val getAdministrativePermissionFunction: ClientFunction =
+    &quot;getAdministrativePermission&quot; description &quot;Gets the administrative permission for a project and group.&quot; params(
+        &quot;projectIri&quot; description &quot;The project IRI.&quot; paramType UriDatatype,
+        &quot;groupIri&quot; description &quot;The group IRI.&quot; paramType UriDatatype,
+        &quot;permissionType&quot; description &quot;The permission type.&quot; paramOptionType StringDatatype
+    ) doThis {
+        httpGet(
+            path = arg(&quot;projectIri&quot;) / arg(&quot;groupIri&quot;),
+            params = Seq(&quot;permissionType&quot; -&gt; arg(&quot;permissionType&quot;))
+        )
+    } returns AdministrativePermissionResponse</code></pre>
+<p>Here is an example with a request body:</p>
+<pre class="prettyprint"><code class="language-scala">private val createUserFunction: ClientFunction =
+    &quot;createUser&quot; description &quot;Creates a user.&quot; params (
+        &quot;user&quot; description &quot;The user to be created.&quot; paramType User
+        ) doThis {
+        httpPost(
+            path = BasePath,
+            body = Some(arg(&quot;user&quot;))
+        )
+    } returns UserResponse</code></pre>
+<p>In this case, the request body is the <code>user</code> argument that was passed to the function.</p>
+<p>The request body can also be a constructed JSON object:</p>
+<pre class="prettyprint"><code class="language-scala">private val updateUserPasswordFunction: ClientFunction =
+    &quot;updateUserPassword&quot; description &quot;Updates a user&#39;s password.&quot; params(
+        &quot;iri&quot; description &quot;The IRI of the user to be updated.&quot; paramType UriDatatype,
+        &quot;oldPassword&quot; description &quot;The user&#39;s old password.&quot; paramType StringDatatype,
+        &quot;newPassword&quot; description &quot;The user&#39;s new password.&quot; paramType StringDatatype
+    ) doThis {
+        httpPut(
+            path = str(&quot;iri&quot;) / arg(&quot;iri&quot;) / str(&quot;Password&quot;),
+            body = Some(json(
+                &quot;requesterPassword&quot; -&gt; arg(&quot;oldPassword&quot;),
+                &quot;newPassword&quot; -&gt; arg(&quot;newPassword&quot;)
+            ))
+        )
+    } returns UserResponse</code></pre>
+<h3><a href="#function-calls" name="function-calls" class="anchor"><span class="anchor-link"></span></a>Function Calls</h3>
+<p>Instead of performing an HTTP operation directly, a function can call another function, like this:</p>
+<pre class="prettyprint"><code class="language-scala">private val getUserFunction: ClientFunction =
+    &quot;getUser&quot; description &quot;Gets a user by a property.&quot; params(
+        &quot;property&quot; description &quot;The name of the property by which the user is identified.&quot; paramType enum(&quot;iri&quot;, &quot;email&quot;, &quot;username&quot;),
+        &quot;value&quot; description &quot;The value of the property by which the user is identified.&quot; paramType StringDatatype
+    ) doThis {
+        httpGet(arg(&quot;property&quot;) / arg(&quot;value&quot;))
+    } returns UserResponse</code></pre>
+<pre class="prettyprint"><code class="language-scala">private val getUserByIriFunction: ClientFunction =
+    &quot;getUserByIri&quot; description &quot;Gets a user by IRI.&quot; params (
+        &quot;iri&quot; description &quot;The IRI of the user.&quot; paramType UriDatatype
+        ) doThis {
+        getUserFunction withArgs(str(&quot;iri&quot;), arg(&quot;iri&quot;) as StringDatatype)
+    } returns UserResponse</code></pre>
+<p>If an argument of the calling function needs to be converted to another type for the function call, use the <code>as</code> keyword as shown above.</p>
+<h2><a href="#generated-classes" name="generated-classes" class="anchor"><span class="anchor-link"></span></a>Generated Classes</h2>
+<p>Many objects have a unique ID, which is present when the object is read or updated, but not when it is created.</p>
+<p>API classes can also have read-only properties. For example, in the admin API, the <code>User</code> class has a <code>projects</code> property, whose objects are instances of <code>Project</code>. Similarly, the <code>Projects</code> class has a <code>members</code> property, whose objects are instances of <code>User</code>. However, when users and projects are created or updated, these properties are not used.</p>
+<p>In TypeScript, it is necessary to avoid circular imports. If the TypeScript definition of <code>User</code> imports the definition of <code>Project</code>, the definition of <code>Project</code> cannot import the definition of <code>User</code>.</p>
+<p>The structure of the generated classes is intended to deal with these issues. Taking <code>User</code> and <code>Project</code> as an example:</p>
+<ul>
+  <li>
+  <p>The <code>User</code> class does not contain an ID or any read-only properties.</p></li>
+  <li>
+  <p>A <code>StoredUser</code> class is generated as a subclass of <code>User</code>. It provides  the user&rsquo;s ID, and can be submitted in update operations.</p></li>
+  <li>
+  <p>A <code>ReadUser</code> class is generated as a subclass of <code>StoredUser</code>. It provides  the read-only properties.</p></li>
+</ul>
+<p>In <code>ReadUser</code>, the <code>projects</code> property is a collection of <code>StoredProject</code> objects. Since <code>StoredProject</code> does not have any read-only properties, it does not have a property referring to users. This prevents circular imports.</p>
+<p>This design works because in the Knora API, a circular reference always involves a read-only property. For example, the <code>projects</code> property of <code>User</code> is read-only, as is the <code>members</code> property of <code>Project</code>. In the case of a resource, the property pointing from a resource to a link value is not read-only (you can submit a resource with an embedded link value), but the property pointing from a link value to an embedded resource is read-only.</p>
+<p>The read-only properties and ID properties are specified in each <code>ClientApi</code>.</p>
+<h2><a href="#testing" name="testing" class="anchor"><span class="anchor-link"></span></a>Testing</h2>
+<h3><a href="#library-test-stubs" name="library-test-stubs" class="anchor"><span class="anchor-link"></span></a>Library Test Stubs</h3>
+<p>The generated code depends on handwritten library code to work, but stubs can be provided to test for compile errors in the generated code.</p>
+<p>The directory <code>webapi/_test_data/typescript-client-mock-src</code> in the Knora source tree contains test stubs for the TypeScript client library.</p>
+<h3><a href="#test-requests-and-responses" name="test-requests-and-responses" class="anchor"><span class="anchor-link"></span></a>Test Requests and Responses</h3>
+<p>The generated code includes a directory <code>test-data</code>, containing sample requests and responses, which can be used to test the generated code without Knora.</p>
+</div>
+<div>
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/design/client-api/index.md" title="Edit this page" class="md-source-file md-edit">
+Edit this page
+</a>
+</div>
+<div class="print-only">
+<span class="md-source-file md-version">
+8.1.0-7-g32aaca2
+</span>
+</div>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav class="md-footer-nav__inner md-grid">
+<a href="../../../05-internals/design/api-admin/administration.html" title="Administration (Users, Projects, Groups, Institutions, Permissions)" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+</div>
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Previous
+</span>
+Administration (Users, Projects, Groups, Institutions, Permissions)
+</span>
+</div>
+</a>
+<a href="../../../05-internals/development/index.html" title="Development" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Next
+</span>
+Development
+</span>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+<div class="md-footer-copyright__highlight">
+Copyright 2015-2019 the contributors (see Contributors.md)
+</div>
+Powered by
+<a href="https://github.com/lightbend/paradox">Paradox</a>
+and
+<a href="https://jonas.github.io/paradox-material-theme/">Paradox Material Theme</a>
+
+</div>
+<div class="md-footer-social">
+<a href="https://github.com/dhlab-basel" class="md-footer-social__link fa fa-github"></a><a href="https://twitter.com/dhlabbasel" class="md-footer-social__link fa fa-twitter"></a>
+</div>
+
+</div>
+</div>
+</footer>
+
+</div>
+<script src="../../../assets/javascripts/application.5165553b.js"></script>
+<script src="../../../assets/javascripts/paradox-material-theme.js"></script>
+<script>app.initialize({version:"0.17",url:{base:"../../../."}})</script>
+<script type="text/javascript" src="../../../lib/prettify/prettify.js"></script>
+<script type="text/javascript" src="../../../lib/prettify/lang-scala.js"></script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(event) {
+window.prettyPrint && prettyPrint();
+});
+</script>
+</body>
+</html>

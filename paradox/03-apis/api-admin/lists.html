@@ -154,11 +154,12 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
   </ul></li>
-  <li><a href="../../04-deployment/index.html" class="page">Deploying Knora</a>
+  <li><a href="../../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
-    <li><a href="../../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
-    <li><a href="../../04-deployment/configuration.html" class="page">Configuration</a></li>
-    <li><a href="../../04-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
+    <li><a href="../../04-publishing-deployment/publishing.html" class="page">Publishing</a></li>
+    <li><a href="../../04-publishing-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+    <li><a href="../../04-publishing-deployment/configuration.html" class="page">Configuration</a></li>
+    <li><a href="../../04-publishing-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
   </ul></li>
   <li><a href="../../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -191,11 +192,38 @@ dhlab-basel/Knora/docs
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../03-apis/api-admin/lists.html#lists-endpoint" class="header">Lists Endpoint</a>
+  <ul>
+    <li><a href="../../03-apis/api-admin/lists.html#endpoint-overview" class="header">Endpoint Overview</a></li>
+    <li><a href="../../03-apis/api-admin/lists.html#list-operations" class="header">List Operations</a></li>
+    <li><a href="../../03-apis/api-admin/lists.html#list-node-operations" class="header">List Node Operations</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.0.0
+<i class="md-icon">label_outline</i> 8.1.0-7-g32aaca2
 </div>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../03-apis/api-admin/lists.html#lists-endpoint" class="header">Lists Endpoint</a>
+  <ul>
+    <li><a href="../../03-apis/api-admin/lists.html#endpoint-overview" class="header">Endpoint Overview</a></li>
+    <li><a href="../../03-apis/api-admin/lists.html#list-operations" class="header">List Operations</a></li>
+    <li><a href="../../03-apis/api-admin/lists.html#list-node-operations" class="header">List Node Operations</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 </div>
@@ -223,6 +251,92 @@ You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <h1><a href="#lists-endpoint" name="lists-endpoint" class="anchor"><span class="anchor-link"></span></a>Lists Endpoint</h1>
+<h2><a href="#endpoint-overview" name="endpoint-overview" class="anchor"><span class="anchor-link"></span></a>Endpoint Overview</h2>
+<p><strong>List Operations:</strong></p>
+<ul>
+  <li><code>GET: /admin/lists[?projectIri=&lt;projectIri&gt;]</code> : return all lists optionally filtered by project</li>
+  <li><code>GET: /admin/lists/&lt;listIri&gt;</code> : return complete list with children</li>
+  <li><code>POST: /admin/lists</code> : create new list</li>
+  <li><code>POST: /admin/lists/&lt;nodeIri&gt;</code> : create new child node under the supplied parent node IRI</li>
+  <li>NOT IMPLEMENTED: <code>DELETE: /admin/lists/&lt;listIri&gt;</code> : delete list including children if not used</li>
+  <li><code>GET: /admin/lists/infos/&lt;listIri&gt;</code> : return list information (without children)</li>
+  <li><code>PUT: /admin/lists/infos/&lt;listIri&gt;</code> : update list information</li>
+</ul>
+<p><strong>List Node operations</strong></p>
+<ul>
+  <li><code>GET: /admin/lists/nodes/&lt;nodeIri&gt;</code> : return list node information (without children)</li>
+  <li>NOT IMPLEMENTED: <code>POST: /admin/lists/nodes/&lt;nodeIri&gt;</code> : update list node information</li>
+  <li>NOT IMPLEMENTED: <code>DELETE: /admin/lists/nodes/&lt;nodeIri&gt;</code> : delete list node including children if not used</li>
+</ul>
+<h2><a href="#list-operations" name="list-operations" class="anchor"><span class="anchor-link"></span></a>List Operations</h2>
+<h3><a href="#get-lists" name="get-lists" class="anchor"><span class="anchor-link"></span></a>Get lists</h3>
+<ul>
+  <li>Required permission: none</li>
+  <li>Return all lists optionally filtered by project</li>
+  <li>GET: <code>/admin/lists[?projectIri=&lt;projectIri&gt;]</code></li>
+</ul>
+<h3><a href="#get-list" name="get-list" class="anchor"><span class="anchor-link"></span></a>Get list</h3>
+<ul>
+  <li>Required permission: none</li>
+  <li>Return complete list with children</li>
+  <li>GET: <code>/admin/lists/&lt;listIri&gt;</code></li>
+</ul>
+<h3><a href="#create-new-list" name="create-new-list" class="anchor"><span class="anchor-link"></span></a>Create new list</h3>
+<ul>
+  <li>Required permission: SystemAdmin / ProjectAdmin</li>
+  <li>POST: <code>/admin/lists</code></li>
+  <li>
+  <p>BODY:</p>
+  <pre><code>{
+    &quot;projectIri&quot;: &quot;someprojectiri&quot;,
+    &quot;labels&quot;: [{ &quot;value&quot;: &quot;Neue Liste&quot;, &quot;language&quot;: &quot;de&quot;}],
+    &quot;comments&quot;: []
+} 
+</code></pre></li>
+</ul>
+<h3><a href="#create-new-child-node" name="create-new-child-node" class="anchor"><span class="anchor-link"></span></a>Create new child node</h3>
+<ul>
+  <li>Required permission: SystemAdmin / ProjectAdmin</li>
+  <li>Appends a new child node under the supplied nodeIri. If the supplied nodeIri is the listIri, then a new child node is appended to the top level. Children are currently only appended.</li>
+  <li>POST: <code>/admin/lists/&lt;nodeIri&gt;</code></li>
+  <li>
+  <p>BODY:</p>
+  <pre><code>{
+    &quot;parentNodeIri&quot;: &quot;nodeIri&quot;,
+    &quot;projectIri&quot;: &quot;someprojectiri&quot;,
+    &quot;name&quot;: &quot;first&quot;,
+    &quot;labels&quot;: [{ &quot;value&quot;: &quot;New First Child List Node Value&quot;, &quot;language&quot;: &quot;en&quot;}],
+    &quot;comments&quot;: [{ &quot;value&quot;: &quot;New First Child List Node Comment&quot;, &quot;language&quot;: &quot;en&quot;}]
+}
+</code></pre></li>
+</ul>
+<h3><a href="#get-lists-information" name="get-lists-information" class="anchor"><span class="anchor-link"></span></a>Get list&rsquo;s information</h3>
+<ul>
+  <li>Required permission: none</li>
+  <li>Return list information (without children)</li>
+  <li>GET: <code>/admin/lists/infos/&lt;listIri&gt;</code></li>
+</ul>
+<h3><a href="#update-lists-information" name="update-lists-information" class="anchor"><span class="anchor-link"></span></a>Update list&rsquo;s information</h3>
+<ul>
+  <li>Required permission: none</li>
+  <li>Update list information</li>
+  <li>PUT: <code>/admin/lists/infos/&lt;listIri&gt;</code></li>
+  <li>BODY:  <code>
+   {
+   &quot;listIri&quot;: &quot;listIri&quot;,
+   &quot;projectIri&quot;: &quot;someprojectiri&quot;,
+   &quot;labels&quot;: [{ &quot;value&quot;: &quot;Neue geönderte Liste&quot;, &quot;language&quot;: &quot;de&quot;}, { &quot;value&quot;: &quot;Changed list&quot;, &quot;language&quot;: &quot;en&quot;}],
+   &quot;comments&quot;: [{ &quot;value&quot;: &quot;Neuer Kommentar&quot;, &quot;language&quot;: &quot;de&quot;}, { &quot;value&quot;: &quot;New comment&quot;, &quot;language&quot;: &quot;en&quot;}]
+   }
+</code></li>
+</ul>
+<h2><a href="#list-node-operations" name="list-node-operations" class="anchor"><span class="anchor-link"></span></a>List Node Operations</h2>
+<h3><a href="#get-list-node-information" name="get-list-node-information" class="anchor"><span class="anchor-link"></span></a>Get List Node Information</h3>
+<ul>
+  <li>Required permission: none</li>
+  <li>Return list node information (without children)</li>
+  <li>GET: <code>/admin/lists/nodes/&lt;nodeIri&gt;</code></li>
+</ul>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-admin/lists.md" title="Edit this page" class="md-source-file md-edit">
@@ -231,7 +345,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.0.0
+8.1.0-7-g32aaca2
 </span>
 </div>
 </article>

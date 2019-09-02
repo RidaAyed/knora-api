@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../../../cloud">
-<title>Authentication in Knora · Knora Documentation</title>
+<title>SPARQL Query Design · Knora Documentation</title>
 <link rel="stylesheet" href="../../../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../../../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../../../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Authentication in Knora
+SPARQL Query Design
 </span>
 </div>
 </div>
@@ -194,11 +194,9 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../../05-internals/design/principles/authentication.html#authentication-in-knora" class="header">Authentication in Knora</a>
+  <li><a href="../../../05-internals/design/api-v2/query-design.html#sparql-query-design" class="header">SPARQL Query Design</a>
   <ul>
-    <li><a href="../../../05-internals/design/principles/authentication.html#scope" class="header">Scope</a></li>
-    <li><a href="../../../05-internals/design/principles/authentication.html#implementation" class="header">Implementation</a></li>
-    <li><a href="../../../05-internals/design/principles/authentication.html#skipping-authentication" class="header">Skipping Authentication</a></li>
+    <li><a href="../../../05-internals/design/api-v2/query-design.html#querying-past-value-versions" class="header">Querying Past Value Versions</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -217,11 +215,9 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../../../05-internals/design/principles/authentication.html#authentication-in-knora" class="header">Authentication in Knora</a>
+  <li><a href="../../../05-internals/design/api-v2/query-design.html#sparql-query-design" class="header">SPARQL Query Design</a>
   <ul>
-    <li><a href="../../../05-internals/design/principles/authentication.html#scope" class="header">Scope</a></li>
-    <li><a href="../../../05-internals/design/principles/authentication.html#implementation" class="header">Implementation</a></li>
-    <li><a href="../../../05-internals/design/principles/authentication.html#skipping-authentication" class="header">Skipping Authentication</a></li>
+    <li><a href="../../../05-internals/design/api-v2/query-design.html#querying-past-value-versions" class="header">Querying Past Value Versions</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -250,25 +246,35 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#authentication-in-knora" name="authentication-in-knora" class="anchor"><span class="anchor-link"></span></a>Authentication in Knora</h1>
+<h1><a href="#sparql-query-design" name="sparql-query-design" class="anchor"><span class="anchor-link"></span></a>SPARQL Query Design</h1>
 <div class="toc ">
 <ul>
-  <li><a href="../../../05-internals/design/principles/authentication.html#scope" class="header">Scope</a></li>
-  <li><a href="../../../05-internals/design/principles/authentication.html#implementation" class="header">Implementation</a></li>
-  <li><a href="../../../05-internals/design/principles/authentication.html#skipping-authentication" class="header">Skipping Authentication</a></li>
+  <li><a href="../../../05-internals/design/api-v2/query-design.html#querying-past-value-versions" class="header">Querying Past Value Versions</a></li>
 </ul>
 </div>
-<h2><a href="#scope" name="scope" class="anchor"><span class="anchor-link"></span></a>Scope</h2>
-<p>Authentication is the process of making sure that if someone is accessing something then this someone is actually also the someone he pretends to be. The process of making sure that someone is authorized, i.e. has the permission to access something, is handled as described in <a href="../../../02-knora-ontologies/knora-base.html#authorisation">Authorisation</a>).</p>
-<h2><a href="#implementation" name="implementation" class="anchor"><span class="anchor-link"></span></a>Implementation</h2>
-<p>The authentication in Knora is based on Basic Auth <a href="https://en.wikipedia.org/wiki/Basic_access_authentication">HTTP basic authentication</a>, URL parameters, <a href="https://jwt.io">JSON Web Token</a>, and cookies. This means that on every request (to any of the routes), credentials need to be sent either via authorization header, URL parameters or cookie header.</p>
-<p>All routes are always accessible and if there are no credentials provided, a default user is assumed. If credentials are sent and they are not correct (e.g., wrong username, password incorrect, token expired), then the request will end in an error message.</p>
-<p>There are some differences in <code>V1</code> and <code>V2</code> of the API regarding authentication. They differ mainly in the format of the response and that creation of session cookies are only supported in <code>V1</code> and tokens in <code>V2</code>. After login via either version, all routes (<code>V1</code> and <code>V2</code>) are accessible.</p>
-<h2><a href="#skipping-authentication" name="skipping-authentication" class="anchor"><span class="anchor-link"></span></a>Skipping Authentication</h2>
-<p>There is the possibility to turn skipping authentication on and use a hardcoded user (Test User). In <strong>application.conf</strong> set the <code>skip-authentication = true</code> and Test User will be always assumed.</p>
+<h2><a href="#querying-past-value-versions" name="querying-past-value-versions" class="anchor"><span class="anchor-link"></span></a>Querying Past Value Versions</h2>
+<p>Value versions are a linked list, starting with the current version. Each value points to the previous version via <code>knora-base:previousValue</code>. The resource points only to the current version.</p>
+<p>Past value versions are queried in <code>getResourcePropertiesAndValues.scala.txt</code>, which can take a timestamp argument. Given the current value version, we must find the most recent past version that existed at the target date.</p>
+<p>First, we get the set of previous values that were created on or before the target date:</p>
+<pre><code>?currentValue knora-base:previousValue* ?valueObject .
+?valueObject knora-base:valueCreationDate ?valueObjectCreationDate .
+FILTER(?valueObjectCreationDate &lt;= &quot;@versionDate&quot;^^xsd:dateTime)
+</code></pre>
+<p>The resulting versions are now possible values of <code>?valueObject</code>. Next, out of this set of versions, we exclude all versions except for the most recent one. We do this by checking, for each <code>?valueObject</code>, whether there is another version, <code>?otherValueObject</code>, that is more recent and was also created before the target date. If such a version exists, we exclude the one we are looking at.</p>
+<pre><code>FILTER NOT EXISTS {
+    ?currentValue knora-base:previousValue* ?otherValueObject .
+    ?otherValueObject knora-base:valueCreationDate ?otherValueObjectCreationDate .
+
+    FILTER(
+        (?otherValueObjectCreationDate &lt;= &quot;@versionDate&quot;^^xsd:dateTime) &amp;&amp;
+        (?otherValueObjectCreationDate &gt; ?valueObjectCreationDate)
+    )
+}
+</code></pre>
+<p>This excludes all past versions except the one we are interested in.</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/design/principles/authentication.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/design/api-v2/query-design.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -284,7 +290,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../../../05-internals/design/principles/consistency-checking.html" title="Consistency Checking" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../../../05-internals/design/api-v2/ark.html" title="Archival Resource Key (ARK) Identifiers" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -293,17 +299,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Consistency Checking
+Archival Resource Key (ARK) Identifiers
 </span>
 </div>
 </a>
-<a href="../../../05-internals/design/api-v1/index.html" title="Knora API v1 Design" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../../05-internals/design/api-admin/index.html" title="Admin API Design" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Knora API v1 Design
+Admin API Design
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../cloud">
-<title>Deploying Knora · Knora Documentation</title>
+<title>Publishing · Knora Documentation</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Deploying Knora
+Publishing
 </span>
 </div>
 </div>
@@ -154,11 +154,12 @@ dhlab-basel/Knora/docs
     <li><a href="../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
   </ul></li>
-  <li><a href="../04-deployment/index.html" class="active page">Deploying Knora</a>
+  <li><a href="../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
-    <li><a href="../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
-    <li><a href="../04-deployment/configuration.html" class="page">Configuration</a></li>
-    <li><a href="../04-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
+    <li><a href="../04-publishing-deployment/publishing.html" class="active page">Publishing</a></li>
+    <li><a href="../04-publishing-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+    <li><a href="../04-publishing-deployment/configuration.html" class="page">Configuration</a></li>
+    <li><a href="../04-publishing-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
   </ul></li>
   <li><a href="../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -191,11 +192,36 @@ dhlab-basel/Knora/docs
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../04-publishing-deployment/publishing.html#publishing" class="header">Publishing</a>
+  <ul>
+    <li><a href="../04-publishing-deployment/publishing.html#using-sbt-for-publishing" class="header">Using SBT for publishing</a></li>
+    <li><a href="../04-publishing-deployment/publishing.html#graphdb-licensing" class="header">GraphDB Licensing</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.0.0
+<i class="md-icon">label_outline</i> 8.1.0-7-g32aaca2
 </div>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../04-publishing-deployment/publishing.html#publishing" class="header">Publishing</a>
+  <ul>
+    <li><a href="../04-publishing-deployment/publishing.html#using-sbt-for-publishing" class="header">Using SBT for publishing</a></li>
+    <li><a href="../04-publishing-deployment/publishing.html#graphdb-licensing" class="header">GraphDB Licensing</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 </div>
@@ -222,23 +248,61 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#deploying-knora" name="deploying-knora" class="anchor"><span class="anchor-link"></span></a>Deploying Knora</h1>
-<div class="toc ">
+<h1><a href="#publishing" name="publishing" class="anchor"><span class="anchor-link"></span></a>Publishing</h1>
+<p>Knora is published as a set of <a href="https://www.docker.com">Docker</a> images under the <a href="https://hub.docker.com/u/dhlabbasel">DHLab Basel Dockerhub Organization</a>.</p>
+<p>The following Docker images are published:</p>
 <ul>
-  <li><a href="../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
-  <li><a href="../04-deployment/configuration.html" class="page">Configuration</a></li>
-  <li><a href="../04-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
+  <li>Knora-API:</li>
+  <li><a href="https://hub.docker.com/r/dhlabbasel/webapi">https://hub.docker.com/r/dhlabbasel/webapi</a></li>
+  <li>GraphDB-SE (includes <code>KnoraRules.pie</code>):</li>
+  <li><a href="https://hub.docker.com/r/dhlabbasel/knora-graphdb-se">https://hub.docker.com/r/dhlabbasel/knora-graphdb-se</a></li>
+  <li>GraphDB-Free (includes <code>KnoraRules.pie</code>):</li>
+  <li><a href="https://hub.docker.com/r/dhlabbasel/knora-graphdb-free">https://hub.docker.com/r/dhlabbasel/knora-graphdb-free</a></li>
+  <li>Sipi (includes Knora&rsquo;s Sipi scripts):</li>
+  <li><a href="https://hub.docker.com/r/dhlabbasel/knora-sipi">https://hub.docker.com/r/dhlabbasel/knora-sipi</a></li>
+  <li>Knora-Assets (Knora-Base ontologies, test data, and scripts):</li>
+  <li><a href="https://hub.docker.com/r/dhlabbasel/knora-assets">https://hub.docker.com/r/dhlabbasel/knora-assets</a></li>
+  <li>Knora-Upgrade (Knora upgrade tool):</li>
+  <li><a href="https://hub.docker.com/r/dhlabbasel/knora-upgrade">https://hub.docker.com/r/dhlabbasel/knora-upgrade</a></li>
+  <li>Salsah 1:</li>
+  <li><a href="https://hub.docker.com/r/dhlabbasel/salsah1">https://hub.docker.com/r/dhlabbasel/salsah1</a></li>
+  <li>Salsah 2:</li>
+  <li><a href="https://hub.docker.com/r/daschswiss/knora-app-web">https://hub.docker.com/r/daschswiss/knora-app-web</a></li>
 </ul>
-</div>
+<p>Knora&rsquo;s Docker images are published automatically through Travis each time a pull-request is merged into the <code>develop</code> branch.</p>
+<p>Each image is tagged with a version number, where the version is derived by using the result of <code>git describe</code>. The describe version is built from the <code>last tag + number of commits since tag + short hash</code>, e.g., <code>8.0.0-7-ga7827e9</code>.</p>
+<h3><a href="#using-sbt-for-publishing" name="using-sbt-for-publishing" class="anchor"><span class="anchor-link"></span></a>Using SBT for publishing</h3>
+<p>The images can be published locally by running:</p>
+<pre class="prettyprint"><code class="language-bash">$ - sbt webapi/docker:publishLocal
+$ sbt salsah1/docker:publishLocal
+$ sbt knora-sipi/docker:publishLocal
+$ sbt knora-graphdb-se/docker:publishLocal
+$ sbt knora-graphdb-free/docker:publishLocal
+$ sbt knora-upgrade/docker:publishLocal
+$ sbt knora-assets/docker:publishLocal
+</code></pre>
+<p>or to Dockerhub:</p>
+<pre class="prettyprint"><code class="language-bash">$ sbt webapi/docker:publish
+$ sbt salsah1/docker:publish
+$ sbt knora-sipi/docker:publish
+$ sbt knora-graphdb-se/docker:publish
+$ sbt knora-graphdb-free/docker:publish
+$ sbt knora-upgrade/docker:publish
+$ sbt knora-assets/docker:publish
+</code></pre>
+<h2><a href="#graphdb-licensing" name="graphdb-licensing" class="anchor"><span class="anchor-link"></span></a>GraphDB Licensing</h2>
+<p><strong>GraphDB-Free</strong> is the Free Edition of the triplestore from Ontotext (<a href="http://ontotext.com)">http://ontotext.com)</a>. GraphDB-Free must be licensed separately by the user, by registering with Ontotext, i.e. filling out the form for downloading the free edition.</p>
+<p><strong>GraphDB-SE</strong> is the Standard Edition of the triplestore from Ontotext (<a href="http://ontotext.com)">http://ontotext.com)</a>.</p>
+<p>GraphDB-SE must be licensed separately by the user.</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/04-deployment/index.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/04-publishing-deployment/publishing.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.0.0
+8.1.0-7-g32aaca2
 </span>
 </div>
 </article>
@@ -248,7 +312,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../03-apis/api-admin/stores.html" title="Stores Endpoint" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../04-publishing-deployment/index.html" title="Deploying Knora" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -257,11 +321,11 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Stores Endpoint
+Deploying Knora
 </span>
 </div>
 </a>
-<a href="../04-deployment/getting-started.html" title="Getting Started with Knora" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../04-publishing-deployment/getting-started.html" title="Getting Started with Knora" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">

@@ -154,11 +154,12 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
   </ul></li>
-  <li><a href="../../04-deployment/index.html" class="page">Deploying Knora</a>
+  <li><a href="../../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
-    <li><a href="../../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
-    <li><a href="../../04-deployment/configuration.html" class="page">Configuration</a></li>
-    <li><a href="../../04-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
+    <li><a href="../../04-publishing-deployment/publishing.html" class="page">Publishing</a></li>
+    <li><a href="../../04-publishing-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+    <li><a href="../../04-publishing-deployment/configuration.html" class="page">Configuration</a></li>
+    <li><a href="../../04-publishing-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
   </ul></li>
   <li><a href="../../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -203,7 +204,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.0.0
+<i class="md-icon">label_outline</i> 8.1.0-7-g32aaca2
 </div>
 </nav>
 
@@ -256,6 +257,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li><a href="../../03-apis/api-v2/permalinks.html#resolving-knora-ark-urls" class="header">Resolving Knora ARK URLs</a></li>
   <li><a href="../../03-apis/api-v2/permalinks.html#knora-ark-url-format" class="header">Knora ARK URL Format</a>
   <ul>
+    <li><a href="../../03-apis/api-v2/permalinks.html#ark-urls-for-projects" class="header">ARK URLs for Projects</a></li>
     <li><a href="../../03-apis/api-v2/permalinks.html#ark-urls-for-resources" class="header">ARK URLs for Resources</a></li>
     <li><a href="../../03-apis/api-v2/permalinks.html#ark-urls-for-values" class="header">ARK URLs for Values</a></li>
   </ul></li>
@@ -331,10 +333,20 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>A Knora ARK URL is intended to be resolved by the <a href="https://github.com/dhlab-basel/ark-resolver">Knora ARK resolver</a>.</p>
 <h2><a href="#knora-ark-url-format" name="knora-ark-url-format" class="anchor"><span class="anchor-link"></span></a>Knora ARK URL Format</h2>
 <p>For details, see <a href="../../05-internals/design/api-v2/ark.html">Archival Resource Key (ARK) Identifiers</a>.</p>
+<h3><a href="#ark-urls-for-projects" name="ark-urls-for-projects" class="anchor"><span class="anchor-link"></span></a>ARK URLs for Projects</h3>
+<p>The format of a Knora project ARK URL is as follows:</p>
+<pre><code>http://HOST/ark:/NAAN/VERSION/PROJECT
+</code></pre>
+<p><code>NAAN</code> is a <a href="https://tools.ietf.org/html/draft-kunze-ark-22#section-2.3">Name Assigning Authority Number</a>, <code>VERSION</code> is the version number of the Knora ARK URL format (currently always 1), and <code>PROJECT</code> is the project&rsquo;s <a href="knora-iris.html#project-short-codes">short-code</a>.</p>
+<p>For example, given a project with ID <code>0001</code>, and using the DaSCH&rsquo;s ARK resolver hostname and NAAN, the ARK URL for the project itself is:</p>
+<pre><code>http://ark.dasch.swiss/ark:/72163/1/0001
+</code></pre>
+<p>This could redirect to a page describing the project.</p>
 <h3><a href="#ark-urls-for-resources" name="ark-urls-for-resources" class="anchor"><span class="anchor-link"></span></a>ARK URLs for Resources</h3>
 <p>The format of a Knora resource ARK URL is as follows:</p>
 <pre><code>http://HOST/ark:/NAAN/VERSION/PROJECT/RESOURCE_UUID[.TIMESTAMP]
 </code></pre>
+<p><code>NAAN</code> is a <a href="https://tools.ietf.org/html/draft-kunze-ark-22#section-2.3">Name Assigning Authority Number</a>, <code>VERSION</code> is the version number of the Knora ARK URL format (currently always 1), <code>PROJECT</code> is the project&rsquo;s <a href="knora-iris.html#project-short-codes">short-code</a>, and <code>RESOURCE_UUID</code> is the resource&rsquo;s <a href="knora-iris.html#iris-for-data">UUID</a>.</p>
 <p>For example, given the Knora resource IRI <code>http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ</code>, and using the DaSCH&rsquo;s ARK resolver hostname and NAAN, the corresponding ARK URL without a timestamp is:</p>
 <pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY
 </code></pre>
@@ -346,6 +358,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>The format of a Knora value ARK URL is as follows:</p>
 <pre><code>http://HOST/ark:/NAAN/VERSION/PROJECT/RESOURCE_UUID/VALUE_UUID[.TIMESTAMP]
 </code></pre>
+<p><code>NAAN</code> is a <a href="https://tools.ietf.org/html/draft-kunze-ark-22#section-2.3">Name Assigning Authority Number</a>, <code>VERSION</code> is the version number of the Knora ARK URL format (currently always 1), <code>PROJECT</code> is the project&rsquo;s <a href="knora-iris.html#project-short-codes">short-code</a>, <code>RESOURCE_UUID</code> is the resource&rsquo;s <a href="knora-iris.html#iris-for-data">UUID</a>, and <code>VALUE_UUID</code> is the value&rsquo;s <code>knora-api:valueHasUUID</code>.</p>
 <p>For example, given a value with <code>knora-api:valueHasUUID &quot;4OOf3qJUTnCDXlPNnygSzQ&quot;</code> in the resource <code>http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ</code>, and using the DaSCH&rsquo;s ARK resolver hostname and NAAN, the corresponding ARK URL without a timestamp is:</p>
 <pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY/4OOf3qJUTnCDXlPNnygSzQX
 </code></pre>
@@ -361,7 +374,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.0.0
+8.1.0-7-g32aaca2
 </span>
 </div>
 </article>

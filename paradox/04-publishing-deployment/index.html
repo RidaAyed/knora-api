@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../cloud">
-<title>Getting Started with Knora · Knora Documentation</title>
+<title>Deploying Knora · Knora Documentation</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Getting Started with Knora
+Deploying Knora
 </span>
 </div>
 </div>
@@ -154,11 +154,12 @@ dhlab-basel/Knora/docs
     <li><a href="../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
   </ul></li>
-  <li><a href="../04-deployment/index.html" class="page">Deploying Knora</a>
+  <li><a href="../04-publishing-deployment/index.html" class="active page">Deploying Knora</a>
   <ul>
-    <li><a href="../04-deployment/getting-started.html" class="active page">Getting Started with Knora</a></li>
-    <li><a href="../04-deployment/configuration.html" class="page">Configuration</a></li>
-    <li><a href="../04-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
+    <li><a href="../04-publishing-deployment/publishing.html" class="page">Publishing</a></li>
+    <li><a href="../04-publishing-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+    <li><a href="../04-publishing-deployment/configuration.html" class="page">Configuration</a></li>
+    <li><a href="../04-publishing-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
   </ul></li>
   <li><a href="../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -191,40 +192,11 @@ dhlab-basel/Knora/docs
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="toc">Table of contents</label>
-<ul>
-  <li><a href="../04-deployment/getting-started.html#getting-started-with-knora" class="header">Getting Started with Knora</a>
-  <ul>
-    <li><a href="../04-deployment/getting-started.html#choosing-and-setting-up-a-triplestore" class="header">Choosing and Setting Up a Triplestore</a></li>
-    <li><a href="../04-deployment/getting-started.html#creating-a-test-installation" class="header">Creating a Test Installation</a></li>
-    <li><a href="../04-deployment/getting-started.html#selectively-disabling-routes" class="header">Selectively Disabling Routes</a></li>
-    <li><a href="../04-deployment/getting-started.html#startup-flags" class="header">Startup Flags</a></li>
-  </ul></li>
-</ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.0.0
+<i class="md-icon">label_outline</i> 8.1.0-7-g32aaca2
 </div>
-</nav>
-
-</div>
-</div>
-</div>
-<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="toc">Table of contents</label>
-<ul>
-  <li><a href="../04-deployment/getting-started.html#getting-started-with-knora" class="header">Getting Started with Knora</a>
-  <ul>
-    <li><a href="../04-deployment/getting-started.html#choosing-and-setting-up-a-triplestore" class="header">Choosing and Setting Up a Triplestore</a></li>
-    <li><a href="../04-deployment/getting-started.html#creating-a-test-installation" class="header">Creating a Test Installation</a></li>
-    <li><a href="../04-deployment/getting-started.html#selectively-disabling-routes" class="header">Selectively Disabling Routes</a></li>
-    <li><a href="../04-deployment/getting-started.html#startup-flags" class="header">Startup Flags</a></li>
-  </ul></li>
-</ul>
 </nav>
 
 </div>
@@ -251,71 +223,24 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#getting-started-with-knora" name="getting-started-with-knora" class="anchor"><span class="anchor-link"></span></a>Getting Started with Knora</h1>
-<p>There is a quick installation guide <a href="https://github.com/dhlab-basel/Knora/wiki/Quick-Installation-Guide-for-Knora,-Salsah,-Sipi-and-GraphDB">here</a>.</p>
-<h2><a href="#choosing-and-setting-up-a-triplestore" name="choosing-and-setting-up-a-triplestore" class="anchor"><span class="anchor-link"></span></a>Choosing and Setting Up a Triplestore</h2>
-<p>Knora requires a standards-compliant <a href="https://www.w3.org/TR/rdf11-primer/">RDF</a> triplestore. A number of triplestore implementations are available, including <a href="http://www.gnu.org/philosophy/free-sw.en.html">free software</a> as well as proprietary options.</p>
-<p>Knora is designed to work with any standards-compliant triplestore. It is primarily tested with <a href="http://ontotext.com/products/graphdb/">Ontotext GraphDB</a>, a high-performance, proprietary triplestore. We recommend GraphDB Standard Edition, but GraphDB Free (which is proprietary but available free of charge) also works.</p>
-<p>Knora includes support for <a href="https://jena.apache.org/">Apache Jena</a>, which is <a href="http://www.gnu.org/philosophy/free-sw.en.html">free software</a>, but use of Jena is deprecated, and support for it will probably be removed in the future.</p>
-<p>Built-in support and configuration for other triplestores is planned.</p>
-<p>See the chapters on <a href="../05-internals/development/graphdb.html">Starting GraphDB</a> and <a href="../05-internals/development/fuseki.html">Starting Fuseki</a> for more details.</p>
-<h3><a href="#creating-repositories-and-loading-test-data" name="creating-repositories-and-loading-test-data" class="anchor"><span class="anchor-link"></span></a>Creating Repositories and Loading Test Data</h3>
-<p>To create a test repository called <code>knora-test</code> and load test data into it, go to <code>webapi/scripts</code> and run the script for the triplestore you have chosen.</p>
+<h1><a href="#deploying-knora" name="deploying-knora" class="anchor"><span class="anchor-link"></span></a>Deploying Knora</h1>
+<div class="toc ">
 <ul>
-  <li>
-    <p>For GraphDB-SE:</p>
-    <ul>
-      <li>If you are running GraphDB-SE directly from its installation directory (using the <code>bin/graphdb</code> script), run  <code>graphdb-se-local-init-knora-test.sh</code>.</li>
-      <li>If you are running GraphDB-SE from a Docker image, run <code>graphdb-se-docker-init-knora-test.sh</code>.</li>
-    </ul>
-  </li>
-  <li>
-    <p>For GraphDB-Free:</p>
-    <ul>
-      <li>If you are running GraphDB-Free directly from its installation directory (using the <code>bin/graphdb</code> script), run  <code>graphdb-free-local-init-knora-test.sh</code>.</li>
-      <li>If you are running GraphDB-Free from a Docker image, run <code>graphdb-free-docker-init-knora-test.sh</code>.</li>
-    </ul>
-  </li>
-  <li>
-  <p>For Fuseki, run <code>fuseki-load-test-data.sh</code>.</p></li>
-</ul>
-<p>You can create your own scripts based on these scripts, to create new repositories and optionally to load existing Knora-compliant RDF data into them.</p>
-<p>If you are using GraphDB, you must create your repository using a repository configuration file that specifies the file <code>KnoraRules.pie</code> as its <code>owlim:ruleset</code>. This enables RDFS inference and Knora-specific consistency rules. When using GraphDB, Knora uses RDFS inference to improve query performance. The Knora-specific consistency rules help ensure that your data is internally consistent and conforms to the Knora ontologies.</p>
-<p>When testing with GraphDB, you may sometimes get an error when loading the test data that says that there are multiple IDs for the same repository <code>knora-test</code>. In that case, something went wrong when dropping and recreating the repository. You can solve this by deleting the repository manually and starting over. <strong>Make sure you don&rsquo;t delete important data.</strong> To delete the repository, stop GraphDB, delete the <code>data</code> directory in your GraphDB installation, and restart GraphDB.</p>
-<h2><a href="#creating-a-test-installation" name="creating-a-test-installation" class="anchor"><span class="anchor-link"></span></a>Creating a Test Installation</h2>
-<h3><a href="#run-a-supported-triplestore" name="run-a-supported-triplestore" class="anchor"><span class="anchor-link"></span></a>Run a supported triplestore</h3>
-<p>See the chapters on <a href="../05-internals/development/graphdb.html">Starting GraphDB</a> and <a href="../05-internals/development/fuseki.html">Starting Fuseki</a> on how to start a supported triplestore.</p>
-<h3><a href="#creating-and-running-the-webapi-server-distribution-package" name="creating-and-running-the-webapi-server-distribution-package" class="anchor"><span class="anchor-link"></span></a>Creating and running the WEBAPI Server distribution package</h3>
-<p>To create a deployment package for the WEBAPI Server, please run from inside the top level <code>knora</code> folder the following commands:</p>
-<pre><code>$ sbt webapi/stage
-$ cd webapi/target/universal/stage
-$ ./bin/webapi -J-Xms1G J-Xmx1G
-</code></pre>
-<h3><a href="#downloading-and-running-sipi" name="downloading-and-running-sipi" class="anchor"><span class="anchor-link"></span></a>Downloading and running Sipi</h3>
-<p>Download <a href="https://github.com/dhlab-basel/Sipi">Sipi</a> and install from source by following the <a href="https://dhlab-basel.github.io/Sipi/documentation/index.html">Sipi Manual</a>. For running and setting up Sipi for Knora, please see <a href="../07-sipi/index.html">The Sipi Media Server</a>.</p>
-<h2><a href="#selectively-disabling-routes" name="selectively-disabling-routes" class="anchor"><span class="anchor-link"></span></a>Selectively Disabling Routes</h2>
-<p>In <code>application.conf</code> the setting <code>app.routes-to-reject</code> contains a list of strings, representing routes which should be rejected.</p>
-<p>For Example, the string <code>&quot;v1/users&quot;</code> would lead to rejection of any route which contains this string.</p>
-<h2><a href="#startup-flags" name="startup-flags" class="anchor"><span class="anchor-link"></span></a>Startup Flags</h2>
-<p>There is a number of flags that can be set on startup, they will override any value set in the application configuration file:</p>
-<ul>
-  <li><code>loadDemoData</code>, <code>--loadDemoData</code>, <code>-d</code>: Loads the demo data.</li>
-  <li><code>allowReloadOverHTTP</code>, <code>--allow-reload-over-http</code>, <code>-r</code>: Allows reloading of data over HTTP.</li>
-  <li><code>-p</code>: Starts the Prometheus monitoring reporter.</li>
-  <li><code>-z</code>: Starts the Zipkin monitoring reporter.</li>
-  <li><code>-j</code>: Starts the Jaeger monitoring reporter.</li>
-  <li><code>-c</code>: Print the configuration at startup.</li>
-  <li><code>--help</code>: Shows the help message with all startup flags.</li>
+  <li><a href="../04-publishing-deployment/publishing.html" class="page">Publishing</a></li>
+  <li><a href="../04-publishing-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+  <li><a href="../04-publishing-deployment/configuration.html" class="page">Configuration</a></li>
+  <li><a href="../04-publishing-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
 </ul>
 </div>
+</div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/04-deployment/getting-started.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/04-publishing-deployment/index.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.0.0
+8.1.0-7-g32aaca2
 </span>
 </div>
 </article>
@@ -325,7 +250,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../04-deployment/index.html" title="Deploying Knora" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../03-apis/api-admin/stores.html" title="Stores Endpoint" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -334,17 +259,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Deploying Knora
+Stores Endpoint
 </span>
 </div>
 </a>
-<a href="../04-deployment/configuration.html" title="Configuration" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../04-publishing-deployment/publishing.html" title="Publishing" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Configuration
+Publishing
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

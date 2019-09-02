@@ -154,11 +154,12 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
   </ul></li>
-  <li><a href="../../04-deployment/index.html" class="page">Deploying Knora</a>
+  <li><a href="../../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
-    <li><a href="../../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
-    <li><a href="../../04-deployment/configuration.html" class="page">Configuration</a></li>
-    <li><a href="../../04-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
+    <li><a href="../../04-publishing-deployment/publishing.html" class="page">Publishing</a></li>
+    <li><a href="../../04-publishing-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+    <li><a href="../../04-publishing-deployment/configuration.html" class="page">Configuration</a></li>
+    <li><a href="../../04-publishing-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
   </ul></li>
   <li><a href="../../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -205,7 +206,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.0.0
+<i class="md-icon">label_outline</i> 8.1.0-7-g32aaca2
 </div>
 </nav>
 
@@ -255,7 +256,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <h1><a href="#projects-endpoint" name="projects-endpoint" class="anchor"><span class="anchor-link"></span></a>Projects Endpoint</h1>
 <h2><a href="#endpoint-overview" name="endpoint-overview" class="anchor"><span class="anchor-link"></span></a>Endpoint Overview</h2>
-<p><strong>Project Operations:</strong> - <code>GET:  /admin/projects</code> : return all projects - <code>POST: /admin/projects</code> : create a new project - <code>GET: /admin/projects/[iri | shortname | shortcode]/&lt;identifier&gt;</code> : returns a single project identified either through iri, shortname, or shortcode - <code>PUT: /admin/projects/iri/&lt;identifier&gt;</code> : update a project identified by iri - <code>DELETE: /admin/projects/iri/&lt;identifier&gt;</code> : update project status to false</p>
+<p><strong>Project Operations:</strong> - <code>GET:  /admin/projects</code> : return all projects - <code>POST: /admin/projects</code> : create a new project - <code>GET: /admin/projects/[iri | shortname | shortcode]/&lt;identifier&gt;</code> : returns a single project identified either through iri, shortname, or shortcode - <code>PUT: /admin/projects/iri/&lt;identifier&gt;</code> : update a project identified by iri - <code>DELETE: /admin/projects/iri/&lt;identifier&gt;</code> : update project status to false - <code>GET: /admin/projects/iri/&lt;identifier&gt;/AllData</code> : returns a TriG file containing the project&rsquo;s data</p>
 <p><strong>Project Member Operations:</strong> - <code>GET: /admin/projects/[iri | shortname | shortcode]/&lt;identifier&gt;/members</code> : returns all members part of a project identified through iri, shortname or shortcode</p>
 <p><strong>Project Admin Member Operations:</strong> - <code>GET: /admin/projects/[iri | shortname | shortcode]/&lt;identifier&gt;/admin-members</code> : returns all admin members part of a project identified through iri, shortname or shortcode</p>
 <p><strong>Project Keyword Operations:</strong> - <code>GET: /admin/projects/Keywords</code> : returns all unique keywords for all projects as a list - <code>GET: /admin/projects/iri/&lt;identifier&gt;/Keywords</code> : returns all keywords for a single project</p>
@@ -309,6 +310,13 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li>DELETE: <code>/admin/projects/iri/&lt;projectIri&gt;</code></li>
   <li>BODY: empty</li>
 </ul>
+<h3><a href="#dump-project-data-" name="dump-project-data-" class="anchor"><span class="anchor-link"></span></a>Dump project data:</h3>
+<p>Returns a <a href="https://www.w3.org/TR/trig/">TriG</a> file containing the project&rsquo;s ontologies, resource data, admin data, and permissions.</p>
+<ul>
+  <li>Required permission: SystemAdmin / ProjectAdmin</li>
+  <li>Required information: project IRI</li>
+  <li><code>GET: /admin/projects/iri/&lt;identifier&gt;/AllData</code></li>
+</ul>
 <h2><a href="#project-member-operations" name="project-member-operations" class="anchor"><span class="anchor-link"></span></a>Project Member Operations</h2>
 <h3><a href="#get-project-members-" name="get-project-members-" class="anchor"><span class="anchor-link"></span></a>Get project members:</h3>
 <ul>
@@ -355,7 +363,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.0.0
+8.1.0-7-g32aaca2
 </span>
 </div>
 </article>

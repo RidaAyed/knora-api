@@ -154,11 +154,12 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
   </ul></li>
-  <li><a href="../../04-deployment/index.html" class="page">Deploying Knora</a>
+  <li><a href="../../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
-    <li><a href="../../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
-    <li><a href="../../04-deployment/configuration.html" class="page">Configuration</a></li>
-    <li><a href="../../04-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
+    <li><a href="../../04-publishing-deployment/publishing.html" class="page">Publishing</a></li>
+    <li><a href="../../04-publishing-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+    <li><a href="../../04-publishing-deployment/configuration.html" class="page">Configuration</a></li>
+    <li><a href="../../04-publishing-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
   </ul></li>
   <li><a href="../../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -205,7 +206,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.0.0
+<i class="md-icon">label_outline</i> 8.1.0-7-g32aaca2
 </div>
 </nav>
 
@@ -277,6 +278,9 @@ $ ./bin/graphdb -Dgraphdb.license.file=/path/to/GRAPHDB_SE.license
 <pre><code>$ cd KNORA_PROJECT_DIRECTORY/webapi/scripts
 $ ./graphdb-se-local-init-knora-test.sh
 </code></pre>
+<p>Then in another terminal, start the <a href="https://redis.io">Redis Server</a>:</p>
+<pre class="prettyprint"><code class="language-bash">$ redis-server
+</code></pre>
 <p>Then go back to the webapi root directory and use SBT to start the API server:</p>
 <pre><code>$ cd KNORA_PROJECT_DIRECTORY
 $ sbt
@@ -308,8 +312,8 @@ addons:
   chrome: stable
 
 language:
-  - scala
-  - python
+  - &quot;scala&quot;
+  - &quot;python&quot;
 
 scala:
   - &quot;2.12.1&quot;
@@ -322,6 +326,7 @@ jdk:
 
 services:
   - docker
+  - redis-server
 
 env:
   global:
@@ -367,7 +372,12 @@ jobs:
         # - docker login -u $DOCKER_USER -p $DOCKER_PASS
         # - sbt webapi/docker:publish
         # - sbt salsah1/docker:publish
-    # unit and e2e tests
+        # - sbt knora-sipi/docker:publish
+        # - sbt knora-graphdb-se/docker:publish
+        # - sbt knora-graphdb-free/docker:publish
+        # - sbt knora-upgrade/docker:publish
+        # - sbt knora-assets/docker:publish
+    # unit tests
     - stage: test
       script:
         # prepare needed graphdb-se files
@@ -381,7 +391,24 @@ jobs:
         # hit graphdb with a request &quot;waking-it-up&quot;
         - curl http://localhost:7200/rest/repositories
         # start the built-in webapi server tests
-        - cd $TRAVIS_BUILD_DIR/ &amp;&amp; sbt webapi/clean coverage webapi/test webapi/coverageReport
+        - cd $TRAVIS_BUILD_DIR/ &amp;&amp; sbt webapi/clean coverage &#39;webapi/testOnly -- -l org.knora.webapi.testing.tags.E2ETest&#39; webapi/coverageReport
+        # upload code coverage report
+        # - sbt codacyCoverage
+    # e2e tests
+    - stage: test
+      script:
+        # prepare needed graphdb-se files
+        - mkdir -p $TRAVIS_BUILD_DIR/graphdb
+        - cp $TRAVIS_BUILD_DIR/travis/graphdb.license $TRAVIS_BUILD_DIR/graphdb/graphdb.license
+        - cp $TRAVIS_BUILD_DIR/webapi/scripts/KnoraRules.pie $TRAVIS_BUILD_DIR/graphdb
+        # start and initialize graphdb-se
+        - docker run -d -p 127.0.0.1:7200:7200 -v $TRAVIS_BUILD_DIR/graphdb:/graphdb -e GDB_HEAP_SIZE=$GDB_HEAP_SIZE ontotext/graphdb:$GRAPHDB_VERSION -Dgraphdb.license.file=/graphdb/graphdb.license
+        - sleep 15
+        - cd $TRAVIS_BUILD_DIR/webapi/scripts &amp;&amp; ./graphdb-se-docker-init-knora-test-unit.sh
+        # hit graphdb with a request &quot;waking-it-up&quot;
+        - curl http://localhost:7200/rest/repositories
+        # start the built-in webapi server tests
+        - cd $TRAVIS_BUILD_DIR/ &amp;&amp; sbt webapi/clean coverage &#39;webapi/testOnly -- -n org.knora.webapi.testing.tags.E2ETest&#39; webapi/coverageReport
         # upload code coverage report
         # - sbt codacyCoverage
     # integration tests
@@ -460,6 +487,11 @@ jobs:
       script:
         - sbt webapi/docker:publishLocal
         - sbt salsah1/docker:publishLocal
+        - sbt knora-sipi/docker:publishLocal
+        - sbt knora-graphdb-se/docker:publishLocal
+        - sbt knora-graphdb-free/docker:publishLocal
+        - sbt knora-upgrade/docker:publishLocal
+        - sbt knora-assets/docker:publishLocal
     - stage: publish
       script:
         # login into docker hub, build image, and push but only when on the &quot;develop&quot; branch or tagged
@@ -470,10 +502,16 @@ jobs:
         - sbt webapi/docker:publish
         # salsah1
         - sbt salsah1/docker:publish
-        # sipi: get the develop sipi and tag it as &#39;develop-knora&#39; so we know that this version is tested (only on the develop branch)
-        - docker pull $SIPI_REPO:develop
-        - docker tag $SIPI_REPO:develop $SIPI_REPO:knora-$TRAVIS_BRANCH
-        - docker push $SIPI_REPO
+        # knora-sipi
+        - sbt knora-sipi/docker:publish
+        # knora-graphdb-se
+        - sbt knora-graphdb-se/docker:publish
+        # knora-graphdb-free
+        - sbt knora-graphdb-free/docker:publish
+        # knora-upgrade
+        - sbt knora-upgrade/docker:publish
+        # knora-assets
+        - sbt knora-assets/docker:publish
 
 notifications:
   slack:
@@ -537,7 +575,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.0.0
+8.1.0-7-g32aaca2
 </span>
 </div>
 </article>

@@ -154,11 +154,12 @@ dhlab-basel/Knora/docs
     <li><a href="../../../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../../../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
   </ul></li>
-  <li><a href="../../../04-deployment/index.html" class="page">Deploying Knora</a>
+  <li><a href="../../../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
-    <li><a href="../../../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
-    <li><a href="../../../04-deployment/configuration.html" class="page">Configuration</a></li>
-    <li><a href="../../../04-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
+    <li><a href="../../../04-publishing-deployment/publishing.html" class="page">Publishing</a></li>
+    <li><a href="../../../04-publishing-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+    <li><a href="../../../04-publishing-deployment/configuration.html" class="page">Configuration</a></li>
+    <li><a href="../../../04-publishing-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
   </ul></li>
   <li><a href="../../../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -207,12 +208,13 @@ dhlab-basel/Knora/docs
     <li><a href="../../../05-internals/design/principles/design-overview.html#triplestore-access" class="header">Triplestore Access</a></li>
     <li><a href="../../../05-internals/design/principles/design-overview.html#error-handling" class="header">Error Handling</a></li>
     <li><a href="../../../05-internals/design/principles/design-overview.html#api-routing" class="header">API Routing</a></li>
+    <li><a href="../../../05-internals/design/principles/design-overview.html#logging" class="header">Logging</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.0.0
+<i class="md-icon">label_outline</i> 8.1.0-7-g32aaca2
 </div>
 </nav>
 
@@ -239,6 +241,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../../05-internals/design/principles/design-overview.html#triplestore-access" class="header">Triplestore Access</a></li>
     <li><a href="../../../05-internals/design/principles/design-overview.html#error-handling" class="header">Error Handling</a></li>
     <li><a href="../../../05-internals/design/principles/design-overview.html#api-routing" class="header">API Routing</a></li>
+    <li><a href="../../../05-internals/design/principles/design-overview.html#logging" class="header">Logging</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -291,6 +294,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     <li><a href="../../../05-internals/design/principles/design-overview.html#transformation-of-exception-to-client-responses" class="header">Transformation of Exception to Client Responses</a></li>
   </ul></li>
   <li><a href="../../../05-internals/design/principles/design-overview.html#api-routing" class="header">API Routing</a></li>
+  <li><a href="../../../05-internals/design/principles/design-overview.html#logging" class="header">Logging</a></li>
 </ul>
 </div>
 <h2><a href="#introduction" name="introduction" class="anchor"><span class="anchor-link"></span></a>Introduction</h2>
@@ -337,38 +341,70 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li><code>org.knora.webapi.twirl</code>: Text-generation templates for use with  <a href="https://github.com/playframework/twirl">the Twirl template engine</a>. Knora  uses Twirl to generate SPARQL requests and other types of text documents.</li>
 </ul>
 <h2><a href="#actor-supervision-and-creation" name="actor-supervision-and-creation" class="anchor"><span class="anchor-link"></span></a>Actor Supervision and Creation</h2>
-<p>At system start, the supervisor actors are created in <code>KnoraService.scala</code>:</p>
+<p>At system start, the main application supervisor actor is created in <code>LiveCore.scala</code>:</p>
 <pre class="prettyprint"><code class="language-scala">/**
-  * The supervisor actor that forwards messages to actors that deal with persistent storage.
+  * The main application supervisor actor which is at the top of the actor
+  * hierarchy. All other actors are instantiated as child actors. Further,
+  * this actor is responsible for the execution of the startup and shutdown
+  * sequences.
   */
-protected val storeManager: ActorRef = system.actorOf(Props(new StoreManager with LiveActorMaker).withDispatcher(KnoraDispatchers.KnoraActorDispatcher), name = StoreManagerActorName)
-
+lazy val appActor: ActorRef = system.actorOf(
+    Props(new ApplicationActor with LiveManagers)
+      .withDispatcher(KnoraDispatchers.KnoraActorDispatcher),
+    name = APPLICATION_MANAGER_ACTOR_NAME
+)</code></pre>
+<p>and through mixin also the store and responder manager actors:</p>
+<pre class="prettyprint"><code class="language-scala">/**
+  * The actor that forwards messages to actors that deal with persistent storage.
+  */
+lazy val storeManager: ActorRef = context.actorOf(
+    Props(new StoreManager with LiveActorMaker)
+      .withDispatcher(KnoraDispatchers.KnoraActorDispatcher),
+    name = StoreManagerActorName
+)
 
 /**
-  * The supervisor actor that forwards messages to responder actors to handle API requests.
+  * The actor that forwards messages to responder actors to handle API requests.
   */
-protected val responderManager: ActorRef = system.actorOf(Props(new ResponderManager(applicationStateActor, storeManager) with LiveActorMaker).withDispatcher(KnoraDispatchers.KnoraActorDispatcher), name = RESPONDER_MANAGER_ACTOR_NAME)</code></pre>
+lazy val responderManager: ActorRef = context.actorOf(
+    Props(new ResponderManager(self, storeManager) with LiveActorMaker)
+      .withDispatcher(KnoraDispatchers.KnoraActorDispatcher),
+    name = RESPONDER_MANAGER_ACTOR_NAME
+)</code></pre>
+<p>The <code>ApplicationActor</code> is the first actor in the application. All other actors are children of this actor and thus it takes also the role of the supervisor actor. It accepts messages for starting and stopping the Knora-API, holds the current state of the application, and is responsible for coordination of the startup and shutdown sequence. Further, it forwards any messages meant for responders or the store to the respective actor.</p>
 <p>In most cases, there is only one instance of each supervised actor; such actors do their work asynchronously in futures, so there would be no advantage in using an actor pool. A few actors do have pools of instances, because they do their work synchronously; this allows concurrency to be controlled by setting the size of each pool. These pools are configured in <code>application.conf</code> under <code>akka.actor.deployment</code>.</p>
-<p><code>KnoraService</code> also starts the HTTP service after which the startup sequence is initiated:</p>
+<p>The <code>ApplicationActor</code> also starts the HTTP service as part of the startup sequence:</p>
 <pre class="prettyprint"><code class="language-scala">/**
-  * Starts the Knora API server.
+  * Starts the Knora-API server.
   */
-def startService(skipLoadingOfOntologies: Boolean): Unit = {
+def appStart(skipLoadingOfOntologies: Boolean, requiresSipi: Boolean): Unit = {
 
-    val bindingFuture: Future[Http.ServerBinding] = Http().bindAndHandle(Route.handlerFlow(apiRoutes), settings.internalKnoraApiHost, settings.internalKnoraApiPort)
+    val bindingFuture: Future[Http.ServerBinding] = Http()
+      .bindAndHandle(
+        Route.handlerFlow(apiRoutes),
+        settings.internalKnoraApiHost,
+        settings.internalKnoraApiPort
+    )
 
     bindingFuture onComplete {
         case Success(_) =&gt; {
 
-            // start monitoring reporters
-            startReporters()
+            if (settings.prometheusEndpoint) {
+                // Load Kamon monitoring
+                Kamon.loadModules()
+            }
 
             // Kick of startup procedure.
-            applicationStateActor ! InitStartUp(skipLoadingOfOntologies)
+            self ! InitStartUp(skipLoadingOfOntologies, requiresSipi)
         }
         case Failure(ex) =&gt; {
-            log.error(&quot;Failed to bind to {}:{}! - {}&quot;, settings.internalKnoraApiHost, settings.internalKnoraApiPort, ex.getMessage)
-            stopService()
+            logger.error(
+                &quot;Failed to bind to {}:{}! - {}&quot;,
+                settings.internalKnoraApiHost,
+                settings.internalKnoraApiPort,
+                ex.getMessage
+            )
+            appStop()
         }
     }
 }</code></pre>
@@ -386,7 +422,7 @@ def startService(skipLoadingOfOntologies: Boolean): Unit = {
   <li>MaintenanceMode: During backup or other maintenance tasks, so that access to the API is closed</li>
   <li>Running: Running state. All APIs are open.</li>
 </ul>
-<p>The startup sequence coordination is done by the <code>org.knora.webapi.app.ApplicationStateActor</code>. During the <code>WaitingForRepository</code> state, if the repository is not configured or available, the system will indefinitely retry to access it. This allows for prolonged startup times of the repository.</p>
+<p>During the <code>WaitingForRepository</code> state, if the repository is not configured or available, the system will indefinitely retry to access it. This allows for prolonged startup times of the repository. Also, if checking the repository returns an error, e.g., because the repository data needs to be migrated first, the application will shutdown.</p>
 <h2><a href="#concurrency" name="concurrency" class="anchor"><span class="anchor-link"></span></a>Concurrency</h2>
 <p>In general, Knora is written in a functional style, avoiding shared mutable state. This makes it easier to reason about concurrency, and eliminates an important potential source of bugs (see <a href="http://curtclifton.net/papers/MoseleyMarks06a.pdf">Out of the Tar Pit</a>).</p>
 <p>The routes and actors in Knora use Akka&rsquo;s <code>ask</code> pattern, rather than the <code>tell</code> pattern, to send messages and receive responses, because this simplifies the code considerably (using <code>tell</code> would require actors to maintain complex mutable state), with no apparent reduction in performance.</p>
@@ -450,6 +486,9 @@ def startService(skipLoadingOfOntologies: Boolean): Unit = {
   <li>The request parameters are interpreted and validated, and a request message is constructed to send to the responder. If the request is invalid, <code>BadRequestException</code> is thrown. If the request message is requesting an update operation, it must include a UUID generated by <code>UUID.randomUUID</code>, so the responder can obtain a write lock on the resource being updated.</li>
 </ol>
 <p>The routing function then passes the message to a function in an API-specific routing utility: <code>RouteUtilV1</code>, <code>RouteUtilV2</code>, or <code>RouteUtilADM</code>. This utility function sends the message to <code>ResponderManager</code> (which forwards it to the relevant responder), returns a response to the client in the appropriate format, and handles any errors.</p>
+<h2><a href="#logging" name="logging" class="anchor"><span class="anchor-link"></span></a>Logging</h2>
+<p>Logging in Knora is configurable through <code>logback.xml</code>, allowing fine grain configuration of what classes / objects should be logged from which level.</p>
+<p>The Akka Actors use <a href="https://doc.akka.io/docs/akka/current/logging.html">Akka Logging</a> while logging inside plain Scala Objects and Classes is done through <a href="https://github.com/lightbend/scala-logging">Scala Logging</a>.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/design/principles/design-overview.md" title="Edit this page" class="md-source-file md-edit">
@@ -458,7 +497,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.0.0
+8.1.0-7-g32aaca2
 </span>
 </div>
 </article>

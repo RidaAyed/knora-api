@@ -154,11 +154,12 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
   </ul></li>
-  <li><a href="../../04-deployment/index.html" class="page">Deploying Knora</a>
+  <li><a href="../../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
-    <li><a href="../../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
-    <li><a href="../../04-deployment/configuration.html" class="page">Configuration</a></li>
-    <li><a href="../../04-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
+    <li><a href="../../04-publishing-deployment/publishing.html" class="page">Publishing</a></li>
+    <li><a href="../../04-publishing-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+    <li><a href="../../04-publishing-deployment/configuration.html" class="page">Configuration</a></li>
+    <li><a href="../../04-publishing-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
   </ul></li>
   <li><a href="../../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -202,7 +203,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.0.0
+<i class="md-icon">label_outline</i> 8.1.0-7-g32aaca2
 </div>
 </nav>
 
@@ -253,7 +254,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li>
   <p>The <code>knora-base</code> version string must be updated in <code>knora-base.ttl</code> and  in the string constant <code>org.knora.webapi.KnoraBaseVersion</code>. This version  string must contain the number of the last pull request that introduced  a breaking change.</p></li>
   <li>
-  <p>A plugin must be added to the  <a href="../../04-deployment/updates.html">repository update program</a>, to update  existing repositories to work with the new version of Knora. The plugin will  be used by <code>update-repository.py</code> if needed.</p></li>
+  <p>A plugin must be added to the  <a href="../../04-publishing-deployment/updates.html">repository update program</a>, to update  existing repositories to work with the new version of Knora. The plugin will  be used by <code>update-repository.py</code> if needed.</p></li>
 </ul>
 <h2><a href="#adding-an-update-plugin" name="adding-an-update-plugin" class="anchor"><span class="anchor-link"></span></a>Adding an Update Plugin</h2>
 <p>An update plugin is a Python module, which must be put in a subdirectory of <code>upgrade/plugins</code>. The name of the plugin&rsquo;s directory must be <code>prNNNN</code>, where <code>NNNN</code> is the pull request number. That directory must have a subdirectory called <code>knora-ontologies</code>, containing the following built-in Knora ontologies with any modifications introduced by that pull request:</p>
@@ -285,7 +286,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.0.0
+8.1.0-7-g32aaca2
 </span>
 </div>
 </article>
@@ -308,13 +309,13 @@ Starting the Knora Stack inside Docker Container
 </span>
 </div>
 </a>
-<a href="../../06-salsah/index.html" title="The SALSAH 1 GUI" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../05-internals/development/generating-client-apis.html" title="Generating Client API Code" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-The SALSAH 1 GUI
+Generating Client API Code
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

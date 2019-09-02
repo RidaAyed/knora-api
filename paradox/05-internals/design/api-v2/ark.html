@@ -154,11 +154,12 @@ dhlab-basel/Knora/docs
     <li><a href="../../../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../../../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
   </ul></li>
-  <li><a href="../../../04-deployment/index.html" class="page">Deploying Knora</a>
+  <li><a href="../../../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
-    <li><a href="../../../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
-    <li><a href="../../../04-deployment/configuration.html" class="page">Configuration</a></li>
-    <li><a href="../../../04-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
+    <li><a href="../../../04-publishing-deployment/publishing.html" class="page">Publishing</a></li>
+    <li><a href="../../../04-publishing-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+    <li><a href="../../../04-publishing-deployment/configuration.html" class="page">Configuration</a></li>
+    <li><a href="../../../04-publishing-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
   </ul></li>
   <li><a href="../../../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -202,7 +203,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.0.0
+<i class="md-icon">label_outline</i> 8.1.0-7-g32aaca2
 </div>
 </nav>
 
@@ -260,7 +261,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </ul>
 </div>
 <h2><a href="#requirements" name="requirements" class="anchor"><span class="anchor-link"></span></a>Requirements</h2>
-<p>Knora must produce an ARK URL for each resource and each value. The ARK identifiers used by Knora must respect <a href="https://tools.ietf.org/html/draft-kunze-ark-18">the draft ARK specification</a>. The format of Knora’s ARK URLs must be able to change over time, while ensuring that previously generated ARK URLs still work.</p>
+<p>Knora must produce an ARK URL for each resource and each value. The ARK identifiers used by Knora must respect <a href="https://tools.ietf.org/html/draft-kunze-ark-22">the draft ARK specification</a>. The format of Knora’s ARK URLs must be able to change over time, while ensuring that previously generated ARK URLs still work.</p>
 <h2><a href="#design" name="design" class="anchor"><span class="anchor-link"></span></a>Design</h2>
 <h3><a href="#ark-url-format" name="ark-url-format" class="anchor"><span class="anchor-link"></span></a>ARK URL Format</h3>
 <p>The format of a Knora ARK URL is as follows:</p>
@@ -282,7 +283,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li>
   <p><code>TIMESTAMP</code>: an optional timestamp indicating that the ARK URL represents  the state of the resource at a specific time in the past. The format  of the timestamp is an <a href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>  date in Coordinated universal time (UTC), including date, time, and an optional  nano-of-second field (of at most 9 digits), without the characters <code>-</code>, <code>:</code>, and <code>.</code> (because  <code>-</code> and <code>.</code> are reserved characters in ARK, and <code>:</code> would have to be URL-encoded).  Example: <code>20180528T155203897Z</code>.</p></li>
 </ul>
-<p>Following the ARK ID spec, <code>/</code> <a href="https://tools.ietf.org/html/draft-kunze-ark-18#section-2.5.1">represents object hierarchy</a> and <code>.</code> <a href="https://tools.ietf.org/html/draft-kunze-ark-18#section-2.5.2">represents an object variant</a>. A value is thus contained in a resource, which is contained in its project, which is contained in a repository (represented by the URL version number). A timestamp is a type of variant.</p>
+<p>Following the ARK ID spec, <code>/</code> <a href="https://tools.ietf.org/html/draft-kunze-ark-22#section-2.5.1">represents object hierarchy</a> and <code>.</code> <a href="https://tools.ietf.org/html/draft-kunze-ark-22#section-2.5.2">represents an object variant</a>. A value is thus contained in a resource, which is contained in its project, which is contained in a repository (represented by the URL version number). A timestamp is a type of variant.</p>
 <p>Since sub-objects are optional, there is also implicitly an ARK URL for each project, as well as for the repository as a whole.</p>
 <p>The <code>RESOURCE_UUID</code> and <code>VALUE_UUID</code> are processed as follows:</p>
 <ol>
@@ -291,7 +292,10 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li>
   <p>Any <code>-</code> characters in the resulting string are replaced with <code>=</code>, because  <code>base64url</code> encoding uses <code>-</code>, which is a reserved character in ARK URLs.</p></li>
 </ol>
-<p>For example, given the Knora resource IRI <code>http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ</code>, and using the DaSCH&rsquo;s ARK resolver hostname and NAAN, the corresponding ARK URL without a timestamp is:</p>
+<p>For example, given a project with ID <code>0001</code>, and using the DaSCH&rsquo;s ARK resolver hostname and NAAN, the ARK URL for the project itself is:</p>
+<pre><code>http://ark.dasch.swiss/ark:/72163/1/0001
+</code></pre>
+<p>Given the Knora resource IRI <code>http://rdfh.ch/0001/0C-0L1kORryKzJAJxxRyRQ</code>, the corresponding ARK URL without a timestamp is:</p>
 <pre><code>http://ark.dasch.swiss/ark:/72163/1/0001/0C=0L1kORryKzJAJxxRyRQY
 </code></pre>
 <p>The same ARK URL with an optional timestamp is:</p>
@@ -315,7 +319,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.0.0
+8.1.0-7-g32aaca2
 </span>
 </div>
 </article>
@@ -338,13 +342,13 @@ Standoff Markup
 </span>
 </div>
 </a>
-<a href="../../../05-internals/design/api-admin/index.html" title="Admin API Design" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../../05-internals/design/api-v2/query-design.html" title="SPARQL Query Design" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Admin API Design
+SPARQL Query Design
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

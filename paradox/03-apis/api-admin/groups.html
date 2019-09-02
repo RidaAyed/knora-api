@@ -154,11 +154,12 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
   </ul></li>
-  <li><a href="../../04-deployment/index.html" class="page">Deploying Knora</a>
+  <li><a href="../../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
-    <li><a href="../../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
-    <li><a href="../../04-deployment/configuration.html" class="page">Configuration</a></li>
-    <li><a href="../../04-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
+    <li><a href="../../04-publishing-deployment/publishing.html" class="page">Publishing</a></li>
+    <li><a href="../../04-publishing-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+    <li><a href="../../04-publishing-deployment/configuration.html" class="page">Configuration</a></li>
+    <li><a href="../../04-publishing-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
   </ul></li>
   <li><a href="../../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -191,11 +192,38 @@ dhlab-basel/Knora/docs
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../03-apis/api-admin/groups.html#groups-endpoint" class="header">Groups Endpoint</a>
+  <ul>
+    <li><a href="../../03-apis/api-admin/groups.html#endpoint-overview" class="header">Endpoint Overview</a></li>
+    <li><a href="../../03-apis/api-admin/groups.html#group-operations" class="header">Group Operations</a></li>
+    <li><a href="../../03-apis/api-admin/groups.html#member-operations" class="header">Member Operations</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.0.0
+<i class="md-icon">label_outline</i> 8.1.0-7-g32aaca2
 </div>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../../03-apis/api-admin/groups.html#groups-endpoint" class="header">Groups Endpoint</a>
+  <ul>
+    <li><a href="../../03-apis/api-admin/groups.html#endpoint-overview" class="header">Endpoint Overview</a></li>
+    <li><a href="../../03-apis/api-admin/groups.html#group-operations" class="header">Group Operations</a></li>
+    <li><a href="../../03-apis/api-admin/groups.html#member-operations" class="header">Member Operations</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 </div>
@@ -223,18 +251,30 @@ You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <h1><a href="#groups-endpoint" name="groups-endpoint" class="anchor"><span class="anchor-link"></span></a>Groups Endpoint</h1>
+<h2><a href="#endpoint-overview" name="endpoint-overview" class="anchor"><span class="anchor-link"></span></a>Endpoint Overview</h2>
+<p><strong>Group Operations:</strong></p>
 <ul>
-  <li><strong>Create group</strong>:
-    <ul>
-      <li>Required permission: SystemAdmin / hasProjectAllAdminPermission / hasProjectAllGroupAdminPermission</li>
-      <li>Required information: name (unique inside project), project IRI</li>
-      <li>Optional information: group description</li>
-      <li>Returns information about the newly created group</li>
-      <li>TypeScript Docs: groupFormats - CreateGroupApiRequestV1</li>
-      <li>POST: <code>/admin/groups</code></li>
-      <li>BODY:</li>
-    </ul>
-  </li>
+  <li><code>GET: /admin/groups</code> : return all groups</li>
+  <li><code>GET: /admin/groups/&lt;groupIri&gt;</code> : return single group identified by [IRI]</li>
+  <li><code>POST: /admin/groups</code> : create new group</li>
+  <li><code>PUT: /admin/groups/&lt;groupIri&gt;</code> : update groups&rsquo;s basic information</li>
+  <li><code>PUT: /admin/groups/&lt;groupIri&gt;/status</code> : update group&rsquo;s status</li>
+  <li><code>DELETE: /admin/groups/&lt;groupIri&gt;</code> : delete group (set status to false)</li>
+</ul>
+<p><strong>Member Operations:</strong></p>
+<ul>
+  <li><code>GET: /admin/groups/&lt;groupIri&gt;/members</code> : return all group members</li>
+</ul>
+<h2><a href="#group-operations" name="group-operations" class="anchor"><span class="anchor-link"></span></a>Group Operations</h2>
+<h3><a href="#create-group" name="create-group" class="anchor"><span class="anchor-link"></span></a>Create Group</h3>
+<ul>
+  <li>Required permission: SystemAdmin / hasProjectAllAdminPermission / hasProjectAllGroupAdminPermission</li>
+  <li>Required information: name (unique inside project), project IRI</li>
+  <li>Optional information: group description</li>
+  <li>Returns information about the newly created group</li>
+  <li>TypeScript Docs: groupFormats - CreateGroupApiRequestV1</li>
+  <li>POST: <code>/admin/groups</code></li>
+  <li>BODY:</li>
 </ul>
 <pre><code>{
   &quot;name&quot;: &quot;NewGroup&quot;,
@@ -244,32 +284,37 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   &quot;selfjoin&quot;: false
 }
 </code></pre>
+<h3><a href="#update-group-information" name="update-group-information" class="anchor"><span class="anchor-link"></span></a>Update group information</h3>
 <ul>
-  <li><strong>Update group information</strong>:
-    <ul>
-      <li>Required permission: SystemAdmin / hasProjectAllAdminPermission / hasProjectAllGroupAdminPermission / hasProjectRestrictedGroupAdminPermission (for this group)</li>
-      <li>Changeable information: name, description, status, selfjoin</li>
-      <li>TypeScript Docs: groupFormats - ChangeGroupApiRequestV1</li>
-      <li>PUT: <code>/admin/groups/&lt;groupIri&gt;</code></li>
-      <li>BODY:</li>
-    </ul>
-  </li>
+  <li>Required permission: SystemAdmin / hasProjectAllAdminPermission / hasProjectAllGroupAdminPermission / hasProjectRestrictedGroupAdminPermission (for this group)</li>
+  <li>Changeable information: <code>name</code>, <code>description</code>, <code>selfjoin</code></li>
+  <li>TypeScript Docs: groupFormats - ChangeGroupApiRequestADM</li>
+  <li>PUT: <code>/admin/groups/&lt;groupIri&gt;</code></li>
+  <li>BODY:</li>
 </ul>
 <pre><code>{
   &quot;name&quot;: &quot;UpdatedGroupName&quot;,
   &quot;description&quot;: &quot;UpdatedGroupDescription&quot;.
-  &quot;status&quot;: true,
   &quot;selfjoin&quot;: false
 }
 </code></pre>
+<h3><a href="#change-group-status-" name="change-group-status-" class="anchor"><span class="anchor-link"></span></a>Change Group Status:</h3>
 <ul>
-  <li><strong>Delete group (-\update group)</strong>:
-    <ul>
-      <li>Required permission: SystemAdmin / hasProjectAllAdminPermission</li>
-      <li>Remark: The same as updating a group and changing <code>status</code> to <code>false</code>. To un-delete, set <code>status</code> to <code>true</code>.</li>
-      <li>DELETE: <code>/admin/groups/&lt;groupIri&gt;</code></li>
-    </ul>
-  </li>
+  <li>Required permission: SystemAdmin / hasProjectAllAdminPermission</li>
+  <li>Changeable information: <code>status</code></li>
+  <li>Remark: Deleting a group, removes all members from the group.</li>
+  <li>PUT: <code>/admin/groups/&lt;groupIri&gt;/status</code></li>
+  <li>BODY:</li>
+</ul>
+<pre><code>{
+  &quot;status&quot;: false
+}
+</code></pre>
+<h3><a href="#delete-group-" name="delete-group-" class="anchor"><span class="anchor-link"></span></a>Delete Group:</h3>
+<ul>
+  <li>Required permission: SystemAdmin / hasProjectAllAdminPermission</li>
+  <li>Remark: The same as changing the groups <code>status</code> to <code>false</code>. To un-delete, set <code>status</code> to <code>true</code>.</li>
+  <li>DELETE: <code>/admin/groups/&lt;groupIri&gt;</code></li>
 </ul>
 <p>Example Group Information stored in admin named graph: :</p>
 <pre><code>&lt;http://rdfh.ch/groups/[shortcode]/[UUID]&gt;
@@ -280,6 +325,13 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
      knora-admin:status &quot;true&quot;^^xsd:boolean ;
      knora-admin:hasSelfJoinEnabled &quot;false&quot;^^xsd:boolean .
 </code></pre>
+<h2><a href="#member-operations" name="member-operations" class="anchor"><span class="anchor-link"></span></a>Member Operations</h2>
+<h3><a href="#get-group-members" name="get-group-members" class="anchor"><span class="anchor-link"></span></a>Get Group Members</h3>
+<ul>
+  <li>Returns all group members</li>
+  <li>Required permission: SystemAdmin / ProjectAdmin</li>
+  <li>GET: <code>/admin/groups/&lt;groupIri&gt;/members</code></li>
+</ul>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-admin/groups.md" title="Edit this page" class="md-source-file md-edit">
@@ -288,7 +340,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.0.0
+8.1.0-7-g32aaca2
 </span>
 </div>
 </article>

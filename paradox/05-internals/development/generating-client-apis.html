@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../../cloud">
-<title>Introduction: Using API v2 · Knora Documentation</title>
+<title>Generating Client API Code · Knora Documentation</title>
 <link rel="stylesheet" href="../../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Introduction: Using API v2
+Generating Client API Code
 </span>
 </div>
 </div>
@@ -192,42 +192,11 @@ dhlab-basel/Knora/docs
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="toc">Table of contents</label>
-<ul>
-  <li><a href="../../03-apis/api-v2/introduction.html#introduction-using-api-v2" class="header">Introduction: Using API v2</a>
-  <ul>
-    <li><a href="../../03-apis/api-v2/introduction.html#api-v2-path-segment" class="header">API v2 Path Segment</a></li>
-    <li><a href="../../03-apis/api-v2/introduction.html#response-formats" class="header">Response Formats</a></li>
-    <li><a href="../../03-apis/api-v2/introduction.html#json-ld" class="header">JSON-LD</a></li>
-    <li><a href="../../03-apis/api-v2/introduction.html#knora-iris" class="header">Knora IRIs</a></li>
-    <li><a href="../../03-apis/api-v2/introduction.html#api-schema" class="header">API Schema</a></li>
-  </ul></li>
-</ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
 <i class="md-icon">label_outline</i> 8.1.0-7-g32aaca2
 </div>
-</nav>
-
-</div>
-</div>
-</div>
-<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="toc">Table of contents</label>
-<ul>
-  <li><a href="../../03-apis/api-v2/introduction.html#introduction-using-api-v2" class="header">Introduction: Using API v2</a>
-  <ul>
-    <li><a href="../../03-apis/api-v2/introduction.html#api-v2-path-segment" class="header">API v2 Path Segment</a></li>
-    <li><a href="../../03-apis/api-v2/introduction.html#response-formats" class="header">Response Formats</a></li>
-    <li><a href="../../03-apis/api-v2/introduction.html#json-ld" class="header">JSON-LD</a></li>
-    <li><a href="../../03-apis/api-v2/introduction.html#knora-iris" class="header">Knora IRIs</a></li>
-    <li><a href="../../03-apis/api-v2/introduction.html#api-schema" class="header">API Schema</a></li>
-  </ul></li>
-</ul>
 </nav>
 
 </div>
@@ -254,64 +223,18 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#introduction-using-api-v2" name="introduction-using-api-v2" class="anchor"><span class="anchor-link"></span></a>Introduction: Using API v2</h1>
-<div class="toc ">
-<ul>
-  <li><a href="../../03-apis/api-v2/introduction.html#api-v2-path-segment" class="header">API v2 Path Segment</a></li>
-  <li><a href="../../03-apis/api-v2/introduction.html#response-formats" class="header">Response Formats</a></li>
-  <li><a href="../../03-apis/api-v2/introduction.html#json-ld" class="header">JSON-LD</a></li>
-  <li><a href="../../03-apis/api-v2/introduction.html#knora-iris" class="header">Knora IRIs</a></li>
-  <li><a href="../../03-apis/api-v2/introduction.html#api-schema" class="header">API Schema</a></li>
-</ul>
-</div>
-<p>Version 2 of the Knora API aims to make both the response and request formats more generic and consistent. Version 1 was basically the result of the reimplementation of the existing API of the SALSAH prototype. Since the development of this prototype has a long history and the specification of API V1 was an evolving process, V1 has various inconsistencies and peculiarities. With V2, we would like to offer a format that is consistent and hence easier to use for a client.</p>
-<p>Please note that V2 is still in development. We do not yet recommend using it on productive systems.</p>
-<h2><a href="#api-v2-path-segment" name="api-v2-path-segment" class="anchor"><span class="anchor-link"></span></a>API v2 Path Segment</h2>
-<p>Every request to API v2 includes <code>v2</code> as a path segment, e.g. <code>http://host/v2/resources/http%3A%2F%2Frdfh.ch%2Fc5058f3a</code>. Accordingly, requests using any other version of the API will require another path segment.</p>
-<h2><a href="#response-formats" name="response-formats" class="anchor"><span class="anchor-link"></span></a>Response Formats</h2>
-<p>All API v2 responses can be returned in <a href="https://json-ld.org/spec/latest/json-ld/">JSON-LD</a>, <a href="https://www.w3.org/TR/turtle/">Turtle</a>, or <a href="https://www.w3.org/TR/rdf-syntax-grammar/">RDF/XML</a>, using <a href="http://tools.ietf.org/html/rfc7231#section-5.3.2">HTTP content negotiation</a>. The client can request these formats using the following MIME types:</p>
-<table>
-  <thead>
-    <tr>
-      <th>Format </th>
-      <th>MIME Type </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>JSON-LD </td>
-      <td><code>application/ld+json</code> </td>
-    </tr>
-    <tr>
-      <td>Turtle </td>
-      <td><code>text/turtle</code> </td>
-    </tr>
-    <tr>
-      <td>RDF/XML </td>
-      <td><code>application/rdf+xml</code> </td>
-    </tr>
-  </tbody>
-</table>
-<h2><a href="#json-ld" name="json-ld" class="anchor"><span class="anchor-link"></span></a>JSON-LD</h2>
-<p>Our preferred format for data exchange is <a href="https://json-ld.org/spec/latest/json-ld/">JSON-LD</a>. JSON-LD allows the Knora API server to provide responses that are relatively easy for automated processes to interpret, since their structure and semantics is explicitly defined. For example, each user-created Knora resource property is identified by an IRI, which can be dereferenced to get more information about it (e.g. its label in different languages). Moreover, each value has a type represented by an IRI. These are either standard RDF types (e.g. XSD datatypes) or more complex types whose IRIs can be dereferenced to get more information about their structure.</p>
-<p>At the same time, JSON-LD responses are relatively easy for software developers to work with, and are more concise and easier to read than the equivalent XML. Items in a response can have human-readable names, which can nevertheless be expanded to full IRIs. Also, while a format such as <a href="https://www.w3.org/TR/turtle/">Turtle</a> just provides a set of RDF triples, an equivalent JSON-LD response can explicitly provide data in a hierarchical structure, with objects nested inside other objects.</p>
-<h2><a href="#knora-iris" name="knora-iris" class="anchor"><span class="anchor-link"></span></a>Knora IRIs</h2>
-<p>Resources and entities are identified by IRIs. The format of these IRIs is explained in <a href="knora-iris.html">Knora IRIs</a>.</p>
-<h2><a href="#api-schema" name="api-schema" class="anchor"><span class="anchor-link"></span></a>API Schema</h2>
-<p>Knora API v2 uses RDF data structures that are simpler than the ones actually stored in the triplestore, and more suitable for the development of client software. Thus we refer to the <em>internal</em> schema of data as it is stored in the triplestore, and to <em>external</em> schemas which are used to represent that data in API v2.</p>
-<p>Knora API v2 offers a complex schema and a simple one. The main difference is that the complex schema exposes the complexity of value objects, while the simple version does not. A client that needs to edit values must use the complex schema in order to obtain the IRI of each value. A client that reads but does not update data can use the simplified schema. The simple schema is mainly intended to facilitate interoperability with other RDF-based systems in the context of Linked Open Data. It is therefore designed to use the simplest possible datatypes and to require minimal knowledge of Knora.</p>
-<p>In either case, the client deals only with data whose structure and semantics are defined by external Knora API ontologies, which are distinct from the internal ontologies that are used to store date in the triplestore. The Knora API server automatically converts back and forth between these internal and external representations. This approach encapsulates the internals and adds a layer of abstraction to them.</p>
-<p>IRIs representing ontologies and ontology entities are different in different schemas; see <a href="knora-iris.html">Knora IRIs</a>.</p>
-<p>Some API operations inherently require the client to accept responses in the complex schema. For example, if an ontology is requested using an IRI indicating the simple schema, the ontology will be returned in the simple schema (see <a href="ontology-information.html">Querying, Creating, and Updating Ontologies</a>).</p>
-<p>Other API operations can return data in either schema. In this case, the complex schema is used by default in the response, unless the request specifically asks for the simple schema. The client can specify the desired schema by using an HTTP header or a URL parameter:</p>
-<ul>
-  <li>the HTTP header <code>X-Knora-Accept-Schema</code></li>
-  <li>the URL parameter <code>schema</code></li>
-</ul>
-<p>Both the HTTP header and the URL parameter accept the values <code>simple</code> or <code>complex</code>.</p>
+<h1><a href="#generating-client-api-code" name="generating-client-api-code" class="anchor"><span class="anchor-link"></span></a>Generating Client API Code</h1>
+<p>The following route returns a Zip file containing generated client API code for the specified target:</p>
+<pre><code>HTTP GET to http://host/clientapi/TARGET
+</code></pre>
+<p>Currently the only supported <code>TARGET</code> is <code>typescript</code>. For documentation on defining client APIs, see <a href="../design/client-api/index.html">Client API Code Generation Framework</a>.</p>
+<p>To check whether the generated TypeScript code compiles, without actually integrating it into <code>knora-api-js-lib</code>, use:</p>
+<pre><code>HTTP GET to http://host/clientapi/typescript?mock=true
+</code></pre>
+<p>This adds mock TypeScript library dependencies.</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-v2/introduction.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/05-internals/development/generating-client-apis.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -327,7 +250,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../../03-apis/api-v2/index.html" title="Knora API v2" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../../05-internals/development/updating-repositories.html" title="Updating Repositories" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -336,17 +259,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Knora API v2
+Updating Repositories
 </span>
 </div>
 </a>
-<a href="../../03-apis/api-v2/authentication.html" title="Authentication" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../../06-salsah/index.html" title="The SALSAH 1 GUI" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-Authentication
+The SALSAH 1 GUI
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

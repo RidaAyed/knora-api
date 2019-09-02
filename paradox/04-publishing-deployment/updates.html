@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../cloud">
-<title>The SALSAH 1 GUI · Knora Documentation</title>
+<title>Updating Repositories When Upgrading Knora · Knora Documentation</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-The SALSAH 1 GUI
+Updating Repositories When Upgrading Knora
 </span>
 </div>
 </div>
@@ -159,14 +159,14 @@ dhlab-basel/Knora/docs
     <li><a href="../04-publishing-deployment/publishing.html" class="page">Publishing</a></li>
     <li><a href="../04-publishing-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
     <li><a href="../04-publishing-deployment/configuration.html" class="page">Configuration</a></li>
-    <li><a href="../04-publishing-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
+    <li><a href="../04-publishing-deployment/updates.html" class="active page">Updating Repositories When Upgrading Knora</a></li>
   </ul></li>
   <li><a href="../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
     <li><a href="../05-internals/design/index.html" class="page">Design</a></li>
     <li><a href="../05-internals/development/index.html" class="page">Development</a></li>
   </ul></li>
-  <li><a href="../06-salsah/index.html" class="active page">The SALSAH 1 GUI</a></li>
+  <li><a href="../06-salsah/index.html" class="page">The SALSAH 1 GUI</a></li>
   <li><a href="../07-sipi/index.html" class="page">The Sipi Media Server</a>
   <ul>
     <li><a href="../07-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
@@ -194,9 +194,11 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../06-salsah/index.html#the-salsah-1-gui" class="header">The SALSAH 1 GUI</a>
+  <li><a href="../04-publishing-deployment/updates.html#updating-repositories-when-upgrading-knora" class="header">Updating Repositories When Upgrading Knora</a>
   <ul>
-    <li><a href="../06-salsah/index.html#running-the-automated-tests" class="header">Running the automated tests</a></li>
+    <li><a href="../04-publishing-deployment/updates.html#upgrading-from-knora-7-0-0-or-later" class="header">Upgrading from Knora 7.0.0 or Later</a></li>
+    <li><a href="../04-publishing-deployment/updates.html#upgrading-from-knora-6-0-0-or-6-0-1" class="header">Upgrading from Knora 6.0.0 or 6.0.1</a></li>
+    <li><a href="../04-publishing-deployment/updates.html#upgrading-from-knora-5-0-0" class="header">Upgrading from Knora 5.0.0</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -215,9 +217,11 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../06-salsah/index.html#the-salsah-1-gui" class="header">The SALSAH 1 GUI</a>
+  <li><a href="../04-publishing-deployment/updates.html#updating-repositories-when-upgrading-knora" class="header">Updating Repositories When Upgrading Knora</a>
   <ul>
-    <li><a href="../06-salsah/index.html#running-the-automated-tests" class="header">Running the automated tests</a></li>
+    <li><a href="../04-publishing-deployment/updates.html#upgrading-from-knora-7-0-0-or-later" class="header">Upgrading from Knora 7.0.0 or Later</a></li>
+    <li><a href="../04-publishing-deployment/updates.html#upgrading-from-knora-6-0-0-or-6-0-1" class="header">Upgrading from Knora 6.0.0 or 6.0.1</a></li>
+    <li><a href="../04-publishing-deployment/updates.html#upgrading-from-knora-5-0-0" class="header">Upgrading from Knora 5.0.0</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -246,21 +250,25 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public
 License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<h1><a href="#the-salsah-1-gui" name="the-salsah-1-gui" class="anchor"><span class="anchor-link"></span></a>The SALSAH 1 GUI</h1>
-<h2><a href="#running-the-automated-tests" name="running-the-automated-tests" class="anchor"><span class="anchor-link"></span></a>Running the automated tests</h2>
-<p>In order to run the tests, the Selenium driver for Chrome has to be installed.</p>
-<p>It is architecture-dependent, so go to the <code>salsah1/lib/chromedriver</code> directory and unzip the distribution that matches your architecture, or download it from <a href="https://sites.google.com/a/chromium.org/chromedriver/downloads">here</a> and install it in this directory.</p>
-<p>Then, launch the services as described above; the triple store with the test data, the Knora server with <code>reStart -r</code> (<code>allowReloadOverHTTP</code>-flag) from SBT (from <code>KNORA_PROJECT_DIRECTORY/webapi</code>), Sipi with the test configuration (<code>--config=config/sipi.knora-docker-test-config.lua</code>) and SALSAH 1 where you can run the tests in the same SBT session:</p>
-<pre><code>$ cd KNORA_PROJECT_DIRECTORY
-$ sbt
-&gt; salsah1 / compile
-&gt; salsah1 / reStart
-&gt; salsah1 / test
-</code></pre>
-<p>Note: please be patient as SALSAH 1 can take up to one minute (end of a time-out) before reporting some errors.</p>
+<h1><a href="#updating-repositories-when-upgrading-knora" name="updating-repositories-when-upgrading-knora" class="anchor"><span class="anchor-link"></span></a>Updating Repositories When Upgrading Knora</h1>
+<p>When a new version of Knora introduces changes that are not backwards-compatible with existing data, you will need to update your repository. Follow the instructions below for the Knora version that you are upgrading from.</p>
+<h2><a href="#upgrading-from-knora-7-0-0-or-later" name="upgrading-from-knora-7-0-0-or-later" class="anchor"><span class="anchor-link"></span></a>Upgrading from Knora 7.0.0 or Later</h2>
+<p>Follow the instructions in <code>upgrade/README.md</code>.</p>
+<h2><a href="#upgrading-from-knora-6-0-0-or-6-0-1" name="upgrading-from-knora-6-0-0-or-6-0-1" class="anchor"><span class="anchor-link"></span></a>Upgrading from Knora 6.0.0 or 6.0.1</h2>
+<ol>
+  <li>Follow the instructions in <code>upgrade/old/1263-knora-admin/README.md</code>.</li>
+  <li>Follow the instructions in <code>upgrade/README.md</code>.</li>
+</ol>
+<h2><a href="#upgrading-from-knora-5-0-0" name="upgrading-from-knora-5-0-0" class="anchor"><span class="anchor-link"></span></a>Upgrading from Knora 5.0.0</h2>
+<ol>
+  <li>Follow the instructions in <code>upgrade/old/1211-datetime/README.md</code>.</li>
+  <li>Follow the instructions in <code>upgrade/old/1230-delete-previews/README.md</code>.</li>
+  <li>Follow the instructions in <code>upgrade/old/1263-knora-admin/README.md</code>.</li>
+  <li>Follow the instructions in <code>upgrade/README.md</code>.</li>
+</ol>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/06-salsah/index.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/04-publishing-deployment/updates.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -276,7 +284,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../05-internals/development/generating-client-apis.html" title="Generating Client API Code" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../04-publishing-deployment/configuration.html" title="Configuration" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -285,17 +293,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Generating Client API Code
+Configuration
 </span>
 </div>
 </a>
-<a href="../07-sipi/index.html" title="The Sipi Media Server" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../05-internals/index.html" title="Knora Internals" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-The Sipi Media Server
+Knora Internals
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

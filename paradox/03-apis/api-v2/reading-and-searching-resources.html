@@ -154,11 +154,12 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
   </ul></li>
-  <li><a href="../../04-deployment/index.html" class="page">Deploying Knora</a>
+  <li><a href="../../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
-    <li><a href="../../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
-    <li><a href="../../04-deployment/configuration.html" class="page">Configuration</a></li>
-    <li><a href="../../04-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
+    <li><a href="../../04-publishing-deployment/publishing.html" class="page">Publishing</a></li>
+    <li><a href="../../04-publishing-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+    <li><a href="../../04-publishing-deployment/configuration.html" class="page">Configuration</a></li>
+    <li><a href="../../04-publishing-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
   </ul></li>
   <li><a href="../../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -204,7 +205,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.0.0
+<i class="md-icon">label_outline</i> 8.1.0-7-g32aaca2
 </div>
 </nav>
 
@@ -393,6 +394,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h3><a href="#get-a-full-representation-of-a-version-of-a-resource-by-iri" name="get-a-full-representation-of-a-version-of-a-resource-by-iri" class="anchor"><span class="anchor-link"></span></a>Get a Full Representation of a Version of a Resource by IRI</h3>
 <p>To get a specific past version of a resource, use the route described in <a href="reading-and-searching-resources.html#get-a-full-representation-of-a-resource-by-iri">Get a Full Representation of a Resource by IRI</a>, and add the URL parameter <code>?version=TIMESTAMP</code>, where <code>TIMESTAMP</code> is an <a href="https://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">xsd:dateTimeStamp</a> in the UTC timezone. The timestamp can either be URL-encoded, or submitted with all punctuation (<code>-</code>, <code>:</code>, and <code>.</code>) removed (this is to accept timestamps from Knora&rsquo;s <a href="permalinks.html">ARK URLs</a>).</p>
 <p>The resource will be returned with the values that it had at the specified time. Since Knora only versions values, not resource metadata (e.g. <code>rdfs:label</code>), the current metadata will be returned.</p>
+<p>Each value will be returned with the permissions that are attached to the <strong>current</strong> version of the value (see <a href="../../02-knora-ontologies/knora-base.html#permissions">Permissions</a>).</p>
 <p>The returned resource will include the predicate <code>knora-api:versionDate</code>, containing the timestamp that was submitted, and its <code>knora-api:versionArkUrl</code> (see <a href="permalinks.html">Resource Permalinks</a>) will contain the same timestamp.</p>
 <h3><a href="#get-a-value-in-a-resource" name="get-a-value-in-a-resource" class="anchor"><span class="anchor-link"></span></a>Get a Value in a Resource</h3>
 <p>To get a specific value of a resource, use this route:</p>
@@ -404,6 +406,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>To get a particular version of a specific value of a resource, use the route described in <a href="reading-and-searching-resources.html#get-a-value-in-a-resource">Get a Value in a Resource</a>, and add the URL parameter <code>?version=TIMESTAMP</code>, where <code>TIMESTAMP</code> is an <a href="https://www.w3.org/TR/xmlschema11-2/#dateTimeStamp">xsd:dateTimeStamp</a> in the UTC timezone. The timestamp can either be URL-encoded, or submitted with all punctuation (<code>-</code>, <code>:</code>, and <code>.</code>) removed (this is to accept timestamps from Knora&rsquo;s <a href="permalinks.html">ARK URLs</a>).</p>
 <p>The value will be returned within its containing resource, in the same format as for <a href="reading-and-searching-resources.html#responses-describing-resources">Responses Describing Resources</a>, but without any of the resource&rsquo;s other values.</p>
 <p>Since Knora only versions values, not resource metadata (e.g. <code>rdfs:label</code>), the current resource metadata will be returned.</p>
+<p>The value will be returned with the permissions that are attached to its <strong>current</strong> version (see <a href="../../02-knora-ontologies/knora-base.html#permissions">Permissions</a>).</p>
 <h3><a href="#get-the-version-history-of-a-resource" name="get-the-version-history-of-a-resource" class="anchor"><span class="anchor-link"></span></a>Get the Version History of a Resource</h3>
 <p>To get a list of the changes that have been made to a resource since its creation, use this route:</p>
 <pre><code>HTTP GET to http://host/v2/resources/history/resourceIRI[?startDate=START_DATE&amp;endDate=END_DATE]
@@ -571,7 +574,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.0.0
+8.1.0-7-g32aaca2
 </span>
 </div>
 </article>

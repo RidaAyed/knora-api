@@ -154,11 +154,12 @@ dhlab-basel/Knora/docs
     <li><a href="../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
   </ul></li>
-  <li><a href="../04-deployment/index.html" class="page">Deploying Knora</a>
+  <li><a href="../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
-    <li><a href="../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
-    <li><a href="../04-deployment/configuration.html" class="active page">Configuration</a></li>
-    <li><a href="../04-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
+    <li><a href="../04-publishing-deployment/publishing.html" class="page">Publishing</a></li>
+    <li><a href="../04-publishing-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+    <li><a href="../04-publishing-deployment/configuration.html" class="active page">Configuration</a></li>
+    <li><a href="../04-publishing-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
   </ul></li>
   <li><a href="../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -191,11 +192,38 @@ dhlab-basel/Knora/docs
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../04-publishing-deployment/configuration.html#configuration" class="header">Configuration</a>
+  <ul>
+    <li><a href="../04-publishing-deployment/configuration.html#system-environment-variables" class="header">System Environment Variables</a></li>
+    <li><a href="../04-publishing-deployment/configuration.html#selectively-disabling-routes" class="header">Selectively Disabling Routes</a></li>
+    <li><a href="../04-publishing-deployment/configuration.html#startup-flags" class="header">Startup Flags</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.0.0
+<i class="md-icon">label_outline</i> 8.1.0-7-g32aaca2
 </div>
+</nav>
+
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav class="md-nav md-nav--secondary">
+<label class="md-nav__title" for="toc">Table of contents</label>
+<ul>
+  <li><a href="../04-publishing-deployment/configuration.html#configuration" class="header">Configuration</a>
+  <ul>
+    <li><a href="../04-publishing-deployment/configuration.html#system-environment-variables" class="header">System Environment Variables</a></li>
+    <li><a href="../04-publishing-deployment/configuration.html#selectively-disabling-routes" class="header">Selectively Disabling Routes</a></li>
+    <li><a href="../04-publishing-deployment/configuration.html#startup-flags" class="header">Startup Flags</a></li>
+  </ul></li>
+</ul>
 </nav>
 
 </div>
@@ -228,14 +256,10 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>The relevant sections for tuning are:</p>
 <ul>
   <li><code>akka.actor.deployment</code></li>
-  <li><code>knora-ask-dispatcher</code></li>
-  <li><code>knora-store-dispatcher</code></li>
-  <li><code>knora-sipi-dispatcher</code></li>
-  <li><code>knora-v1-dispatcher</code></li>
-  <li><code>knora-v2-dispatcher</code></li>
-  <li><code>knora-admin-dispatcher</code></li>
+  <li><code>knora-actor-dispatcher</code></li>
+  <li><code>knora-blocking-dispatcher</code></li>
 </ul>
-<p>## System Environment Variables</p>
+<h2><a href="#system-environment-variables" name="system-environment-variables" class="anchor"><span class="anchor-link"></span></a>System Environment Variables</h2>
 <p>A number of core settings is additionally configurable through system environment variables. These are:</p>
 <table>
   <thead>
@@ -272,6 +296,11 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
       <td>false </td>
     </tr>
     <tr>
+      <td>app.bcrypt-password-strength </td>
+      <td>KNORA_WEBAPI_BCRYPT_PASSWORD_STRENGTH </td>
+      <td>12 </td>
+    </tr>
+    <tr>
       <td>app.jwt-secret-key </td>
       <td>KNORA_WEBAPI_JWT_SECRET_KEY </td>
       <td>super-secret-key </td>
@@ -285,6 +314,11 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
       <td>app.cookie-domain </td>
       <td>KNORA_WEBAPI_COOKIE_DOMAIN </td>
       <td>localhost </td>
+    </tr>
+    <tr>
+      <td>app.allow-reload-over-http </td>
+      <td>KNORA_WEBAPI_ALLOW_RELOAD_OVER_HTTP </td>
+      <td>false </td>
     </tr>
     <tr>
       <td>app.ark.resolver </td>
@@ -352,6 +386,16 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
       <td>443 </td>
     </tr>
     <tr>
+      <td>app.ark.resolver </td>
+      <td>KNORA_WEBAPI_ARK_RESOLVER_URL </td>
+      <td><a href="http://0.0.0.0:3336">http://0.0.0.0:3336</a> </td>
+    </tr>
+    <tr>
+      <td>app.ark.assigned-number </td>
+      <td>KNORA_WEBAPI_ARK_NAAN </td>
+      <td>72163</td>
+    </tr>
+    <tr>
       <td>app.salsah1.base-url </td>
       <td>KNORA_WEBAPI_SALSAH1_BASE_URL </td>
       <td><a href="http://localhost:3335|">http://localhost:3335|</a></td>
@@ -401,17 +445,43 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
       <td>KNORA_WEBAPI_TRIPLESTORE_FUSEKI_REPOSITORY_NAME </td>
       <td>knora-test </td>
     </tr>
+    <tr>
+      <td>app.cache-service.enabled </td>
+      <td>KNORA_WEBAPI_CACHE_SERVICE_ENABLED </td>
+      <td>true </td>
+    </tr>
+    <tr>
+      <td>app.cache-service.redis.host </td>
+      <td>KNORA_WEBAPI_CACHE_SERVICE_REDIS_HOST </td>
+      <td>localhost </td>
+    </tr>
+    <tr>
+      <td>app.cache-service.redis.port </td>
+      <td>KNORA_WEBAPI_CACHE_SERVICE_REDIS_PORT </td>
+      <td>6379 </td>
+    </tr>
   </tbody>
 </table>
+<h2><a href="#selectively-disabling-routes" name="selectively-disabling-routes" class="anchor"><span class="anchor-link"></span></a>Selectively Disabling Routes</h2>
+<p>In <code>application.conf</code> the setting <code>app.routes-to-reject</code> contains a list of strings, representing routes which should be rejected.</p>
+<p>For Example, the string <code>&quot;v1/users&quot;</code> would lead to rejection of any route which contains this string.</p>
+<h2><a href="#startup-flags" name="startup-flags" class="anchor"><span class="anchor-link"></span></a>Startup Flags</h2>
+<p>There is a number of flags that can be set on startup, they will override any value set in the application configuration file:</p>
+<ul>
+  <li><code>loadDemoData</code>, <code>--loadDemoData</code>, <code>-d</code>: Loads the demo data.</li>
+  <li><code>allowReloadOverHTTP</code>, <code>--allow-reload-over-http</code>, <code>-r</code>: Allows reloading of data over HTTP.</li>
+  <li><code>-c</code>: Print the configuration at startup.</li>
+  <li><code>--help</code>: Shows the help message with all startup flags.</li>
+</ul>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/04-deployment/configuration.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/04-publishing-deployment/configuration.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.0.0
+8.1.0-7-g32aaca2
 </span>
 </div>
 </article>
@@ -421,7 +491,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../04-deployment/getting-started.html" title="Getting Started with Knora" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../04-publishing-deployment/getting-started.html" title="Getting Started with Knora" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -434,7 +504,7 @@ Getting Started with Knora
 </span>
 </div>
 </a>
-<a href="../04-deployment/updates.html" title="Updating Repositories When Upgrading Knora" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../04-publishing-deployment/updates.html" title="Updating Repositories When Upgrading Knora" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
