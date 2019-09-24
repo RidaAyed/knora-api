@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../cloud">
-<title>Migration Notes · Knora Documentation</title>
+<title>Updating Repositories When Upgrading Knora · Knora Documentation</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-Migration Notes
+Updating Repositories When Upgrading Knora
 </span>
 </div>
 </div>
@@ -154,12 +154,11 @@ dhlab-basel/Knora/docs
     <li><a href="../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
   </ul></li>
-  <li><a href="../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
+  <li><a href="../04-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
-    <li><a href="../04-publishing-deployment/publishing.html" class="page">Publishing</a></li>
-    <li><a href="../04-publishing-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
-    <li><a href="../04-publishing-deployment/configuration.html" class="page">Configuration</a></li>
-    <li><a href="../04-publishing-deployment/updates.html" class="page">Updating Repositories When Upgrading Knora</a></li>
+    <li><a href="../04-deployment/getting-started.html" class="page">Getting Started with Knora</a></li>
+    <li><a href="../04-deployment/configuration.html" class="page">Configuration</a></li>
+    <li><a href="../04-deployment/updates.html" class="active page">Updating Repositories When Upgrading Knora</a></li>
   </ul></li>
   <li><a href="../05-internals/index.html" class="page">Knora Internals</a>
   <ul>
@@ -188,21 +187,23 @@ dhlab-basel/Knora/docs
     <li><a href="../00-release-notes/v5.x.x.html" class="page">v5.x.x Release Notes</a></li>
     <li><a href="../00-release-notes/v6.x.x.html" class="page">v6.x.x Release Notes</a></li>
     <li><a href="../00-release-notes/next.html" class="page">Release Notes for Next Release</a></li>
-    <li><a href="../00-release-notes/migration.html" class="active page">Migration Notes</a></li>
+    <li><a href="../00-release-notes/migration.html" class="page">Migration Notes</a></li>
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../00-release-notes/migration.html#migration-notes" class="header">Migration Notes</a>
+  <li><a href="../04-deployment/updates.html#updating-repositories-when-upgrading-knora" class="header">Updating Repositories When Upgrading Knora</a>
   <ul>
-    <li><a href="../00-release-notes/migration.html#v2-1-0-v3-0-0" class="header">v2.1.0 -&gt; v3.0.0</a></li>
+    <li><a href="../04-deployment/updates.html#upgrading-from-knora-7-0-0-or-later" class="header">Upgrading from Knora 7.0.0 or Later</a></li>
+    <li><a href="../04-deployment/updates.html#upgrading-from-knora-6-0-0-or-6-0-1" class="header">Upgrading from Knora 6.0.0 or 6.0.1</a></li>
+    <li><a href="../04-deployment/updates.html#upgrading-from-knora-5-0-0" class="header">Upgrading from Knora 5.0.0</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.1.0-12-g739492f*
+<i class="md-icon">label_outline</i> 8.0.0
 </div>
 </nav>
 
@@ -215,9 +216,11 @@ dhlab-basel/Knora/docs
 <nav class="md-nav md-nav--secondary">
 <label class="md-nav__title" for="toc">Table of contents</label>
 <ul>
-  <li><a href="../00-release-notes/migration.html#migration-notes" class="header">Migration Notes</a>
+  <li><a href="../04-deployment/updates.html#updating-repositories-when-upgrading-knora" class="header">Updating Repositories When Upgrading Knora</a>
   <ul>
-    <li><a href="../00-release-notes/migration.html#v2-1-0-v3-0-0" class="header">v2.1.0 -&gt; v3.0.0</a></li>
+    <li><a href="../04-deployment/updates.html#upgrading-from-knora-7-0-0-or-later" class="header">Upgrading from Knora 7.0.0 or Later</a></li>
+    <li><a href="../04-deployment/updates.html#upgrading-from-knora-6-0-0-or-6-0-1" class="header">Upgrading from Knora 6.0.0 or 6.0.1</a></li>
+    <li><a href="../04-deployment/updates.html#upgrading-from-knora-5-0-0" class="header">Upgrading from Knora 5.0.0</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -228,25 +231,49 @@ dhlab-basel/Knora/docs
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
-<h1><a href="#migration-notes" name="migration-notes" class="anchor"><span class="anchor-link"></span></a>Migration Notes</h1>
-<h2><a href="#v2-1-0-v3-0-0" name="v2-1-0-v3-0-0" class="anchor"><span class="anchor-link"></span></a>v2.1.0 -&gt; v3.0.0</h2>
-<h3><a href="#data" name="data" class="anchor"><span class="anchor-link"></span></a>Data</h3>
-<ul>
-  <li>The property <code>knora-base:username</code> was added to <code>knora-base:User</code>. Each instance of <code>knora-base:User</code> needs to be updated by adding this property and giving it a unique value.</li>
-</ul>
-<h3><a href="#api" name="api" class="anchor"><span class="anchor-link"></span></a>API</h3>
-<ul>
-  <li>The <code>POST /admin/user</code> API has changed due to adding the <code>username</code> property. The <code>username</code> property needs to be supplied for user creation requests.</li>
-</ul>
+<!---
+Copyright © 2015-2019 the contributors (see Contributors.md).
+
+This file is part of Knora.
+
+Knora is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Knora is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<h1><a href="#updating-repositories-when-upgrading-knora" name="updating-repositories-when-upgrading-knora" class="anchor"><span class="anchor-link"></span></a>Updating Repositories When Upgrading Knora</h1>
+<p>When a new version of Knora introduces changes that are not backwards-compatible with existing data, you will need to update your repository. Follow the instructions below for the Knora version that you are upgrading from.</p>
+<h2><a href="#upgrading-from-knora-7-0-0-or-later" name="upgrading-from-knora-7-0-0-or-later" class="anchor"><span class="anchor-link"></span></a>Upgrading from Knora 7.0.0 or Later</h2>
+<p>Follow the instructions in <code>upgrade/README.md</code>.</p>
+<h2><a href="#upgrading-from-knora-6-0-0-or-6-0-1" name="upgrading-from-knora-6-0-0-or-6-0-1" class="anchor"><span class="anchor-link"></span></a>Upgrading from Knora 6.0.0 or 6.0.1</h2>
+<ol>
+  <li>Follow the instructions in <code>upgrade/old/1263-knora-admin/README.md</code>.</li>
+  <li>Follow the instructions in <code>upgrade/README.md</code>.</li>
+</ol>
+<h2><a href="#upgrading-from-knora-5-0-0" name="upgrading-from-knora-5-0-0" class="anchor"><span class="anchor-link"></span></a>Upgrading from Knora 5.0.0</h2>
+<ol>
+  <li>Follow the instructions in <code>upgrade/old/1211-datetime/README.md</code>.</li>
+  <li>Follow the instructions in <code>upgrade/old/1230-delete-previews/README.md</code>.</li>
+  <li>Follow the instructions in <code>upgrade/old/1263-knora-admin/README.md</code>.</li>
+  <li>Follow the instructions in <code>upgrade/README.md</code>.</li>
+</ol>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/00-release-notes/migration.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/04-deployment/updates.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.1.0-12-g739492f*
+8.0.0
 </span>
 </div>
 </article>
@@ -256,7 +283,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../00-release-notes/next.html" title="Release Notes for Next Release" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../04-deployment/configuration.html" title="Configuration" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -265,8 +292,21 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Release Notes for Next Release
+Configuration
 </span>
+</div>
+</a>
+<a href="../05-internals/index.html" title="Knora Internals" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+<span class="md-flex__ellipsis">
+<span class="md-footer-nav__direction">
+Next
+</span>
+Knora Internals
+</span>
+</div>
+<div class="md-flex__cell md-flex__cell--shrink">
+<i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
 </div>
 </a>
 </nav>

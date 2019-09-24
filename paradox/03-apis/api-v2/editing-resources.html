@@ -200,12 +200,13 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-values" class="header">Modifying a Resource&rsquo;s Values</a></li>
     <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-metadata" class="header">Modifying a Resource&rsquo;s Metadata</a></li>
     <li><a href="../../03-apis/api-v2/editing-resources.html#deleting-a-resource" class="header">Deleting a Resource</a></li>
+    <li><a href="../../03-apis/api-v2/editing-resources.html#erasing-a-resource-from-the-triplestore" class="header">Erasing a Resource from the Triplestore</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.1.0-7-g32aaca2
+<i class="md-icon">label_outline</i> 8.1.0-12-g739492f*
 </div>
 </nav>
 
@@ -224,6 +225,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-values" class="header">Modifying a Resource&rsquo;s Values</a></li>
     <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-metadata" class="header">Modifying a Resource&rsquo;s Metadata</a></li>
     <li><a href="../../03-apis/api-v2/editing-resources.html#deleting-a-resource" class="header">Deleting a Resource</a></li>
+    <li><a href="../../03-apis/api-v2/editing-resources.html#erasing-a-resource-from-the-triplestore" class="header">Erasing a Resource from the Triplestore</a></li>
   </ul></li>
 </ul>
 </nav>
@@ -259,6 +261,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-values" class="header">Modifying a Resource&rsquo;s Values</a></li>
   <li><a href="../../03-apis/api-v2/editing-resources.html#modifying-a-resources-metadata" class="header">Modifying a Resource&rsquo;s Metadata</a></li>
   <li><a href="../../03-apis/api-v2/editing-resources.html#deleting-a-resource" class="header">Deleting a Resource</a></li>
+  <li><a href="../../03-apis/api-v2/editing-resources.html#erasing-a-resource-from-the-triplestore" class="header">Erasing a Resource from the Triplestore</a></li>
 </ul>
 </div>
 <h2><a href="#creating-a-resource" name="creating-a-resource" class="anchor"><span class="anchor-link"></span></a>Creating a Resource</h2>
@@ -476,6 +479,14 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </code></pre>
 <p>The optional property <code>knora-api:deleteComment</code> specifies a comment to be attached to the resource, explaining why it has been marked as deleted.</p>
 <p>The response is a JSON-LD document containing the predicate <code>knora-api:result</code> with a confirmation message.</p>
+<h2><a href="#erasing-a-resource-from-the-triplestore" name="erasing-a-resource-from-the-triplestore" class="anchor"><span class="anchor-link"></span></a>Erasing a Resource from the Triplestore</h2>
+<p>Normally, resources are not actually removed from the triplestore; they are only marked as deleted (see <a href="editing-resources.html#deleting-a-resource">Deleting a Resource</a>). However, sometimes it is necessary to erase a resource from the triplestore. To do so, use this route:</p>
+<pre><code>HTTP POST to http://host/v2/resources/erase
+</code></pre>
+<p>The request body is the same as for <a href="editing-resources.html#deleting-a-resource">Deleting a Resource</a>, except that <code>knora-api:deleteComment</code> is not relevant and will be ignored.</p>
+<p>To do this, a user must be a system administrator or an administrator of the project containing the resource. The user&rsquo;s permissions on the resource are not otherwise checked.</p>
+<p>A resource cannot be erased if any other resource has a link to it. Any such links must first be changed or marked as deleted (see <a href="editing-values.html#updating-a-value">Updating a Value</a> and <a href="editing-values.html#deleting-a-value">Deleting a Value</a>). Then, when the resource is erased, the deleted link values that referred to it will also be erased.</p>
+<p>This operation cannot be undone (except by restoring the repository from a backup), so use it with care.</p>
 </div>
 <div>
 <a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/03-apis/api-v2/editing-resources.md" title="Edit this page" class="md-source-file md-edit">
@@ -484,7 +495,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.1.0-7-g32aaca2
+8.1.0-12-g739492f*
 </span>
 </div>
 </article>
