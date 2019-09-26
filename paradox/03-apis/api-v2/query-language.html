@@ -172,6 +172,10 @@ dhlab-basel/Knora/docs
     <li><a href="../../07-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
     <li><a href="../../07-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
   </ul></li>
+  <li><a href="../../08-lucene/index.html" class="page">Lucene</a>
+  <ul>
+    <li><a href="../../08-lucene/lucene-query-parser-syntax.html" class="page">Lucene Query Parser Syntax</a></li>
+  </ul></li>
   <li><a href="../../faq.html" class="page">Frequently Asked Questions</a></li>
   <li><a href="../../00-release-notes/index.html" class="page">Release Notes</a>
   <ul>
@@ -212,7 +216,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.1.0-12-g739492f*
+<i class="md-icon">label_outline</i> 9.1.0*
 </div>
 </nav>
 
@@ -450,7 +454,8 @@ CONSTRUCT {
 </code></pre>
 <p>You can also use <code>knora-api:toSimpleDate</code> with to search for date tags in standoff text markup (see <a href="query-language.html#matching-standoff-dates">Matching Standoff Dates</a>).</p>
 <h4><a href="#searching-for-matching-words" name="searching-for-matching-words" class="anchor"><span class="anchor-link"></span></a>Searching for Matching Words</h4>
-<p>The function <code>knora-api:match</code> searches for matching words anywhere in a text value, and is implemented using a full-text search index if available. The first argument must be a variable of type <code>xsd:string</code>, and the second argument is a string containing the words to be matched, separated by spaces. The words to be matched are separated by spaces in a string literal. For example, to search for titles that contain the words &lsquo;Zeitglöcklein&rsquo; and &lsquo;Lebens&rsquo; in the simple schema:</p>
+<p>The function <code>knora-api:match</code> searches for matching words anywhere in a text value, and is implemented using a full-text search index if available. The first argument must be a variable of type <code>xsd:string</code>, and the second argument is a string containing the words to be matched, separated by spaces. The words to be matched are separated by spaces in a string literal. The function supports the <a href="../../08-lucene/index.html">Lucene Query Parser syntax</a>. Note that Lucene&rsquo;s default operator is a logical OR when submitting several search terms.</p>
+<p>For example, to search for titles that contain the words &lsquo;Zeitglöcklein&rsquo; and &lsquo;Lebens&rsquo; in the simple schema:</p>
 <pre><code>FILTER knora-api:match(?title, &quot;Zeitglöcklein Lebens&quot;)
 </code></pre>
 <p>In the complex schema:</p>
@@ -870,7 +875,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.1.0-12-g739492f*
+9.1.0*
 </span>
 </div>
 </article>

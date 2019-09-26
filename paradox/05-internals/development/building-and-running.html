@@ -172,6 +172,10 @@ dhlab-basel/Knora/docs
     <li><a href="../../07-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
     <li><a href="../../07-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
   </ul></li>
+  <li><a href="../../08-lucene/index.html" class="page">Lucene</a>
+  <ul>
+    <li><a href="../../08-lucene/lucene-query-parser-syntax.html" class="page">Lucene Query Parser Syntax</a></li>
+  </ul></li>
   <li><a href="../../faq.html" class="page">Frequently Asked Questions</a></li>
   <li><a href="../../00-release-notes/index.html" class="page">Release Notes</a>
   <ul>
@@ -206,7 +210,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.1.0-12-g739492f*
+<i class="md-icon">label_outline</i> 9.1.0*
 </div>
 </nav>
 
@@ -437,28 +441,11 @@ jobs:
         - pyenv shell 3.7.1
         - cd $TRAVIS_BUILD_DIR/upgrade &amp;&amp; pip3 install -r requirements.txt &amp;&amp; ./test.sh
     # testing docs generation
-    #- stage: test
-    #  script:
-    #    # install the necessary packages
-    #    - sudo apt-get install -y graphviz software-properties-common
-    #    - sudo apt-add-repository -y ppa:rael-gc/rvm
-    #    - sudo apt-get update
-    #    - sudo apt-get --allow-unauthenticated install rvm
-    #    - rvm reload
-    #    - rvm install ruby 2.5.1
-    #    - rvm use 2.5.1 --default
-    #    - ruby -v
-    #    # install bundler
-    #    - gem install bundler
-    #    # install jekyll
-    #    # - gem install jekyll -v 3.8.1
-    #    # install typedoc
-    #    - npm i npm@latest -g
-    #    - npm install --global typedoc
-    #    # install jekyll dependencies
-    #    - cd $TRAVIS_BUILD_DIR/docs/src/jekyll &amp;&amp; bundle install
-    #    # compile and build all docs (paradox, typescript, jekyll)
-    #    - cd $TRAVIS_BUILD_DIR/ &amp;&amp; sbt docs/makeSite
+    - stage: test
+      script:
+        - mkdir -p $TRAVIS_BUILD_DIR/docs/target
+        - chmod 777 $TRAVIS_BUILD_DIR/docs/target
+        - docker run --rm -v $TRAVIS_BUILD_DIR:/knora daschswiss/sbt-paradox /bin/sh -c &quot;cd /knora &amp;&amp; sbt docs/makeSite&quot;
     # Salsah browser tests
     #- stage: test
     #  script:
@@ -575,7 +562,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.1.0-12-g739492f*
+9.1.0*
 </span>
 </div>
 </article>

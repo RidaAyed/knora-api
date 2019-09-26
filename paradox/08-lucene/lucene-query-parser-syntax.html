@@ -18,7 +18,7 @@
 
 <meta name="description" content="docs">
 <link rel="shortcut icon" href="../cloud">
-<title>The SALSAH 1 GUI · Knora Documentation</title>
+<title>Lucene Query Parser Syntax · Knora Documentation</title>
 <link rel="stylesheet" href="../assets/stylesheets/application.7a4cdee3.css">
 <link rel="stylesheet" href="../assets/stylesheets/application-palette.792431c1.css">
 <link rel="stylesheet" href="../lib/material__tabs/dist/mdc.tabs.min.css">
@@ -57,7 +57,7 @@ data-md-color-accent="yellow"
 Knora Documentation
 </span>
 <span class="md-header-nav__topic">
-The SALSAH 1 GUI
+Lucene Query Parser Syntax
 </span>
 </div>
 </div>
@@ -166,7 +166,7 @@ dhlab-basel/Knora/docs
     <li><a href="../05-internals/design/index.html" class="page">Design</a></li>
     <li><a href="../05-internals/development/index.html" class="page">Development</a></li>
   </ul></li>
-  <li><a href="../06-salsah/index.html" class="active page">The SALSAH 1 GUI</a></li>
+  <li><a href="../06-salsah/index.html" class="page">The SALSAH 1 GUI</a></li>
   <li><a href="../07-sipi/index.html" class="page">The Sipi Media Server</a>
   <ul>
     <li><a href="../07-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
@@ -174,7 +174,7 @@ dhlab-basel/Knora/docs
   </ul></li>
   <li><a href="../08-lucene/index.html" class="page">Lucene</a>
   <ul>
-    <li><a href="../08-lucene/lucene-query-parser-syntax.html" class="page">Lucene Query Parser Syntax</a></li>
+    <li><a href="../08-lucene/lucene-query-parser-syntax.html" class="active page">Lucene Query Parser Syntax</a></li>
   </ul></li>
   <li><a href="../faq.html" class="page">Frequently Asked Questions</a></li>
   <li><a href="../00-release-notes/index.html" class="page">Release Notes</a>
@@ -196,13 +196,6 @@ dhlab-basel/Knora/docs
   </ul></li>
 </ul>
 <nav class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="toc">Table of contents</label>
-<ul>
-  <li><a href="../06-salsah/index.html#the-salsah-1-gui" class="header">The SALSAH 1 GUI</a>
-  <ul>
-    <li><a href="../06-salsah/index.html#running-the-automated-tests" class="header">Running the automated tests</a></li>
-  </ul></li>
-</ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
@@ -213,58 +206,16 @@ dhlab-basel/Knora/docs
 </div>
 </div>
 </div>
-<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
-<div class="md-sidebar__scrollwrap">
-<div class="md-sidebar__inner">
-<nav class="md-nav md-nav--secondary">
-<label class="md-nav__title" for="toc">Table of contents</label>
-<ul>
-  <li><a href="../06-salsah/index.html#the-salsah-1-gui" class="header">The SALSAH 1 GUI</a>
-  <ul>
-    <li><a href="../06-salsah/index.html#running-the-automated-tests" class="header">Running the automated tests</a></li>
-  </ul></li>
-</ul>
-</nav>
-
-</div>
-</div>
-</div>
 <div class="md-content">
 <article class="md-content__inner md-typeset">
 <div class="md-content__searchable">
-<!---
-Copyright © 2015-2019 the contributors (see Contributors.md).
-
-This file is part of Knora.
-
-Knora is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published
-by the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Knora is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public
-License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
--->
-<h1><a href="#the-salsah-1-gui" name="the-salsah-1-gui" class="anchor"><span class="anchor-link"></span></a>The SALSAH 1 GUI</h1>
-<h2><a href="#running-the-automated-tests" name="running-the-automated-tests" class="anchor"><span class="anchor-link"></span></a>Running the automated tests</h2>
-<p>In order to run the tests, the Selenium driver for Chrome has to be installed.</p>
-<p>It is architecture-dependent, so go to the <code>salsah1/lib/chromedriver</code> directory and unzip the distribution that matches your architecture, or download it from <a href="https://sites.google.com/a/chromium.org/chromedriver/downloads">here</a> and install it in this directory.</p>
-<p>Then, launch the services as described above; the triple store with the test data, the Knora server with <code>reStart -r</code> (<code>allowReloadOverHTTP</code>-flag) from SBT (from <code>KNORA_PROJECT_DIRECTORY/webapi</code>), Sipi with the test configuration (<code>--config=config/sipi.knora-docker-test-config.lua</code>) and SALSAH 1 where you can run the tests in the same SBT session:</p>
-<pre><code>$ cd KNORA_PROJECT_DIRECTORY
-$ sbt
-&gt; salsah1 / compile
-&gt; salsah1 / reStart
-&gt; salsah1 / test
-</code></pre>
-<p>Note: please be patient as SALSAH 1 can take up to one minute (end of a time-out) before reporting some errors.</p>
+<h1><a href="#lucene-query-parser-syntax" name="lucene-query-parser-syntax" class="anchor"><span class="anchor-link"></span></a>Lucene Query Parser Syntax</h1>
+<p>Full-text searches in Knora are based on Lucene. Therefore, full-text searches support the <a href="https://lucene.apache.org/core/7_7_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html">Lucene Query Parser Syntax</a>.</p>
+<p>A full-text search consists of a single word in the simplest case, but could also be composed of several words combined with <a href="https://lucene.apache.org/core/7_7_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#Boolean_operators">Boolean operators</a>. By default, Lucene combines two or more terms separated by space with a logical OR.</p>
+<p>For examples, see <a href="https://lucene.apache.org/core/7_7_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html">Lucene Query Parser Syntax</a>.</p>
 </div>
 <div>
-<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/06-salsah/index.md" title="Edit this page" class="md-source-file md-edit">
+<a href="https://github.com/dhlab-basel/Knora/tree/master/docs/src/paradox/08-lucene/lucene-query-parser-syntax.md" title="Edit this page" class="md-source-file md-edit">
 Edit this page
 </a>
 </div>
@@ -280,7 +231,7 @@ Edit this page
 <footer class="md-footer">
 <div class="md-footer-nav">
 <nav class="md-footer-nav__inner md-grid">
-<a href="../05-internals/development/generating-client-apis.html" title="Generating Client API Code" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+<a href="../08-lucene/index.html" title="Lucene" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
 <div class="md-flex__cell md-flex__cell--shrink">
 <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
 </div>
@@ -289,17 +240,17 @@ Edit this page
 <span class="md-footer-nav__direction">
 Previous
 </span>
-Generating Client API Code
+Lucene
 </span>
 </div>
 </a>
-<a href="../07-sipi/index.html" title="The Sipi Media Server" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+<a href="../faq.html" title="Frequently Asked Questions" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
 <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
 <span class="md-flex__ellipsis">
 <span class="md-footer-nav__direction">
 Next
 </span>
-The Sipi Media Server
+Frequently Asked Questions
 </span>
 </div>
 <div class="md-flex__cell md-flex__cell--shrink">

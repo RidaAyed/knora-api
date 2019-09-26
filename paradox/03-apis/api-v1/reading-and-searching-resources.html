@@ -172,6 +172,10 @@ dhlab-basel/Knora/docs
     <li><a href="../../07-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
     <li><a href="../../07-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
   </ul></li>
+  <li><a href="../../08-lucene/index.html" class="page">Lucene</a>
+  <ul>
+    <li><a href="../../08-lucene/lucene-query-parser-syntax.html" class="page">Lucene Query Parser Syntax</a></li>
+  </ul></li>
   <li><a href="../../faq.html" class="page">Frequently Asked Questions</a></li>
   <li><a href="../../00-release-notes/index.html" class="page">Release Notes</a>
   <ul>
@@ -207,7 +211,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.1.0-12-g739492f*
+<i class="md-icon">label_outline</i> 9.1.0*
 </div>
 </nav>
 
@@ -359,7 +363,8 @@ HTTP GET to http://host/v1/propertylists?vocabulary=vocabularyIRI
 <p>The response will list all the available vocabularies. See TypeScript interface <code>vocabularyResponse</code> in module <code>resourceResponseFormats</code>.</p>
 <h2><a href="#search-for-resources" name="search-for-resources" class="anchor"><span class="anchor-link"></span></a>Search for Resources</h2>
 <h3><a href="#search-for-resources-by-their-label" name="search-for-resources-by-their-label" class="anchor"><span class="anchor-link"></span></a>Search for Resources by their Label</h3>
-<p>This is a simplified way for searching for resources just by their label. It is a simple string-based method:</p>
+<p>This is a simplified way for searching for resources just by their label. Search by label automatically adds Lucene operators, search strings are expected not to contain any characters with a special meaning in <a href="../../08-lucene/index.html">Lucene Query Parser syntax</a>.</p>
+<p>It is a simple string-based method:</p>
 <pre><code>HTTP GET to http://host/v1/resources?searchstr=searchValue
 </code></pre>
 <p>Additionally, the following parameters can be appended to the URL (search value is <code>Zeitglöcklein</code>):</p>
@@ -373,7 +378,7 @@ HTTP GET to http://host/v1/propertylists?vocabulary=vocabularyIRI
 </ul>
 <p>The response lists the resources that matched the search criteria (see TypeScript interface <code>resourceLabelSearchResponse</code> in module <code>resourceResponseFormats</code>).</p>
 <h3><a href="#fulltext-search" name="fulltext-search" class="anchor"><span class="anchor-link"></span></a>Fulltext Search</h3>
-<p>Knora offers a fulltext search that searches through all textual representations of values. You can separate search terms by a white space and they will be combined using the Boolean <code>AND</code> operator. The search terms have to be URL encoded.</p>
+<p>Knora offers a fulltext search that searches through all textual representations of values. The search terms have to be URL encoded. Fulltext search supports the <a href="../../08-lucene/index.html">Lucene Query Parser syntax</a>. Note that Lucene&rsquo;s default operator is a logical OR when submitting several search terms.</p>
 <pre><code>HTTP GET to http://host/v1/search/searchValue?searchtype=fulltext[&amp;filter_by_restype=resourceClassIRI]
 [&amp;filter_by_project=projectIRI][&amp;show_nrows=Integer]{[&amp;start_at=Integer]
 </code></pre>
@@ -457,7 +462,7 @@ HTTP GET to http://host/v1/propertylists?vocabulary=vocabularyIRI
   <li><code>LT</code>: checks if a resource&rsquo;s value is <em>lower than</em> the search  value. In case of a date value type, it assures that a period  ends before the indicated period&rsquo;s start.</li>
   <li><code>LT_EQ</code>: checks if a resource&rsquo;s value <em>equals or is lower than</em>  the search value. In case of a date value type, it assures that  the periods overlap in any way (see <code>EQ</code>) <strong>or</strong> that the period  ends before the indicated period&rsquo;s start (see <code>LT</code>).</li>
   <li><code>EXISTS</code>: checks if an instance of the indicated property type  <em>exists</em> for a resource. <strong>Please always provide an empty search  value when using EXISTS: &ldquo;searchval=&rdquo;</strong>. Otherwise, the query  syntax rules would be violated.</li>
-  <li><code>MATCH</code>: checks if a resource&rsquo;s text value <em>matches</em> the search  value. The behaviour depends on the used triplestore&rsquo;s full text  index.</li>
+  <li><code>MATCH</code>: checks if a resource&rsquo;s text value <em>matches</em> the search  value. The behaviour depends on the used triplestore&rsquo;s full text  index, see <a href="../../08-lucene/index.html">Lucene</a>.</li>
   <li><code>LIKE</code>: checks if the search value is contained in a resource&rsquo;s  text value.</li>
   <li><code>!LIKE</code>: checks if the search value is not contained in a  resource&rsquo;s text value.</li>
   <li><code>MATCH_BOOLEAN</code>: checks if a resource&rsquo;s text value <em>matches</em> the  provided list of positive (exist) and negative (do not exist)  terms. The list takes this form: <code>([+-]term\s)+</code>.</li>
@@ -501,7 +506,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.1.0-12-g739492f*
+9.1.0*
 </span>
 </div>
 </article>

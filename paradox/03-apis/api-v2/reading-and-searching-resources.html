@@ -172,6 +172,10 @@ dhlab-basel/Knora/docs
     <li><a href="../../07-sipi/setup-sipi-for-knora.html" class="page">Setting Up Sipi for Knora</a></li>
     <li><a href="../../07-sipi/sipi-and-knora.html" class="page">Interaction Between Sipi and Knora</a></li>
   </ul></li>
+  <li><a href="../../08-lucene/index.html" class="page">Lucene</a>
+  <ul>
+    <li><a href="../../08-lucene/lucene-query-parser-syntax.html" class="page">Lucene Query Parser Syntax</a></li>
+  </ul></li>
   <li><a href="../../faq.html" class="page">Frequently Asked Questions</a></li>
   <li><a href="../../00-release-notes/index.html" class="page">Release Notes</a>
   <ul>
@@ -205,7 +209,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 8.1.0-12-g739492f*
+<i class="md-icon">label_outline</i> 9.1.0*
 </div>
 </nav>
 
@@ -525,7 +529,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li>&hellip;</li>
   <li>Zeitglöcklein des Lebens</li>
 </ul>
-<p>With each character added to the last term, the selection gets more specific. The first term should at least contain four characters. To make this kind of &ldquo;search as you type&rdquo; possible, a wildcard character is automatically added to the last search term.</p>
+<p>With each character added to the last term, the selection gets more specific. The first term should at least contain four characters. To make this kind of &ldquo;search as you type&rdquo; possible, a wildcard character is automatically added to the last search term. Search by label automatically adds Lucene operators, search strings are expected not to contain any characters with a special meaning in <a href="../../08-lucene/index.html">Lucene Query Parser syntax</a>.</p>
 <pre><code>HTTP GET to http://host/v2/searchbylabel/searchValue[limitToResourceClass=resourceClassIRI]
 [limitToProject=projectIRI][offset=Integer]
 </code></pre>
@@ -537,7 +541,8 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </code></pre>
 <p>The response to a count query request is an object with one predicate, <code>http://schema.org/numberOfItems</code>, with an integer value.</p>
 <h3><a href="#full-text-search" name="full-text-search" class="anchor"><span class="anchor-link"></span></a>Full-text Search</h3>
-<p>Knora offers a full-text search that searches through all textual representations of values and <code>rdfs:label</code> of resources. You can separate search terms by a white space character and they will be combined using the Boolean <code>AND</code> operator. Please note that the search terms have to be URL-encoded.</p>
+<p>Knora offers a full-text search that searches through all textual representations of values and <code>rdfs:label</code> of resources. Full-text search supports the <a href="../../08-lucene/index.html">Lucene Query Parser syntax</a>. Note that Lucene&rsquo;s default operator is a logical OR when submitting several search terms.</p>
+<p>Please note that the search terms have to be URL-encoded.</p>
 <pre><code>HTTP GET to http://host/v2/search/searchValue[limitToResourceClass=resourceClassIRI]
 [limitToStandoffClass=standoffClassIri][limitToProject=projectIRI][offset=Integer]
 </code></pre>
@@ -574,7 +579,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-8.1.0-12-g739492f*
+9.1.0*
 </span>
 </div>
 </article>
