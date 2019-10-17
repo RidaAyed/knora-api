@@ -207,7 +207,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 9.1.0*
+<i class="md-icon">label_outline</i> 9.1.0-55-ge7f47f6*
 </div>
 </nav>
 
@@ -291,6 +291,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li><code>&lt;strike&gt;</code> → <code>standoff:StandoffStrikeTag</code></li>
   <li><code>&lt;a href=&quot;URL&quot;&gt;</code> → <code>knora-base:StandoffUriTag</code></li>
   <li><code>&lt;a class=&quot;salsah-link&quot; href=&quot;Knora IRI&quot;&gt;</code> → <code>knora-base:StandoffLinkTag</code></li>
+  <li><code>&lt;a class=&quot;internal-link&quot; href=&quot;#fragment&quot;&gt;</code> → <code>knora-base:StandoffInternalReferenceTag</code></li>
   <li><code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> → <code>standoff:StandoffHeader1Tag</code> to <code>standoff:StandoffHeader6Tag</code></li>
   <li><code>&lt;ol&gt;</code> → <code>standoff:StandoffOrderedListTag</code></li>
   <li><code>&lt;ul&gt;</code> → <code>standoff:StandoffUnrderedListTag</code></li>
@@ -311,55 +312,45 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>The standard mapping definition can be found at <code>webapi/_test_data/test_route/texts/mappingForStandardHTML.xml</code>. It was used to generate the default mapping, distributed as <code>knora-ontologies/standoff-data.ttl</code> and that is loaded at a Knora installation. It should be used to re-generate it, whenever we want to amend or extend it.</p>
 <p>Note: once the mapping has been generated, one has to rework the resources&rsquo; UUID in order to maintain backward compatibility.</p>
 <h2><a href="#creating-a-custom-mapping" name="creating-a-custom-mapping" class="anchor"><span class="anchor-link"></span></a>Creating a custom Mapping</h2>
-<p>The Knora standard mapping only supports a few HTML tags. In order to submit more complex XML markup to Knora, a custom mapping has to be created first. Basically, a mapping expresses the relations between XML elements and attributes and their corresponding standoff classes and properties. The relations expressed in a mapping are one-to-one relations, so the XML can be recreated from the data in RDF. However, since HTML offers a very limited set of elements, Knora mappings support the combination of element names and classes. In this way, the same element can be used several times in combination with another classname (please note that <code>&lt;a&gt;</code> without a class is a mere hyperlink whereas <code>&lt;a
-class=&quot;salsah-link&quot;&gt;</code> is an internal link/standoff link).</p>
+<p>The Knora standard mapping only supports a few HTML tags. In order to submit more complex XML markup to Knora, a custom mapping has to be created first. Basically, a mapping expresses the relations between XML elements and attributes and their corresponding standoff classes and properties. The relations expressed in a mapping are one-to-one relations, so the XML can be recreated from the data in RDF. However, since HTML offers a very limited set of elements, Knora mappings support the combination of element names and classes. In this way, the same element can be used several times in combination with another classname (please note that <code>&lt;a&gt;</code> without a class is a mere hyperlink whereas <code>&lt;a class=&quot;salsah-link&quot;&gt;</code> is an internal link/standoff link).</p>
 <p>With a mapping, a default XSL transformation may be provided to transform the XML to HTML before sending it back to the client. This is useful when the client is a web-browser expecting HTML (instead of XML).</p>
 <h3><a href="#basic-structure-of-a-mapping" name="basic-structure-of-a-mapping" class="anchor"><span class="anchor-link"></span></a>Basic Structure of a Mapping</h3>
 <p>The mapping is written in XML itself (for a formal description, see <code>webapi/src/resources/mappingXMLToStandoff.xsd</code>). It has the following structure (the indentation corresponds to the nesting in XML):</p>
 <ul>
-  <li><code>&lt;mapping&gt;</code>: the root element
+  <li>
+  <p><code>&lt;mapping&gt;</code>: the root element</p></li>
+  <li>
+  <p><code>&lt;defaultXSLTransformation&gt; (optional)</code>: the Iri of the default XSL transformation to be applied to the XML when reading it back from Knora. The XSL transformation is expected to produce HTML. If given, the Iri has to refer to a resource of type <code>knora-base:XSLTransformation</code>.</p></li>
+  <li>
+    <p><code>&lt;mappingElement&gt;</code>: an element of the mapping (at least one)</p>
     <ul>
       <li>
-      <p><code>&lt;defaultXSLTransformation&gt; (optional)</code>: the Iri of the  default XSL transformation to be applied to the XML when  reading it back from Knora. The XSL transformation is  expected to produce HTML. If given, the Iri has to refer to  a resource of type <code>knora-base:XSLTransformation</code>.</p></li>
+      <p><code>&lt;tag&gt;</code>: information about the XML element that  is mapped to a standoff class</p></li>
       <li>
-        <p><code>&lt;mappingElement&gt;</code>: an element of the mapping (at least  one)</p>
+      <p><code>&lt;name&gt;</code>: name of the XML element</p></li>
+      <li><code>&lt;class&gt;</code>: value of the class attribute of the XML element, if any. If the element has no class attribute, the keyword <code>noClass</code> has to be used.</li>
+      <li><code>&lt;namespace&gt;</code>: the namespace the XML element belongs to, if any. If the element does not belong to a namespace, the keyword <code>noNamespace</code> has to be used.</li>
+      <li><code>&lt;separatesWords&gt;</code>: a Boolean value indicating whether this tag separates words in the text. Once an XML document is converted to RDF-standoff the markup is stripped from the text, possibly leading to continuous text that has been separated by tags before. For structural tags like paragraphs etc., <code>&lt;separatesWords&gt;</code> can be set to <code>true</code> in which case a special separator is inserted in the the text in the RDF representation. In this way, words stay separated and are represented in the fulltext index as such.</li>
+      <li>
+      <p><code>&lt;standoffClass&gt;</code>: information about the  standoff class the XML element is mapped to</p></li>
+      <li>
+      <p><code>&lt;classIri&gt;</code>: Iri of the standoff class the XML element is mapped to</p></li>
+      <li>
+        <p><code>&lt;attributes&gt;</code>: XML attributes to be mapped to standoff properties (other than <code>id</code> or <code>class</code>), if any</p>
         <ul>
           <li>
-            <p><code>&lt;tag&gt;</code>: information about the XML element that  is mapped to a standoff class</p>
-            <ul>
-              <li><code>&lt;name&gt;</code>: name of the XML element</li>
-              <li><code>&lt;class&gt;</code>: value of the class attribute of  the XML element, if any. If the element has  no class attribute, the keyword <code>noClass</code>  has to be used.</li>
-              <li><code>&lt;namespace&gt;</code>: the namespace the XML element  belongs to, if any. If the element does not  belong to a namespace, the keyword  <code>noNamespace</code> has to be used.</li>
-              <li><code>&lt;separatesWords&gt;</code>: a Boolean value  indicating whether this tag separates words  in the text. Once an XML document is  converted to RDF-standoff the markup is  stripped from the text, possibly leading to  continuous text that has been separated by  tags before. For structural tags like  paragraphs etc., <code>&lt;separatesWords&gt;</code> can be  set to <code>true</code> in which case a special  separator is inserted in the the text in the  RDF representation. In this way, words stay  separated and are represented in the  fulltext index as such.</li>
-            </ul>
-          </li>
+          <p><code>&lt;attribute&gt;</code>: an XML attribute  to be mapped to a standoff  property, may be repeated</p></li>
           <li>
-            <p><code>&lt;standoffClass&gt;</code>: information about the  standoff class the XML element is mapped to</p>
-            <ul>
-              <li>
-              <p><code>&lt;classIri&gt;</code>: Iri of the standoff class the  XML element is mapped to</p></li>
-              <li>
-                <p><code>&lt;attributes&gt;</code>: XML attributes to be  mapped to standoff properties (other  than <code>id</code> or <code>class</code>), if any</p>
-                <ul>
-                  <li>
-                    <p><code>&lt;attribute&gt;</code>: an XML attribute  to be mapped to a standoff  property, may be repeated</p>
-                    <ul>
-                      <li><code>&lt;attributeName&gt;</code>: the name  of the XML attribute</li>
-                      <li><code>&lt;namespace&gt;</code>: the namespace  the attribute belongs to, if  any. If the attribute does  not belong to a namespace,  the keyword <code>noNamespace</code>  has to be used.</li>
-                      <li><code>&lt;propertyIri&gt;</code>: the Iri of  the standoff property the  XML attribute is mapped to.</li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <p><code>&lt;datatype&gt;</code>: the data type of the  standoff class, if any.</p>
-                <ul>
-                  <li><code>&lt;type&gt;</code>: the Iri of the data type  standoff class</li>
-                  <li><code>&lt;attributeName&gt;</code>: the name of the  attribute holding the typed value in  the expected Knora standard format</li>
-                </ul>
-              </li>
-            </ul>
-          </li>
+          <p><code>&lt;attributeName&gt;</code>: the name of the XML attribute</p></li>
+          <li><code>&lt;namespace&gt;</code>: the namespace the attribute belongs to, if any. If the attribute does not belong to a namespace, the keyword <code>noNamespace</code> has to be used.</li>
+          <li><code>&lt;propertyIri&gt;</code>: the Iri of the standoff property the XML attribute is mapped to.</li>
+        </ul>
+      </li>
+      <li>
+        <p><code>&lt;datatype&gt;</code>: the data type of the standoff class, if any.</p>
+        <ul>
+          <li><code>&lt;type&gt;</code>: the Iri of the data type  standoff class</li>
+          <li><code>&lt;attributeName&gt;</code>: the name of the  attribute holding the typed value in  the expected Knora standard format</li>
         </ul>
       </li>
     </ul>
@@ -405,15 +396,15 @@ class=&quot;salsah-link&quot;&gt;</code> is an internal link/standoff link).</p>
 <h3><a href="#standoff-data-types" name="standoff-data-types" class="anchor"><span class="anchor-link"></span></a>Standoff Data Types</h3>
 <p>Knora allows the use of all its value types as standoff data types (defined in <code>knora-base.ttl</code>):</p>
 <ul>
-  <li><code>knora-base:StandoffLinkTag</code>: Represents a reference to a Knora resource (the IRI of the target resource must be submitted in the data type attribute).</li>
-  <li><code>knora-base:StandoffInternalReferenceTag</code>: Represents an internal reference inside a document (the id of the target element inside the same document must be indicated in the data type attribute); see <a href="#internal-references-in-an-xml-document">Internal References in an XML Document</a>.</li>
-  <li><code>knora-base:StandoffUriTag</code>: Represents a reference to a URI (the URI of the target resource must be submitted in the data type attribute).</li>
-  <li><code>knora-base:StandoffDateTag</code>: Represents a date (a Knora date string must be submitted in the data type attribute, e.g. <code>GREGORIAN:2017-01-27</code>).</li>
-  <li><code>knora-base:StandoffColorTag</code>: Represents a color (a hexadecimal RGB color string must be submitted in the data type attribute, e.g. <code>#0000FF</code>).</li>
-  <li><code>knora-base:StandoffIntegerTag</code>: Represents an integer (the integer must be submitted in the data type attribute).</li>
-  <li><code>knora-base:StandoffDecimalTag</code>: Represents a number with fractions (the decimal number must be submitted in the data type attribute, e.g. <code>1.1</code>).</li>
-  <li><code>knora-base:StandoffIntervalTag</code>: Represents an interval (two decimal numbers separated with a comma must be submitted in the data type attribute, e.g. <code>1.1,2.2</code>).</li>
-  <li><code>knora-base:StandoffBooleanTag</code>: Represents a Boolean value (<code>true</code> or <code>false</code> must be submitted in the data type attribute).</li>
+  <li><code>knora-base:StandoffLinkTag</code>: Represents a reference to a Knora  resource (the IRI of the target resource must be submitted in the  data type attribute).</li>
+  <li><code>knora-base:StandoffInternalReferenceTag</code>: Represents an internal  reference inside a document (the id of the target element inside the  same document must be indicated in the data type attribute); see  <a href="#internal-references-in-an-xml-document">Internal References in an XML Document</a>.</li>
+  <li><code>knora-base:StandoffUriTag</code>: Represents a reference to a URI (the  URI of the target resource must be submitted in the data type  attribute).</li>
+  <li><code>knora-base:StandoffDateTag</code>: Represents a date (a Knora date  string must be submitted in the data type attribute, e.g.  <code>GREGORIAN:2017-01-27</code>).</li>
+  <li><code>knora-base:StandoffColorTag</code>: Represents a color (a hexadecimal  RGB color string must be submitted in the data type attribute, e.g.  <code>#0000FF</code>).</li>
+  <li><code>knora-base:StandoffIntegerTag</code>: Represents an integer (the integer  must be submitted in the data type attribute).</li>
+  <li><code>knora-base:StandoffDecimalTag</code>: Represents a number with fractions  (the decimal number must be submitted in the data type attribute,  e.g. <code>1.1</code>).</li>
+  <li><code>knora-base:StandoffIntervalTag</code>: Represents an interval (two  decimal numbers separated with a comma must be submitted in the data  type attribute, e.g. <code>1.1,2.2</code>).</li>
+  <li><code>knora-base:StandoffBooleanTag</code>: Represents a Boolean value (<code>true</code>  or <code>false</code> must be submitted in the data type attribute).</li>
 </ul>
 <p>The basic idea is that parts of a text can be marked up in a way that allows using Knora&rsquo;s built-in data types. In order to do so, the typed values have to be provided in a standardized way in an attribute that has to be defined in the mapping.</p>
 <p>Data type standoff classes are standoff classes with predefined properties (e.g., a <code>knora-base:StandoffLinkTag</code> has a <code>knora-base:standoffTagHasLink</code> and a <code>knora-base:StandoffIntegerTag</code> has a <code>knora-base:valueHasInteger</code>). Please note the data type standoff classes can not be combined, i.e. a standoff class can only be the subclass of <strong>one</strong> data type standoff class. However, standoff data type classes can be subclassed and extended further by assigning properties to them (see below).</p>
@@ -608,7 +599,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-9.1.0*
+9.1.0-55-ge7f47f6*
 </span>
 </div>
 </article>

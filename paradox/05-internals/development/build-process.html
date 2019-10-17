@@ -211,7 +211,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 9.1.0*
+<i class="md-icon">label_outline</i> 9.1.0-55-ge7f47f6*
 </div>
 </nav>
 
@@ -377,7 +377,11 @@ lazy val docs = knoraModule(&quot;docs&quot;)
             // Apply default settings to our two custom configuration instances
             ParadoxSitePlugin.paradoxSettings(ParadoxSite),
             ParadoxMaterialThemePlugin.paradoxMaterialThemeGlobalSettings, // paradoxTheme and version
-            ParadoxMaterialThemePlugin.paradoxMaterialThemeSettings(ParadoxSite)
+            ParadoxMaterialThemePlugin.paradoxMaterialThemeSettings(ParadoxSite),
+
+            // Skip packageDoc and packageSrc task on stage
+            Compile / packageDoc / mappings := Seq(),
+            Compile / packageSrc / mappings := Seq(),
         )
         .settings(
 
@@ -470,6 +474,9 @@ lazy val knoraGraphDbSe = knoraModule(&quot;knora-graphdb-se&quot;)
       graphdbseCommonSettings
   )
   .settings( // enable deployment staging with `sbt stage`
+      // Skip packageDoc and packageSrc task on stage
+      Compile / packageDoc / mappings := Seq(),
+      Compile / packageSrc / mappings := Seq(),
       Universal / mappings ++= {
           // copy the webapi/scripts folder
           directory(&quot;webapi/scripts&quot;)
@@ -506,6 +513,9 @@ lazy val knoraGraphdbFree = knoraModule(&quot;knora-graphdb-free&quot;)
       graphdbfreeCommonSettings
   )
   .settings(
+      // Skip packageDoc and packageSrc task on stage
+      Compile / packageDoc / mappings := Seq(),
+      Compile / packageSrc / mappings := Seq(),
       Universal / mappings ++= {
           // copy the webapi/scripts folder
           directory(&quot;webapi/scripts&quot;)
@@ -542,6 +552,9 @@ lazy val knoraSipi = knoraModule(&quot;knora-sipi&quot;)
       knoraSipiCommonSettings
   )
   .settings(
+      // Skip packageDoc and packageSrc task on stage
+      Compile / packageDoc / mappings := Seq(),
+      Compile / packageSrc / mappings := Seq(),
       Universal / mappings ++= {
           // copy the sipi/scripts folder
           directory(&quot;sipi/scripts&quot;)
@@ -557,7 +570,7 @@ lazy val knoraSipi = knoraModule(&quot;knora-sipi&quot;)
       Docker / dockerExposedPorts ++= Seq(1024),
       Docker / dockerCommands := Seq(
           // FIXME: Someday find out how to reference here Dependencies.Versions.sipiImage
-          Cmd(&quot;FROM&quot;, &quot;dhlabbasel/sipi:v1.4.3&quot;),
+          Cmd(&quot;FROM&quot;, &quot;dhlabbasel/sipi:v2.0.1&quot;),
           Cmd(&quot;LABEL&quot;, s&quot;&quot;&quot;MAINTAINER=&quot;${maintainer.value}&quot;&quot;&quot;&quot;),
           Cmd(&quot;ADD&quot;, &quot;opt/docker/scripts&quot;, &quot;/sipi/scripts&quot;),
       )
@@ -578,6 +591,9 @@ lazy val knoraAssets = knoraModule(&quot;knora-assets&quot;)
       knoraAssetsCommonSettings
   )
   .settings(
+      // Skip packageDoc and packageSrc task on stage
+      Compile / packageDoc / mappings := Seq(),
+      Compile / packageSrc / mappings := Seq(),
       Universal / mappings ++= {
           // copy the different folders
           directory(&quot;webapi/scripts&quot;) ++
@@ -614,6 +630,9 @@ lazy val knoraUpgrade = knoraModule(&quot;knora-upgrade&quot;)
       knoraUpgradeCommonSettings
   )
   .settings(
+      // Skip packageDoc and packageSrc task on stage
+      Compile / packageDoc / mappings := Seq(),
+      Compile / packageSrc / mappings := Seq(),
       Universal / mappings ++= {
           // copy the different folders
           directory(&quot;upgrade&quot;)
@@ -673,6 +692,9 @@ lazy val salsah1 = knoraModule(&quot;salsah1&quot;)
             Test / testOptions += Tests.Argument(&quot;-oDF&quot;)
         )
         .settings( // enable deployment staging with `sbt stage`
+            // Skip packageDoc and packageSrc task on stage
+            Compile / packageDoc / mappings := Seq(),
+            Compile / packageSrc / mappings := Seq(),
             Universal / mappings ++= {
                 // copy the public folder
                 directory(&quot;salsah1/src/public&quot;) ++
@@ -695,13 +717,15 @@ lazy val salsah1 = knoraModule(&quot;salsah1&quot;)
 
             Docker / dockerExposedPorts ++= Seq(3335),
             Docker / dockerCommands := Seq(
-                Cmd(&quot;FROM&quot;, &quot;openjdk:10-jre-slim-sid&quot;),
+                Cmd(&quot;FROM&quot;, &quot;adoptopenjdk/openjdk11:alpine-jre&quot;),
                 Cmd(&quot;LABEL&quot;, s&quot;&quot;&quot;MAINTAINER=&quot;${maintainer.value}&quot;&quot;&quot;&quot;),
 
                 Cmd(&quot;ENV&quot;, &quot;&quot;&quot;LANG=&quot;en_US.UTF-8&quot;&quot;&quot;&quot;),
                 Cmd(&quot;ENV&quot;, &quot;&quot;&quot;JAVA_OPTS=&quot;-Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8&quot;&quot;&quot;&quot;),
                 Cmd(&quot;ENV&quot;, &quot;KNORA_SALSAH1_DEPLOYED=true&quot;),
                 Cmd(&quot;ENV&quot;, &quot;KNORA_SALSAH1_WORKDIR=/salsah1&quot;),
+
+                Cmd(&quot;RUN apk update &amp;&amp; apk upgrade &amp;&amp; apk add bash&quot;),
 
                 Cmd(&quot;ADD&quot;, &quot;opt/docker&quot;, &quot;/salsah1&quot;),
                 Cmd(&quot;WORKDIR&quot;, &quot;/salsah1&quot;),
@@ -841,17 +865,19 @@ lazy val webapi = knoraModule(&quot;webapi&quot;)
             FusekiTest / javaOptions := Seq(&quot;-Dconfig.resource=fuseki.conf&quot;) ++ webapiJavaTestOptions,
             FusekiIt / javaOptions := Seq(&quot;-Dconfig.resource=fuseki.conf&quot;) ++ webapiJavaTestOptions,
 
-            EmbeddedJenaTDBTest / javaOptions := Seq(&quot;-Dconfig.resource=jenatdb.conf&quot;) ++ webapiJavaTestOptions,
+            EmbeddedJenaTDBTest / javaOptions := Seq(&quot;-Dconfig.resource=jenatdb.conf&quot;) ++ webapiJavaTestOptions
 
-            // enable publishing the jar produced by `sbt test:package` and `sbt it:package`
-            Test / packageBin / publishArtifact := true,
-            IntegrationTest / packageBin / publishArtifact := true
+            // enable publishing the jars for test and it
+            // Test / packageBin / publishArtifact := true,
+            // IntegrationTest / packageBin / publishArtifact := true,
+            // addArtifact(artifact in (IntegrationTest, packageBin), packageBin in IntegrationTest)
         )
         .settings(
             // prepare for publishing
 
-            // Skip packageDoc task on stage
+            // Skip packageDoc and packageSrc task on stage
             Compile / packageDoc / mappings := Seq(),
+            Compile / packageSrc / mappings := Seq(),
 
             Universal / mappings ++= {
                 // copy the scripts folder
@@ -872,8 +898,6 @@ lazy val webapi = knoraModule(&quot;webapi&quot;)
             // need this here, so that the Manifest inside the jars has the correct main class set.
             Compile / mainClass := Some(&quot;org.knora.webapi.Main&quot;),
             Compile / run / mainClass := Some(&quot;org.knora.webapi.Main&quot;),
-            Test / mainClass := Some(&quot;org.scalatest.tools.Runner&quot;),
-            IntegrationTest / mainClass := Some(&quot;org.scalatest.tools.Runner&quot;),
 
             // add dockerCommands used to create the image
             // docker:stage, docker:publishLocal, docker:publish, docker:clean
@@ -884,20 +908,17 @@ lazy val webapi = knoraModule(&quot;webapi&quot;)
 
             Docker / dockerExposedPorts ++= Seq(3333, 10001),
             Docker / dockerCommands := Seq(
-                Cmd(&quot;FROM&quot;, &quot;openjdk:10-jre-slim-sid&quot;),
+                Cmd(&quot;FROM&quot;, &quot;adoptopenjdk/openjdk11:alpine-jre&quot;),
                 Cmd(&quot;LABEL&quot;, s&quot;&quot;&quot;MAINTAINER=&quot;${maintainer.value}&quot;&quot;&quot;&quot;),
-                // install wget
-                Cmd(&quot;RUN&quot;, &quot;apt-get -qq update &amp;&amp; apt-get install -y --no-install-recommends wget &amp;&amp; rm -rf /var/lib/apt/lists/*&quot;),
-                // install yourkit profiler
-                Cmd(&quot;RUN&quot;, &quot;wget https://www.yourkit.com/download/docker/YourKit-JavaProfiler-2018.04-docker.zip -P /tmp/ &amp;&amp; unzip /tmp/YourKit-JavaProfiler-2018.04-docker.zip -d /usr/local &amp;&amp; rm /tmp/YourKit-JavaProfiler-2018.04-docker.zip&quot;),
+
+                Cmd(&quot;RUN apk update &amp;&amp; apk upgrade &amp;&amp; apk add bash&quot;),
 
                 Cmd(&quot;ADD&quot;, &quot;opt/docker&quot;, &quot;/webapi&quot;),
                 Cmd(&quot;WORKDIR&quot;, &quot;/webapi&quot;),
 
                 Cmd(&quot;EXPOSE&quot;, &quot;3333&quot;),
-                Cmd(&quot;EXPOSE&quot;, &quot;10001&quot;),
 
-                ExecCmd(&quot;ENTRYPOINT&quot;, &quot;bin/webapi&quot;, &quot;-J-agentpath:/usr/local/YourKit-JavaProfiler-2018.04/bin/linux-x86-64/libyjpagent.so=port=10001,listen=all&quot;),
+                ExecCmd(&quot;ENTRYPOINT&quot;, &quot;bin/webapi&quot;),
             )
 
         )
@@ -933,6 +954,69 @@ lazy val webapiJavaTestOptions = Seq(
     //&quot;-XX:MaxGCPauseMillis=500&quot;,
     //&quot;-XX:MaxMetaspaceSize=4096m&quot;
 )
+
+// packaging for running normal tests (usage: webapi_test/stage)
+lazy val webapi_test = project
+  // we put the results  in a build folder
+  .in(file(&quot;webapi/build/test&quot;))
+  .enablePlugins(JavaAppPackaging)
+  .settings(
+      Dependencies.webapiTestAndITLibraryDependencies,
+      // Skip packageDoc and packageSrc task on stage
+      Compile / packageDoc / mappings := Seq(),
+      Compile / packageSrc / mappings := Seq(),
+      publishArtifact in (Test, packageBin) := true,
+      Compile / mainClass := Some(&quot;org.scalatest.tools.Runner&quot;),
+      // adds the test jar to mappings
+      mappings in Universal ++= {
+          // generates the test package
+          val testjar = (packageBin in Test).value
+          // maps this file to your lib folder in your output package
+          testjar -&gt; s&quot;lib/${testjar.getName}&quot;
+          // copy the scripts folder
+          directory(&quot;webapi/scripts&quot;) ++
+            // add knora-ontologies
+            directory(&quot;knora-ontologies&quot;) ++
+            // add test-data directory
+            directory(&quot;webapi/_test_data&quot;) ++
+            // copy the configuration files to config directory
+            contentOf(&quot;webapi/configs&quot;).toMap.mapValues(&quot;config/&quot; + _) ++
+            // copy configuration files to config directory
+            contentOf(&quot;webapi/src/main/resources&quot;).toMap.mapValues(&quot;config/&quot; + _)
+      },
+      scriptClasspath += (packageBin in Test).value.getName
+  )
+  .dependsOn(webapi)
+
+// packaging for running IT tests (usage: webapi_it/stage)
+lazy val webapi_it = project
+  // we put the results in a build folder
+  .in(file(&quot;webapi/build/it&quot;))
+  .enablePlugins(JavaAppPackaging)
+  .configs(
+      IntegrationTest
+  )
+  .settings(
+      inConfig(IntegrationTest)(Defaults.testSettings),
+  )
+  .settings(
+      Dependencies.webapiTestAndITLibraryDependencies,
+      // Skip packageDoc and packageSrc task on stage
+      Compile / packageDoc / mappings := Seq(),
+      Compile / packageSrc / mappings := Seq(),
+      IntegrationTest / packageBin / publishArtifact := true,
+      addArtifact(artifact in (IntegrationTest, packageBin), packageBin in IntegrationTest),
+      Compile / mainClass := Some(&quot;org.scalatest.run&quot;),
+      // adds the test jar to mappings
+      mappings in Universal += {
+          // generates the test package
+          val testjar = (packageBin in IntegrationTest).value
+          // maps this file to your lib folder in your output package
+          testjar -&gt; s&quot;lib/${testjar.getName}&quot;
+      },
+      scriptClasspath += (packageBin in Test).value.getName
+  )
+  .dependsOn(webapi)
 
 def knoraModule(name: String): Project =
     Project(id = name, base = file(name))
@@ -997,7 +1081,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-9.1.0*
+9.1.0-55-ge7f47f6*
 </span>
 </div>
 </article>

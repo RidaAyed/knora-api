@@ -209,7 +209,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 9.1.0*
+<i class="md-icon">label_outline</i> 9.1.0-55-ge7f47f6*
 </div>
 </nav>
 
@@ -283,40 +283,17 @@ $ docker run --rm -it --add-host webapihost:$DOCKERHOST -v $PWD/config:/sipi/con
   <li><code>SIPI_EXTERNAL_PORT=443</code></li>
 </ul>
 <p>These variables are only used by <code>make_thumbnail.lua</code>:</p>
-<pre class="prettyprint"><code class="language-lua">-- We need to be able to run behind a proxy and to configure this easily.
--- Allows to set SIPI_EXTERNAL_PROTOCOL environment variable and use its value.
---
-local external_protocol = os.getenv(&quot;SIPI_EXTERNAL_PROTOCOL&quot;)
-if external_protocol == nil then
-    external_protocol = &quot;http&quot;
-end
-server.log(&quot;make_thumbnail - external_protocol: &quot; .. external_protocol, server.loglevel.LOG_DEBUG)
+<pre class="prettyprint"><code class="language-lua">server.log(&quot;make_thumbnail - external_protocol: &quot; .. get_external_protocol(), server.loglevel.LOG_DEBUG)
 
---
--- We need to be able to run behind a proxy and to configure this easily.
--- Allows to set SIPI_EXTERNAL_HOSTNAME environment variable and use its value.
---
-local external_hostname = os.getenv(&quot;SIPI_EXTERNAL_HOSTNAME&quot;)
-if external_hostname == nil then
-    external_hostname = config.hostname
-end
-server.log(&quot;make_thumbnail - external_hostname: &quot; .. external_hostname, server.loglevel.LOG_DEBUG)
+server.log(&quot;make_thumbnail - external_hostname: &quot; .. get_external_hostname(), server.loglevel.LOG_DEBUG)
 
---
--- We need to be able to run behind a proxy and to configure this easily.
--- Allows to set SIPI_EXTERNAL_PORT environment variable and use its value.
---
-local external_port = os.getenv(&quot;SIPI_EXTERNAL_PORT&quot;)
-if external_port == nil then
-    external_port = config.port
-end
-server.log(&quot;make_thumbnail - external_port: &quot; .. external_port, server.loglevel.LOG_DEBUG)
+server.log(&quot;make_thumbnail - external_port: &quot; .. get_external_port(), server.loglevel.LOG_DEBUG)
 
 answer = {
     nx_thumb = dims.nx,
     ny_thumb = dims.ny,
     mimetype_thumb = &#39;image/jpeg&#39;,
-    preview_path =  external_protocol .. &quot;://&quot; .. external_hostname .. &quot;:&quot; .. external_port ..&quot;/thumbs/&quot; .. thumbName .. &quot;/full/full/0/default.jpg&quot;,
+    preview_path =  get_external_protocol() .. &quot;://&quot; .. get_external_hostname() .. &quot;:&quot; .. get_external_port() ..&quot;/thumbs/&quot; .. thumbName .. &quot;/full/full/0/default.jpg&quot;,
     filename = tmpName, -- make this a IIIF URL
     original_mimetype = submitted_mimetype.mimetype,
     original_filename = filename,
@@ -356,7 +333,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-9.1.0*
+9.1.0-55-ge7f47f6*
 </span>
 </div>
 </article>
