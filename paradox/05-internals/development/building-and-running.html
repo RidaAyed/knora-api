@@ -210,7 +210,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 9.1.0-55-ge7f47f6*
+<i class="md-icon">label_outline</i> 10.0.0
 </div>
 </nav>
 
@@ -379,7 +379,7 @@ jobs:
         # - sbt knora-sipi/docker:publish
         # - sbt knora-graphdb-se/docker:publish
         # - sbt knora-graphdb-free/docker:publish
-        # - sbt knora-upgrade/docker:publish
+        # - sbt upgrade/docker:publish
         # - sbt knora-assets/docker:publish
     # unit tests
     - stage: test
@@ -413,15 +413,33 @@ jobs:
     # upgrade tests
     - stage: test
       script:
-        # run tests
-        - pyenv shell 3.7.1
-        - cd $TRAVIS_BUILD_DIR/upgrade &amp;&amp; pip3 install -r requirements.txt &amp;&amp; ./test.sh
+        # build all docker images
+        - make build-all-images
+        # prepare needed graphdb-se files
+        - mkdir -p $TRAVIS_BUILD_DIR/graphdb
+        - cp $TRAVIS_BUILD_DIR/travis/graphdb.license $TRAVIS_BUILD_DIR/graphdb/graphdb.license
+        - cp $TRAVIS_BUILD_DIR/webapi/scripts/KnoraRules.pie $TRAVIS_BUILD_DIR/graphdb
+        # start and initialize graphdb-se
+        - docker network create knora-net
+        - docker run --rm -d --name=db --network=knora-net -p 127.0.0.1:7200:7200 -v $TRAVIS_BUILD_DIR/graphdb:/graphdb -e GDB_HEAP_SIZE=$GDB_HEAP_SIZE daschswiss/knora-graphdb-se -Dgraphdb.license.file=/graphdb/graphdb.license
+        - sleep 5
+        - make init-db-test-minimal
+        # load v7.0.0 data and run auto-upgrade (sbt use case)
+        - cd $TRAVIS_BUILD_DIR/upgrade/graphdb-se
+        - unzip $TRAVIS_BUILD_DIR/test-data/v7.0.0/v7.0.0-knora-test.trig.zip
+        - ./empty-repository.sh -r knora-test -u gaga -p gaga -h localhost:7200
+        - ./upload-repository.sh -r knora-test -u gaga -p gaga -h localhost:7200 v7.0.0-knora-test.trig
+        - ./auto-upgrade.sh -r knora-test -u gaga -p gaga -h localhost:7200 -t /tmp/upgrade.dir
+        # load v7.0.0 data and run auto-upgrade (docker use case)
+        - ./empty-repository.sh -r knora-test -u gaga -p gaga -h localhost:7200
+        - ./upload-repository.sh -r knora-test -u gaga -p gaga -h localhost:7200 v7.0.0-knora-test.trig
+        - docker run -it --rm --network=knora-net -v /tmp:/tmp -e KNORA_UPGRADE_DOCKER=true daschswiss/knora-upgrade -r knora-test -u gaga -p gaga -h db:7200 -t /tmp/upgrade.dir
     # testing docs generation
     - stage: test
       script:
         - mkdir -p $TRAVIS_BUILD_DIR/docs/target
         - chmod 777 $TRAVIS_BUILD_DIR/docs/target
-        - make build-docs
+        - make docs-build
     # Salsah browser tests
     #- stage: test
     #  script:
@@ -451,9 +469,9 @@ jobs:
         # when on &#39;develop&#39; then $TRAVIS_BRANCH = develop
         # when on &#39;tag&#39; then $TRAVIS_BRANCH = tag, e.g., v1.2.0
         - docker login -u $DOCKER_USER -p $DOCKER_PASS
-        # webapi
+        # knora-api
         - sbt webapi/docker:publish
-        # salsah1
+        # knora-salsah1
         - sbt salsah1/docker:publish
         # knora-sipi
         - sbt knora-sipi/docker:publish
@@ -462,7 +480,7 @@ jobs:
         # knora-graphdb-free
         - sbt knora-graphdb-free/docker:publish
         # knora-upgrade
-        - sbt knora-upgrade/docker:publish
+        - sbt upgrade/docker:publish
         # knora-assets
         - sbt knora-assets/docker:publish
         # publish images to daschswiss dockerhub organization
@@ -530,7 +548,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-9.1.0-55-ge7f47f6*
+10.0.0
 </span>
 </div>
 </article>

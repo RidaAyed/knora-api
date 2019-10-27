@@ -211,7 +211,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 9.1.0-55-ge7f47f6*
+<i class="md-icon">label_outline</i> 10.0.0
 </div>
 </nav>
 
@@ -297,68 +297,69 @@ lazy val buildSettings = Dependencies.Versions ++ Seq(
     version := (ThisBuild / version).value
 )
 
-lazy val root = Project(id = &quot;knora&quot;, file(&quot;.&quot;))
-        .aggregate(aggregatedProjects: _*)
-        .enablePlugins(DockerComposePlugin, GitVersioning, GitBranchPrompt)
-        .settings(Dependencies.Versions)
-        .settings(
-            // values set for all sub-projects
-            // These are normal sbt settings to configure for release, skip if already defined
+lazy val rootBaseDir = baseDirectory.in(ThisBuild)
 
-            ThisBuild / licenses := Seq(&quot;AGPL-3.0&quot; -&gt; url(&quot;https://opensource.org/licenses/AGPL-3.0&quot;)),
-            ThisBuild / homepage := Some(url(&quot;https://github.com/dhlab-basel/Knora&quot;)),
-            ThisBuild / scmInfo := Some(ScmInfo(url(&quot;https://github.com/dhlab-basel/Knora&quot;), &quot;scm:git:git@github.com:dhlab-basel/Knora.git&quot;)),
+lazy val root: Project = Project(id = &quot;knora&quot;, file(&quot;.&quot;))
+  .aggregate(aggregatedProjects: _*)
+  .enablePlugins(DockerComposePlugin, GitVersioning, GitBranchPrompt)
+  .settings(Dependencies.Versions)
+  .settings(
+      // values set for all sub-projects
+      // These are normal sbt settings to configure for release, skip if already defined
 
-            // use &#39;git describe&#39; for deriving the version
-            git.useGitDescribe := true,
+      ThisBuild / licenses := Seq(&quot;AGPL-3.0&quot; -&gt; url(&quot;https://opensource.org/licenses/AGPL-3.0&quot;)),
+      ThisBuild / homepage := Some(url(&quot;https://github.com/dhlab-basel/Knora&quot;)),
+      ThisBuild / scmInfo := Some(ScmInfo(url(&quot;https://github.com/dhlab-basel/Knora&quot;), &quot;scm:git:git@github.com:dhlab-basel/Knora.git&quot;)),
 
-            // override generated version string because docker hub rejects &#39;+&#39; in tags
-            ThisBuild / version ~= (_.replace(&#39;+&#39;, &#39;-&#39;)),
+      // use &#39;git describe&#39; for deriving the version
+      git.useGitDescribe := true,
 
-            // use Ctrl-c to stop current task but not quit SBT
-            Global / cancelable := true,
+      // override generated version string because docker hub rejects &#39;+&#39; in tags
+      ThisBuild / version ~= (_.replace(&#39;+&#39;, &#39;-&#39;)),
 
-            publish / skip := true,
+      // use Ctrl-c to stop current task but not quit SBT
+      Global / cancelable := true,
 
-            Dependencies.sysProps := sys.props.toString(),
-            Dependencies.sysEnvs := sys.env.toString(),
+      publish / skip := true,
 
-            // these can be set by the user as system environment variables
-            ThisBuild / Dependencies.gdbHomePath := sys.env.getOrElse(&quot;KNORA_GDB_HOME&quot;, sys.props(&quot;user.dir&quot;) + &quot;/triplestores/graphdb/home&quot;),
-            ThisBuild / Dependencies.gdbLicensePath := sys.env.getOrElse(&quot;KNORA_GDB_LICENSE&quot;, sys.props(&quot;user.dir&quot;) + &quot;/triplestores/graphdb/graphdb.license&quot;),
+      Dependencies.sysProps := sys.props.toString(),
+      Dependencies.sysEnvs := sys.env.toString(),
 
-            // these are calculated in their respective targets
-            Dependencies.knoraSipiImage := &quot;dhlabbasel/knora-sipi:&quot; + version.value,
-            Dependencies.knoraGdbImage := {
-                if (Dependencies.gdbTypeString.equals(&quot;graphdb-free&quot;)) {
-                    &quot;dhlabbasel/knora-graphdb-free:&quot; + version.value
-                } else {
-                    &quot;dhlabbasel/knora-graphdb-se:&quot; + version.value
-                }
-            },
-            Dependencies.knoraWebapiImage := &quot;dhlabbasel/webapi:&quot; + version.value,
-            Dependencies.knoraSalsah1Image := &quot;dhlabbasel/salsah1:&quot; + version.value,
+      // these can be set by the user as system environment variables
+      ThisBuild / Dependencies.gdbHomePath := sys.env.getOrElse(&quot;KNORA_GDB_HOME&quot;, sys.props(&quot;user.dir&quot;) + &quot;/triplestores/graphdb/home&quot;),
+      ThisBuild / Dependencies.gdbLicensePath := sys.env.getOrElse(&quot;KNORA_GDB_LICENSE&quot;, sys.props(&quot;user.dir&quot;) + &quot;/triplestores/graphdb/graphdb.license&quot;),
 
-            // use these values for variable substitution in the docker-compose.yml
-            variablesForSubstitution := Map(
-                &quot;KNORA_GDB_HOME&quot; -&gt; Dependencies.gdbHomePath.value,
-                &quot;KNORA_GDB_LICENSE&quot; -&gt; Dependencies.gdbLicensePath.value,
-                &quot;KNORA_GDB_TYPE&quot; -&gt; Dependencies.gdbTypeString,
-                &quot;KNORA_GDB_IMAGE&quot; -&gt; Dependencies.knoraGdbImage.value,
-                &quot;KNORA_SIPI_IMAGE&quot; -&gt;  Dependencies.knoraSipiImage.value,
-                &quot;KNORA_WEBAPI_IMAGE&quot; -&gt; Dependencies.knoraWebapiImage.value,
-                &quot;KNORA_SALSAH1_IMAGE&quot; -&gt; Dependencies.knoraSalsah1Image.value
-            ),
+      // these are calculated in their respective targets
+      Dependencies.knoraSipiImage := &quot;dhlabbasel/knora-sipi:&quot; + version.value,
+      Dependencies.knoraGdbImage := {
+          if (Dependencies.gdbTypeString.equals(&quot;graphdb-free&quot;)) {
+              &quot;dhlabbasel/knora-graphdb-free:&quot; + version.value
+          } else {
+              &quot;dhlabbasel/knora-graphdb-se:&quot; + version.value
+          }
+      },
+      Dependencies.knoraWebapiImage := &quot;dhlabbasel/webapi:&quot; + version.value,
+      Dependencies.knoraSalsah1Image := &quot;dhlabbasel/salsah1:&quot; + version.value,
 
-            dockerImageCreationTask := Seq(
-                (salsah1 / Docker / publishLocal).value,
-                (webapi / Docker / publishLocal).value,
-                (knoraGraphDbSe / Docker / publishLocal).value,
-                (knoraGraphdbFree / Docker / publishLocal).value,
-                (knoraSipi / Docker / publishLocal).value,
-                (knoraAssets / Docker / publishLocal).value
-            )
-        )
+      // use these values for variable substitution in the docker-compose.yml
+      variablesForSubstitution := Map(
+          &quot;KNORA_GDB_HOME&quot; -&gt; Dependencies.gdbHomePath.value,
+          &quot;KNORA_GDB_LICENSE&quot; -&gt; Dependencies.gdbLicensePath.value,
+          &quot;KNORA_GDB_TYPE&quot; -&gt; Dependencies.gdbTypeString,
+          &quot;KNORA_GDB_IMAGE&quot; -&gt; Dependencies.knoraGdbImage.value,
+          &quot;KNORA_SIPI_IMAGE&quot; -&gt; Dependencies.knoraSipiImage.value,
+          &quot;KNORA_WEBAPI_IMAGE&quot; -&gt; Dependencies.knoraWebapiImage.value,
+          &quot;KNORA_SALSAH1_IMAGE&quot; -&gt; Dependencies.knoraSalsah1Image.value
+      ),
+
+      dockerImageCreationTask := Seq(
+          (salsah1 / Docker / publishLocal).value,
+          (webapi / Docker / publishLocal).value,
+          (knoraGraphDbSe / Docker / publishLocal).value,
+          (knoraGraphdbFree / Docker / publishLocal).value,
+          (knoraSipi / Docker / publishLocal).value
+      )
+  )
 
 
 //////////////////////////////////////
@@ -468,7 +469,7 @@ lazy val graphdbseCommonSettings = Seq(
     name := &quot;knora-graphdb-se&quot;
 )
 
-lazy val knoraGraphDbSe = knoraModule(&quot;knora-graphdb-se&quot;)
+lazy val knoraGraphDbSe: Project = knoraModule(&quot;knora-graphdb-se&quot;)
   .enablePlugins(DockerPlugin)
   .settings(
       graphdbseCommonSettings
@@ -487,14 +488,14 @@ lazy val knoraGraphDbSe = knoraModule(&quot;knora-graphdb-se&quot;)
 
       dockerRepository := Some(&quot;dhlabbasel&quot;),
 
-      maintainer := &quot;ivan.subotic@unibas.ch&quot;,
+      maintainer := &quot;400790+subotic@users.noreply.github.com&quot;,
 
       Docker / dockerExposedPorts ++= Seq(7200),
       Docker / dockerCommands := Seq(
           // FIXME: Someday find out how to reference here Dependencies.Versions.gdbSEImage
           Cmd(&quot;FROM&quot;, &quot;ontotext/graphdb:8.5.0-se&quot;),
           Cmd(&quot;LABEL&quot;, s&quot;&quot;&quot;MAINTAINER=&quot;${maintainer.value}&quot;&quot;&quot;&quot;),
-          Cmd(&quot;ADD&quot;, &quot;opt/docker/scripts&quot;, &quot;/scripts&quot;),
+          Cmd(&quot;COPY&quot;, &quot;opt/docker/scripts&quot;, &quot;/scripts&quot;),
           Cmd(&quot;RUN&quot;, &quot;mkdir -p /graphdb &amp;&amp; cp /scripts/KnoraRules.pie /graphdb/KnoraRules.pie &amp;&amp; rm -rf /scripts&quot;),
       )
   )
@@ -507,7 +508,7 @@ lazy val graphdbfreeCommonSettings = Seq(
     name := &quot;knora-graphdb-free&quot;
 )
 
-lazy val knoraGraphdbFree = knoraModule(&quot;knora-graphdb-free&quot;)
+lazy val knoraGraphdbFree: Project = knoraModule(&quot;knora-graphdb-free&quot;)
   .enablePlugins(DockerPlugin)
   .settings(
       graphdbfreeCommonSettings
@@ -526,14 +527,14 @@ lazy val knoraGraphdbFree = knoraModule(&quot;knora-graphdb-free&quot;)
 
       dockerRepository := Some(&quot;dhlabbasel&quot;),
 
-      maintainer := &quot;ivan.subotic@unibas.ch&quot;,
+      maintainer := &quot;400790+subotic@users.noreply.github.com&quot;,
 
       Docker / dockerExposedPorts ++= Seq(7200),
       Docker / dockerCommands := Seq(
           // FIXME: Someday find out how to reference here Dependencies.Versions.gdbFreeImage
           Cmd(&quot;FROM&quot;, &quot;dhlabbasel/graphdb:8.10.0-free&quot;),
           Cmd(&quot;LABEL&quot;, s&quot;&quot;&quot;MAINTAINER=&quot;${maintainer.value}&quot;&quot;&quot;&quot;),
-          Cmd(&quot;ADD&quot;, &quot;opt/docker/scripts&quot;, &quot;/scripts&quot;),
+          Cmd(&quot;COPY&quot;, &quot;opt/docker/scripts&quot;, &quot;/scripts&quot;),
           Cmd(&quot;RUN&quot;, &quot;mkdir -p /graphdb &amp;&amp; cp /scripts/KnoraRules.pie /graphdb/KnoraRules.pie &amp;&amp; rm -rf /scripts&quot;),
       )
   )
@@ -546,7 +547,7 @@ lazy val knoraSipiCommonSettings = Seq(
     name := &quot;knora-sipi&quot;
 )
 
-lazy val knoraSipi = knoraModule(&quot;knora-sipi&quot;)
+lazy val knoraSipi: Project = knoraModule(&quot;knora-sipi&quot;)
   .enablePlugins(DockerPlugin)
   .settings(
       knoraSipiCommonSettings
@@ -565,14 +566,14 @@ lazy val knoraSipi = knoraModule(&quot;knora-sipi&quot;)
 
       dockerRepository := Some(&quot;dhlabbasel&quot;),
 
-      maintainer := &quot;ivan.subotic@unibas.ch&quot;,
+      maintainer := &quot;400790+subotic@users.noreply.github.com&quot;,
 
       Docker / dockerExposedPorts ++= Seq(1024),
       Docker / dockerCommands := Seq(
           // FIXME: Someday find out how to reference here Dependencies.Versions.sipiImage
           Cmd(&quot;FROM&quot;, &quot;dhlabbasel/sipi:v2.0.1&quot;),
           Cmd(&quot;LABEL&quot;, s&quot;&quot;&quot;MAINTAINER=&quot;${maintainer.value}&quot;&quot;&quot;&quot;),
-          Cmd(&quot;ADD&quot;, &quot;opt/docker/scripts&quot;, &quot;/sipi/scripts&quot;),
+          Cmd(&quot;COPY&quot;, &quot;opt/docker/scripts&quot;, &quot;/sipi/scripts&quot;),
       )
   )
 
@@ -585,7 +586,7 @@ lazy val knoraAssetsCommonSettings = Seq(
     name := &quot;knora-assets&quot;
 )
 
-lazy val knoraAssets = knoraModule(&quot;knora-assets&quot;)
+lazy val knoraAssets: Project = knoraModule(&quot;knora-assets&quot;)
   .enablePlugins(DockerPlugin)
   .settings(
       knoraAssetsCommonSettings
@@ -597,9 +598,9 @@ lazy val knoraAssets = knoraModule(&quot;knora-assets&quot;)
       Universal / mappings ++= {
           // copy the different folders
           directory(&quot;webapi/scripts&quot;) ++
-          directory(&quot;webapi/_test_data&quot;) ++
-          directory(&quot;webapi/_assets&quot;) ++
-          directory(&quot;knora-ontologies&quot;)
+            directory(&quot;webapi/_test_data&quot;) ++
+            directory(&quot;webapi/_assets&quot;) ++
+            directory(&quot;knora-ontologies&quot;)
       },
 
       // add dockerCommands used to create the image
@@ -607,12 +608,12 @@ lazy val knoraAssets = knoraModule(&quot;knora-assets&quot;)
 
       dockerRepository := Some(&quot;dhlabbasel&quot;),
 
-      maintainer := &quot;ivan.subotic@unibas.ch&quot;,
+      maintainer := &quot;400790+subotic@users.noreply.github.com&quot;,
       Docker / dockerExposedPorts ++= Seq(9999), // not used. added just so that there is no warning
       Docker / dockerCommands := Seq(
           Cmd(&quot;FROM&quot;, &quot;scratch&quot;),
           Cmd(&quot;LABEL&quot;, s&quot;&quot;&quot;MAINTAINER=&quot;${maintainer.value}&quot;&quot;&quot;&quot;),
-          Cmd(&quot;ADD&quot;, &quot;opt/docker&quot;, &quot;/assets&quot;)
+          Cmd(&quot;COPY&quot;, &quot;opt/docker&quot;, &quot;/assets&quot;)
       )
   )
 
@@ -620,40 +621,90 @@ lazy val knoraAssets = knoraModule(&quot;knora-assets&quot;)
 // Knora upgrade scripts
 //////////////////////////////////////
 
-lazy val knoraUpgradeCommonSettings = Seq(
-    name := &quot;knora-upgrade&quot;
+lazy val upgradeCommonSettings = Seq(
+    name := &quot;upgrade&quot;
 )
 
-lazy val knoraUpgrade = knoraModule(&quot;knora-upgrade&quot;)
-  .enablePlugins(DockerPlugin)
+lazy val upgrade: Project = knoraModule(&quot;upgrade&quot;)
+  .dependsOn(webapi)
+  .enablePlugins(JavaAppPackaging, DockerPlugin)
   .settings(
-      knoraUpgradeCommonSettings
+      upgradeCommonSettings,
+      Dependencies.upgradeLibraryDependencies,
+      // use jars (and not class directory) for run, test, console
+      exportJars := true,
+      unmanagedResourceDirectories in Compile += (rootBaseDir.value / &quot;knora-ontologies&quot;),
+
+      // add content of knora-ontologies to jar
+      mappings in (Compile, packageBin) ++= Seq (
+          (rootBaseDir.value / &quot;knora-ontologies&quot; / &quot;knora-admin.ttl&quot;) -&gt; &quot;knora-ontologies/knora-admin.ttl&quot;,
+          (rootBaseDir.value / &quot;knora-ontologies&quot; / &quot;knora-base.ttl&quot;) -&gt; &quot;knora-ontologies/knora-base.ttl&quot;,
+          (rootBaseDir.value / &quot;knora-ontologies&quot; / &quot;salsah-gui.ttl&quot;) -&gt; &quot;knora-ontologies/salsah-gui.ttl&quot;,
+          (rootBaseDir.value / &quot;knora-ontologies&quot; / &quot;standoff-data.ttl&quot;) -&gt; &quot;knora-ontologies/standoff-data.ttl&quot;,
+          (rootBaseDir.value / &quot;knora-ontologies&quot; / &quot;standoff-onto.ttl&quot;) -&gt; &quot;knora-ontologies/standoff-onto.ttl&quot;,
+      ),
+      // contentOf(&quot;salsah1/src/main/resources&quot;).toMap.mapValues(&quot;config/&quot; + _)
+      // (rootBaseDir.value / &quot;knora-ontologies&quot;) -&gt; &quot;knora-ontologies&quot;,
+
+  )
+  .settings(
+      scalacOptions ++= Seq(&quot;-feature&quot;, &quot;-unchecked&quot;, &quot;-deprecation&quot;, &quot;-Yresolve-term-conflict:package&quot;),
+      logLevel := Level.Info,
+      run / fork := true,
+      run / javaOptions ++= upgradeJavaRunOptions,
+      Compile / run / mainClass := Some(&quot;org.knora.upgrade.Main&quot;),
+      Test / fork := true,
+      Test / javaOptions ++= upgradeJavaTestOptions,
+      Test / parallelExecution := false,
+      /* show full stack traces and test case durations */
+      Test / testOptions += Tests.Argument(&quot;-oDF&quot;),
   )
   .settings(
       // Skip packageDoc and packageSrc task on stage
       Compile / packageDoc / mappings := Seq(),
       Compile / packageSrc / mappings := Seq(),
+
       Universal / mappings ++= {
           // copy the different folders
-          directory(&quot;upgrade&quot;)
+          directory(&quot;upgrade/graphdb-se&quot;)
       },
 
       // add dockerCommands used to create the image
       // docker:stage, docker:publishLocal, docker:publish, docker:clean
-
       dockerRepository := Some(&quot;dhlabbasel&quot;),
-
-      maintainer := &quot;ivan.subotic@unibas.ch&quot;,
-      Docker / dockerExposedPorts ++= Seq(9999), // not used. added just so that there is no warning
+      dockerUpdateLatest := true,
+      maintainer := &quot;400790+subotic@users.noreply.github.com&quot;,
       Docker / dockerCommands := Seq(
-          Cmd(&quot;FROM&quot;, &quot;python:3.7-stretch&quot;),
+          Cmd(&quot;FROM&quot;, &quot;adoptopenjdk/openjdk11:alpine-jre&quot;),
           Cmd(&quot;LABEL&quot;, s&quot;&quot;&quot;MAINTAINER=&quot;${maintainer.value}&quot;&quot;&quot;&quot;),
-          Cmd(&quot;ADD&quot;, &quot;opt/docker&quot;, &quot;/&quot;),
-          Cmd(&quot;RUN&quot;, &quot;pip install -r /upgrade/requirements.txt&quot;),
-          Cmd(&quot;ENTRYPOINT&quot;, &quot;/upgrade/update-repository.py&quot;),
-          Cmd(&quot;CMD&quot;, &quot;-h&quot;)
-      )
+          Cmd(&quot;RUN apk update &amp;&amp; apk upgrade &amp;&amp; apk add bash&quot;),
+
+          Cmd(&quot;ENV&quot;, &quot;&quot;&quot;KNORA_UPGRADE_DOCKER=&quot;true&quot;&quot;&quot;&quot;),
+          Cmd(&quot;COPY&quot;, &quot;opt/docker&quot;, &quot;/upgrade&quot;),
+          Cmd(&quot;WORKDIR&quot;, &quot;/upgrade/graphdb-se&quot;),
+          ExecCmd(&quot;ENTRYPOINT&quot;, &quot;/upgrade/graphdb-se/auto-upgrade.sh&quot;),
+      ),
   )
+
+lazy val upgradeJavaRunOptions = Seq(
+    // &quot;-showversion&quot;,
+    &quot;-Xms1G&quot;,
+    &quot;-Xmx1G&quot;
+    // &quot;-verbose:gc&quot;,
+    //&quot;-XX:+UseG1GC&quot;,
+    //&quot;-XX:MaxGCPauseMillis=500&quot;,
+    //&quot;-XX:MaxMetaspaceSize=4096m&quot;
+)
+
+lazy val upgradeJavaTestOptions = Seq(
+    // &quot;-showversion&quot;,
+    &quot;-Xms1G&quot;,
+    &quot;-Xmx1G&quot;
+    // &quot;-verbose:gc&quot;,
+    //&quot;-XX:+UseG1GC&quot;,
+    //&quot;-XX:MaxGCPauseMillis=500&quot;,
+    //&quot;-XX:MaxMetaspaceSize=4096m&quot;
+)
 
 //////////////////////////////////////
 // SALSAH1 (./salsah1)
@@ -663,80 +714,78 @@ lazy val salsahCommonSettings = Seq(
     name := &quot;salsah1&quot;
 )
 
-lazy val salsah1 = knoraModule(&quot;salsah1&quot;)
-        .enablePlugins(JavaAppPackaging, DockerPlugin, DockerComposePlugin)
-        .configs(
-            HeadlessTest
-        )
-        .settings(
-            salsahCommonSettings,
-            Revolver.settings
-        )
-        .settings(inConfig(HeadlessTest)(
-            Defaults.testTasks ++ Seq(
-                fork := true,
-                javaOptions ++= javaHeadlessTestOptions,
-                testOptions += Tests.Argument(&quot;-oDF&quot;) // show full stack traces and test case durations
-            )
-        ): _*)
-        .settings(
-            Dependencies.salsahLibraryDependencies,
-            logLevel := Level.Info,
-            run / fork := true,
-            run / javaOptions ++= javaRunOptions,
-            Compile / run / mainClass := Some(&quot;org.knora.salsah.Main&quot;),
-            Test / fork := true,
-            Test / javaOptions ++= javaTestOptions,
-            Test / parallelExecution := false,
-            /* show full stack traces and test case durations */
-            Test / testOptions += Tests.Argument(&quot;-oDF&quot;)
-        )
-        .settings( // enable deployment staging with `sbt stage`
-            // Skip packageDoc and packageSrc task on stage
-            Compile / packageDoc / mappings := Seq(),
-            Compile / packageSrc / mappings := Seq(),
-            Universal / mappings ++= {
-                // copy the public folder
-                directory(&quot;salsah1/src/public&quot;) ++
-                // copy the configuration files to config directory
-                // contentOf(&quot;salsah1/configs&quot;).toMap.mapValues(&quot;config/&quot; + _) ++
-                // copy configuration files to config directory
-                contentOf(&quot;salsah1/src/main/resources&quot;).toMap.mapValues(&quot;config/&quot; + _)
-            },
-            // add &#39;config&#39; directory first in the classpath of the start script,
-            scriptClasspath := Seq(&quot;../config/&quot;) ++ scriptClasspath.value,
-            // need this here, but why?
-            Compile / mainClass := Some(&quot;org.knora.salsah.Main&quot;),
+lazy val salsah1: Project = knoraModule(&quot;salsah1&quot;)
+  .enablePlugins(JavaAppPackaging, DockerPlugin, DockerComposePlugin)
+  .configs(
+      HeadlessTest
+  )
+  .settings(
+      salsahCommonSettings,
+      Revolver.settings
+  )
+  .settings(inConfig(HeadlessTest)(
+      Defaults.testTasks ++ Seq(
+          fork := true,
+          javaOptions ++= javaHeadlessTestOptions,
+          testOptions += Tests.Argument(&quot;-oDF&quot;) // show full stack traces and test case durations
+      )
+  ): _*)
+  .settings(
+      Dependencies.salsahLibraryDependencies,
+      logLevel := Level.Info,
+      run / fork := true,
+      run / javaOptions ++= javaRunOptions,
+      Compile / run / mainClass := Some(&quot;org.knora.salsah.Main&quot;),
+      Test / fork := true,
+      Test / javaOptions ++= javaTestOptions,
+      Test / parallelExecution := false,
+      /* show full stack traces and test case durations */
+      Test / testOptions += Tests.Argument(&quot;-oDF&quot;)
+  )
+  .settings( // enable deployment staging with `sbt stage`
+        // Skip packageDoc and packageSrc task on stage
+        Compile / packageDoc / mappings := Seq(),
+        Compile / packageSrc / mappings := Seq(),
+      Universal / mappings ++= {
+          // copy the public folder
+          directory(&quot;salsah1/src/public&quot;) ++
+            // copy the configuration files to config directory
+            // contentOf(&quot;salsah1/configs&quot;).toMap.mapValues(&quot;config/&quot; + _) ++
+            // copy configuration files to config directory
+            contentOf(&quot;salsah1/src/main/resources&quot;).toMap.mapValues(&quot;config/&quot; + _)
+      },
+      // add &#39;config&#39; directory first in the classpath of the start script,
+      scriptClasspath := Seq(&quot;../config/&quot;) ++ scriptClasspath.value,
+      // need this here, but why?
+      Compile / mainClass := Some(&quot;org.knora.salsah.Main&quot;),
 
-            // add dockerCommands used to create the image
-            // docker:stage, docker:publishLocal, docker:publish, docker:clean
+      // add dockerCommands used to create the image
+      // docker:stage, docker:publishLocal, docker:publish, docker:clean
 
-            dockerRepository := Some(&quot;dhlabbasel&quot;),
+      dockerRepository := Some(&quot;dhlabbasel&quot;),
 
-            maintainer := &quot;ivan.subotic@unibas.ch&quot;,
+      maintainer := &quot;400790+subotic@users.noreply.github.com&quot;,
 
-            Docker / dockerExposedPorts ++= Seq(3335),
-            Docker / dockerCommands := Seq(
-                Cmd(&quot;FROM&quot;, &quot;adoptopenjdk/openjdk11:alpine-jre&quot;),
-                Cmd(&quot;LABEL&quot;, s&quot;&quot;&quot;MAINTAINER=&quot;${maintainer.value}&quot;&quot;&quot;&quot;),
+      Docker / dockerExposedPorts ++= Seq(3335),
+      Docker / dockerCommands := Seq(
+          Cmd(&quot;FROM&quot;, &quot;adoptopenjdk/openjdk11:alpine-jre&quot;),
+          Cmd(&quot;LABEL&quot;, s&quot;&quot;&quot;MAINTAINER=&quot;${maintainer.value}&quot;&quot;&quot;&quot;),
 
-                Cmd(&quot;ENV&quot;, &quot;&quot;&quot;LANG=&quot;en_US.UTF-8&quot;&quot;&quot;&quot;),
-                Cmd(&quot;ENV&quot;, &quot;&quot;&quot;JAVA_OPTS=&quot;-Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8&quot;&quot;&quot;&quot;),
-                Cmd(&quot;ENV&quot;, &quot;KNORA_SALSAH1_DEPLOYED=true&quot;),
-                Cmd(&quot;ENV&quot;, &quot;KNORA_SALSAH1_WORKDIR=/salsah1&quot;),
+          Cmd(&quot;ENV&quot;, &quot;&quot;&quot;LANG=&quot;en_US.UTF-8&quot;&quot;&quot;&quot;),
+          Cmd(&quot;ENV&quot;, &quot;&quot;&quot;JAVA_OPTS=&quot;-Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8&quot;&quot;&quot;&quot;),
+          Cmd(&quot;ENV&quot;, &quot;KNORA_SALSAH1_DEPLOYED=true&quot;),
+          Cmd(&quot;ENV&quot;, &quot;KNORA_SALSAH1_WORKDIR=/salsah1&quot;),
+          Cmd(&quot;RUN apk update &amp;&amp; apk upgrade &amp;&amp; apk add bash&quot;),
+          Cmd(&quot;COPY&quot;, &quot;opt/docker&quot;, &quot;/salsah1&quot;),
+          Cmd(&quot;WORKDIR&quot;, &quot;/salsah1&quot;),
 
-                Cmd(&quot;RUN apk update &amp;&amp; apk upgrade &amp;&amp; apk add bash&quot;),
+          Cmd(&quot;EXPOSE&quot;, &quot;3335&quot;),
 
-                Cmd(&quot;ADD&quot;, &quot;opt/docker&quot;, &quot;/salsah1&quot;),
-                Cmd(&quot;WORKDIR&quot;, &quot;/salsah1&quot;),
-
-                Cmd(&quot;EXPOSE&quot;, &quot;3335&quot;),
-
-                ExecCmd(&quot;ENTRYPOINT&quot;, &quot;bin/salsah1&quot;),
-            ),
+          ExecCmd(&quot;ENTRYPOINT&quot;, &quot;bin/salsah1&quot;),
+      ),
 
 
-        )
+  )
 
 lazy val javaRunOptions = Seq(
     // &quot;-showversion&quot;,
@@ -904,7 +953,7 @@ lazy val webapi = knoraModule(&quot;webapi&quot;)
 
             dockerRepository := Some(&quot;dhlabbasel&quot;),
 
-            maintainer := &quot;ivan.subotic@unibas.ch&quot;,
+            maintainer := &quot;400790+subotic@users.noreply.github.com&quot;,
 
             Docker / dockerExposedPorts ++= Seq(3333, 10001),
             Docker / dockerCommands := Seq(
@@ -913,7 +962,7 @@ lazy val webapi = knoraModule(&quot;webapi&quot;)
 
                 Cmd(&quot;RUN apk update &amp;&amp; apk upgrade &amp;&amp; apk add bash&quot;),
 
-                Cmd(&quot;ADD&quot;, &quot;opt/docker&quot;, &quot;/webapi&quot;),
+                Cmd(&quot;COPY&quot;, &quot;opt/docker&quot;, &quot;/webapi&quot;),
                 Cmd(&quot;WORKDIR&quot;, &quot;/webapi&quot;),
 
                 Cmd(&quot;EXPOSE&quot;, &quot;3333&quot;),
@@ -1020,7 +1069,7 @@ lazy val webapi_it = project
 
 def knoraModule(name: String): Project =
     Project(id = name, base = file(name))
-            .settings(buildSettings)</code></pre>
+      .settings(buildSettings)</code></pre>
 <h2><a href="#building-deployment-packages" name="building-deployment-packages" class="anchor"><span class="anchor-link"></span></a>Building Deployment Packages</h2>
 <p>Deployment packages for <code>salsah1</code> and <code>webapi</code> can be built by using the following SBT tasks:</p>
 <ul>
@@ -1081,7 +1130,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-9.1.0-55-ge7f47f6*
+10.0.0
 </span>
 </div>
 </article>
