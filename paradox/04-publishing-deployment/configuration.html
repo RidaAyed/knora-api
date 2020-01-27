@@ -153,6 +153,7 @@ dhlab-basel/Knora/docs
     <li><a href="../03-apis/api-v1/index.html" class="page">Knora API v1</a></li>
     <li><a href="../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
+    <li><a href="../03-apis/api-util/index.html" class="page">Knora Util API</a></li>
   </ul></li>
   <li><a href="../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
@@ -208,7 +209,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 10.0.0
+<i class="md-icon">label_outline</i> 12.0.0
 </div>
 </nav>
 
@@ -283,6 +284,11 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
       <td>akka.loglevel </td>
       <td>KNORA_AKKA_LOGLEVEL </td>
       <td>INFO </td>
+    </tr>
+    <tr>
+      <td>akka.actor.deployment.httpTriplestoreRouter.nr-of-instances </td>
+      <td>KNORA_WEBAPI_DB_CONNECTIONS </td>
+      <td>2 </td>
     </tr>
     <tr>
       <td>akka.stdout-loglevel </td>
@@ -485,7 +491,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-10.0.0
+12.0.0
 </span>
 </div>
 </article>

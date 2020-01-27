@@ -153,6 +153,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v1/index.html" class="page">Knora API v1</a></li>
     <li><a href="../../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
+    <li><a href="../../03-apis/api-util/index.html" class="page">Knora Util API</a></li>
   </ul></li>
   <li><a href="../../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
@@ -211,7 +212,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 10.0.0
+<i class="md-icon">label_outline</i> 12.0.0
 </div>
 </nav>
 
@@ -493,7 +494,7 @@ lazy val knoraGraphDbSe: Project = knoraModule(&quot;knora-graphdb-se&quot;)
       Docker / dockerExposedPorts ++= Seq(7200),
       Docker / dockerCommands := Seq(
           // FIXME: Someday find out how to reference here Dependencies.Versions.gdbSEImage
-          Cmd(&quot;FROM&quot;, &quot;ontotext/graphdb:8.5.0-se&quot;),
+          Cmd(&quot;FROM&quot;, &quot;ontotext/graphdb:8.10.1-se&quot;),
           Cmd(&quot;LABEL&quot;, s&quot;&quot;&quot;MAINTAINER=&quot;${maintainer.value}&quot;&quot;&quot;&quot;),
           Cmd(&quot;COPY&quot;, &quot;opt/docker/scripts&quot;, &quot;/scripts&quot;),
           Cmd(&quot;RUN&quot;, &quot;mkdir -p /graphdb &amp;&amp; cp /scripts/KnoraRules.pie /graphdb/KnoraRules.pie &amp;&amp; rm -rf /scripts&quot;),
@@ -681,8 +682,8 @@ lazy val upgrade: Project = knoraModule(&quot;upgrade&quot;)
 
           Cmd(&quot;ENV&quot;, &quot;&quot;&quot;KNORA_UPGRADE_DOCKER=&quot;true&quot;&quot;&quot;&quot;),
           Cmd(&quot;COPY&quot;, &quot;opt/docker&quot;, &quot;/upgrade&quot;),
-          Cmd(&quot;WORKDIR&quot;, &quot;/upgrade/graphdb-se&quot;),
-          ExecCmd(&quot;ENTRYPOINT&quot;, &quot;/upgrade/graphdb-se/auto-upgrade.sh&quot;),
+          Cmd(&quot;WORKDIR&quot;, &quot;/upgrade&quot;),
+          ExecCmd(&quot;ENTRYPOINT&quot;, &quot;/upgrade/bin/upgrade&quot;),
       ),
   )
 
@@ -975,7 +976,10 @@ lazy val webapi = knoraModule(&quot;webapi&quot;)
             buildInfoKeys ++= Seq[BuildInfoKey](
                 name,
                 version,
-                &quot;akkaHttp&quot; -&gt; Dependencies.akkaHttpVersion.value
+                &quot;akkaHttp&quot; -&gt; Dependencies.akkaHttpVersion.value,
+                &quot;sipi&quot; -&gt; Dependencies.sipiImage.value,
+                &quot;gdbSE&quot; -&gt; Dependencies.gdbSEImage.value,
+                &quot;gdbFree&quot; -&gt; Dependencies.gdbFreeImage.value
             ),
             buildInfoPackage := &quot;org.knora.webapi&quot;
         )
@@ -1130,7 +1134,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-10.0.0
+12.0.0
 </span>
 </div>
 </article>

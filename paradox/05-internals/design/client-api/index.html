@@ -153,6 +153,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../../03-apis/api-v1/index.html" class="page">Knora API v1</a></li>
     <li><a href="../../../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../../../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
+    <li><a href="../../../03-apis/api-util/index.html" class="page">Knora Util API</a></li>
   </ul></li>
   <li><a href="../../../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
@@ -204,13 +205,14 @@ dhlab-basel/Knora/docs
     <li><a href="../../../05-internals/design/client-api/index.html#implementation" class="header">Implementation</a></li>
     <li><a href="../../../05-internals/design/client-api/index.html#client-function-dsl" class="header">Client Function DSL</a></li>
     <li><a href="../../../05-internals/design/client-api/index.html#generated-classes" class="header">Generated Classes</a></li>
+    <li><a href="../../../05-internals/design/client-api/index.html#collection-types" class="header">Collection Types</a></li>
     <li><a href="../../../05-internals/design/client-api/index.html#testing" class="header">Testing</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 10.0.0
+<i class="md-icon">label_outline</i> 12.0.0
 </div>
 </nav>
 
@@ -229,6 +231,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../../05-internals/design/client-api/index.html#implementation" class="header">Implementation</a></li>
     <li><a href="../../../05-internals/design/client-api/index.html#client-function-dsl" class="header">Client Function DSL</a></li>
     <li><a href="../../../05-internals/design/client-api/index.html#generated-classes" class="header">Generated Classes</a></li>
+    <li><a href="../../../05-internals/design/client-api/index.html#collection-types" class="header">Collection Types</a></li>
     <li><a href="../../../05-internals/design/client-api/index.html#testing" class="header">Testing</a></li>
   </ul></li>
 </ul>
@@ -269,6 +272,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     <li><a href="../../../05-internals/design/client-api/index.html#function-calls" class="header">Function Calls</a></li>
   </ul></li>
   <li><a href="../../../05-internals/design/client-api/index.html#generated-classes" class="header">Generated Classes</a></li>
+  <li><a href="../../../05-internals/design/client-api/index.html#collection-types" class="header">Collection Types</a></li>
   <li><a href="../../../05-internals/design/client-api/index.html#testing" class="header">Testing</a>
   <ul>
     <li><a href="../../../05-internals/design/client-api/index.html#library-test-stubs" class="header">Library Test Stubs</a></li>
@@ -299,7 +303,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>Client APIs are defined in Scala and extend the <code>ClientApi</code> trait. There is currently an implementation for the admin API, called <code>AdminClientApi</code>. A <code>ClientApi</code> contains one or more <code>KnoraRoute</code> implementations that extend <code>ClientEndpoint</code>. Each endpoint defines functions to be generated for performing API operations that use the route.</p>
 <p>The route <code>ClientApiRoute</code> generates all available client APIs for a specified target, returning source code in a Zip file. For instructions on using this route, see <a href="../../development/generating-client-apis.html">Generating Client API Code</a>.</p>
 <p>This route has a front end, <code>GeneratorFrontEnd</code>, which that gets API class definitions from <code>OntologyResponderV2</code> and transforms them into a data structure that is suitable for code generation. The route supports different back ends for different targets. A back end determines which files need to be generated, generates each file using a Twirl template, and arranges the files in the correct directory structure.</p>
-<p>Currently one back end, <code>TypeScriptBackEnd</code>, is implemented; it generates code for use with <a href="https://github.com/dhlab-basel/knora-api-js-lib">knora-api-js-lib</a>.</p>
+<p>Currently one back end, <code>TypeScriptBackEnd</code>, is implemented; it generates code for use with <a href="https://github.com/dasch-swiss/knora-api-js-lib">knora-api-js-lib</a>.</p>
 <h2><a href="#client-function-dsl" name="client-function-dsl" class="anchor"><span class="anchor-link"></span></a>Client Function DSL</h2>
 <p>Client function definitions are written in a Scala DSL. A function definition looks like this:</p>
 <pre class="prettyprint"><code class="language-scala">private val getUserGroupMembershipsFunction: ClientFunction =
@@ -308,22 +312,20 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
         ) doThis {
         httpGet(path = str(&quot;iri&quot;) / arg(&quot;iri&quot;) / str(&quot;group-memberships&quot;))
     } returns GroupsResponse</code></pre>
-<p>The <code>description</code> keyword specifies a documentation comment describing the function. A function has <code>params</code>, each of which also has a <code>description</code>, as well as a <code>paramType</code>. Built-in types are defined in <code>ClientApi.scala</code> and extend <code>ClientObjectType</code>. Class types can be constructed using the <code>classRef</code> function, as shown above. If a parameter is optional, use <code>paramOptionType</code> instead of <code>paramType</code>.</p>
+<p>The <code>description</code> keyword specifies a documentation comment describing the function. A function has <code>params</code>, each of which also has a <code>description</code>, as well as a <code>paramType</code>. Built-in types are defined in <code>ClientApi.scala</code> and extend <code>ClientObjectType</code>. Class types can be constructed using the <code>classRef</code> function, as shown above.</p>
 <p>The <code>doThis</code> keyword introduces the body of a function, which can be either an HTTP operation or a function call. After the <code>doThis</code> block, <code>returns</code> specifies the return type of the function.</p>
 <h3><a href="#http-operations" name="http-operations" class="anchor"><span class="anchor-link"></span></a>HTTP Operations</h3>
 <p>An HTTP operation is introduced by <code>httpGet</code>, <code>httpPost</code>, <code>httpPut</code>, or <code>httpDelete</code>; it takes a <code>path</code> and (if it <code>httpPost</code> or <code>httpPut</code>) an optional request body. The path consists of elements separated by slashes. Each element is either <code>str()</code> representing a string literal, <code>arg</code> representing an argument that was passed to the function, or <code>argMember()</code> representing a member of an argument.</p>
 <p>URL parameters can be added like this:</p>
-<pre class="prettyprint"><code class="language-scala">private val getAdministrativePermissionFunction: ClientFunction =
-    &quot;getAdministrativePermission&quot; description &quot;Gets the administrative permission for a project and group.&quot; params(
-        &quot;projectIri&quot; description &quot;The project IRI.&quot; paramType UriDatatype,
-        &quot;groupIri&quot; description &quot;The group IRI.&quot; paramType UriDatatype,
-        &quot;permissionType&quot; description &quot;The permission type.&quot; paramOptionType StringDatatype
-    ) doThis {
+<pre class="prettyprint"><code class="language-scala">private val getListsInProjectFunction: ClientFunction =
+    &quot;getListsInProject&quot; description &quot;Returns a list of lists in a project.&quot; params (
+        &quot;projectIri&quot; description &quot;The IRI of the project.&quot; paramType UriDatatype
+        ) doThis {
         httpGet(
-            path = arg(&quot;projectIri&quot;) / arg(&quot;groupIri&quot;),
-            params = Seq(&quot;permissionType&quot; -&gt; arg(&quot;permissionType&quot;))
+            path = BasePath,
+            params = Seq(&quot;projectIri&quot; -&gt; arg(&quot;projectIri&quot;))
         )
-    } returns AdministrativePermissionResponse</code></pre>
+    } returns ListsResponse</code></pre>
 <p>Here is an example with a request body:</p>
 <pre class="prettyprint"><code class="language-scala">private val createUserFunction: ClientFunction =
     &quot;createUser&quot; description &quot;Creates a user.&quot; params (
@@ -339,13 +341,13 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <pre class="prettyprint"><code class="language-scala">private val updateUserPasswordFunction: ClientFunction =
     &quot;updateUserPassword&quot; description &quot;Updates a user&#39;s password.&quot; params(
         &quot;iri&quot; description &quot;The IRI of the user to be updated.&quot; paramType UriDatatype,
-        &quot;oldPassword&quot; description &quot;The user&#39;s old password.&quot; paramType StringDatatype,
-        &quot;newPassword&quot; description &quot;The user&#39;s new password.&quot; paramType StringDatatype
+        &quot;requesterPassword&quot; description &quot;The requesting user&#39;s current password.&quot; paramType StringDatatype,
+        &quot;newPassword&quot; description &quot;The specified user&#39;s new password.&quot; paramType StringDatatype
     ) doThis {
         httpPut(
             path = str(&quot;iri&quot;) / arg(&quot;iri&quot;) / str(&quot;Password&quot;),
             body = Some(json(
-                &quot;requesterPassword&quot; -&gt; arg(&quot;oldPassword&quot;),
+                &quot;requesterPassword&quot; -&gt; arg(&quot;requesterPassword&quot;),
                 &quot;newPassword&quot; -&gt; arg(&quot;newPassword&quot;)
             ))
         )
@@ -382,6 +384,21 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>In <code>ReadUser</code>, the <code>projects</code> property is a collection of <code>StoredProject</code> objects. Since <code>StoredProject</code> does not have any read-only properties, it does not have a property referring to users. This prevents circular imports.</p>
 <p>This design works because in the Knora API, a circular reference always involves a read-only property. For example, the <code>projects</code> property of <code>User</code> is read-only, as is the <code>members</code> property of <code>Project</code>. In the case of a resource, the property pointing from a resource to a link value is not read-only (you can submit a resource with an embedded link value), but the property pointing from a link value to an embedded resource is read-only.</p>
 <p>The read-only properties and ID properties are specified in each <code>ClientApi</code>.</p>
+<h2><a href="#collection-types" name="collection-types" class="anchor"><span class="anchor-link"></span></a>Collection Types</h2>
+<p><code>Array[T]</code> and <code>Map[K, V]</code> collection types can be generated and used as the object types of properties in ordinary classes. The collection type is specified in the IRI of the property object type, using a Scala-like type annotation syntax, like this:</p>
+<pre><code>http://api.knora.org/ontology/knora-admin/v2#collection: Map[URI, Array[Permission]]
+</code></pre>
+<p>(The local part of the IRI can also be URL-encoded.) The keyword <code>collection:</code> indicates that the rest of the IRI specifies a collection type, which must be an <code>Array</code> or <code>Map</code> type. The following literal types can be used:</p>
+<ul>
+  <li><code>String</code></li>
+  <li><code>Boolean</code></li>
+  <li><code>Integer</code></li>
+  <li><code>Decimal</code></li>
+  <li><code>URI</code></li>
+  <li><code>DateTimeStamp</code></li>
+</ul>
+<p>Class names (like <code>Permission</code>) in the example above refer to classes in the same IRI namespace as the collection type. The keys of a <code>Map</code> must be <code>String</code> or <code>URI</code>.</p>
+<p><code>ClientCollectionTypeParser</code> parses these definitions into <code>MapType</code> and <code>ArrayType</code> objects, which can then be used by a language-specific back end to generate type signatures in the target language.</p>
 <h2><a href="#testing" name="testing" class="anchor"><span class="anchor-link"></span></a>Testing</h2>
 <h3><a href="#library-test-stubs" name="library-test-stubs" class="anchor"><span class="anchor-link"></span></a>Library Test Stubs</h3>
 <p>The generated code depends on handwritten library code to work, but stubs can be provided to test for compile errors in the generated code.</p>
@@ -396,7 +413,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-10.0.0
+12.0.0
 </span>
 </div>
 </article>

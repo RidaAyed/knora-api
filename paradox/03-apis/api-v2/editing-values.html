@@ -153,6 +153,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v1/index.html" class="page">Knora API v1</a></li>
     <li><a href="../../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
+    <li><a href="../../03-apis/api-util/index.html" class="page">Knora Util API</a></li>
   </ul></li>
   <li><a href="../../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
@@ -209,7 +210,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 10.0.0
+<i class="md-icon">label_outline</i> 12.0.0
 </div>
 </nav>
 
@@ -386,14 +387,20 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </code></pre>
 <p>Note that quotation marks and line breaks in the XML must be escaped, and that the IRI of the mapping must be provided.</p>
 <h2><a href="#creating-file-values" name="creating-file-values" class="anchor"><span class="anchor-link"></span></a>Creating File Values</h2>
-<p>Knora supports the storage of certain types of data as files, using <a href="https://github.com/dhlab-basel/Sipi">Sipi</a> (see <a href="../../02-knora-ontologies/knora-base.html#filevalue">FileValue</a>). Knora API v2 currently supports using Sipi to store image files. Support for other types of files will be added in the near future.</p>
+<p>Knora supports the storage of certain types of data as files, using <a href="https://github.com/dhlab-basel/Sipi">Sipi</a> (see <a href="../../02-knora-ontologies/knora-base.html#filevalue">FileValue</a>). Knora API v2 currently supports using Sipi to store the following types of files:</p>
+<ul>
+  <li>Images (JPEG, JPEG2000, TIFF, PNG), which are stored internally as JPEG2000</li>
+  <li>PDF</li>
+</ul>
+<p>Support for other types of files will be added in the future.</p>
 <p>The following sections describe the steps for creating a file value.</p>
 <h3><a href="#upload-files-to-sipi" name="upload-files-to-sipi" class="anchor"><span class="anchor-link"></span></a>Upload Files to Sipi</h3>
 <p>The first step is to upload one or more files to Sipi, using a <code>multipart/form-data</code> request, where <code>sipihost</code> represents the host and port on which Sipi is running:</p>
 <pre><code>HTTP POST to http://sipihost/upload?token=TOKEN
 </code></pre>
 <p>The <code>token</code> parameter must provide the <a href="https://jwt.io/">JSON Web Token</a> that Knora returned when the client logged in. Each body part in the request must contain a parameter <code>filename</code>, providing the file&rsquo;s original filename, which both Knora and Sipi will store; these filenames can be descriptive and need not be unique.</p>
-<p>Sipi will then convert the uploaded image files to JPEG 2000 format and store them in a temporary location. If this is successful, it will return a JSON response that looks something like this:</p>
+<p>Sipi stores the file in a temporary location. If the file is an image, it is converted first to JPEG2000 format, and the converted file is stored.</p>
+<p>Sipi then returns a JSON response that looks something like this:</p>
 <pre class="prettyprint"><code class="language-json">{
   &quot;uploadedFiles&quot;: [{
     &quot;originalFilename&quot;: &quot;manuscript-1234-page-1.tiff&quot;,
@@ -412,7 +419,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
   <li>the unique <code>internalFilename</code> that Sipi has randomly generated for the file</li>
   <li>the <code>temporaryBaseIIIFUrl</code>, which we can use to construct a IIIF URL for  previewing the file</li>
 </ul>
-<p>The client may now wish to get a thumbnail of each uploaded image, to allow the user to confirm that the correct files have been uploaded. This can be done by adding IIIF parameters to <code>temporaryBaseIIIFUrl</code>. For example, to get a JPG thumbnail image that is 150 pixels wide, you would add <code>/full/150,/0/default.jpg</code>.</p>
+<p>In the case of an image file, the client may now wish to get a thumbnail of each uploaded image, to allow the user to confirm that the correct files have been uploaded. This can be done by adding IIIF parameters to <code>temporaryBaseIIIFUrl</code>. For example, to get a JPG thumbnail image that is 150 pixels wide, you would add <code>/full/150,/0/default.jpg</code>.</p>
 <h3><a href="#submit-a-file-value-to-knora" name="submit-a-file-value-to-knora" class="anchor"><span class="anchor-link"></span></a>Submit A File Value to Knora</h3>
 <p>A Knora <code>Representation</code> (i.e. a resource containing information about a file) must always have exactly one file value attached to it. (see <a href="../../02-knora-ontologies/knora-base.html#representations">Representations</a>). Therefore, a request to create a new file value must always be submitted as part of a request to create a new resource (see <a href="editing-resources.html#creating-a-resource">Creating a Resource</a>). You can also update a file value in an existing <code>Representation</code>; see <a href="editing-values.html#updating-a-value">Updating a Value</a>.</p>
 <p>Instead of providing the file&rsquo;s complete metadata to Knora, you just provide the unique internal filename generated by Sipi. Here is an example of a request to create a resource of class <code>anything:ThingPicture</code>, which is a subclass of <code>knora-api:StillImageRepresentation</code> and therefore has the property <code>knora-api:hasStillImageFileValue</code>:</p>
@@ -436,6 +443,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 }
 </code></pre>
 <p>Knora then gets the rest of the file&rsquo;s metadata from Sipi. If the client&rsquo;s request to Knora is valid, Knora saves the file value in the triplestore and instructs Sipi to move the file to permanent storage. Otherwise, the temporary file that was stored by Sipi is deleted.</p>
+<p>If you&rsquo;re submitting a PDF document, use the resource class <code>knora-api:DocumentRepresentation</code>, which has the property <code>knora-api:hasDocumentFileValue</code>, pointing to a <code>knora-api:DocumentFileValue</code>.</p>
 <h2><a href="#updating-a-value" name="updating-a-value" class="anchor"><span class="anchor-link"></span></a>Updating a Value</h2>
 <p>To update a value, use this route:</p>
 <pre><code>HTTP PUT to http://host/v2/values
@@ -505,7 +513,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-10.0.0
+12.0.0
 </span>
 </div>
 </article>

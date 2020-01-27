@@ -153,6 +153,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v1/index.html" class="page">Knora API v1</a></li>
     <li><a href="../../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
+    <li><a href="../../03-apis/api-util/index.html" class="page">Knora Util API</a></li>
   </ul></li>
   <li><a href="../../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
@@ -210,7 +211,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 10.0.0
+<i class="md-icon">label_outline</i> 12.0.0
 </div>
 </nav>
 
@@ -306,199 +307,268 @@ $ ./graphdb-se-local-init-knora-test-unit.sh
 <h2><a href="#load-testing-on-mac-os-x" name="load-testing-on-mac-os-x" class="anchor"><span class="anchor-link"></span></a>Load Testing on Mac OS X</h2>
 <p>To test Knora with many concurrent connections on Mac OS X, you will need to adjust some kernel parameters to allow more open connections, to recycle ephemeral ports more quickly, and to use a wider range of ephemeral port numbers. The script <code>webapi/scripts/macOS-kernel-test-config.sh</code> will do this.</p>
 <h2><a href="#continuous-integration" name="continuous-integration" class="anchor"><span class="anchor-link"></span></a>Continuous Integration</h2>
-<p>For continuous integration testing, we use Travis-CI. Every commit pushed to the git repository or every pull request, triggers the build. Additionaly, in Github there is a litle checkmark beside every commit, signaling the status of the build (successful, unsucessful, ongoing).</p>
-<p>The build that is executed on Travis-CI is defined in <code>.travis.yml</code> situated in the root folder of the project, and looks like this:</p>
-<pre class="prettyprint"><code class="language-yml">dist: bionic
+<p>For continuous integration testing, we use Github CI Actions. Every commit pushed to the git repository or every pull request, triggers the build. Additionally, in Github there is a small checkmark beside every commit, signaling the status of the build (successful, unsuccessful, ongoing).</p>
+<p>The build that is executed on Github CI Actions is defined in <code>.github/workflows/main.yml</code>, and looks like this:</p>
+<pre class="prettyprint"><code class="language-yml">name: CI
 
-sudo: required
-
-addons:
-  chrome: stable
-  apt:
-    packages:
-      - expect
-
-language: scala
-
-scala:
-  - &quot;2.12.1&quot;
-
-python:
-  - &quot;3.7&quot;
-
-jdk:
-  - openjdk10
-
-services:
-  - docker
-  # - redis-server
+on: [push]
 
 env:
-  global:
-  - secure: Sj0D8wR3Vx0J0h+LBUIh9t1PWjLJ2NEiKILf3JO5nuGdlU7dPhbFomR4w08q85O4d60km38ml7zpapC4noDQnbAFQHC6XeOe5CWPYFXCxkw7ueBoxhy/vkfSzypXp0UTNUX3S7+RcGJcTxLaZcUC9u+UaoWB0LMkmOcIlrKIDuzm3HcefMsml8gYX1xhS2TQJ8P7ZerzBmm0kERYLUabhxTnj5WAvue0d1xbUtzCzT1LpignOfsUZ9kHTagQEA15JsU0iNrMCvlDcxRWj8OzLhHRoHui4bJPQQfKEA8oMnTkPyzBRLmqafqHvmGcNQp9iGhuU04gb+FkF4gubBkLrxEvgTL/D5vIin3BHQvnZna9zSnUguZS+jw4sfEYcjZgYRzgMRPma/630ZM08FSZZ/qjSTCut4Cjua5aw2Vf9pYhf+Aad5rR0T2JmVYKp6Ik92aLhPOF9U40MacKRPPT54RIjCYcakZlmU4vl+kK37l3sYjvD57LeSs3PlqvkpSxwJzaQDhZFOZ+c7ICo+zU7DcQnWkN7k+ErKBOE7r0mIqvYuBYhdteBVKfo8a4rpDzYJDXaWzBdjc8ZKiEFQvFHngnZjR2UtKc0CAc6Y7ieCWIvBZYdMoHhKsBwFDaO1iuWwDLW3cswXaPEqENonlVAnXePu7KkQeB2acwDzPkhlI=
-  - secure: iM3Wjt3f5yUaU16yKstwBEEFA8WKx8qcTVnOwF+o9+sooD1SZ39nYJDPgpHHNwFZ1aSkre5ATPEw+dfslr7SnnwYQeYHjYldcqudB+7pq4dmY5U3rCTsjZCH1XmLnnLO45CZRy05pIAUSxWpIiX5khWoHZd704UlDncqIU/6paWWNkywPb2P4UBZ5Xeai1NTS1URHRz0A4aD+dqwKS6P+baq4CyKLC/AqjsTDI+TV4C26FXXTgS0Ly9VfBVZ55D+SdVHgCZXJaHerAixjSX6zvenfkd/87GR6NEAgJ9QofF2nDEXBZZm4jPv5d285Cc4iUvRo1HLbI1VlALya3qUA9Prbno8QQaChNdjRS7mSplkCxZZKzBItpjvI009NPl20zX6GROb/JCjWHRZ4R358cebFKKqE4W1GBArS0piVbdqZyWA/t5KANouQIdrh+lepAf/Xq5JRcDP9r+Rk2hHLk2Rmj97gv001eRf9GjSEC1Qo1kwu1FabZok1UIemJHpY7yWO4d3ZKSOCyQ0WdW6rLMFGkouoByrFVfNPBVxLqDJ3YVL/4x5jc0Q9+G5jm6omqNwQSsn60nUizZJp1fuLGQRUNj8EDvRhxLgVkOJqFf4P/4qRas47k1wkWBk2iBlpNp2eQTY42IZovPIyT+NCfbdg0yyZRyHThpfc+KfTeg=
-  - WEBAPI_REPO=dhlabbasel/webapi
-  - SALSAH1_REPO=dhlabbasel/salsah1
-  - SALSAH2_REPO=dhlabbasel/salsah2
-  - SIPI_REPO=dhlabbasel/sipi
-  - DOCKERHOST=$(ip route get 8.8.8.8 | awk &#39;{print $NF; exit}&#39;)
-  - CHROME_BIN=google-chrome-stable
-  - GDB_HEAP_SIZE=&quot;2G&quot;
-  - TAG=${TRAVIS_BRANCH//\//-}
-  - GRAPHDB_VERSION=&quot;8.5.0-se&quot;
-
-before_cache:
-  - sudo chown -R travis:travis $HOME/.ivy2
-
-cache:
-  directories:
-    - &quot;$HOME/.ivy2&quot;
-
-before_install:
-  - openssl aes-256-cbc -K $encrypted_ec8f5e0fa991_key -iv $encrypted_ec8f5e0fa991_iv -in travis/secrets.tar.enc -out $TRAVIS_BUILD_DIR/travis/secrets.tar -d
-  - tar -C travis -xvf travis/secrets.tar
-
-stages:
-  - compile and stage
-  - test
-  - name: publish # generally, only publish if we are on &#39;develop&#39; or tagged
-    if: branch = develop OR tag IS present
+  KNORA_GDB_LICENSE: ${{ github.workspace }}/ci/graphdb.license
 
 jobs:
-  include:
-    # test sbt compile and stage
-    - stage: compile and stage
-      script:
-        - rm -rf $HOME/.sbt
-        - rm -rf $HOME/.ivy2
-        - cd $TRAVIS_BUILD_DIR &amp;&amp; sbt clean stage
-        # only uncomment if docker image is needed for this branch. remove before merging into develop
-        # - docker login -u $DOCKER_USER -p $DOCKER_PASS
-        # - sbt webapi/docker:publish
-        # - sbt salsah1/docker:publish
-        # - sbt knora-sipi/docker:publish
-        # - sbt knora-graphdb-se/docker:publish
-        # - sbt knora-graphdb-free/docker:publish
-        # - sbt upgrade/docker:publish
-        # - sbt knora-assets/docker:publish
-    # unit tests
-    - stage: test
-      script:
-        # set graphdb license
-        - export KNORA_GDB_LICENSE=$TRAVIS_BUILD_DIR/travis/graphdb.license
-        # start the integration tests
-        - make unit-tests-with-coverage
-        # print out .env file used by the stack
-        - make print-env-file
-    # e2e tests
-    - stage: test
-      script:
-        # set graphdb license
-        - export KNORA_GDB_LICENSE=$TRAVIS_BUILD_DIR/travis/graphdb.license
-        # start the integration tests
-        - make e2e-tests-with-coverage
-        # print out .env file used by the stack
-        - make print-env-file
-    # integration tests
-    - stage: test
-      script:
-        # set graphdb license
-        - export KNORA_GDB_LICENSE=$TRAVIS_BUILD_DIR/travis/graphdb.license
-        # start the integration tests
-        - make it-tests-with-coverage
-        # print out Sipi logs
-        - make stack-logs-sipi-no-follow
-        # print out .env file used by the stack
-        - make print-env-file
-    # upgrade tests
-    - stage: test
-      script:
-        # build all docker images
-        - make build-all-images
-        # prepare needed graphdb-se files
-        - mkdir -p $TRAVIS_BUILD_DIR/graphdb
-        - cp $TRAVIS_BUILD_DIR/travis/graphdb.license $TRAVIS_BUILD_DIR/graphdb/graphdb.license
-        - cp $TRAVIS_BUILD_DIR/webapi/scripts/KnoraRules.pie $TRAVIS_BUILD_DIR/graphdb
-        # start and initialize graphdb-se
-        - docker network create knora-net
-        - docker run --rm -d --name=db --network=knora-net -p 127.0.0.1:7200:7200 -v $TRAVIS_BUILD_DIR/graphdb:/graphdb -e GDB_HEAP_SIZE=$GDB_HEAP_SIZE daschswiss/knora-graphdb-se -Dgraphdb.license.file=/graphdb/graphdb.license
-        - sleep 5
-        - make init-db-test-minimal
-        # load v7.0.0 data and run auto-upgrade (sbt use case)
-        - cd $TRAVIS_BUILD_DIR/upgrade/graphdb-se
-        - unzip $TRAVIS_BUILD_DIR/test-data/v7.0.0/v7.0.0-knora-test.trig.zip
-        - ./empty-repository.sh -r knora-test -u gaga -p gaga -h localhost:7200
-        - ./upload-repository.sh -r knora-test -u gaga -p gaga -h localhost:7200 v7.0.0-knora-test.trig
-        - ./auto-upgrade.sh -r knora-test -u gaga -p gaga -h localhost:7200 -t /tmp/upgrade.dir
-        # load v7.0.0 data and run auto-upgrade (docker use case)
-        - ./empty-repository.sh -r knora-test -u gaga -p gaga -h localhost:7200
-        - ./upload-repository.sh -r knora-test -u gaga -p gaga -h localhost:7200 v7.0.0-knora-test.trig
-        - docker run -it --rm --network=knora-net -v /tmp:/tmp -e KNORA_UPGRADE_DOCKER=true daschswiss/knora-upgrade -r knora-test -u gaga -p gaga -h db:7200 -t /tmp/upgrade.dir
-    # testing docs generation
-    - stage: test
-      script:
-        - mkdir -p $TRAVIS_BUILD_DIR/docs/target
-        - chmod 777 $TRAVIS_BUILD_DIR/docs/target
-        - make docs-build
-    # Salsah browser tests
-    #- stage: test
-    #  script:
-    #    # prepare needed graphdb-se files
-    #    - mkdir -p $TRAVIS_BUILD_DIR/data/conf
-    #    - cp $TRAVIS_BUILD_DIR/travis/graphdb.license $TRAVIS_BUILD_DIR/data/conf/graphdb.license
-    #    - mkdir -p $TRAVIS_BUILD_DIR/graphdb
-    #    - cp $TRAVIS_BUILD_DIR/webapi/scripts/KnoraRules.pie $TRAVIS_BUILD_DIR/graphdb
-    #    # start and initialize graphdb-se
-    #    - docker run -d -p 127.0.0.1:7200:7200 -v $TRAVIS_BUILD_DIR/data:/opt/graphdb/home -v $TRAVIS_BUILD_DIR/graphdb:/graphdb -e GDB_HEAP_SIZE=$GDB_HEAP_SIZE ontotext/graphdb:$GRAPHDB_VERSION
-    #    - sleep 15
-    #    - cd $TRAVIS_BUILD_DIR/webapi/scripts &amp;&amp; ./graphdb-se-docker-init-knora-test.sh
-    #    # start the sipi container (with test config)
-    #    - docker run -d --add-host webapihost:$DOCKERHOST -v /tmp:/tmp -v $HOME:$HOME -p 1024:1024 $SIPI_REPO:develop /sipi/local/bin/sipi --config=/sipi/config/sipi.knora-test-docker-config.lua
-    #    # start the webapi and salsah1 server
-    #    - cd $TRAVIS_BUILD_DIR/webapi/ &amp;&amp; sbt &quot;run allowReloadOverHTTP&quot; &amp;
-    #    - cd $TRAVIS_BUILD_DIR/salsah1/ &amp;&amp; sbt run &amp;
-    #    # wait for the webapi server to start before we proceed with running the salsah tests
-    #    - until netstat -an 2&gt;/dev/null | grep &#39;3333.*LISTEN&#39;; do true; done
-    #    # unzip chromedriver
-    #    - cd $TRAVIS_BUILD_DIR/salsah1/lib/chromedriver/ &amp;&amp; unzip chromedriver_linux64.zip
-    #    # start built-in salsah1 browser tests
-    #    - cd $TRAVIS_BUILD_DIR/salsah1/ &amp;&amp; sbt headless:test
-    - stage: publish
-      script:
-        # login into docker hub, build image, and push but only when on the &quot;develop&quot; branch or tagged
-        # when on &#39;develop&#39; then $TRAVIS_BRANCH = develop
-        # when on &#39;tag&#39; then $TRAVIS_BRANCH = tag, e.g., v1.2.0
-        - docker login -u $DOCKER_USER -p $DOCKER_PASS
-        # knora-api
-        - sbt webapi/docker:publish
-        # knora-salsah1
-        - sbt salsah1/docker:publish
-        # knora-sipi
-        - sbt knora-sipi/docker:publish
-        # knora-graphdb-se
-        - sbt knora-graphdb-se/docker:publish
-        # knora-graphdb-free
-        - sbt knora-graphdb-free/docker:publish
-        # knora-upgrade
-        - sbt upgrade/docker:publish
-        # knora-assets
-        - sbt knora-assets/docker:publish
-        # publish images to daschswiss dockerhub organization
-        - make publish-all-images
+  compile:
+    name: Build Everything
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo &quot;$GITHUB_CONTEXT&quot;
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo &quot;$JOB_CONTEXT&quot;
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo &quot;$STEPS_CONTEXT&quot;
+      - name: Dump runner context
+        env:
+          RUNNER_CONTEXT: ${{ toJson(runner) }}
+        run: echo &quot;$RUNNER_CONTEXT&quot;
+      - name: Dump strategy context
+        env:
+          STRATEGY_CONTEXT: ${{ toJson(strategy) }}
+        run: echo &quot;$STRATEGY_CONTEXT&quot;
+      - name: Dump matrix context
+        env:
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        run: echo &quot;$MATRIX_CONTEXT&quot;
+      - name: cache maven artifacts
+        uses: actions/cache@v1
+        with:
+          path: ~/.ivy2
+          key: ${{ runner.OS }}-build-${{ hashFiles(&#39;**/KnoraBuild.sbt&#39;) }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - name: Run build everything
+        run: sbt clean test:compile it:compile stage
 
-notifications:
-  slack:
-    secure: gaazomUbAB4q7bH2XOiZXqHvU2gd/X/jIRLAJW9vjcRbY6o48eiEdNXF2umraHG0q+5UUEJ5dfvxiPtC4PiUq8uD6J+R0fEWrWznYoIeEWEXjKxRxWplrWJ9Ke+PJb3wCV6cXBGMfxDpvYQbVjsy7n0aQmjNs4Drz+llqL5SilTdswTylwvUdufad0QaovXklL+p0w9vRHRKzQkYKa9phL10VcJa8TPI74tuFcTHnK6TcMNW6p0vzAaF6JVgzoRPzUgXnEPCw4pI8zqOF1ghPpQByNXKiYofPWt1yTFgb60LQarDEiHXunXAA/sf2gx616pWLVjDFGziXVzhiGUDUjM5I1p7hPyA2rTB63AAZustFcGeD+jbHNHIFhcvvCHVHjJfp8M7LrUR+MBqz5mJNi/9KgxyZ8I9Df28TxmKxGFaGW8t4PZdA75/49Hos0TqtIp5m+eo8mTksUJogEJJokRZUKraMBhC0cNCry0kp+EQ06F4usLoDyZTUar4OSuNSiymf+zwz6jZo8dF/cluRYellwewE9NJiNWGN4DiBhk2vGJ7OtWMDPkl1tqkG8npoqbT4s38esjxfa/XcworGfeqE+9mzugVzkIKIX2lB6QxZp0AKQVOiy7JwwdtcjVMLvceiNPEWfe8fhLMX02oqYz2uoibRmHMxKPa5CpmUIg=</code></pre>
-<p>It basically means:</p>
-<ul>
-  <li>use the virtual machine based environment (line 1)</li>
-  <li>checkout git with a shorter history (lines 2-3)</li>
-  <li>add scala libraries (lines 4-6)</li>
-  <li>add oracle jdk version 8 (lines 7-8)</li>
-  <li>cache some directories between builds to make it faster (line  9-11)</li>
-  <li>start fuseki and afterwards start all tests (lines 12-14)</li>
-  <li>send notification to our slack channel (lines 15-17)</li>
-</ul>
+  api-unit-tests:
+    name: API Unit Tests
+    needs: compile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: cache maven artifacts
+        uses: actions/cache@v1
+        with:
+          path: ~/.ivy2
+          key: ${{ runner.OS }}-build-${{ hashFiles(&#39;**/KnoraBuild.sbt&#39;) }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - name: prepare needed graphdb-se files
+        run: |
+          echo ${{ secrets.license_encryption_key }} | gpg --quiet --batch --yes --decrypt --passphrase-fd 0 --output $GITHUB_WORKSPACE/ci/secrets.tar $GITHUB_WORKSPACE/ci/secrets.tar.gpg
+          tar -C ci -xvf ci/secrets.tar
+          mkdir -p $GITHUB_WORKSPACE/graphdb
+          cp $GITHUB_WORKSPACE/ci/graphdb.license $GITHUB_WORKSPACE/graphdb/graphdb.license
+          cp $GITHUB_WORKSPACE/webapi/scripts/KnoraRules.pie $GITHUB_WORKSPACE/graphdb
+      - name: Print env file
+        run: make print-env-file
+      - name: Run API unit tests
+        run: make unit-tests-with-coverage
+
+  api-e2e-tests:
+    name: API E2E Tests
+    needs: compile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: cache maven artifacts
+        uses: actions/cache@v1
+        with:
+          path: ~/.ivy2
+          key: ${{ runner.OS }}-build-${{ hashFiles(&#39;**/KnoraBuild.sbt&#39;) }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - name: prepare needed graphdb-se files
+        run: |
+          echo ${{ secrets.license_encryption_key }} | gpg --quiet --batch --yes --decrypt --passphrase-fd 0 --output $GITHUB_WORKSPACE/ci/secrets.tar $GITHUB_WORKSPACE/ci/secrets.tar.gpg
+          tar -C ci -xvf ci/secrets.tar
+          mkdir -p $GITHUB_WORKSPACE/graphdb
+          cp $GITHUB_WORKSPACE/ci/graphdb.license $GITHUB_WORKSPACE/graphdb/graphdb.license
+          cp $GITHUB_WORKSPACE/webapi/scripts/KnoraRules.pie $GITHUB_WORKSPACE/graphdb
+      - name: print env file
+        run: make print-env-file
+      - name: run API E2E tests
+        run: make e2e-tests-with-coverage
+
+  api-integration-tests:
+    name: API Integration Tests
+    needs: compile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: cache maven artifacts
+        uses: actions/cache@v1
+        with:
+          path: ~/.ivy2
+          key: ${{ runner.OS }}-build-${{ hashFiles(&#39;**/KnoraBuild.sbt&#39;) }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - name: prepare needed graphdb-se files
+        run: |
+          echo ${{ secrets.license_encryption_key }} | gpg --quiet --batch --yes --decrypt --passphrase-fd 0 --output $GITHUB_WORKSPACE/ci/secrets.tar $GITHUB_WORKSPACE/ci/secrets.tar.gpg
+          tar -C ci -xvf ci/secrets.tar
+          mkdir -p $GITHUB_WORKSPACE/graphdb
+          cp $GITHUB_WORKSPACE/ci/graphdb.license $GITHUB_WORKSPACE/graphdb/graphdb.license
+          cp $GITHUB_WORKSPACE/webapi/scripts/KnoraRules.pie $GITHUB_WORKSPACE/graphdb
+      - name: print env file
+        run: make print-env-file
+      - name: run API integration tests
+        run: make it-tests-with-coverage
+
+  upgrade-unit-tests:
+    name: Upgrade Unit Tests
+    needs: compile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: cache maven artifacts
+        uses: actions/cache@v1
+        with:
+          path: ~/.ivy2
+          key: ${{ runner.OS }}-build-${{ hashFiles(&#39;**/KnoraBuild.sbt&#39;) }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - name: run upgrade tests
+        run: sbt &quot;upgrade/test&quot;
+
+  upgrade-integration-tests:
+    name: Upgrade Integration Tests
+    needs: compile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-java@v1
+        with:
+          java-version: &#39;11.x.x&#39;
+      - name: cache maven artifacts
+        uses: actions/cache@v1
+        with:
+          path: ~/.ivy2
+          key: ${{ runner.OS }}-build-${{ hashFiles(&#39;**/KnoraBuild.sbt&#39;) }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - name: install requirements
+        run: sudo apt-get install expect
+      - name: build all docker images
+        run: |
+          make build-all-scala
+          make build-all-images
+      - name: prepare needed graphdb-se files
+        run: |
+          echo ${{ secrets.license_encryption_key }} | gpg --quiet --batch --yes --decrypt --passphrase-fd 0 --output $GITHUB_WORKSPACE/ci/secrets.tar $GITHUB_WORKSPACE/ci/secrets.tar.gpg
+          tar -C ci -xvf ci/secrets.tar
+          mkdir -p $GITHUB_WORKSPACE/graphdb
+          cp $GITHUB_WORKSPACE/ci/graphdb.license $GITHUB_WORKSPACE/graphdb/graphdb.license
+          cp $GITHUB_WORKSPACE/webapi/scripts/KnoraRules.pie $GITHUB_WORKSPACE/graphdb
+      - name: start and initialize graphdb-se
+        run: |
+          docker network create knora-net
+          docker run --rm -d --name=db --network=knora-net -p 127.0.0.1:7200:7200 -v $GITHUB_WORKSPACE/ci/graphdb.license:/graphdb/graphdb.license -e GDB_HEAP_SIZE=$GDB_HEAP_SIZE daschswiss/knora-graphdb-se -Dgraphdb.license.file=/graphdb/graphdb.license
+          sleep 5
+          make init-db-test-minimal
+      - name: unzip test data
+        run: unzip $GITHUB_WORKSPACE/test-data/v7.0.0/v7.0.0-knora-test.trig.zip -d $GITHUB_WORKSPACE/test-data/v7.0.0/
+      - name: empty repository
+        run: $GITHUB_WORKSPACE/upgrade/graphdb-se/empty-repository.sh -r knora-test -u gaga -p gaga -h localhost:7200
+      - name: load v7.0.0 data
+        run: $GITHUB_WORKSPACE/upgrade/graphdb-se/upload-repository.sh -r knora-test -u gaga -p gaga -h localhost:7200 $GITHUB_WORKSPACE/test-data/v7.0.0/v7.0.0-knora-test.trig
+      - name: dump repository data
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/upgrade/out
+          $GITHUB_WORKSPACE/upgrade/graphdb-se/dump-repository.sh -r knora-test -u gaga -p gaga -h localhost:7200 $GITHUB_WORKSPACE/upgrade/out/dump.trig
+      - name: run upgrade from inside docker
+        run: docker run --rm --network=knora-net -v $GITHUB_WORKSPACE/upgrade/out:/upgrade/out daschswiss/knora-upgrade /upgrade/out/dump.trig /upgrade/out/dump-upgraded.trig
+      - name: empty repository
+        run: $GITHUB_WORKSPACE/upgrade/graphdb-se/empty-repository.sh -r knora-test -u gaga -p gaga -h localhost:7200
+      - name: load upgraded data
+        run: $GITHUB_WORKSPACE/upgrade/graphdb-se/upload-repository.sh -r knora-test -u gaga -p gaga -h localhost:7200 $GITHUB_WORKSPACE/upgraded/out/dump-upgraded.trig
+
+  docs-build-test:
+    name: Docs Build Test
+    needs: compile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: cache maven artifacts
+        uses: actions/cache@v1
+        with:
+          path: ~/.ivy2
+          key: ${{ runner.OS }}-build-${{ hashFiles(&#39;**/KnoraBuild.sbt&#39;) }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - name: run docs build test
+        run: |
+          mkdir -p $GITHUB_WORKSPACE/docs/target
+          chmod 777 $GITHUB_WORKSPACE/docs/target
+          make docs-build
+
+  # publish only for develop and tags
+  publish:
+    name: Publish to Dockerhub
+    needs: [api-unit-tests, api-e2e-tests, api-integration-tests, upgrade-unit-tests, upgrade-integration-tests, docs-build-test]
+    runs-on: ubuntu-latest
+    if: github.ref == &#39;refs/heads/develop&#39; || startsWith(github.ref, &#39;refs/tags&#39;)
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 50
+      - name: cache maven artifacts
+        uses: actions/cache@v1
+        with:
+          path: ~/.ivy2
+          key: ${{ runner.OS }}-build-${{ hashFiles(&#39;**/KnoraBuild.sbt&#39;) }}
+          restore-keys: |
+            ${{ runner.OS }}-build-${{ env.cache-name }}-
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - name: build and publish all images to Dockerhub
+        run: |
+          echo ${{ secrets.DOCKER_HUB_TOKEN }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
+          make publish-all-images</code></pre>
 <h2><a href="#webapi-server-startup-flags" name="webapi-server-startup-flags" class="anchor"><span class="anchor-link"></span></a>Webapi Server Startup-Flags</h2>
 <p>The Webapi-Server can be started with a number of flags. These flags can be supplied either to the <code>reStart</code> or the <code>run</code> command in sbt, e.g.,:</p>
 <pre><code>$ sbt
@@ -548,7 +618,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-10.0.0
+12.0.0
 </span>
 </div>
 </article>

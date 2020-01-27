@@ -153,6 +153,7 @@ dhlab-basel/Knora/docs
     <li><a href="../../03-apis/api-v1/index.html" class="page">Knora API v1</a></li>
     <li><a href="../../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
+    <li><a href="../../03-apis/api-util/index.html" class="page">Knora Util API</a></li>
   </ul></li>
   <li><a href="../../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
@@ -216,7 +217,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 10.0.0
+<i class="md-icon">label_outline</i> 12.0.0
 </div>
 </nav>
 
@@ -378,7 +379,7 @@ PREFIX incunabula: &lt;http://0.0.0.0:3333/ontology/0803/simple/v2#&gt;
 <h2><a href="#graph-patterns-and-result-graphs" name="graph-patterns-and-result-graphs" class="anchor"><span class="anchor-link"></span></a>Graph Patterns and Result Graphs</h2>
 <p>The WHERE clause of a Gravsearch query specifies a graph pattern. Each query result will match this graph pattern, and will have the form of a graph whose starting point is a main resource. The query&rsquo;s graph pattern, and hence each query result graph, can span zero more levels of relations between resources. For example, a query could request regions in images on pages of books written by a certain author, articles by authors who were students of a particular professor, or authors of texts that refer to events that took place within a certain date range.</p>
 <h2><a href="#permission-checking" name="permission-checking" class="anchor"><span class="anchor-link"></span></a>Permission Checking</h2>
-<p>Each matching resource is returned only if the client has permission to see all the values of that resource that matched the criteria given in the WHERE clause. If a matching resource contains a value that was mentioned in the WHERE clause, but the client does not have permission to see that value, the resource is not returned in the results, and is instead replaced by a proxy resource called <code>knora-api:ForbiddenResource</code>.</p>
+<p>Each matching resource is returned with the values that the user has permission to see. If the user does not have permission to see a matching main resource, it is replaced by a proxy resource called <code>knora-api:ForbiddenResource</code>. If a user does not have permission to see a matching dependent resource, only its IRI is returned.</p>
 <h2><a href="#inference" name="inference" class="anchor"><span class="anchor-link"></span></a>Inference</h2>
 <p>Gravsearch queries are understood to imply <a href="https://www.w3.org/TR/rdf11-mt/">RDFS reasoning</a>. Depending on the triplestore being used, this may be implemented using the triplestore&rsquo;s own reasoner or by query expansion in Knora.</p>
 <p>This means that if a statement pattern specifies a property, the pattern will also match subproperties of that property, and if a statement specifies that a subject has a particular <code>rdf:type</code>, the statement will also match subjects belonging to subclasses of that type.</p>
@@ -875,7 +876,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-10.0.0
+12.0.0
 </span>
 </div>
 </article>

@@ -153,6 +153,7 @@ dhlab-basel/Knora/docs
     <li><a href="../03-apis/api-v1/index.html" class="page">Knora API v1</a></li>
     <li><a href="../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
+    <li><a href="../03-apis/api-util/index.html" class="page">Knora Util API</a></li>
   </ul></li>
   <li><a href="../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
@@ -200,14 +201,13 @@ dhlab-basel/Knora/docs
 <ul>
   <li><a href="../04-publishing-deployment/publishing.html#publishing" class="header">Publishing</a>
   <ul>
-    <li><a href="../04-publishing-deployment/publishing.html#using-sbt-for-publishing" class="header">Using SBT for publishing</a></li>
     <li><a href="../04-publishing-deployment/publishing.html#graphdb-licensing" class="header">GraphDB Licensing</a></li>
   </ul></li>
 </ul>
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 10.0.0
+<i class="md-icon">label_outline</i> 12.0.0
 </div>
 </nav>
 
@@ -222,7 +222,6 @@ dhlab-basel/Knora/docs
 <ul>
   <li><a href="../04-publishing-deployment/publishing.html#publishing" class="header">Publishing</a>
   <ul>
-    <li><a href="../04-publishing-deployment/publishing.html#using-sbt-for-publishing" class="header">Using SBT for publishing</a></li>
     <li><a href="../04-publishing-deployment/publishing.html#graphdb-licensing" class="header">GraphDB Licensing</a></li>
   </ul></li>
 </ul>
@@ -257,42 +256,29 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>The following Docker images are published:</p>
 <ul>
   <li>Knora-API:</li>
-  <li><a href="https://hub.docker.com/r/dhlabbasel/webapi">https://hub.docker.com/r/dhlabbasel/webapi</a></li>
+  <li><a href="https://hub.docker.com/r/daschswiss/knora-api">https://hub.docker.com/r/daschswiss/knora-api</a></li>
   <li>GraphDB-SE (includes <code>KnoraRules.pie</code>):</li>
-  <li><a href="https://hub.docker.com/r/dhlabbasel/knora-graphdb-se">https://hub.docker.com/r/dhlabbasel/knora-graphdb-se</a></li>
+  <li><a href="https://hub.docker.com/r/daschswiss/knora-graphdb-se">https://hub.docker.com/r/daschswiss/knora-graphdb-se</a></li>
   <li>GraphDB-Free (includes <code>KnoraRules.pie</code>):</li>
-  <li><a href="https://hub.docker.com/r/dhlabbasel/knora-graphdb-free">https://hub.docker.com/r/dhlabbasel/knora-graphdb-free</a></li>
+  <li><a href="https://hub.docker.com/r/daschswiss/knora-graphdb-free">https://hub.docker.com/r/daschswiss/knora-graphdb-free</a></li>
   <li>Sipi (includes Knora&rsquo;s Sipi scripts):</li>
-  <li><a href="https://hub.docker.com/r/dhlabbasel/knora-sipi">https://hub.docker.com/r/dhlabbasel/knora-sipi</a></li>
+  <li><a href="https://hub.docker.com/r/daschswiss/knora-sipi">https://hub.docker.com/r/daschswiss/knora-sipi</a></li>
   <li>Knora-Assets (Knora-Base ontologies, test data, and scripts):</li>
-  <li><a href="https://hub.docker.com/r/dhlabbasel/knora-assets">https://hub.docker.com/r/dhlabbasel/knora-assets</a></li>
+  <li><a href="https://hub.docker.com/r/daschswiss/knora-assets">https://hub.docker.com/r/daschswiss/knora-assets</a></li>
   <li>Knora-Upgrade (Knora upgrade tool):</li>
-  <li><a href="https://hub.docker.com/r/dhlabbasel/knora-upgrade">https://hub.docker.com/r/dhlabbasel/knora-upgrade</a></li>
+  <li><a href="https://hub.docker.com/r/daschswiss/knora-upgrade">https://hub.docker.com/r/daschswiss/knora-upgrade</a></li>
   <li>Salsah 1:</li>
-  <li><a href="https://hub.docker.com/r/dhlabbasel/salsah1">https://hub.docker.com/r/dhlabbasel/salsah1</a></li>
+  <li><a href="https://hub.docker.com/r/daschswiss/knora-salsah1">https://hub.docker.com/r/daschswiss/knora-salsah1</a></li>
   <li>Salsah 2:</li>
   <li><a href="https://hub.docker.com/r/daschswiss/knora-app-web">https://hub.docker.com/r/daschswiss/knora-app-web</a></li>
 </ul>
-<p>Knora&rsquo;s Docker images are published automatically through Travis each time a pull-request is merged into the <code>develop</code> branch.</p>
+<p>Knora&rsquo;s Docker images are published automatically through Github CI each time a pull-request is merged into the <code>develop</code> branch.</p>
 <p>Each image is tagged with a version number, where the version is derived by using the result of <code>git describe</code>. The describe version is built from the <code>last tag + number of commits since tag + short hash</code>, e.g., <code>8.0.0-7-ga7827e9</code>.</p>
-<h3><a href="#using-sbt-for-publishing" name="using-sbt-for-publishing" class="anchor"><span class="anchor-link"></span></a>Using SBT for publishing</h3>
 <p>The images can be published locally by running:</p>
-<pre class="prettyprint"><code class="language-bash">$ - sbt webapi/docker:publishLocal
-$ sbt salsah1/docker:publishLocal
-$ sbt knora-sipi/docker:publishLocal
-$ sbt knora-graphdb-se/docker:publishLocal
-$ sbt knora-graphdb-free/docker:publishLocal
-$ sbt knora-upgrade/docker:publishLocal
-$ sbt knora-assets/docker:publishLocal
+<pre class="prettyprint"><code class="language-bash">$ make build-all-images
 </code></pre>
 <p>or to Dockerhub:</p>
-<pre class="prettyprint"><code class="language-bash">$ sbt webapi/docker:publish
-$ sbt salsah1/docker:publish
-$ sbt knora-sipi/docker:publish
-$ sbt knora-graphdb-se/docker:publish
-$ sbt knora-graphdb-free/docker:publish
-$ sbt knora-upgrade/docker:publish
-$ sbt knora-assets/docker:publish
+<pre class="prettyprint"><code class="language-bash">$ make publish-all-images
 </code></pre>
 <h2><a href="#graphdb-licensing" name="graphdb-licensing" class="anchor"><span class="anchor-link"></span></a>GraphDB Licensing</h2>
 <p><strong>GraphDB-Free</strong> is the Free Edition of the triplestore from Ontotext (<a href="http://ontotext.com)">http://ontotext.com)</a>. GraphDB-Free must be licensed separately by the user, by registering with Ontotext, i.e. filling out the form for downloading the free edition.</p>
@@ -306,7 +292,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-10.0.0
+12.0.0
 </span>
 </div>
 </article>

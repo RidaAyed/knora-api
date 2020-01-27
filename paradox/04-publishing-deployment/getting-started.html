@@ -153,6 +153,7 @@ dhlab-basel/Knora/docs
     <li><a href="../03-apis/api-v1/index.html" class="page">Knora API v1</a></li>
     <li><a href="../03-apis/api-v2/index.html" class="page">Knora API v2</a></li>
     <li><a href="../03-apis/api-admin/index.html" class="page">Knora Admin API</a></li>
+    <li><a href="../03-apis/api-util/index.html" class="page">Knora Util API</a></li>
   </ul></li>
   <li><a href="../04-publishing-deployment/index.html" class="page">Deploying Knora</a>
   <ul>
@@ -208,7 +209,7 @@ dhlab-basel/Knora/docs
 </nav>
 
 <div class="md-nav__title--site md-version" title="Version">
-<i class="md-icon">label_outline</i> 10.0.0
+<i class="md-icon">label_outline</i> 12.0.0
 </div>
 </nav>
 
@@ -258,14 +259,23 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <p>Running Knora locally or on a server requires <a href="https://www.docker.com">Docker</a>, which can be freely downloaded. Please follow the instructions for installing <a href="https://www.docker.com/products/docker-desktop">Docker Desktop</a>.</p>
 <p>Additional software:</p>
 <ul>
+  <li><a href="https://itunes.apple.com/us/app/xcode/id497799835">Apple Xcode</a></li>
   <li>git</li>
   <li>expect</li>
   <li>sbt</li>
+  <li>java 11</li>
 </ul>
 <p>These can be easily installed on macOS using <a href="https://brew.sh">Homebrew</a>:</p>
 <pre class="prettyprint"><code class="language-bash">$ brew install git
 $ brew install expect
 $ brew install sbt
+</code></pre>
+<p>To install Adoptopenjdk Java 11 with <a href="https://brew.sh">Homebrew</a>:</p>
+<pre class="prettyprint"><code class="language-bash">$ brew tap AdoptOpenJDK/openjdk
+$ brew cask install AdoptOpenJDK/openjdk/adoptopenjdk11
+</code></pre>
+<p>To pin the version of Java, please add this environment variable to you startup script (bashrc, etc.):</p>
+<pre><code>export JAVA_HOME=`/usr/libexec/java_home -v 11`
 </code></pre>
 <h2><a href="#choosing-a-triplestore" name="choosing-a-triplestore" class="anchor"><span class="anchor-link"></span></a>Choosing a Triplestore</h2>
 <p>Knora requires a standards-compliant <a href="https://www.w3.org/TR/rdf11-primer/">RDF</a> triplestore. A number of triplestore implementations are available, including <a href="http://www.gnu.org/philosophy/free-sw.en.html">free software</a> as well as proprietary options.</p>
@@ -273,51 +283,32 @@ $ brew install sbt
 <p>Built-in support and configuration for other triplestores is planned.</p>
 <h2><a href="#running-the-knora-stack" name="running-the-knora-stack" class="anchor"><span class="anchor-link"></span></a>Running the Knora-Stack</h2>
 <p>Use <code>git</code> to clone the Knora repository from <a href="https://github.com/dhlab-basel/Knora">Github</a>.</p>
-<p>After having GraphDB licensed, you need to set some environment variables, based on the GraphDB version that you have licensed:</p>
+<p>After having GraphDB licensed, you need to set some environment variables:</p>
 <p><strong>GraphDB-Free</strong>:</p>
-<pre class="prettyprint"><code class="language-bash">$ export KNORA_GDB_TYPE=graphdb-free
-$ export KNORA_GDB_HOME=/path/to/some/folder // optional. default is &#39;./triplestores/graphdb/home&#39;
+<p>The following environment variables are <strong>optional</strong>:</p>
+<pre class="prettyprint"><code class="language-bash">$ export KNORA_GDB_IMPORT=/path/to/some/folder - sets the path to the import directory accessible from inside the GraphDB Workbench
+$ export KNORA_GDB_HOME=/path/to/some/other_folder // sets the path to the folder where GraphDB will store the database files
 </code></pre>
 <p><strong>GraphDB-SE</strong>:</p>
-<pre class="prettyprint"><code class="language-bash">$ export KNORA_GDB_TYPE=graphdb-se // optional. &#39;graphdb-se&#39; is the default value
-$ export KNORA_GDB_TYPE=/path/to/license/file // path to the GraphDB-SE license file. default is &#39;./triplestores/graphdb/graphdb.license&#39;
-$ export KNORA_GDB_HOME=/path/to/some/folder // optional. default is &#39;./triplestores/graphdb/home&#39;
+<p>The following environment variable is <strong>required</strong>:</p>
+<pre class="prettyprint"><code class="language-bash">export KNORA_GDB_LICENSE=/path/to/license/file - sets the path to the GraphDB-SE license file
+</code></pre>
+<p>The following environment variables are <strong>optional</strong>:</p>
+<pre class="prettyprint"><code class="language-bash">$ export KNORA_GDB_IMPORT=/path/to/some/folder - sets the path to the import directory accessible from inside the GraphDB Workbench
+$ export KNORA_GDB_HOME=/path/to/some/other_folder // sets the path to the folder where GraphDB will store the database files
 </code></pre>
 <p>Then from inside the cloned <code>Knora</code> repository folder, run:</p>
-<pre class="prettyprint"><code class="language-bash">$ sbt
-&gt; dockerComposeUp
-</code></pre>
-<p>After some time, you should see the following output:</p>
-<pre><code>The following endpoints are available for your local instance: 335114
-+---------+-----------+------------------+--------------+----------------+--------------+---------+
-| Service | Host:Port | Tag Version      | Image Source | Container Port | Container Id | IsDebug |
-+=========+===========+==================+==============+================+==============+=========+
-| graphdb | :7200     | 8.0.0-7-ga7827e9 | build        | 7200           | 95d29c651090 |         |
-| redis   | :6379     | 5                | defined      | 6379           | 1b47c3d27362 |         |
-| salsah1 | :3335     | 8.0.0-7-ga7827e9 | build        | 3335           | 1795a58a4dd6 |         |
-| sipi    | :1024     | 8.0.0-7-ga7827e9 | build        | 1024           | 8b916936bb38 |         |
-| webapi  | :3333     | 8.0.0-7-ga7827e9 | build        | 3333           | 629588f04066 |         |
-| webapi  | :10001    | 8.0.0-7-ga7827e9 | build        | 10001          | 629588f04066 |         |
-+---------+-----------+------------------+--------------+----------------+--------------+---------+
-Instance commands:
-1) To stop instance from sbt run:
-   dockerComposeStop 335114
-2) To open a command shell from bash run:
-   docker exec -it &lt;Container Id&gt; bash
-3) To view log files from bash run:
-   docker-compose -p 335114 -f /var/folders/y5/lzx7l8210lnd52jz23_tbztm0000gn/T/compose-updated8134225889726981844.yml logs -f
-4) To execute test cases against instance from sbt run:
-   dockerComposeTest 335114
+<pre class="prettyprint"><code class="language-bash">$ make stack-up
 </code></pre>
 <h2><a href="#creating-repositories-and-loading-test-data" name="creating-repositories-and-loading-test-data" class="anchor"><span class="anchor-link"></span></a>Creating Repositories and Loading Test Data</h2>
-<p>To create a test repository called <code>knora-test</code> and load test data into it, go to <code>webapi/scripts</code> and run the script for the triplestore you have chosen.</p>
+<p>To create a test repository called <code>knora-test</code> and load test data, run:</p>
 <ul>
   <li>
-  <p>For GraphDB-SE, run <code>graphdb-se-docker-init-knora-test.sh</code>.</p></li>
+  <p>For GraphDB-SE: <code>$ make init-db-test</code>.</p></li>
   <li>
-  <p>For GraphDB-Free, run <code>graphdb-free-docker-init-knora-test.sh</code>.</p></li>
+  <p>For GraphDB-Free: <code>$ make init-db-test-free</code>.</p></li>
 </ul>
-<p>You can create your own scripts based on these scripts, to create new repositories and optionally to load existing Knora-compliant RDF data into them.</p>
+<p>The scripts called by <code>make</code> can be found under <code>webapi/scripts</code>. You can create your own scripts based on these scripts, to create new repositories and optionally to load existing Knora-compliant RDF data into them.</p>
 <p>If you are using GraphDB, you must create your repository using a repository configuration file that specifies the file <code>KnoraRules.pie</code> as its <code>owlim:ruleset</code>. This enables RDFS inference and Knora-specific consistency rules. When using GraphDB, Knora uses RDFS inference to improve query performance. The Knora-specific consistency rules help ensure that your data is internally consistent and conforms to the Knora ontologies.</p>
 <p>This file is already packaged inside Knora&rsquo;s Docker images for GraphDB-SE and GraphDB-Free.</p>
 <p>When testing with GraphDB, you may sometimes get an error when loading the test data that says that there are multiple IDs for the same repository <code>knora-test</code>. In that case, something went wrong when dropping and recreating the repository. You can solve this by deleting the repository manually and starting over. <strong>Make sure you don&rsquo;t delete important data.</strong> To delete the repository, stop GraphDB, delete the <code>data</code> directory in your GraphDB installation, and restart GraphDB.</p>
@@ -329,7 +320,7 @@ Edit this page
 </div>
 <div class="print-only">
 <span class="md-source-file md-version">
-10.0.0
+12.0.0
 </span>
 </div>
 </article>
