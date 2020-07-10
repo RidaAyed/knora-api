@@ -2412,10 +2412,10 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
       "status": true,
       "selfjoin": false
     }</code>
-    Each project can have an optional custom IRI (of <a href="../../api-v2/knora-iris/#iris-for-data">Knora IRI</a> form) specified by the <code>projectIri</code> in the request body as below:
+    Additionally, each project can have an optional custom IRI (of <a href="../../api-v2/knora-iris/#iris-for-data">Knora IRI</a> form) specified by the <code>id</code> in the request body as below:
     <code>JSON
     {
-        "projectIri": "http://rdfh.ch/projects/3333",
+        "id": "http://rdfh.ch/projects/3333",
         "shortname": "newprojectWithIri",
         "shortcode": "3333",
         "longname": "new project with a custom IRI",

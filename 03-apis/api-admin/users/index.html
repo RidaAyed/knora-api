@@ -2483,7 +2483,8 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <li>POST: <code>/admin/users</code></li>
 <li>
 <p>BODY:
-    <code>{
+    <code>JSON
+    {
       "email": "donald.duck@example.org",
       "givenName": "Donald",
       "familyName": "Duck",
@@ -2495,7 +2496,9 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     }</code></p>
 <p>Additionally, each user can have an optional custom IRI (of <a href="../../api-v2/knora-iris/#iris-for-data">Knora IRI</a> form)
 specified by the <code>id</code> in the request body as below:
-<code>{ "id" : "http://rdfh.ch/users/donaldDuck",
+<code>JSON
+{ 
+  "id" : "http://rdfh.ch/users/donaldDuck",
   "email": "donald.duck@example.org",
   "givenName": "Donald",
   "familyName": "Duck",
