@@ -1,0 +1,2708 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/dasch-favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+    
+    
+      
+        <title>An Example Project - Knora Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.30686662.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#7e57c2">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../assets/style/theme.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#an-example-project" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../faq/" title="Knora Documentation" class="md-header-nav__button md-logo">
+          
+            <img src="../../assets/images/dasch-icon-white.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Knora Documentation
+            </span>
+            <span class="md-header-nav__topic">
+              
+                An Example Project
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../faq/" title="Knora Documentation" class="md-nav__button md-logo">
+      
+        <img src="../../assets/images/dasch-icon-white.svg" width="48" height="48">
+      
+    </a>
+    Knora Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" checked>
+    
+    <label class="md-nav__link" for="nav-1">
+      Introduction
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        Introduction
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../what-is-knora/" title="What is Knora?" class="md-nav__link">
+      What is Knora?
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../data-formats/" title="Data Formats in Knora" class="md-nav__link">
+      Data Formats in Knora
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../standoff-rdf/" title="Standoff/RDF Text Markup" class="md-nav__link">
+      Standoff/RDF Text Markup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        An Example Project
+      </label>
+    
+    <a href="./" title="An Example Project" class="md-nav__link md-nav__link--active">
+      An Example Project
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-incunabula-ontology" class="md-nav__link">
+    The Incunabula Ontology
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-classes" class="md-nav__link">
+    Resource Classes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Knora Ontologies
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Knora Ontologies
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../02-knora-ontologies/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../02-knora-ontologies/introduction/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../02-knora-ontologies/knora-base/" title="The Knora Base Ontology" class="md-nav__link">
+      The Knora Base Ontology
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../02-knora-ontologies/salsah-gui/" title="The SALSAH GUI Ontology" class="md-nav__link">
+      The SALSAH GUI Ontology
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      APIs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        APIs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      The Knora APIs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        The Knora APIs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      API V1
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        API V1
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v1/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v1/introduction/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v1/authentication/" title="Authentication" class="md-nav__link">
+      Authentication
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v1/reading-and-searching-resources/" title="Reading and Searching Resources" class="md-nav__link">
+      Reading and Searching Resources
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v1/xml-to-standoff-mapping/" title="XML to Standoff Mapping" class="md-nav__link">
+      XML to Standoff Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v1/adding-resources/" title="Adding Resources" class="md-nav__link">
+      Adding Resources
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v1/reading-and-searching-resources/" title="Reading and Searching Resources" class="md-nav__link">
+      Reading and Searching Resources
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v1/reading-values/" title="Reading Values" class="md-nav__link">
+      Reading Values
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v1/adding-values/" title="Adding Values" class="md-nav__link">
+      Adding Values
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v1/changing-values/" title="Changing Values" class="md-nav__link">
+      Changing Values
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v1/delete-resources-and-values/" title="Deleting Resources and Values" class="md-nav__link">
+      Deleting Resources and Values
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      API V2
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        API V2
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v2/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v2/introduction/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v2/authentication/" title="Authentication" class="md-nav__link">
+      Authentication
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v2/knora-iris/" title="Knora IRIs" class="md-nav__link">
+      Knora IRIs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v2/reading-and-searching-resources/" title="Reading and Searching Resources" class="md-nav__link">
+      Reading and Searching Resources
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v2/reading-user-permissions/" title="Reading the User's Permissions on Resources and Values" class="md-nav__link">
+      Reading the User's Permissions on Resources and Values
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v2/getting-lists/" title="Getting Lists" class="md-nav__link">
+      Getting Lists
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v2/xml-to-standoff-mapping/" title="XML to Standoff Mapping" class="md-nav__link">
+      XML to Standoff Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v2/query-language/" title="Gravsearch - Virtual Graph Search" class="md-nav__link">
+      Gravsearch - Virtual Graph Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v2/editing-resources/" title="Editing Resources" class="md-nav__link">
+      Editing Resources
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v2/editing-values/" title="Editing Values" class="md-nav__link">
+      Editing Values
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v2/ontology-information/" title="Querying, Creating, and Updating Ontologies" class="md-nav__link">
+      Querying, Creating, and Updating Ontologies
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v2/tei-xml/" title="TEI/XML" class="md-nav__link">
+      TEI/XML
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-v2/permalinks/" title="Permalinks" class="md-nav__link">
+      Permalinks
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Admin API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        Admin API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-admin/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-admin/introduction/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-admin/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-admin/users/" title="Users Endpoint" class="md-nav__link">
+      Users Endpoint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-admin/projects/" title="Projects Endpoint" class="md-nav__link">
+      Projects Endpoint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-admin/groups/" title="Groups Endpoint" class="md-nav__link">
+      Groups Endpoint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-admin/lists/" title="Lists Endpoint" class="md-nav__link">
+      Lists Endpoint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-admin/permissions/" title="Permissions Endpoint" class="md-nav__link">
+      Permissions Endpoint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-admin/stores/" title="Stores Endpoint" class="md-nav__link">
+      Stores Endpoint
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5">
+    
+    <label class="md-nav__link" for="nav-3-5">
+      Util API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-5">
+        Util API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-util/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-util/health/" title="Health" class="md-nav__link">
+      Health
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../03-apis/api-util/version/" title="Version" class="md-nav__link">
+      Version
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Publishing and Deployment
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Publishing and Deployment
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../04-publishing-deployment/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../04-publishing-deployment/publishing/" title="Publishing" class="md-nav__link">
+      Publishing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../04-publishing-deployment/getting-started/" title="Getting Started with Knora" class="md-nav__link">
+      Getting Started with Knora
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../04-publishing-deployment/configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../04-publishing-deployment/updates/" title="Updating Repositories when Upgrading Knora" class="md-nav__link">
+      Updating Repositories when Upgrading Knora
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Knora Internals
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Knora Internals
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1">
+    
+    <label class="md-nav__link" for="nav-5-1">
+      Design
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-1">
+        Design
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1-1" type="checkbox" id="nav-5-1-1">
+    
+    <label class="md-nav__link" for="nav-5-1-1">
+      Knora Design Principles
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-5-1-1">
+        Knora Design Principles
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/principles/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/principles/design-overview/" title="Design Overview" class="md-nav__link">
+      Design Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/principles/futures-with-akka/" title="Futures with Akka" class="md-nav__link">
+      Futures with Akka
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/principles/http-module/" title="HTTP Module" class="md-nav__link">
+      HTTP Module
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/principles/store-module/" title="Store Module" class="md-nav__link">
+      Store Module
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/principles/triplestore-updates/" title="Triplestore Updates" class="md-nav__link">
+      Triplestore Updates
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/principles/consistency-checking/" title="Consistency Checking" class="md-nav__link">
+      Consistency Checking
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/principles/authentication/" title="Authentication" class="md-nav__link">
+      Authentication
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1-2" type="checkbox" id="nav-5-1-2">
+    
+    <label class="md-nav__link" for="nav-5-1-2">
+      API V1 Design
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-5-1-2">
+        API V1 Design
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-v1/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-v1/how-to-add-a-route/" title="How to Add an API v1 Route" class="md-nav__link">
+      How to Add an API v1 Route
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-v1/json/" title="JSON in API v1" class="md-nav__link">
+      JSON in API v1
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1-3" type="checkbox" id="nav-5-1-3">
+    
+    <label class="md-nav__link" for="nav-5-1-3">
+      API V2 Design
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-5-1-3">
+        API V2 Design
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-v2/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-v2/overview/" title="API v2 Design Overview" class="md-nav__link">
+      API v2 Design Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-v2/ontology-schemas/" title="Ontology Schemas" class="md-nav__link">
+      Ontology Schemas
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-v2/smart-iris/" title="Smart IRIs" class="md-nav__link">
+      Smart IRIs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-v2/content-wrappers/" title="Content Wrappers" class="md-nav__link">
+      Content Wrappers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-v2/how-to-add-a-route/" title="How to Add an API v2 Route" class="md-nav__link">
+      How to Add an API v2 Route
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-v2/json-ld/" title="JSON-LD Parsing and Formatting" class="md-nav__link">
+      JSON-LD Parsing and Formatting
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-v2/ontology-management/" title="Ontology Management" class="md-nav__link">
+      Ontology Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-v2/sipi/" title="Knora and Sipi" class="md-nav__link">
+      Knora and Sipi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-v2/gravsearch/" title="Gravsearch Design" class="md-nav__link">
+      Gravsearch Design
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-v2/standoff/" title="Standoff Markup" class="md-nav__link">
+      Standoff Markup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-v2/ark/" title="Archival Resource Key (ARK) Identifiers" class="md-nav__link">
+      Archival Resource Key (ARK) Identifiers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-v2/query-design/" title="SPARQL Query Design" class="md-nav__link">
+      SPARQL Query Design
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1-4" type="checkbox" id="nav-5-1-4">
+    
+    <label class="md-nav__link" for="nav-5-1-4">
+      Admin API Design
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-5-1-4">
+        Admin API Design
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-admin/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/design/api-admin/administration/" title="Administration" class="md-nav__link">
+      Administration
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-2" type="checkbox" id="nav-5-2">
+    
+    <label class="md-nav__link" for="nav-5-2">
+      Development
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-2">
+        Development
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/development/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/development/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/development/fuseki/" title="Starting Fuseki 2" class="md-nav__link">
+      Starting Fuseki 2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/development/graphdb/" title="Starting GraphDB" class="md-nav__link">
+      Starting GraphDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/development/building-and-running/" title="Build and Running" class="md-nav__link">
+      Build and Running
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/development/build-process/" title="Build Process" class="md-nav__link">
+      Build Process
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/development/intellij-config/" title="Setup IntelliJ for development of Knora" class="md-nav__link">
+      Setup IntelliJ for development of Knora
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/development/testing/" title="Testing" class="md-nav__link">
+      Testing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/development/docker-cheat-sheet/" title="Docker Cheat Sheet" class="md-nav__link">
+      Docker Cheat Sheet
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/development/monitoring/" title="Monitoring Knora" class="md-nav__link">
+      Monitoring Knora
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/development/profiling/" title="Profiling Knora" class="md-nav__link">
+      Profiling Knora
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/development/docker-compose/" title="Starting the Knora-Stack inside Docker Container" class="md-nav__link">
+      Starting the Knora-Stack inside Docker Container
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/development/updating-repositories/" title="Updating Repositories" class="md-nav__link">
+      Updating Repositories
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../05-internals/development/generating-client-test-data/" title="Generating Client Test Data" class="md-nav__link">
+      Generating Client Test Data
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Salsah
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Salsah
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../06-salsah/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      SIPI
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        SIPI
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../07-sipi/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../07-sipi/setup-sipi-for-knora/" title="Setting Up Sipi for Knora" class="md-nav__link">
+      Setting Up Sipi for Knora
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../07-sipi/sipi-and-knora/" title="Interaction between Sipi and Knora" class="md-nav__link">
+      Interaction between Sipi and Knora
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Lucene
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Lucene
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../08-lucene/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../08-lucene/lucene-query-parser-syntax/" title="Lucene Query Parser Syntax" class="md-nav__link">
+      Lucene Query Parser Syntax
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../faq/" title="Frequently Asked Questions" class="md-nav__link">
+      Frequently Asked Questions
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Release Notes
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Release Notes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../00-release-notes/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../00-release-notes/migration/" title="Migration Notes" class="md-nav__link">
+      Migration Notes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../00-release-notes/next/" title="Next Release" class="md-nav__link">
+      Next Release
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../00-release-notes/v1.1.0/" title="v1.1.0" class="md-nav__link">
+      v1.1.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../00-release-notes/v1.2.0/" title="v1.2.0" class="md-nav__link">
+      v1.2.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../00-release-notes/v1.3.0/" title="v1.3.0" class="md-nav__link">
+      v1.3.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../00-release-notes/v1.4.0/" title="v1.4.0" class="md-nav__link">
+      v1.4.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../00-release-notes/v1.5.0/" title="v1.5.0" class="md-nav__link">
+      v1.5.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../00-release-notes/v1.6.0/" title="v1.6.0" class="md-nav__link">
+      v1.6.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../00-release-notes/v1.7.0/" title="v1.7.0" class="md-nav__link">
+      v1.7.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../00-release-notes/v2.x.x/" title="v2.x.x" class="md-nav__link">
+      v2.x.x
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../00-release-notes/v3.x.x/" title="v3.x.x" class="md-nav__link">
+      v3.x.x
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../00-release-notes/v4.x.x/" title="v4.x.x" class="md-nav__link">
+      v4.x.x
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../00-release-notes/v5.x.x/" title="v5.x.x" class="md-nav__link">
+      v5.x.x
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../00-release-notes/v6.x.x/" title="v6.x.x" class="md-nav__link">
+      v6.x.x
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-incunabula-ontology" class="md-nav__link">
+    The Incunabula Ontology
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#properties" class="md-nav__link">
+    Properties
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-classes" class="md-nav__link">
+    Resource Classes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <!---
+Copyright © 2015-2019 the contributors (see Contributors.md).
+
+This file is part of Knora.
+
+Knora is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Knora is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<h1 id="an-example-project">An Example Project</h1>
+<p>This section introduces some of the basic concepts involved in creating
+ontologies for Knora projects, by means of a relatively simple example
+project. Before reading this document, it will be helpful to have some
+familiarity with the basic concepts explained in knora-base.</p>
+<p>Knora comes with two example projects, called <code>incunabula</code> and
+<code>images-demo</code>. Here we will consider the <code>incunabula</code> example, which is
+a reduced version of a real research project on early printed books. It
+is designed to store an image of each page of each book, as well as RDF
+data about books, pages, their contents, and relationships between them.
+At the moment, only the RDF data is provided in the example project, not
+the images.</p>
+<p>The <code>incunabula</code> ontology is in the file <code>incunabula-onto.ttl</code>, and its
+data is in the file <code>incunabula-demo-data.ttl</code>. Both these files are in
+a standard RDF file format called
+<a href="https://www.w3.org/TR/turtle/">Turtle</a>. The Knora distribution includes
+sample scripts (in the <code>webapi/scripts</code> directory) for importing these
+files directly into different triplestores. If you are starting a new
+project from scratch, you can adapt these scripts to import your
+ontology (and any existing RDF data) into your triplestore for use with
+Knora.</p>
+<p>The syntax of Turtle is fairly simple: it is basically a sequence of
+triples. We will consider some details of Turtle syntax as we go along.</p>
+<h2 id="the-incunabula-ontology">The Incunabula Ontology</h2>
+<p>Here we will just focus on some of the main aspects of the ontology. An
+ontology file typically begins by defining prefixes for the IRIs of
+other ontologies that will be referred to. First there are some prefixes
+for ontologies that are very commonly used in RDF:</p>
+<pre><code>@prefix rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+@prefix dcterms: &lt;http://purl.org/dc/terms/&gt; .
+</code></pre>
+
+<p>The <code>rdf</code>, <code>rdfs</code>, and <code>owl</code> ontologies contain basic properties that
+are used to define ontology entities. The <code>xsd</code> ontology contains
+definitions of literal data types such as <code>string</code> and <code>integer</code>. (For
+more information about these ontologies, see the references in
+knora-base.) The <code>foaf</code> ontology contains classes and properties for
+representing people. The <code>dcterms</code> ontology represents <a href="http://dublincore.org/">Dublin
+Core</a> metadata.</p>
+<p>Then we define prefixes for Knora ontologies:</p>
+<pre><code>@prefix knora-base: &lt;http://www.knora.org/ontology/knora-base#&gt; .
+@prefix salsah-gui: &lt;http://www.knora.org/ontology/salsah-gui#&gt; .
+</code></pre>
+
+<p>The <code>knora-base</code> ontology contains Knora's core abstractions, and is
+described in knora-base. The <code>salsah-gui</code> ontology includes properties
+that Knora projects must use to enable SALSAH, Knora's generic virtual
+research environment.</p>
+<p>For convenience, we can use the empty prefix to refer to the
+<code>incunabula</code> ontology itself:</p>
+<pre><code>@prefix : &lt;http://www.knora.org/ontology/0803/incunabula#&gt; .
+</code></pre>
+
+<p>However, outside the ontology file, it would make more sense to define
+an <code>incunabula</code> prefix to refer to the <code>incunabula</code> ontology.</p>
+<h3 id="properties">Properties</h3>
+<p>All the content produced by a Knora project must be stored in Knora
+resources (see incunabula-resource-classes). Resources have properties
+that point to different parts of their contents; for example, the
+<code>incunabula</code> project contains books, which have properties like <code>title</code>.
+Every property that poitns to a Knora value must be a subproperty of
+<code>knora-base:hasValue</code>, and every property that points to another Knora
+resource must be a subproperty of <code>knora-base:hasLinkTo</code>.</p>
+<p>Here is the definition of the <code>incunabula:title</code> property:</p>
+<pre><code>:title rdf:type owl:ObjectProperty ;
+
+  rdfs:subPropertyOf knora-base:hasValue, dcterms:title ;
+
+  rdfs:label &quot;Titel&quot;@de ,
+    &quot;Titre&quot;@fr ,
+    &quot;Titolo&quot;@it ,
+    &quot;Title&quot;@en ;
+
+  knora-base:subjectClassConstraint :book ;
+
+  knora-base:objectClassConstraint knora-base:TextValue ;
+
+  salsah-gui:guiElement salsah-gui:SimpleText ;
+
+  salsah-gui:guiAttribute &quot;size=80&quot; ,
+    &quot;maxlength=255&quot; .
+</code></pre>
+
+<p>The definition of <code>incunabula:title</code> consists of a list of triples, all
+of which have <code>:title</code> as their subject. To avoid repeating <code>:title</code> for
+each triple, Turtle syntax allows us to use a semicolon (<code>;</code>) to
+separate triples that have the same subject. Moreover, some triples also
+have the same predicate; a comma (<code>,</code>) is used to avoid repeating the
+predicate. The definition of <code>:title</code> says:</p>
+<ul>
+<li><code>rdf:type owl:ObjectProperty</code>: It is an <code>owl:ObjectProperty</code>. There are
+  two kinds of OWL properties: object properties and datatype properties. Object properties point to objects, which have IRIs and
+  can have their own properties. Datatype properties point to literal
+  values, such as strings and integers.</li>
+<li><code>rdfs:subPropertyOf knora-base:hasValue, dcterms:title</code>: It is a
+  subproperty of <code>knora-base:hasValue</code> and <code>dcterms:title</code>. Since the
+  objects of this property will be Knora values, it must be a
+  subproperty of <code>knora-base:hasValue</code>. To facilitate searches, we
+  have also chosen to make it a subproperty of <code>dcterms:title</code>. In the
+  Knora API v2, if you do a search for resources that have a certain
+  <code>dcterms:title</code>, and there is a resource with a matching
+  <code>incunabula:title</code>, the search results could include that resource.</li>
+<li><code>rdfs:label "Titel"@de</code>, etc.: It has the specified labels in
+  various languages. These are needed, for example, by user
+  interfaces, to prompt the user to enter a value.</li>
+<li><code>knora-base:subjectClassConstraint :book</code>: The subject of the
+  property must be an <code>incunabula:book</code>.</li>
+<li><code>knora-base:objectClassConstraint knora-base:TextValue</code>: The object
+  of this property must be a <code>knora-base:TextValue</code> (which is a
+  subclass of <code>knora-base:Value</code>).</li>
+<li><code>salsah-gui:guiElement salsah-gui:SimpleText</code>: When SALSAH asks a
+  user to enter a value for this property, it should use a simple text
+  field.</li>
+<li><code>salsah-gui:guiAttribute "size=80" , "maxlength=255"</code>: The SALSAH
+  text field for entering a value for this property should be 80
+  characters wide, and should accept at most 255 characters.</li>
+</ul>
+<p>The <code>incunabula</code> ontology contains several other property definitions
+that are basically similar. Note that different subclasses of <code>Value</code>
+are used. For example, <code>incunabula:pubdate</code>, which represents the
+publication date of a book, points to a <code>knora-base:DateValue</code>. The
+<code>DateValue</code> class stores a date range, with a specified degree of
+precision and a preferred calendar system for display.</p>
+<p>A property can point to a Knora resource instead of to a Knora value.
+For example, in the <code>incunabula</code> ontology, there are resources
+representing pages and books, and each page is part of some book. This
+relationship is expressed using the property <code>incunabula:partOf</code>:</p>
+<pre><code>:partOf rdf:type owl:ObjectProperty ;
+
+  rdfs:subPropertyOf knora-base:isPartOf ;
+
+  rdfs:label &quot;ist ein Teil von&quot;@de ,
+    &quot;est un part de&quot;@fr ,
+    &quot;e una parte di&quot;@it ,
+    &quot;is a part of&quot;@en ;
+
+  rdfs:comment &quot;&quot;&quot;Diese Property bezeichnet eine Verbindung zu einer anderen Resource, in dem ausgesagt wird, dass die vorliegende Resource ein integraler Teil der anderen Resource ist. Zum Beispiel ist eine Buchseite ein integraler Bestandteil genau eines Buches.&quot;&quot;&quot;@de ;
+
+  knora-base:subjectClassConstraint :page ;
+
+  knora-base:objectClassConstraint :book ;
+
+  salsah-gui:guiElement salsah-gui:Searchbox .
+</code></pre>
+
+<p>The key things to notice here are:</p>
+<ul>
+<li><code>rdfs:subPropertyOf knora-base:isPartOf</code>: The Knora base ontology
+  provides a generic <code>isPartOf</code> property to express part-whole
+  relationships. Like many properties defined in <code>knora-base</code>, a
+  project cannot use <code>knora-base:isPartOf</code> directly, but must make a
+  subproperty such as <code>incunabula:partOf</code>. It is important to note
+  that <code>knora-base:isPartOf</code> is a subproperty of
+  <code>knora-base:hasLinkTo</code>. Any property that points to a
+  <code>knora-base:Resource</code> must be a subproperty of
+  <code>knora-base:hasLinkTo</code>. In Knora terminology, such a property is
+  called a <em>link property</em>.</li>
+<li><code>knora-base:objectClassConstraint :book</code>: The object of this
+  property must be a member of the class <code>incunabula:book</code>, which, as
+  we will see below, is a subclass of <code>knora-base:Resource</code>.</li>
+<li><code>salsah-gui:guiElement salsah-gui:Searchbox</code>: When SALSAH prompts a
+  user to select the book that a page is part of, it should provide a
+  search box enabling the user to find the desired book.</li>
+</ul>
+<p>Because <code>incunabula:partOf</code> is a link property, it must always
+accompanied by a <em>link value property</em>, which enables Knora to store
+metadata about each link that is created with the link property. This
+metadata includes the date and time when the link was created, its
+owner, the permissions it grants, and whether it has been deleted.
+Storing this metadata allows Knora to authorise users to see or modify
+the link, as well as to query a previous state of a repository in which
+a deleted link had not yet been deleted. (The ability to query previous
+states of a repository is planned for Knora API version 2.)</p>
+<p>The name of a link property and its link value property must be related
+by the following naming convention: to determine the name of the link
+value property, add the word <code>Value</code> to the name of the link property.
+Hence, the <code>incunabula</code> ontology defines the property <code>partOfValue</code>:</p>
+<pre><code>:partOfValue rdf:type owl:ObjectProperty ;
+
+  rdfs:subPropertyOf knora-base:isPartOfValue ;
+
+  knora-base:subjectClassConstraint :page ;
+
+  knora-base:objectClassConstraint knora-base:LinkValue .
+</code></pre>
+
+<p>As a link value property, <code>incunabula:partOfValue</code> must point to a
+<code>knora-base:LinkValue</code>. The <code>LinkValue</code> class is an RDF <em>reification</em> of
+a triple (in this case, the triple that links a page to a book). For
+more details about this, see knora-base-linkvalue.</p>
+<p>Note that the property <code>incunabula:hasAuthor</code> points to a
+<code>knora-base:TextValue</code>, because the <code>incunabula</code> project represents
+authors simply by their names. A more complex project could represent
+each author as a resource, in which case <code>incunabula:hasAuthor</code> would
+need to be a subproperty of <code>knora-base:hasLinkTo</code>.</p>
+<h3 id="resource-classes">Resource Classes</h3>
+<p>The two main resource classes in the <code>incunabula</code> ontology are <code>book</code>
+and <code>page</code>. Here is <code>incunabula:book</code>:</p>
+<pre><code>:book rdf:type owl:Class ;
+
+  rdfs:subClassOf knora-base:Resource , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :title ;
+    owl:minCardinality &quot;1&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;1&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasAuthor ;
+    owl:minCardinality &quot;0&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;2&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :publisher ;
+    owl:minCardinality &quot;0&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;3&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :publoc ;
+    owl:maxCardinality &quot;1&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;4&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :pubdate ;
+    owl:maxCardinality &quot;1&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;5&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :location ;
+    owl:maxCardinality &quot;1&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;6&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :url ;
+    owl:maxCardinality &quot;1&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;7&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :description ;
+    owl:maxCardinality &quot;1&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;2&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :physical_desc ;
+    owl:maxCardinality &quot;1&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;9&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :note ;
+    owl:minCardinality &quot;0&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;10&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :citation ;
+    owl:minCardinality &quot;0&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;5&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :book_comment ;
+    owl:minCardinality &quot;0&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;12&quot;^^xsd:nonNegativeInteger
+  ] ;
+
+  knora-base:resourceIcon &quot;book.gif&quot; ;
+
+  rdfs:label &quot;Buch&quot;@de ,
+    &quot;Livre&quot;@fr ,
+    &quot;Libro&quot;@it ,
+    &quot;Book&quot;@en ;
+
+  rdfs:comment &quot;&quot;&quot;Diese Resource-Klasse beschreibt ein Buch&quot;&quot;&quot;@de .
+</code></pre>
+
+<p>Like every Knora resource class, <code>incunabula:book</code> is a subclass of
+<code>knora-base:Resource</code>. It is also a subclass of a number of other
+classes of type <code>owl:Restriction</code>, which are defined in square brackets,
+using Turtle's syntax for anonymous blank nodes. Each <code>owl:Restriction</code>
+specifies a cardinality for a property that is allowed in resources of
+type <code>incunabula:book</code>. A cardinality is indeed a kind of restriction:
+it means that a resource of this type may have, or must have, a certain
+number of instances of the specified property. For example,
+<code>incunabula:book</code> has cardinalities saying that a book must have at
+least one title and at most one publication date. In the Knora API
+version 1, the word 'occurrence' is used instead of 'cardinality'.</p>
+<p>The OWL cardinalities supported by Knora are described in
+<a href="../../02-knora-ontologies/knora-base/#owl-cardinalities">OWL Cardinalities</a>.</p>
+<p>Note that <code>incunabula:book</code> specifies a cardinality of
+<code>owl:minCardinality 0</code> on the property <code>incunabula:hasAuthor</code>. At first
+glance, this might seem as if it serves no purpose, since it says that
+the property is optional and can have any number of instances. You may
+be wondering whether this cardinality could simply be omitted from the
+definition of <code>incunabula:book</code>. However, Knora requires every property
+of a resource to have some cardinality in the resource's class. This is
+because Knora uses the cardinalities to determine which properties are
+<em>possible</em> for instances of the class, and the Knora API relies on this
+information. If there was no cardinality for <code>incunabula:hasAuthor</code>,
+Knora would not allow a book to have an author.</p>
+<p>Each <code>owl:Restriction</code> specifying a cardinality can include the predicate
+<code>salsah-gui:guiOrder</code>, which tells the SALSAH GUI the order the properties
+should be displayed in.</p>
+<p>Here is the definition of <code>incunabula:page</code>:</p>
+<pre><code>:page rdf:type owl:Class ;
+
+  rdfs:subClassOf knora-base:StillImageRepresentation , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :pagenum ;
+    owl:maxCardinality &quot;1&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;1&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :partOfValue ;
+    owl:cardinality &quot;1&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;2&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :partOf ;
+    owl:cardinality &quot;1&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;2&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :seqnum ;
+    owl:maxCardinality &quot;1&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;3&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :description ;
+    owl:maxCardinality &quot;1&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;2&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :citation ;
+    owl:minCardinality &quot;0&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;5&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :page_comment ;
+    owl:minCardinality &quot;0&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;6&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :origname ;
+    owl:cardinality &quot;1&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;7&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasLeftSidebandValue ;
+    owl:maxCardinality &quot;1&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;10&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasLeftSideband ;
+    owl:maxCardinality &quot;1&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;10&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasRightSidebandValue ;
+    owl:maxCardinality &quot;1&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;11&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasRightSideband ;
+    owl:maxCardinality &quot;1&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;11&quot;^^xsd:nonNegativeInteger
+  ] , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :transcription ;
+    owl:minCardinality &quot;0&quot;^^xsd:nonNegativeInteger ;
+    salsah-gui:guiOrder &quot;12&quot;^^xsd:nonNegativeInteger
+  ] ;
+
+  knora-base:resourceIcon &quot;page.gif&quot; ;
+
+  rdfs:label &quot;Seite&quot;@de ,
+    &quot;Page&quot;@fr ,
+    &quot;Page&quot;@en ;
+
+  rdfs:comment &quot;&quot;&quot;Eine Seite ist ein Teil eines Buchs&quot;&quot;&quot;@de ,
+    &quot;&quot;&quot;Une page est une partie d'un livre&quot;&quot;&quot;@fr ,
+    &quot;&quot;&quot;A page is a part of a book&quot;&quot;&quot;@en .
+</code></pre>
+
+<p>The <code>incunabula:page</code> class is a subclass of
+<code>knora-base:StillImageRepresentation</code>, which is a subclass of
+<code>knora-base:Representation</code>, which is a subclass of
+<code>knora-base:Resource</code>. The class <code>knora-base:Representation</code> is used for
+resources that contain metadata about files stored by Knora. Each It has
+different subclasses that can hold different types of files, including
+still images, audio, and video files. A given <code>Representation</code> can store
+metadata about several different files, as long as they are of the same
+type and are semantically equivalent, e.g. are different versions of the
+same image with different colorspaces, so that coordinates in one file
+will work in the other files.</p>
+<p>In Knora, a subclass inherits the cardinalities defined in its
+superclasses. Let's look at the class hierarchy of <code>incunabula:page</code>,
+starting with <code>knora-base:Representation</code>:</p>
+<pre><code>:Representation rdf:type owl:Class ;
+
+  rdfs:subClassOf :Resource , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasFileValue ;
+    owl:minCardinality &quot;1&quot;^^xsd:nonNegativeInteger
+  ] ;
+
+  rdfs:comment &quot;A resource that can store one or more FileValues&quot;@en .
+</code></pre>
+
+<p>This says that a <code>Representation</code> must have at least one instance of the
+property <code>hasFileValue</code>, which is defined like this:</p>
+<pre><code>:hasFileValue rdf:type owl:ObjectProperty ;
+
+  rdfs:subPropertyOf :hasValue ;
+
+  :subjectClassConstraint :Representation ;
+
+  :objectClassConstraint :FileValue .              
+</code></pre>
+
+<p>The subject of <code>hasFileValue</code> must be a <code>Representation</code>, and its object
+must be a <code>FileValue</code>. There are different subclasses of <code>FileValue</code> for
+different kinds of files, but we'll skip the details here.</p>
+<p>This is the definition of <code>knora-base:StillImageRepresentation</code>:</p>
+<pre><code>:StillImageRepresentation rdf:type owl:Class ;
+
+  rdfs:subClassOf :Representation , [
+    rdf:type owl:Restriction ;
+    owl:onProperty :hasStillImageFileValue ;
+    owl:minCardinality &quot;1&quot;^^xsd:nonNegativeInteger
+  ] ;
+
+  rdfs:comment &quot;A resource that can contain two-dimensional still image files&quot;@en .
+</code></pre>
+
+<p>It must have at least one instance of the property
+<code>hasStillImageFileValue</code>, which is defined as follows:</p>
+<pre><code>:hasStillImageFileValue rdf:type owl:ObjectProperty ;
+
+  rdfs:subPropertyOf :hasFileValue ;
+
+  :subjectClassConstraint :StillImageRepresentation ;
+
+  :objectClassConstraint :StillImageFileValue .              
+</code></pre>
+
+<p>Because <code>hasStillImageFileValue</code> is a subproperty of <code>hasFileValue</code>, the
+cardinality on <code>hasStillImageFileValue</code>, defined in the subclass
+<code>StillImageRepresentation</code>, overrides the cardinality on <code>hasFileValue</code>,
+defined in the superclass <code>Representation</code>. In other words, the more
+general cardinality in the superclass is replaced by a more specific
+cardinality in the base class. Since <code>incunabula:page</code> is a subclass of
+<code>StillImageRepresentation</code>, it inherits the cardinality on
+<code>hasStillImageFileValue</code>. As a result, a page must have at least one
+image file attached to it.</p>
+<p>Here's another example of cardinality inheritance. The class
+<code>knora-base:Resource</code> has a cardinality for <code>knora-base:seqnum</code>. The
+idea is that resources of any type could be arranged in some sort of
+sequence. As we saw above, <code>incunabula:page</code> is a subclass of
+<code>knora-base:Resource</code>. But <code>incunabula:page</code> has its own cardinality for
+<code>incunabula:seqnum</code>, which is a subproperty of <code>knora-base:seqnum</code>. Once
+again, the subclass's cardinality on the subproperty replaces the
+superclass's cardinality on the superproperty: a page is allowed to have
+an <code>incunabula:seqnum</code>, but it is not allowed to have a
+<code>knora-base:seqnum</code>.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../standoff-rdf/" title="Standoff/RDF Text Markup" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Standoff/RDF Text Markup
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../02-knora-ontologies/" title="Index" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Index
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.ac79c3b0.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+    
+  </body>
+</html>

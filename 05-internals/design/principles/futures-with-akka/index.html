@@ -1,0 +1,2522 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../../../assets/images/dasch-favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+    
+    
+      
+        <title>Futures with Akka - Knora Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/application.30686662.css">
+      
+        <link rel="stylesheet" href="../../../../assets/stylesheets/application-palette.a8b3c06d.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#7e57c2">
+      
+    
+    
+      <script src="../../../../assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../../../assets/style/theme.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="deep-purple" data-md-color-accent="deep-purple">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#futures-with-akka" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../../../../faq/" title="Knora Documentation" class="md-header-nav__button md-logo">
+          
+            <img src="../../../../assets/images/dasch-icon-white.svg" width="24" height="24">
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Knora Documentation
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Futures with Akka
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main" role="main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="../../../../faq/" title="Knora Documentation" class="md-nav__button md-logo">
+      
+        <img src="../../../../assets/images/dasch-icon-white.svg" width="48" height="48">
+      
+    </a>
+    Knora Documentation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1">
+    
+    <label class="md-nav__link" for="nav-1">
+      Introduction
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        Introduction
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../01-introduction/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../01-introduction/what-is-knora/" title="What is Knora?" class="md-nav__link">
+      What is Knora?
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../01-introduction/data-formats/" title="Data Formats in Knora" class="md-nav__link">
+      Data Formats in Knora
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../01-introduction/standoff-rdf/" title="Standoff/RDF Text Markup" class="md-nav__link">
+      Standoff/RDF Text Markup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../01-introduction/example-project/" title="An Example Project" class="md-nav__link">
+      An Example Project
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Knora Ontologies
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Knora Ontologies
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../02-knora-ontologies/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../02-knora-ontologies/introduction/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../02-knora-ontologies/knora-base/" title="The Knora Base Ontology" class="md-nav__link">
+      The Knora Base Ontology
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../02-knora-ontologies/salsah-gui/" title="The SALSAH GUI Ontology" class="md-nav__link">
+      The SALSAH GUI Ontology
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      APIs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        APIs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-1" type="checkbox" id="nav-3-1">
+    
+    <label class="md-nav__link" for="nav-3-1">
+      The Knora APIs
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-1">
+        The Knora APIs
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      API V1
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        API V1
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v1/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v1/introduction/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v1/authentication/" title="Authentication" class="md-nav__link">
+      Authentication
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v1/reading-and-searching-resources/" title="Reading and Searching Resources" class="md-nav__link">
+      Reading and Searching Resources
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v1/xml-to-standoff-mapping/" title="XML to Standoff Mapping" class="md-nav__link">
+      XML to Standoff Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v1/adding-resources/" title="Adding Resources" class="md-nav__link">
+      Adding Resources
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v1/reading-and-searching-resources/" title="Reading and Searching Resources" class="md-nav__link">
+      Reading and Searching Resources
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v1/reading-values/" title="Reading Values" class="md-nav__link">
+      Reading Values
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v1/adding-values/" title="Adding Values" class="md-nav__link">
+      Adding Values
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v1/changing-values/" title="Changing Values" class="md-nav__link">
+      Changing Values
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v1/delete-resources-and-values/" title="Deleting Resources and Values" class="md-nav__link">
+      Deleting Resources and Values
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      API V2
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        API V2
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v2/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v2/introduction/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v2/authentication/" title="Authentication" class="md-nav__link">
+      Authentication
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v2/knora-iris/" title="Knora IRIs" class="md-nav__link">
+      Knora IRIs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v2/reading-and-searching-resources/" title="Reading and Searching Resources" class="md-nav__link">
+      Reading and Searching Resources
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v2/reading-user-permissions/" title="Reading the User's Permissions on Resources and Values" class="md-nav__link">
+      Reading the User's Permissions on Resources and Values
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v2/getting-lists/" title="Getting Lists" class="md-nav__link">
+      Getting Lists
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v2/xml-to-standoff-mapping/" title="XML to Standoff Mapping" class="md-nav__link">
+      XML to Standoff Mapping
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v2/query-language/" title="Gravsearch - Virtual Graph Search" class="md-nav__link">
+      Gravsearch - Virtual Graph Search
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v2/editing-resources/" title="Editing Resources" class="md-nav__link">
+      Editing Resources
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v2/editing-values/" title="Editing Values" class="md-nav__link">
+      Editing Values
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v2/ontology-information/" title="Querying, Creating, and Updating Ontologies" class="md-nav__link">
+      Querying, Creating, and Updating Ontologies
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v2/tei-xml/" title="TEI/XML" class="md-nav__link">
+      TEI/XML
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-v2/permalinks/" title="Permalinks" class="md-nav__link">
+      Permalinks
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Admin API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        Admin API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-admin/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-admin/introduction/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-admin/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-admin/users/" title="Users Endpoint" class="md-nav__link">
+      Users Endpoint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-admin/projects/" title="Projects Endpoint" class="md-nav__link">
+      Projects Endpoint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-admin/groups/" title="Groups Endpoint" class="md-nav__link">
+      Groups Endpoint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-admin/lists/" title="Lists Endpoint" class="md-nav__link">
+      Lists Endpoint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-admin/permissions/" title="Permissions Endpoint" class="md-nav__link">
+      Permissions Endpoint
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-admin/stores/" title="Stores Endpoint" class="md-nav__link">
+      Stores Endpoint
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5">
+    
+    <label class="md-nav__link" for="nav-3-5">
+      Util API
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-5">
+        Util API
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-util/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-util/health/" title="Health" class="md-nav__link">
+      Health
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../03-apis/api-util/version/" title="Version" class="md-nav__link">
+      Version
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Publishing and Deployment
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        Publishing and Deployment
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../04-publishing-deployment/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../04-publishing-deployment/publishing/" title="Publishing" class="md-nav__link">
+      Publishing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../04-publishing-deployment/getting-started/" title="Getting Started with Knora" class="md-nav__link">
+      Getting Started with Knora
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../04-publishing-deployment/configuration/" title="Configuration" class="md-nav__link">
+      Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../04-publishing-deployment/updates/" title="Updating Repositories when Upgrading Knora" class="md-nav__link">
+      Updating Repositories when Upgrading Knora
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5" checked>
+    
+    <label class="md-nav__link" for="nav-5">
+      Knora Internals
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Knora Internals
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1" type="checkbox" id="nav-5-1" checked>
+    
+    <label class="md-nav__link" for="nav-5-1">
+      Design
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-1">
+        Design
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1-1" type="checkbox" id="nav-5-1-1" checked>
+    
+    <label class="md-nav__link" for="nav-5-1-1">
+      Knora Design Principles
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-5-1-1">
+        Knora Design Principles
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../design-overview/" title="Design Overview" class="md-nav__link">
+      Design Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Futures with Akka
+      </label>
+    
+    <a href="./" title="Futures with Akka" class="md-nav__link md-nav__link--active">
+      Futures with Akka
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handling-errors-with-futures" class="md-nav__link">
+    Handling Errors with Futures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-recover-on-futures" class="md-nav__link">
+    Using recover on Futures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#designing-with-futures" class="md-nav__link">
+    Designing with Futures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixing-futures-with-non-futures" class="md-nav__link">
+    Mixing Futures with non-Futures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-write-for-comprehensions" class="md-nav__link">
+    How to Write For-Comprehensions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execution-contexts" class="md-nav__link">
+    Execution Contexts
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../http-module/" title="HTTP Module" class="md-nav__link">
+      HTTP Module
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../store-module/" title="Store Module" class="md-nav__link">
+      Store Module
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../triplestore-updates/" title="Triplestore Updates" class="md-nav__link">
+      Triplestore Updates
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../consistency-checking/" title="Consistency Checking" class="md-nav__link">
+      Consistency Checking
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../authentication/" title="Authentication" class="md-nav__link">
+      Authentication
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1-2" type="checkbox" id="nav-5-1-2">
+    
+    <label class="md-nav__link" for="nav-5-1-2">
+      API V1 Design
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-5-1-2">
+        API V1 Design
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-v1/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-v1/how-to-add-a-route/" title="How to Add an API v1 Route" class="md-nav__link">
+      How to Add an API v1 Route
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-v1/json/" title="JSON in API v1" class="md-nav__link">
+      JSON in API v1
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1-3" type="checkbox" id="nav-5-1-3">
+    
+    <label class="md-nav__link" for="nav-5-1-3">
+      API V2 Design
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-5-1-3">
+        API V2 Design
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-v2/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-v2/overview/" title="API v2 Design Overview" class="md-nav__link">
+      API v2 Design Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-v2/ontology-schemas/" title="Ontology Schemas" class="md-nav__link">
+      Ontology Schemas
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-v2/smart-iris/" title="Smart IRIs" class="md-nav__link">
+      Smart IRIs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-v2/content-wrappers/" title="Content Wrappers" class="md-nav__link">
+      Content Wrappers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-v2/how-to-add-a-route/" title="How to Add an API v2 Route" class="md-nav__link">
+      How to Add an API v2 Route
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-v2/json-ld/" title="JSON-LD Parsing and Formatting" class="md-nav__link">
+      JSON-LD Parsing and Formatting
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-v2/ontology-management/" title="Ontology Management" class="md-nav__link">
+      Ontology Management
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-v2/sipi/" title="Knora and Sipi" class="md-nav__link">
+      Knora and Sipi
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-v2/gravsearch/" title="Gravsearch Design" class="md-nav__link">
+      Gravsearch Design
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-v2/standoff/" title="Standoff Markup" class="md-nav__link">
+      Standoff Markup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-v2/ark/" title="Archival Resource Key (ARK) Identifiers" class="md-nav__link">
+      Archival Resource Key (ARK) Identifiers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-v2/query-design/" title="SPARQL Query Design" class="md-nav__link">
+      SPARQL Query Design
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-1-4" type="checkbox" id="nav-5-1-4">
+    
+    <label class="md-nav__link" for="nav-5-1-4">
+      Admin API Design
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-5-1-4">
+        Admin API Design
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-admin/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../api-admin/administration/" title="Administration" class="md-nav__link">
+      Administration
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5-2" type="checkbox" id="nav-5-2">
+    
+    <label class="md-nav__link" for="nav-5-2">
+      Development
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-5-2">
+        Development
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../development/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../development/overview/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../development/fuseki/" title="Starting Fuseki 2" class="md-nav__link">
+      Starting Fuseki 2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../development/graphdb/" title="Starting GraphDB" class="md-nav__link">
+      Starting GraphDB
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../development/building-and-running/" title="Build and Running" class="md-nav__link">
+      Build and Running
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../development/build-process/" title="Build Process" class="md-nav__link">
+      Build Process
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../development/intellij-config/" title="Setup IntelliJ for development of Knora" class="md-nav__link">
+      Setup IntelliJ for development of Knora
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../development/testing/" title="Testing" class="md-nav__link">
+      Testing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../development/docker-cheat-sheet/" title="Docker Cheat Sheet" class="md-nav__link">
+      Docker Cheat Sheet
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../development/monitoring/" title="Monitoring Knora" class="md-nav__link">
+      Monitoring Knora
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../development/profiling/" title="Profiling Knora" class="md-nav__link">
+      Profiling Knora
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../development/docker-compose/" title="Starting the Knora-Stack inside Docker Container" class="md-nav__link">
+      Starting the Knora-Stack inside Docker Container
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../development/updating-repositories/" title="Updating Repositories" class="md-nav__link">
+      Updating Repositories
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../development/generating-client-test-data/" title="Generating Client Test Data" class="md-nav__link">
+      Generating Client Test Data
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Salsah
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Salsah
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../06-salsah/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-7" type="checkbox" id="nav-7">
+    
+    <label class="md-nav__link" for="nav-7">
+      SIPI
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-7">
+        SIPI
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../07-sipi/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../07-sipi/setup-sipi-for-knora/" title="Setting Up Sipi for Knora" class="md-nav__link">
+      Setting Up Sipi for Knora
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../07-sipi/sipi-and-knora/" title="Interaction between Sipi and Knora" class="md-nav__link">
+      Interaction between Sipi and Knora
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-8" type="checkbox" id="nav-8">
+    
+    <label class="md-nav__link" for="nav-8">
+      Lucene
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-8">
+        Lucene
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../08-lucene/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../08-lucene/lucene-query-parser-syntax/" title="Lucene Query Parser Syntax" class="md-nav__link">
+      Lucene Query Parser Syntax
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../faq/" title="Frequently Asked Questions" class="md-nav__link">
+      Frequently Asked Questions
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-10" type="checkbox" id="nav-10">
+    
+    <label class="md-nav__link" for="nav-10">
+      Release Notes
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-10">
+        Release Notes
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../00-release-notes/" title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../00-release-notes/migration/" title="Migration Notes" class="md-nav__link">
+      Migration Notes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../00-release-notes/next/" title="Next Release" class="md-nav__link">
+      Next Release
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../00-release-notes/v1.1.0/" title="v1.1.0" class="md-nav__link">
+      v1.1.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../00-release-notes/v1.2.0/" title="v1.2.0" class="md-nav__link">
+      v1.2.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../00-release-notes/v1.3.0/" title="v1.3.0" class="md-nav__link">
+      v1.3.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../00-release-notes/v1.4.0/" title="v1.4.0" class="md-nav__link">
+      v1.4.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../00-release-notes/v1.5.0/" title="v1.5.0" class="md-nav__link">
+      v1.5.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../00-release-notes/v1.6.0/" title="v1.6.0" class="md-nav__link">
+      v1.6.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../00-release-notes/v1.7.0/" title="v1.7.0" class="md-nav__link">
+      v1.7.0
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../00-release-notes/v2.x.x/" title="v2.x.x" class="md-nav__link">
+      v2.x.x
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../00-release-notes/v3.x.x/" title="v3.x.x" class="md-nav__link">
+      v3.x.x
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../00-release-notes/v4.x.x/" title="v4.x.x" class="md-nav__link">
+      v4.x.x
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../00-release-notes/v5.x.x/" title="v5.x.x" class="md-nav__link">
+      v5.x.x
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../../00-release-notes/v6.x.x/" title="v6.x.x" class="md-nav__link">
+      v6.x.x
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handling-errors-with-futures" class="md-nav__link">
+    Handling Errors with Futures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-recover-on-futures" class="md-nav__link">
+    Using recover on Futures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#designing-with-futures" class="md-nav__link">
+    Designing with Futures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixing-futures-with-non-futures" class="md-nav__link">
+    Mixing Futures with non-Futures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-write-for-comprehensions" class="md-nav__link">
+    How to Write For-Comprehensions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execution-contexts" class="md-nav__link">
+    Execution Contexts
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <!---
+Copyright © 2015-2019 the contributors (see Contributors.md).
+
+This file is part of Knora.
+
+Knora is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Knora is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public
+License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<h1 id="futures-with-akka">Futures with Akka</h1>
+<h2 id="introduction">Introduction</h2>
+<p><a href="http://docs.scala-lang.org/overviews/core/futures.html">Scala's documentation on
+futures</a>
+introduces them in this way:</p>
+<blockquote>
+<p>Futures provide a nice way to reason about performing many operations
+in parallel – in an efficient and non-blocking way. The idea is
+simple, a Future is a sort of a placeholder object that you can create
+for a result that does not yet exist. Generally, the result of the
+Future is computed concurrently and can be later collected. Composing
+concurrent tasks in this way tends to result in faster, asynchronous,
+non-blocking parallel code.</p>
+</blockquote>
+<p>The rest of that page is well worth reading to get an overview of how
+futures work and what you can do with them.</p>
+<p>In <a href="http://akka.io/">Akka</a>, one of the standard patterns for
+communication between actors is the <a href="https://doc.akka.io/docs/akka/current/actors.html?language=scala#ask-send-and-receive-future">ask pattern</a>,
+in which you send a message to an actor and you expect a reply. When you
+call the <code>ask</code> function (which can be written as a question mark, <code>?</code>,
+which acts as an infix operator), it immediately returns a <code>Future</code>,
+which will complete when the reply is sent. As the Akka documentation
+explains in <a href="https://doc.akka.io/docs/akka/snapshot/futures.html?language=scala#Use_With_Actors">Use with
+Actors</a>,
+it is possible to block the calling thread until the future completes,
+using <code>Await.result</code>. However, they say: 'Blocking is discouraged though
+as it will cause performance problems.' In particular, by not blocking,
+you can do several <code>ask</code> requests in parallel.</p>
+<p>One way to avoid blocking is to register a callback on the future, which
+will be called when it completes (perhaps by another thread), like this:</p>
+<pre><code class="scala">future.onComplete {
+    case Success(result) =&gt; println(result)
+    case Failure(ex) =&gt; ex.printStackTrace()
+}
+</code></pre>
+
+<p>But this won't work if you're writing a method that needs return a value
+based on the result of a future. In this case, you can register a
+callback that transforms the result of a future into another future:</p>
+<pre><code class="scala">val newFuture = future.map(x =&gt; x + 1)
+</code></pre>
+
+<p>However, registering callbacks explicitly gets cumbersome when you need
+to work with several futures together. In this case, the most convenient
+alternative to blocking is to use <code>Future</code> as a monad. The links above
+explain what this means in detail, but the basic idea is that a special
+syntax, called a <code>for</code>-comprehension, allows you to write code that uses
+futures as if they were complete, without blocking. In reality, a
+<code>for</code>-comprehension is syntactic sugar for calling methods like <code>map</code>,
+but it's much easier to write and to read. You can do things like this:</p>
+<pre><code class="scala">val fooFuture = (fooActor ? GetFoo(&quot;foo&quot;)).mapTo[Foo]
+val barFuture = (barActor ? GetBar(&quot;bar&quot;)).mapTo[Bar]
+
+val totalFuture = for {
+    foo: Foo &lt;- fooFuture
+    bar: Bar &lt;- barFuture
+
+    total = foo.getCount + bar.getCount
+} yield total
+</code></pre>
+
+<p>Here the messages to <code>fooActor</code> and <code>barActor</code> are sent and processed in
+parallel, but you're guaranteed that <code>total</code> won't be calculated until
+the values it needs are available. Note that if you construct
+<code>fooFuture</code> and <code>barFuture</code> inside the <code>for</code> comprehension, they won't
+be run in parallel (see <a href="http://buransky.com/scala/scala-for-comprehension-with-concurrently-running-futures/">Scala for-comprehension with concurrently
+running
+futures</a>).</p>
+<h2 id="handling-errors-with-futures">Handling Errors with Futures</h2>
+<p>The constructors and methods of <code>Future</code> (like those of <code>Try</code>) catch
+exceptions, which cause the future to fail. This very useful property of
+futures means that you usually don't need <code>try</code>-<code>catch</code> blocks when
+using the <code>Future</code> monad (although it is sometimes helpful to include
+them, in order to catch low-level exceptions and wrap them in
+higher-level ones). Any exception thrown in code that's being run
+asynchronously by <code>Future</code> (including in the <code>yield</code> expression of a
+<code>for</code> comprehension) will be caught, and the result will be a <code>Future</code>
+containing a <code>Failure</code>. Also, in the previous example, if <code>fooActor</code> or
+<code>barActor</code> returns a <code>Status.Failure</code> message, the <code>for</code>-comprehension
+will also yield a failed future.</p>
+<p>However, you need to be careful with <em>the first line</em> of the
+<code>for</code>-comprehension. For example, this code doesn't handle exceptions
+correctly:</p>
+<pre><code class="scala">private def doFooQuery(iri: IRI): Future[String] = {
+    for {
+        queryResponse &lt;- (storeManager ? SparqlSelectRequest(queries.sparql.v1.txt.getFoo(iri).toString())).mapTo[SparqlSelectResponse]
+        ...
+   } yield ...
+}
+</code></pre>
+
+<p>The <code>getFoo()</code> method calls a
+<a href="https://github.com/playframework/twirl">Twirl</a> template function to
+generate SPARQL. The <code>?</code> operator returns a <code>Future</code>. However, the
+template function <em>is not run asynchronously</em>, because it is called
+before the <code>Future</code> constructor is called. So if the template function
+throws an exception, it won't be caught here. Instead, you can do this:</p>
+<pre><code class="scala">private def doFooQuery(iri: IRI): Future[String] = {
+    for {
+        queryString &lt;- Future(queries.sparql.v1.txt.getFoo(iri).toString())
+        queryResponse &lt;- (storeManager ? SparqlSelectRequest(queryString)).mapTo[SparqlSelectResponse]
+        ...
+   } yield ...
+}
+</code></pre>
+
+<p>Here the <code>Future</code> constructor will call the template function
+asynchronously, and catch any exceptions it throws. This is only
+necessary if you need to call the template function at the <em>very
+beginning</em> of a <code>for</code>-comprehension. In the rest of the <code>for</code>
+comprehension, you'll already implicitly have a <code>Future</code> object.</p>
+<h2 id="using-recover-on-futures">Using <code>recover</code> on Futures</h2>
+<p>By using <code>recover</code> on a  <code>Future</code>, an apt error message can be thrown if
+the <code>Future</code> fails. This is particularly useful when an an error message
+should be made more clear depending on the context the <code>Future</code> is used
+in.</p>
+<p>For example, we are asking the resources responder to query for a
+certain resource in order to process it in a special way. However, the
+client does not know that the resources responder is sent a request and
+in case the resource cannot be found, the message sent back from the
+resources responder (<code>NotFoundException</code>) would not make sense to it.
+Instead, we would like to handle the message in a way so that it makes
+sense for the operation the client actually executed. We can do this by
+calling <code>recover</code> on a <code>Future</code>.</p>
+<pre><code class="scala">private def mySpecialResourceRequest(iri: IRI, userProfile: UserProfileV1): Future[...] = {
+
+    val resourceRequestFuture = for {
+        resResponse: ResourceFullResponseV1 &lt;- (responderManager ? ResourceFullGetRequestV1(iri = iri, userProfile = userProfile, getIncoming = false)).mapTo[ResourceFullResponseV1]
+    } yield resResponse
+
+    val resourceRequestFutureRecovered = resourceRequestFuture.recover {
+        case notFound: NotFoundException =&gt; throw BadRequestException(s&quot;Special resource handling failed because the resource could not be found: ${notFound.message}&quot;)
+    }
+
+    for {
+
+        res &lt;- resourceRequestFutureRecovered
+
+        ...
+
+    } yield ...
+
+}   
+</code></pre>
+
+<p>Please note that the content of the <code>Future</code> has to be accessed using
+<code>&lt;-</code> to make this work correctly. Otherwise the content will never be
+looked at.</p>
+<h2 id="designing-with-futures">Designing with Futures</h2>
+<p>In the current design, Knora almost never blocks to wait
+for a future to complete. The normal flow of control works like this:</p>
+<ol>
+<li>Incoming HTTP requests are handled by an actor called
+    <code>KnoraService</code>, which delegates them to routing functions (in
+    the <code>routing</code> package).</li>
+<li>For each request, a routing function gets an Akka HTTP
+    <code>RequestContext</code>, and calls <code>RouteUtilV1.runJsonRoute</code> (in API v1)
+    or <code>RouteUtilV2.runRdfRouteWithFuture</code> (in API v2) to send a
+    message to a supervisor actor to fulfil the request. This creates
+    a <code>Future</code> that will complete when the relevant responder sends
+    its reply. The routing utility registers a callback on this <code>Future</code>
+    to handle the reply message when it becomes available.</li>
+<li>The supervisor forwards the message to be handled by the appropriate
+    responder.</li>
+<li>The responder's <code>receive</code> method receives the message, and calls
+    some private method that produces a reply message inside a <code>Future</code>.
+    This may involve sending messages to other actors using <code>ask</code>,
+    getting futures back, and combining them into a single future
+    containing the reply message.</li>
+<li>The responder passes that future to <code>ActorUtils.future2Message</code>,
+    which registers a callback on it. When the future completes (perhaps
+    in another thread), the callback sends the reply message. In the
+    meantime, the responder doesn't block, so it can start handling the
+    next request.</li>
+<li>When the responder's reply becomes available, the routing utility's
+    callback registered in (2) calls <code>complete</code> on the <code>RequestContext</code>, which
+    sends an HTTP response to the client.</li>
+</ol>
+<p>The basic rule of thumb is this: if you're writing a method in an actor,
+and anything in the method needs to come from a future (e.g. because you
+need to use <code>ask</code> to get some information from another actor), have the
+method return a future.</p>
+<h2 id="mixing-futures-with-non-futures">Mixing Futures with non-Futures</h2>
+<p>If you have a <code>match ... case</code> or <code>if</code> expression, and one branch
+obtains some data in a future, but another branch can produce the data
+immediately, you can wrap the result of the latter branch in a future,
+so that both branches have the same type. Here we use an alternative
+implementation of <code>scala.concurrent.Future</code>, found in
+<code>akka.http.scaladsl.util.FastFuture</code>, which tries to avoid scheduling to
+an <code>scala.concurrent.ExecutionContext</code> if possible, i.e. if the given
+future value is already present:</p>
+<pre><code class="scala">def getTotalOfFooAndBar(howToGetFoo: String): Future[Int] = {
+    for {
+        foo &lt;- howToGetFoo match {
+            case &quot;askForIt&quot; =&gt; (fooActor ? GetFoo(&quot;foo&quot;)).mapTo[Foo]
+            case &quot;createIt&quot; =&gt; FastFuture.successful(new Foo())
+        }
+
+        bar &lt;- (barActor ? GetBar(&quot;bar&quot;)).mapTo[Bar]
+
+        total = foo.getCount + bar.getCount
+    } yield total
+}
+</code></pre>
+
+<h2 id="how-to-write-for-comprehensions">How to Write For-Comprehensions</h2>
+<p>Here are some basic rules for writing <code>for</code>-comprehensions:</p>
+<ol>
+<li>The first line of a <code>for</code>-comprehension has to be a "generator",
+    i.e. it has to use the <code>&lt;-</code> operator. If you want to write an
+    assignment (using <code>=</code>) as the first line, the workaround is to wrap
+    the right-hand side in a monad (like <code>Future</code>) and use <code>&lt;-</code> instead.</li>
+<li>Assignments (using <code>=</code>) are written without <code>val</code>.</li>
+<li>You're not allowed to write statements that throw away their return
+    values, so if you want to call something like <code>println</code> that returns
+    <code>Unit</code>, you have to assign its return value to <code>_</code>.</li>
+</ol>
+<p>The <code>yield</code> returns an object of the same type as the generators, which
+all have to produce the same type (e.g. <code>Future</code>).</p>
+<h2 id="execution-contexts">Execution Contexts</h2>
+<p>Whenever you use a future, there has to be an implicit 'execution
+context' in scope. <a href="http://docs.scala-lang.org/overviews/core/futures.html">Scala's documentation on
+futures</a> says,
+'you can think of execution contexts as thread pools'.</p>
+<p>If you don't have an execution context in scope, you'll get a compile
+error asking you to include one, and suggesting that you could use
+<code>import scala.concurrent.ExecutionContext.Implicits.global</code>. Don't do
+this, because the global Scala execution context is not the most
+efficient option. Instead, use Knora's custom execution context like so:</p>
+<pre><code class="scala">implicit val executionContext: ExecutionContext = system.dispatchers.lookup(KnoraDispatchers.KnoraActorDispatcher)
+</code></pre>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../design-overview/" title="Design Overview" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Design Overview
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../http-module/" title="HTTP Module" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                HTTP Module
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/application.ac79c3b0.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../../.."}})</script>
+      
+    
+  </body>
+</html>
