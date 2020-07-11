@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../assets/images/dasch-favicon.ico">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-4.4.2">
     
     
       
@@ -1612,13 +1612,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#twirl" class="md-nav__link">
-    Twirl
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#use-intellij-ideas-debugger-with-knora" class="md-nav__link">
     Use IntelliJ IDEA's Debugger with Knora
   </a>
@@ -1647,6 +1640,18 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../bazel/" title="Bazel Notes" class="md-nav__link">
+      Bazel Notes
+    </a>
   </li>
 
         
@@ -2132,13 +2137,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#twirl" class="md-nav__link">
-    Twirl
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#use-intellij-ideas-debugger-with-knora" class="md-nav__link">
     Use IntelliJ IDEA's Debugger with Knora
   </a>
@@ -2198,37 +2196,26 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <h1 id="setup-intellij-for-development-of-knora">Setup IntelliJ for development of Knora</h1>
 <h2 id="create-an-intellij-project-for-knora">Create an IntelliJ Project for Knora</h2>
 <ul>
-<li>Download and install <a href="https://www.jetbrains.com/idea/">IntelliJ
-    IDEA</a>.</li>
+<li>Download and install <a href="https://www.jetbrains.com/idea/">IntelliJ IDEA</a>.</li>
 <li>Follow the installation procedure and install the <code>Scala plugin</code></li>
 </ul>
 <p><img alt="screenshot 'Install Scala Plugin'" src="../figures/install-scala-plugin.png" /></p>
 <ul>
-<li>Import the root "Knora" directory from the source tree: <code>Import
-    Project</code> -> Choose the option <code>module SBT</code></li>
-</ul>
-<p><img alt="screenshot 'import existing SBT project'" src="../figures/import-from-sbt.png" /></p>
-<ul>
+<li>Add Bazel Plugin and Project to IntelliJ</li>
+<li>The latest version of the <a href="https://plugins.jetbrains.com/plugin/8609-bazel/versions">Bazel plugin</a>
+    supports only IntelliJ upto version <code>2019.03.05</code>. After you make sure to
+    run this version of IntelliJ, install the plugin from inside IntelliJ.</li>
+<li>Click on <code>File -&gt; Import Bazel Project</code> and select twice <code>next</code>.</li>
 <li>
-<p>SBT project configuration:
-<img alt="screenshot 'import SBT configuration'" src="../figures/sbt-config.png" /></p>
+<p>Uncomment the <code>Scala</code> language and click <code>Finish</code>.</p>
 </li>
 <li>
-<p>IntelliJ's window after the import is finished:</p>
-</li>
-</ul>
-<p><img alt="screenshot 'IntelliJ windows after import'" src="../figures/intellij-after-import.png" /></p>
-<ul>
-<li>make sure that the tab size is set correctly to <strong>4 spaces</strong> (so you
+<p>make sure that the tab size is set correctly to <strong>4 spaces</strong> (so you
     can use automatic code reformatting): <code>Preferences -&gt; Code Style -&gt;
-    Scala</code>:</li>
+    Scala</code>:</p>
+</li>
 </ul>
 <p><img alt="screenshot 'setting tab size'" src="../figures/setting-tab-space.png" /></p>
-<h2 id="twirl">Twirl</h2>
-<p>By default, Intellij excludes some folders like the twirl template
-files. To include them, go to <code>Project Structure</code> and remove
-<code>target/scala-2.1*/twirl</code> from excluded folders. Then Intellij will
-correctly resolve the references to the template files.</p>
 <h2 id="use-intellij-ideas-debugger-with-knora">Use IntelliJ IDEA's Debugger with Knora</h2>
 <ul>
 <li>Create an application configuration:</li>
@@ -2320,13 +2307,13 @@ method calls, to see the total time spent in each method:</p>
           </a>
         
         
-          <a href="../testing/" title="Testing" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../bazel/" title="Bazel Notes" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Testing
+                Bazel Notes
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
@@ -2354,9 +2341,9 @@ method calls, to see the total time spent in each method:</p>
       
     </div>
     
-      <script src="../../../assets/javascripts/application.ac79c3b0.js"></script>
+      <script src="../../../assets/javascripts/application.c648116f.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      <script>app.initialize({version:"1.1.2",url:{base:"../../.."}})</script>
       
     
   </body>

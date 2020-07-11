@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../../assets/images/dasch-favicon.ico">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-4.4.2">
     
     
       
@@ -1761,6 +1761,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../development/bazel/" title="Bazel Notes" class="md-nav__link">
+      Bazel Notes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../development/testing/" title="Testing" class="md-nav__link">
       Testing
     </a>
@@ -2486,9 +2498,39 @@ API v2, but API v2 does not depend on API v1.</p>
 <h2 id="actor-supervision-and-creation">Actor Supervision and Creation</h2>
 <p>At system start, the main application supervisor actor is created in
 <code>LiveCore.scala</code>:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/LiveCore.scala">KnoraLiveService.scala</a> { #supervisor }</p>
+<pre><code class="scala">    /**
+      * The main application supervisor actor which is at the top of the actor
+      * hierarchy. All other actors are instantiated as child actors. Further,
+      * this actor is responsible for the execution of the startup and shutdown
+      * sequences.
+      */
+    lazy val appActor: ActorRef = system.actorOf(
+        Props(new ApplicationActor with LiveManagers)
+          .withDispatcher(KnoraDispatchers.KnoraActorDispatcher),
+        name = APPLICATION_MANAGER_ACTOR_NAME
+    )
+</code></pre>
+
 <p>and through mixin also the store and responder manager actors:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/app/ApplicationActor.scala">ApplicationActor.scala</a> { #store-responder }</p>
+<pre><code class="scala">    /**
+     * The actor that forwards messages to actors that deal with persistent storage.
+     */
+    lazy val storeManager: ActorRef = context.actorOf(
+        Props(new StoreManager(self) with LiveActorMaker)
+          .withDispatcher(KnoraDispatchers.KnoraActorDispatcher),
+        name = StoreManagerActorName
+    )
+
+    /**
+     * The actor that forwards messages to responder actors to handle API requests.
+     */
+    lazy val responderManager: ActorRef = context.actorOf(
+        Props(new ResponderManager(self) with LiveActorMaker)
+          .withDispatcher(KnoraDispatchers.KnoraActorDispatcher),
+        name = RESPONDER_MANAGER_ACTOR_NAME
+    )
+</code></pre>
+
 <p>The <code>ApplicationActor</code> is the first actor in the application. All other actors
 are children of this actor and thus it takes also the role of the supervisor
 actor. It accepts messages for starting and stopping the Knora-API, holds the
@@ -2503,7 +2545,59 @@ by setting the size of each pool. These pools are configured in <code>applicatio
 under <code>akka.actor.deployment</code>.</p>
 <p>The <code>ApplicationActor</code> also starts the HTTP service as part of the startup
 sequence:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/app/ApplicationActor.scala">ApplicationActor.scala</a> { #start-api-server }</p>
+<pre><code class="scala">    /**
+     * Starts the Knora-API server.
+     *
+     * @param ignoreRepository    if `true`, don't read anything from the repository on startup.
+     * @param requiresIIIFService if `true`, ensure that the IIIF service is started.
+     * @param retryCnt            how many times was this command tried
+     */
+    def appStart(ignoreRepository: Boolean, requiresIIIFService: Boolean, retryCnt: Int): Unit = {
+
+        val bindingFuture: Future[Http.ServerBinding] = Http()
+          .bindAndHandle(
+              Route.handlerFlow(apiRoutes),
+              knoraSettings.internalKnoraApiHost,
+              knoraSettings.internalKnoraApiPort
+          )
+
+        bindingFuture onComplete {
+            case Success(_) =&gt;
+
+                // Transition to ready state
+                self ! AppReady()
+
+                if (knoraSettings.prometheusEndpoint) {
+                    // Load Kamon monitoring
+                    Kamon.loadModules()
+                }
+
+                // Kick of startup procedure.
+                self ! InitStartUp(ignoreRepository, requiresIIIFService)
+
+            case Failure(ex) =&gt;
+                if (retryCnt &lt; 5) {
+                    logger.error(
+                        &quot;Failed to bind to {}:{}! - {} - retryCnt: {}&quot;,
+                        knoraSettings.internalKnoraApiHost,
+                        knoraSettings.internalKnoraApiPort,
+                        ex.getMessage,
+                        retryCnt
+                    )
+                    self ! AppStart(ignoreRepository, requiresIIIFService, retryCnt + 1)
+                } else {
+                    logger.error(
+                        &quot;Failed to bind to {}:{}! - {}&quot;,
+                        knoraSettings.internalKnoraApiHost,
+                        knoraSettings.internalKnoraApiPort,
+                        ex.getMessage
+                    )
+                    self ! AppStop()
+                }
+        }
+    }
+</code></pre>
+
 <h2 id="coordinated-application-startup">Coordinated Application Startup</h2>
 <p>To coordinate necessary startup tasks, the application goes through a few states at startup:</p>
 <ul>
@@ -2568,7 +2662,17 @@ to triplestore-specific templates.</p>
 <p>Responders are not expected to know which triplestore is being used or how it
 is accessed. To perform a SPARQL SELECT query, a responder sends a <code>SparqlSelectRequest</code>
 message to the <code>storeManager</code> actor, like this:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/responders/Responder.scala">OntologyResponderV2.scala</a> { #sparql-select }</p>
+<pre><code class="scala">        for {
+            isEntityUsedSparql &lt;- Future(queries.sparql.v2.txt.isEntityUsed(
+                triplestore = settings.triplestoreType,
+                entityIri = entityIri,
+                ignoreKnoraConstraints = ignoreKnoraConstraints,
+                ignoreRdfSubjectAndObject = ignoreRdfSubjectAndObject
+            ).toString())
+
+            isEntityUsedResponse: SparqlSelectResponse &lt;- (storeManager ? SparqlSelectRequest(isEntityUsedSparql)).mapTo[SparqlSelectResponse]
+</code></pre>
+
 <p>The reply message, <code>SparqlSelectResponse</code>, is a data structure containing the rows
 that were returned as the query result.</p>
 <p>To perform a SPARQL CONSTRUCT query, you can use <code>SparqlExtendedConstructRequest</code>,
@@ -2739,9 +2843,9 @@ while logging inside plain Scala Objects and Classes is done through
       
     </div>
     
-      <script src="../../../../assets/javascripts/application.ac79c3b0.js"></script>
+      <script src="../../../../assets/javascripts/application.c648116f.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"../../../.."}})</script>
+      <script>app.initialize({version:"1.1.2",url:{base:"../../../.."}})</script>
       
     
   </body>

@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../assets/images/dasch-favicon.ico">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-4.4.2">
     
     
       
@@ -1588,6 +1588,18 @@
           
           
 
+
+  <li class="md-nav__item">
+    <a href="../bazel/" title="Bazel Notes" class="md-nav__link">
+      Bazel Notes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
   
 
 
@@ -1626,20 +1638,6 @@
         <li class="md-nav__item">
   <a href="#how-to-write-integration-tests" class="md-nav__link">
     How to Write Integration Tests
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-to-write-performance-simulation-tests" class="md-nav__link">
-    How to Write Performance / Simulation Tests
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#custom-sbt-test-configurations" class="md-nav__link">
-    Custom SBT Test Configurations
   </a>
   
 </li>
@@ -2131,20 +2129,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#how-to-write-performance-simulation-tests" class="md-nav__link">
-    How to Write Performance / Simulation Tests
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#custom-sbt-test-configurations" class="md-nav__link">
-    Custom SBT Test Configurations
-  </a>
-  
-</li>
-      
       
       
       
@@ -2191,69 +2175,22 @@ For example, when using "GraphDB Free", the nedded script is
 <p>1)  Inside a test, at the beginning, add the following (change the paths
     to the test data as needed):</p>
 <pre><code class="scala">val rdfDataObjects = List (
-       RdfDataObject(path = &quot;_test_data/responders.v1.ValuesResponderV1Spec/incunabula-data.ttl&quot;, name = &quot;http://www.knora.org/data/incunabula&quot;)
+       RdfDataObject(path = &quot;test_data/responders.v1.ValuesResponderV1Spec/incunabula-data.ttl&quot;, name = &quot;http://www.knora.org/data/incunabula&quot;)
 )
 </code></pre>
 
 <p>The data will be automatically loaded before any tests are executed. These tests should be stored inside
 the <code>src/test</code> folder hierarchy.</p>
-<p>2)  Call the test from SBT:</p>
-<pre><code>// when using a GraphDB-SE
-sbt:knora&gt; webapi / test
-
-// when using a GraphDB-Free
-sbt:knora&gt; webapi / GDBFree / test
+<p>2)  Call the test from terminal:</p>
+<pre><code>$ make test-unit
+$ make test-e2e
 </code></pre>
 
 <h2 id="how-to-write-integration-tests">How to Write Integration Tests</h2>
 <p>The only difference between Integration and Unit tests is the location
 where they are stored and the way how they are called:</p>
 <p>1)  Store tests inside the <code>src/it</code> folder hierarchy.
-2)  Call the tests from SBT: <code>sbt:knore&gt; webapi / it:test</code></p>
-<h2 id="how-to-write-performance-simulation-tests">How to Write Performance / Simulation Tests</h2>
-<p>1)  Store the performance and simulation tests inside the <code>src/test</code> and
-    the <code>src/it</code> folder hierarchy.
-2)  To call them, execute either <code>webapi / gatling:test</code> or <code>webapi / gatling-it:test</code>
-    from inside SBT.</p>
-<p>Bellow is an example of an simulation calling the <code>/admin/users</code>
-endpoint. The simulation ramps up 1000 users over 5 seconds, all
-accessing the <code>/admin/users</code>
-endpoint.</p>
-<p>@@snip<a href="../../../../../webapi/src/test/scala/org/knora/webapi/e2e/ExampleE2ESimSpec.scala">ExampleE2ESimSpec.scala</a> { }</p>
-<h2 id="custom-sbt-test-configurations">Custom SBT Test Configurations</h2>
-<p>For convenience, there are a number of custom test configurations defined inside <code>WebapiBuild.sbt</code>. These can be used together with the
-built-in test tasks like <code>test</code>, <code>testOnly</code>, <code>testQuick</code>.</p>
-<p>For use with GraphDB-SE (using <code>test/resources/graphdb-se.conf</code>) running normal tests:</p>
-<pre><code>sbt:knora&gt; webapi / test
-sbt:knora&gt; webapi / GDBSE / test
-sbt:knora&gt; webapi / gdbse:test
-</code></pre>
-
-<p>For use with GraphDB-SE (using <code>it/resources/graphdb-se.conf</code>) running integration tests:</p>
-<pre><code>sbt:knora&gt; webapi / it:test
-sbt:knora&gt; webapi / GDBSEIt / test
-sbt:knora&gt; webapi / gdbse-it:test
-</code></pre>
-
-<p>For use with GraphDB-Free (using <code>test/resources/graphdb-free.conf</code>) running normal tests:</p>
-<pre><code>sbt:knora&gt; webapi / GDBFree / test
-sbt:knora&gt; webapi / gdbfree:test
-</code></pre>
-
-<p>For use with GraphDB-Free (using <code>it/resources/graphdb-free.conf</code>) running integration tests:</p>
-<pre><code>sbt:knora&gt; webapi / GDBFreeIt / test
-sbt:knora&gt; webapi / gdbfree-it:test
-</code></pre>
-
-<p>For use with Fuseki (using <code>test/resources/fuseki.conf</code>) running normal tests:</p>
-<pre><code>sbt:knora&gt; webapi / Fuseki / test
-sbt:knora&gt; webapi / fuseki:test
-</code></pre>
-
-<p>For use with Fuseki (using <code>it/resources/fuseki.conf</code>) running integration tests:</p>
-<pre><code>sbt:knora&gt; webapi / FusekiIt / test
-sbt:knora&gt; webapi / fuseki-it:test
-</code></pre>
+2)  Call the tests from the terminal: <code>make test-it</code></p>
                 
                   
                 
@@ -2274,7 +2211,7 @@ sbt:knora&gt; webapi / fuseki-it:test
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../intellij-config/" title="Setup IntelliJ for development of Knora" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../bazel/" title="Bazel Notes" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -2283,7 +2220,7 @@ sbt:knora&gt; webapi / fuseki-it:test
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Setup IntelliJ for development of Knora
+                Bazel Notes
               </span>
             </div>
           </a>
@@ -2323,9 +2260,9 @@ sbt:knora&gt; webapi / fuseki-it:test
       
     </div>
     
-      <script src="../../../assets/javascripts/application.ac79c3b0.js"></script>
+      <script src="../../../assets/javascripts/application.c648116f.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      <script>app.initialize({version:"1.1.2",url:{base:"../../.."}})</script>
       
     
   </body>

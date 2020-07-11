@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../assets/images/dasch-favicon.ico">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-4.4.2">
     
     
       
@@ -1676,6 +1676,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../bazel/" title="Bazel Notes" class="md-nav__link">
+      Bazel Notes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../testing/" title="Testing" class="md-nav__link">
       Testing
     </a>
@@ -2255,8 +2267,8 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 </code></pre>
 
 <h2 id="running-the-automated-tests">Running the automated tests</h2>
-<p>Run the automated tests from sbt:</p>
-<pre><code>&gt; webapi / test
+<p>Run the automated tests from terminal:</p>
+<pre><code>$ make test
 </code></pre>
 
 <h2 id="load-testing-on-mac-os-x">Load Testing on Mac OS X</h2>
@@ -2271,30 +2283,14 @@ pushed to the git repository or every pull request, triggers the build.
 Additionally, in Github there is a small checkmark beside every commit,
 signaling the status of the build (successful, unsuccessful, ongoing).</p>
 <p>The build that is executed on Github CI Actions is defined in
-<code>.github/workflows/main.yml</code>, and looks like this:</p>
-<p>@@snip<a href="../../../../../.github/workflows/main.yml">main.yml</a> { }</p>
+<code>.github/workflows/main.yml</code>.</p>
 <h2 id="webapi-server-startup-flags">Webapi Server Startup-Flags</h2>
-<p>The Webapi-Server can be started with a number of flags. These flags can
-be supplied either to the <code>reStart</code> or the <code>run</code> command in sbt, e.g.,:</p>
-<pre><code>$ sbt
-&gt; webapi / reStart flag
-</code></pre>
-
-<p>or</p>
-<pre><code>$ sbt
-&gt; webapi / run flag
-</code></pre>
-
+<p>The Webapi-Server can be started with a number of flags.</p>
 <h3 id="loaddemodata-flag"><code>loadDemoData</code> - Flag</h3>
 <p>When the webapi-server is started with the <code>loadDemoData</code> flag, then at
 startup, the data which is configured in <code>application.conf</code> under the
 <code>app.triplestore.rdf-data</code> key is loaded into the triplestore, and any
 data in the triplestore is removed beforehand.</p>
-<p>Usage:</p>
-<pre><code>$ sbt
-&gt; webapi / reStart loadDemoData
-</code></pre>
-
 <h3 id="allowreloadoverhttp-flag"><code>allowReloadOverHTTP</code> - Flag</h3>
 <p>When the webapi.server is started with the <code>allowReloadOverHTTP</code> flag (<code>reStart -r</code>),
 then the <code>v1/store/ResetTriplestoreContent</code> route is activated. This
@@ -2302,19 +2298,19 @@ route accepts a <code>POST</code> request, with a JSON payload consisting of the
 following example content:</p>
 <pre><code>[
   {
-    &quot;path&quot;: &quot;../knora-ontologies/knora-base.ttl&quot;,
+    &quot;path&quot;: &quot;knora-ontologies/knora-base.ttl&quot;,
     &quot;name&quot;: &quot;http://www.knora.org/ontology/knora-base&quot;
   },
   {
-    &quot;path&quot;: &quot;../knora-ontologies/salsah-gui.ttl&quot;,
+    &quot;path&quot;: &quot;knora-ontologies/salsah-gui.ttl&quot;,
     &quot;name&quot;: &quot;http://www.knora.org/ontology/salsah-gui&quot;
   },
   {
-    &quot;path&quot;: &quot;_test_data/ontologies/incunabula-onto.ttl&quot;,
+    &quot;path&quot;: &quot;test_data/ontologies/incunabula-onto.ttl&quot;,
     &quot;name&quot;: &quot;http://www.knora.org/ontology/0803/incunabula&quot;
   },
   {
-    &quot;path&quot;: &quot;_test_data/all_data/incunabula-data.ttl&quot;,
+    &quot;path&quot;: &quot;test_data/all_data/incunabula-data.ttl&quot;,
     &quot;name&quot;: &quot;http://www.knora.org/data/incunabula&quot;
   }
 ]
@@ -2325,10 +2321,6 @@ following example content:</p>
 <code>org.knora.webapi.messages.v1.store.triplestoremessages</code> package. The
 <code>path</code> being the relative path to the <code>ttl</code> file which will be loaded
 into a named graph by the name of <code>name</code>.</p>
-<p>Usage:</p>
-<pre><code>$ sbt
-&gt; webapi / reStart allowReloadOverHTTP
-</code></pre>
                 
                   
                 
@@ -2398,9 +2390,9 @@ into a named graph by the name of <code>name</code>.</p>
       
     </div>
     
-      <script src="../../../assets/javascripts/application.ac79c3b0.js"></script>
+      <script src="../../../assets/javascripts/application.c648116f.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      <script>app.initialize({version:"1.1.2",url:{base:"../../.."}})</script>
       
     
   </body>

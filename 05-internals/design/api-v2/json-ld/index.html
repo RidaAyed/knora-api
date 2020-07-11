@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../../assets/images/dasch-favicon.ico">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-4.4.2">
     
     
       
@@ -1658,6 +1658,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../development/bazel/" title="Bazel Notes" class="md-nav__link">
+      Bazel Notes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../development/testing/" title="Testing" class="md-nav__link">
       Testing
     </a>
@@ -2207,17 +2219,64 @@ as for constructing new documents.</p>
 <h2 id="parsing-json-ld">Parsing JSON-LD</h2>
 <p>A route that expects a JSON-LD request must first parse the JSON-LD using
 <code>JsonLDUtil</code> . For example, this is how <code>ValuesRouteV2</code> parses a JSON-LD request to create a value:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/routing/v2/ValuesRouteV2.scala">ValuesRouteV2.scala</a> { #post-value-parse-jsonld }</p>
+<pre><code class="scala">post {
+            entity(as[String]) { jsonRequest =&gt;
+                requestContext =&gt; {
+                    val requestDoc: JsonLDDocument = JsonLDUtil.parseJsonLD(jsonRequest)
+</code></pre>
+
 <p>The result is a <code>JsonLDDocument</code> in which all prefixes have been expanded
 to full IRIs, with an empty JSON-LD context.</p>
 <p>The next step is to convert the <code>JsonLDDocument</code> to a request message that can be
 sent to the Knora responder that will handle the request.</p>
-<p>@@snip <a href="$src$/org/knora/webapi/routing/v2/ValuesRouteV2.scala">ValuesRouteV2.scala</a> { #post-value-create-message }</p>
+<pre><code class="scala">val requestMessageFuture: Future[CreateValueRequestV2] = for {
+                        requestingUser &lt;- getUserADM(requestContext)
+                        requestMessage: CreateValueRequestV2 &lt;- CreateValueRequestV2.fromJsonLD(
+                            requestDoc,
+                            apiRequestID = UUID.randomUUID,
+                            requestingUser = requestingUser,
+                            responderManager = responderManager,
+                            storeManager = storeManager,
+                            settings = settings,
+                            log = log
+                        )
+                    } yield requestMessage
+</code></pre>
+
 <p>This is done in a <code>Future</code>, because the processing of JSON-LD input
 could in itself involve sending messages to responders.</p>
 <p>Each request message case class (in this case <code>CreateValueRequestV2</code>) has a companion object
 that implements the <code>KnoraJsonLDRequestReaderV2</code> trait:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/messages/v2/responder/KnoraRequestV2.scala">KnoraRequestV2.scala</a> { #KnoraJsonLDRequestReaderV2 }</p>
+<pre><code class="scala">/**
+  * A trait for objects that can generate case class instances based on JSON-LD input.
+  *
+  * @tparam C the type of the case class that can be generated.
+  */
+trait KnoraJsonLDRequestReaderV2[C] {
+    /**
+      * Converts JSON-LD input into a case class instance.
+      *
+      * @param jsonLDDocument   the JSON-LD input.
+      * @param apiRequestID     the UUID of the API request.
+      * @param requestingUser   the user making the request.
+      * @param responderManager a reference to the responder manager.
+      * @param storeManager     a reference to the store manager.
+      * @param settings         the application settings.
+      * @param log              a logging adapter.
+      * @param timeout          a timeout for `ask` messages.
+      * @param executionContext an execution context for futures.
+      * @return a case class instance representing the input.
+      */
+    def fromJsonLD(jsonLDDocument: JsonLDDocument,
+                   apiRequestID: UUID,
+                   requestingUser: UserADM,
+                   responderManager: ActorRef,
+                   storeManager: ActorRef,
+                   settings: KnoraSettingsImpl,
+                   log: LoggingAdapter)(implicit timeout: Timeout, executionContext: ExecutionContext): Future[C]
+}
+</code></pre>
+
 <p>This means that the companion object has a method <code>fromJsonLD</code> that takes a
 <code>JsonLDDocument</code> and returns an instance of the case class. The <code>fromJsonLD</code> method
 can use the functionality of the <code>JsonLDDocument</code> data structure for extracting
@@ -2225,14 +2284,19 @@ and validating the content of the request. For example, <code>JsonLDObject.requi
 gets a required member of a JSON-LD object, and validates it using a function
 that is passed as an argument. Here is an example of getting and validating
 a <code>SmartIri</code>:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/messages/v2/responder/valuemessages/ValueMessagesV2.scala">ValueMessagesV2.scala</a> { #validate-json-ld-iri }</p>
+<pre><code class="scala">for {
+      valueType: SmartIri &lt;- Future(jsonLDObject.requireStringWithValidation(JsonLDConstants.TYPE, stringFormatter.toSmartIriWithErr))
+</code></pre>
+
 <p>The validation function (in this case <code>stringFormatter.toSmartIriWithErr</code>) has to take
 two arguments: a string to be validated, and a function that that throws an exception
 if the string is invalid. The return value of <code>requireStringWithValidation</code> is the
 return value of the validation function, which in this case is a <code>SmartIri</code>. If
 the string is invalid, <code>requireStringWithValidation</code> throws <code>BadRequestException</code>.</p>
 <p>It is also possible to get and validate an optional JSON-LD object member:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/messages/v2/responder/valuemessages/ValueMessagesV2.scala">ValueMessagesV2.scala</a> { #validate-optional-json-ld-string }</p>
+<pre><code class="scala">val maybeDateValueHasStartEra: Option[DateEraV2] = jsonLDObject.maybeStringWithValidation(OntologyConstants.KnoraApiV2Complex.DateValueHasStartEra, DateEraV2.parse)
+</code></pre>
+
 <p>Here <code>JsonLDObject.maybeStringWithValidation</code> returns an <code>Option</code> that contains
 the return value of the validation function (<code>DateEraV2.parse</code>) if it was given,
 otherwise <code>None</code>.</p>
@@ -2240,7 +2304,23 @@ otherwise <code>None</code>.</p>
 <p>Each API response is represented by a message class that extends
 <code>KnoraResponseV2</code>, which has a method <code>toJsonLDDocument</code> that specifies
 the target ontology schema:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/messages/v2/responder/KnoraResponseV2.scala">KnoraResponseV2.scala</a> { #KnoraResponseV2 }</p>
+<pre><code class="scala">/**
+  *
+  * A trait for Knora API V2 response messages. Any response can be converted into JSON-LD.
+  *
+  */
+trait KnoraResponseV2 {
+
+    /**
+      * Converts the response to a data structure that can be used to generate JSON-LD.
+      *
+      * @param targetSchema the Knora API schema to be used in the JSON-LD document.
+      * @return a [[JsonLDDocument]] representing the response.
+      */
+    def toJsonLDDocument(targetSchema: ApiV2Schema, settings: KnoraSettingsImpl, schemaOptions: Set[SchemaOption]): JsonLDDocument
+}
+</code></pre>
+
 <p>The implementation of this method constructs a <code>JsonLDDocument</code>,
 in which all object keys are full IRIs (no prefixes are used), but in which
 the JSON-LD context also specifies the prefixes that will be used when the
@@ -2251,7 +2331,17 @@ ontology schema, the recommended design is to separate schema conversion as much
 as possible from JSON-LD generation. As a first step, schema conversion (or at the very
 least, the conversion of Knora type IRIs to the target schema) can be done via an
 implementation of <code>KnoraReadV2</code>:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/messages/v2/responder/KnoraResponseV2.scala">KnoraResponseV2.scala</a> { #KnoraReadV2 }</p>
+<pre><code class="scala">/**
+  * A trait for read wrappers that can convert themselves to external schemas.
+  *
+  * @tparam C the type of the read wrapper that extends this trait.
+  */
+trait KnoraReadV2[C &lt;: KnoraReadV2[C]] {
+    this: C =&gt;
+    def toOntologySchema(targetSchema: ApiV2Schema): C
+}
+</code></pre>
+
 <p>This means that the response message class has the method <code>toOntologySchema</code>, which returns
 a copy of the same message, with Knora type IRIs (and perhaps other content) adjusted
 for the target schema. (See <a href="../smart-iris/">Smart IRIs</a> on how to convert Knora
@@ -2259,10 +2349,20 @@ type IRIs to the target schema.)</p>
 <p>The response message class could then have a private method called <code>generateJsonLD</code>, which
 generates a <code>JsonLDDocument</code> that has the correct structure for the target schema, like
 this:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/messages/v2/responder/resourcemessages/ResourceMessagesV2.scala">ResourceMessagesV2.scala</a> { #generateJsonLD }</p>
+<pre><code class="scala">private def generateJsonLD(targetSchema: ApiV2Schema, settings: KnoraSettingsImpl, schemaOptions: Set[SchemaOption]): JsonLDDocument
+</code></pre>
+
 <p>This way, the implementation of <code>toJsonLDDocument</code> can call <code>toOntologySchema</code>,
 then construct a <code>JsonLDDocument</code> from the resulting object. For example:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/messages/v2/responder/resourcemessages/ResourceMessagesV2.scala">ResourceMessagesV2.scala</a> { #toJsonLDDocument }</p>
+<pre><code class="scala">    override def toJsonLDDocument(targetSchema: ApiV2Schema, settings: KnoraSettingsImpl, schemaOptions: Set[SchemaOption] = Set.empty): JsonLDDocument = {
+        toOntologySchema(targetSchema).generateJsonLD(
+            targetSchema = targetSchema,
+            settings = settings,
+            schemaOptions = schemaOptions
+        )
+    }
+</code></pre>
+
 <h2 id="selecting-the-response-schema">Selecting the Response Schema</h2>
 <p>Most routes complete by calling <code>RouteUtilV2.runRdfRouteWithFuture</code>, which calls
 the response message's <code>toJsonLDDocument</code> method. The <code>runRdfRouteWithFuture</code> function
@@ -2271,9 +2371,29 @@ the response. It is up to each route to determine what the appropriate response 
 should be. Some routes support only one response schema. Others allow the client
 to choose. To use the schema requested by the client, the route can call
 <code>RouteUtilV2.getOntologySchema</code>:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/routing/v2/ResourcesRouteV2.scala">ResourcesRouteV2.scala</a> { #use-requested-schema }</p>
+<pre><code class="scala">RouteUtilV2.runRdfRouteWithFuture(
+    requestMessageF = requestMessageFuture,
+    requestContext = requestContext,
+    settings = settings,
+    responderManager = responderManager,
+    log = log,
+    targetSchema = targetSchema,
+    schemaOptions = schemaOptions
+)
+</code></pre>
+
 <p>If the route only supports one schema, it can specify the schema directly instead:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/routing/v2/ValuesRouteV2.scala">ValuesRouteV2.scala</a> { #specify-response-schema }</p>
+<pre><code class="scala">RouteUtilV2.runRdfRouteWithFuture(
+    requestMessageF = requestMessageFuture,
+    requestContext = requestContext,
+    settings = settings,
+    responderManager = responderManager,
+    log = log,
+    targetSchema = ApiV2Complex,
+    schemaOptions = RouteUtilV2.getSchemaOptions(requestContext)
+)
+</code></pre>
+
 <h2 id="generating-other-rdf-formats">Generating Other RDF Formats</h2>
 <p><code>RouteUtilV2.runRdfRouteWithFuture</code> implements
 <a href="https://tools.ietf.org/html/rfc7231#section-5.3.2">HTTP content negotiation</a>, and converts JSON-LD
@@ -2348,9 +2468,9 @@ or <a href="https://www.w3.org/TR/rdf-syntax-grammar/">RDF/XML</a> as appropriat
       
     </div>
     
-      <script src="../../../../assets/javascripts/application.ac79c3b0.js"></script>
+      <script src="../../../../assets/javascripts/application.c648116f.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"../../../.."}})</script>
+      <script>app.initialize({version:"1.1.2",url:{base:"../../../.."}})</script>
       
     
   </body>

@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../../assets/images/dasch-favicon.ico">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-4.4.2">
     
     
       
@@ -1732,6 +1732,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../development/bazel/" title="Bazel Notes" class="md-nav__link">
+      Bazel Notes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../development/testing/" title="Testing" class="md-nav__link">
       Testing
     </a>
@@ -2429,27 +2441,27 @@ running at the same time.</p>
 
         rdf-data = [
             {
-                path = &quot;../knora-ontologies/knora-base.ttl&quot;
+                path = &quot;knora-ontologies/knora-base.ttl&quot;
                 name = &quot;http://www.knora.org/ontology/knora-base&quot;
             }
             {
-                path = &quot;../knora-ontologies/salsah-gui.ttl&quot;
+                path = &quot;knora-ontologies/salsah-gui.ttl&quot;
                 name = &quot;http://www.knora.org/ontology/salsah-gui&quot;
             }
             {
-                path = &quot;_test_data/ontologies/incunabula-onto.ttl&quot;
+                path = &quot;test_data/ontologies/incunabula-onto.ttl&quot;
                 name = &quot;http://www.knora.org/ontology/0803/incunabula&quot;
             }
             {
-                path = &quot;_test_data/demo_data/incunabula-demo-data.ttl&quot;
+                path = &quot;test_data/demo_data/incunabula-demo-data.ttl&quot;
                 name = &quot;http://www.knora.org/data/incunabula&quot;
             }
             {
-                path = &quot;_test_data/ontologies/images-onto.ttl&quot;
+                path = &quot;test_data/ontologies/images-onto.ttl&quot;
                 name = &quot;http://www.knora.org/ontology/0804/dokubib&quot;
             }
             {
-                path = &quot;_test_data/demo_data/images-demo-data.ttl&quot;
+                path = &quot;test_data/demo_data/images-demo-data.ttl&quot;
                 name = &quot;http://www.knora.org/data/dokubib&quot;
             }
         ]
@@ -2480,13 +2492,13 @@ class, containing the path and name (the same as <code>rdf-data</code> in the
 config file)</p>
 <p>As an example, to use it inside a test you could write something like:</p>
 <pre><code class="scala">    val rdfDataObjects = List (
-           RdfDataObject(path = &quot;../knora-ontologies/knora-base.ttl&quot;,
+           RdfDataObject(path = &quot;knora-ontologies/knora-base.ttl&quot;,
                          name = &quot;http://www.knora.org/ontology/knora-base&quot;),
-           RdfDataObject(path = &quot;../knora-ontologies/salsah-gui.ttl&quot;,
+           RdfDataObject(path = &quot;knora-ontologies/salsah-gui.ttl&quot;,
                          name = &quot;http://www.knora.org/ontology/salsah-gui&quot;),
-           RdfDataObject(path = &quot;_test_data/ontologies/incunabula-onto.ttl&quot;,
+           RdfDataObject(path = &quot;test_data/ontologies/incunabula-onto.ttl&quot;,
                          name = &quot;http://www.knora.org/ontology/0803/incunabula&quot;),
-           RdfDataObject(path = &quot;_test_data/all_data/incunabula-data.ttl&quot;,
+           RdfDataObject(path = &quot;test_data/all_data/incunabula-data.ttl&quot;,
                          name = &quot;http://www.knora.org/data/incunabula&quot;)
     )
 
@@ -2568,9 +2580,9 @@ config file)</p>
       
     </div>
     
-      <script src="../../../../assets/javascripts/application.ac79c3b0.js"></script>
+      <script src="../../../../assets/javascripts/application.c648116f.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"../../../.."}})</script>
+      <script>app.initialize({version:"1.1.2",url:{base:"../../../.."}})</script>
       
     
   </body>

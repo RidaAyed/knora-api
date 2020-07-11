@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../assets/images/dasch-favicon.ico">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-4.4.2">
     
     
       
@@ -1590,6 +1590,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../bazel/" title="Bazel Notes" class="md-nav__link">
+      Bazel Notes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../testing/" title="Testing" class="md-nav__link">
       Testing
     </a>
@@ -2200,18 +2212,15 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <a href="https://github.com/wsargent/docker-cheat-sheet">here</a></p>
 <h2 id="lifecycle">Lifecycle</h2>
 <ul>
-<li><a href="https://docs.docker.com/engine/reference/commandline/create">docker
-    create</a>
+<li><a href="https://docs.docker.com/engine/reference/commandline/create">docker create</a>
     creates a container but does not start it.</li>
 <li><a href="https://docs.docker.com/engine/reference/commandline/run">docker run</a>
     creates and starts a container in one operation.</li>
-<li><a href="https://docs.docker.com/engine/reference/commandline/rename/">docker
-    rename</a>
+<li><a href="https://docs.docker.com/engine/reference/commandline/rename/">docker rename</a>
     allows the container to be renamed.</li>
 <li><a href="https://docs.docker.com/engine/reference/commandline/rm">docker rm</a>
     deletes a container.</li>
-<li><a href="https://docs.docker.com/engine/reference/commandline/update/">docker
-    update</a>
+<li><a href="https://docs.docker.com/engine/reference/commandline/update/">docker update</a>
     updates a container's resource limits.</li>
 </ul>
 <p>If you want a transient container, <code>docker run --rm</code> will remove the
@@ -2220,65 +2229,51 @@ container after it stops.</p>
 <code>docker run -v $HOSTDIR:$DOCKERDIR</code>.</p>
 <h2 id="starting-and-stopping">Starting and Stopping</h2>
 <ul>
-<li><a href="https://docs.docker.com/engine/reference/commandline/start">docker
-    start</a>
+<li><a href="https://docs.docker.com/engine/reference/commandline/start">docker start</a>
     starts a container so it is running.</li>
-<li><a href="https://docs.docker.com/engine/reference/commandline/stop">docker
-    stop</a> stops a
+<li><a href="https://docs.docker.com/engine/reference/commandline/stop">docker stop</a> stops a
     running container.</li>
-<li><a href="https://docs.docker.com/engine/reference/commandline/restart">docker
-    restart</a>
+<li><a href="https://docs.docker.com/engine/reference/commandline/restart">docker restart</a>
     stops and starts a container.</li>
-<li><a href="https://docs.docker.com/engine/reference/commandline/pause/">docker
-    pause</a>
+<li><a href="https://docs.docker.com/engine/reference/commandline/pause/">docker pause</a>
     pauses a running container, "freezing" it in place.</li>
-<li><a href="https://docs.docker.com/engine/reference/commandline/attach">docker
-    attach</a>
+<li><a href="https://docs.docker.com/engine/reference/commandline/attach">docker attach</a>
     will connect to a running container.</li>
 </ul>
 <h2 id="info">Info</h2>
 <ul>
 <li><a href="https://docs.docker.com/engine/reference/commandline/ps">docker ps</a>
     shows running containers.</li>
-<li><a href="https://docs.docker.com/engine/reference/commandline/logs">docker
-    logs</a> gets
+<li><a href="https://docs.docker.com/engine/reference/commandline/logs">docker logs</a> gets
     logs from container. (You can use a custom log driver, but logs is
     only available for json-file and journald in 1.10)</li>
-<li><a href="https://docs.docker.com/engine/reference/commandline/inspect">docker
-    inspect</a>
+<li><a href="https://docs.docker.com/engine/reference/commandline/inspect">docker inspect</a>
     looks at all the info on a container (including IP address).</li>
-<li><a href="https://docs.docker.com/engine/reference/commandline/events">docker
-    events</a>
+<li><a href="https://docs.docker.com/engine/reference/commandline/events">docker events</a>
     gets events from container.</li>
-<li><a href="https://docs.docker.com/engine/reference/commandline/port">docker
-    port</a> shows
+<li><a href="https://docs.docker.com/engine/reference/commandline/port">docker port</a> shows
     public facing port of container.</li>
 <li><a href="https://docs.docker.com/engine/reference/commandline/top">docker top</a>
     shows running processes in container.</li>
-<li><a href="https://docs.docker.com/engine/reference/commandline/stats">docker
-    stats</a> shows
+<li><a href="https://docs.docker.com/engine/reference/commandline/stats">docker stats</a> shows
     containers' resource usage statistics.</li>
-<li><a href="https://docs.docker.com/engine/reference/commandline/diff">docker
-    diff</a> shows
+<li><a href="https://docs.docker.com/engine/reference/commandline/diff">docker diff</a> shows
     changed files in the container's FS.</li>
 </ul>
 <p><code>docker ps -a</code> shows running and stopped containers.</p>
 <p><code>docker stats --all</code> shows a running list of containers.</p>
 <h2 id="executing-commands">Executing Commands</h2>
 <ul>
-<li><a href="https://docs.docker.com/engine/reference/commandline/exec">docker
-    exec</a> to
+<li><a href="https://docs.docker.com/engine/reference/commandline/exec">docker exec</a> to
     execute a command in container.</li>
 </ul>
 <p>To enter a running container, attach a new shell process to a running
 container called foo, use: <code>docker exec -it foo /bin/bash</code>.</p>
 <h2 id="images">Images</h2>
 <ul>
-<li><a href="https://docs.docker.com/engine/reference/commandline/images">docker
-    images</a>
+<li><a href="https://docs.docker.com/engine/reference/commandline/images">docker images</a>
     shows all images.</li>
-<li><a href="https://docs.docker.com/engine/reference/commandline/build">docker
-    build</a>
+<li><a href="https://docs.docker.com/engine/reference/commandline/build">docker build</a>
     creates image from Dockerfile.</li>
 </ul>
                 
@@ -2350,9 +2345,9 @@ container called foo, use: <code>docker exec -it foo /bin/bash</code>.</p>
       
     </div>
     
-      <script src="../../../assets/javascripts/application.ac79c3b0.js"></script>
+      <script src="../../../assets/javascripts/application.c648116f.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      <script>app.initialize({version:"1.1.2",url:{base:"../../.."}})</script>
       
     
   </body>

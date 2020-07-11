@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../../assets/images/dasch-favicon.ico">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-4.4.2">
     
     
       
@@ -1637,6 +1637,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../development/bazel/" title="Bazel Notes" class="md-nav__link">
+      Bazel Notes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../development/testing/" title="Testing" class="md-nav__link">
       Testing
     </a>
@@ -2166,13 +2178,20 @@ import org.knora.webapi.util.IriConversions._
 </code></pre>
 
 <p>Ensure that an implicit instance of <code>StringFormatter</code> is in scope:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/messages/v2/responder/resourcemessages/ResourceMessagesV2.scala">ResourceMessagesV2.scala</a> { #getGeneralInstance }</p>
+<pre><code class="scala">implicit val stringFormatter: StringFormatter = StringFormatter.getGeneralInstance
+</code></pre>
+
 <p>Then, if you have a string representing an IRI, you can can convert
 it to a <code>SmartIri</code> like this:</p>
-<p>@@snip <a href="$test$/org/knora/webapi/responders/v2/ValuesResponderV2Spec.scala">ValuesResponderV2Spec.scala</a> { #toSmartIri }</p>
-<p>If the IRI came from a request, use this method to throw a specific
-exception if the IRI is invalid:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/messages/v2/responder/resourcemessages/ResourceMessagesV2.scala">ResourceMessagesV2.scala</a> { #toSmartIriWithErr }</p>
+<pre><code class="scala">val propertyIri: SmartIri = &quot;http://0.0.0.0:3333/ontology/0001/anything/v2#hasInteger&quot;.toSmartIri
+````
+If the IRI came from a request, use this method to throw a specific
+exception if the IRI is invalid:
+
+```scala
+val propertyIri: SmartIri = propertyIriStr.toSmartIriWithErr(throw BadRequestException(s&quot;Invalid property IRI: &lt;$propertyIriStr&gt;&quot;))
+</code></pre>
+
 <p>You can then use methods such as <code>SmartIri.isKnoraApiV2EntityIri</code> and
 <code>SmartIri.getProjectCode</code> to obtain information about the IRI. To
 convert it to another schema, call <code>SmartIri.toOntologySchema</code>.
@@ -2285,9 +2304,9 @@ created them.</p>
       
     </div>
     
-      <script src="../../../../assets/javascripts/application.ac79c3b0.js"></script>
+      <script src="../../../../assets/javascripts/application.c648116f.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"../../../.."}})</script>
+      <script>app.initialize({version:"1.1.2",url:{base:"../../../.."}})</script>
       
     
   </body>

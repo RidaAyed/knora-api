@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../assets/images/dasch-favicon.ico">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-4.4.2">
     
     
       
@@ -1586,6 +1586,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../05-internals/development/bazel/" title="Bazel Notes" class="md-nav__link">
+      Bazel Notes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../05-internals/development/testing/" title="Testing" class="md-nav__link">
       Testing
     </a>
@@ -2236,7 +2248,24 @@ environment variables if we want to run SIPI behind a proxy:</p>
 <li><code>SIPI_EXTERNAL_PORT=443</code></li>
 </ul>
 <p>These variables are only used by <code>make_thumbnail.lua</code>:</p>
-<p>@@snip<a href="../../../../sipi/scripts/make_thumbnail.lua">make_thumbnail.lua</a> { #snip_marker }</p>
+<pre><code class="lua">    server.log(&quot;make_thumbnail - external_protocol: &quot; .. get_external_protocol(), server.loglevel.LOG_DEBUG)
+
+    server.log(&quot;make_thumbnail - external_hostname: &quot; .. get_external_hostname(), server.loglevel.LOG_DEBUG)
+
+    server.log(&quot;make_thumbnail - external_port: &quot; .. get_external_port(), server.loglevel.LOG_DEBUG)
+
+    answer = {
+        nx_thumb = dims.nx,
+        ny_thumb = dims.ny,
+        mimetype_thumb = 'image/jpeg',
+        preview_path =  get_external_protocol() .. &quot;://&quot; .. get_external_hostname() .. &quot;:&quot; .. get_external_port() ..&quot;/thumbs/&quot; .. thumbName .. &quot;/full/max/0/default.jpg&quot;,
+        filename = tmpName, -- make this a IIIF URL
+        original_mimetype = submitted_mimetype.mimetype,
+        original_filename = filename,
+        file_type = 'IMAGE'
+    }
+</code></pre>
+
 <h2 id="additional-sipi-environment-variables">Additional Sipi Environment Variables</h2>
 <p>Additionaly, these environment variables can be used to further configure sipi:</p>
 <ul>
@@ -2244,7 +2273,26 @@ environment variables if we want to run SIPI behind a proxy:</p>
 <li><code>SIPI_WEBAPI_PORT=3333</code>: overrides <code>knora_port</code> in Sipi's config</li>
 </ul>
 <p>These variables need to be explicitly used like in <code>sipi.ini-knora.lua</code>:</p>
-<p>@@snip<a href="../../../../sipi/config/sipi.init-knora.lua">sipi.init-knora.lua</a> { #snip_marker }</p>
+<pre><code class="lua">    --
+    -- Allows to set SIPI_WEBAPI_HOSTNAME environment variable and use its value.
+    --
+    local webapi_hostname = os.getenv(&quot;SIPI_WEBAPI_HOSTNAME&quot;)
+    if webapi_hostname == nil then
+        webapi_hostname = config.knora_path
+    end
+    server.log(&quot;webapi_hostname: &quot; .. webapi_hostname, server.loglevel.LOG_DEBUG)
+
+    --
+    -- Allows to set SIPI_WEBAPI_PORT environment variable and use its value.
+    --
+    local webapi_port = os.getenv(&quot;SIPI_WEBAPI_PORT&quot;)
+    if webapi_port == nil then
+        webapi_port = config.knora_port
+    end
+    server.log(&quot;webapi_port: &quot; .. webapi_port, server.loglevel.LOG_DEBUG)
+
+    knora_url = 'http://' .. webapi_hostname .. ':' .. webapi_port .. '/admin/files/' .. prefix .. '/' ..  identifier
+</code></pre>
                 
                   
                 
@@ -2314,9 +2362,9 @@ environment variables if we want to run SIPI behind a proxy:</p>
       
     </div>
     
-      <script src="../../assets/javascripts/application.ac79c3b0.js"></script>
+      <script src="../../assets/javascripts/application.c648116f.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      <script>app.initialize({version:"1.1.2",url:{base:"../.."}})</script>
       
     
   </body>

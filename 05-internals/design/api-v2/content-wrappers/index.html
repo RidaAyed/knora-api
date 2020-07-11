@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../../assets/images/dasch-favicon.ico">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-4.4.2">
     
     
       
@@ -1601,6 +1601,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../development/bazel/" title="Bazel Notes" class="md-nav__link">
+      Bazel Notes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../development/testing/" title="Testing" class="md-nav__link">
       Testing
     </a>
@@ -2124,11 +2136,30 @@ to be able to convert itself from the internal schema to an external schema
 input). Each content class class should therefore extend <code>KnoraContentV2</code>, and
 thus have a <code>toOntologySchema</code> method or converting itself between internal and
 external schemas, in either direction:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/messages/v2/responder/KnoraResponseV2.scala">KnoraResponseV2.scala</a> { #KnoraContentV2 }</p>
+<pre><code>/**
+  * A trait for content classes that can convert themselves between internal and internal schemas.
+  *
+  * @tparam C the type of the content class that extends this trait.
+  */
+trait KnoraContentV2[C &lt;: KnoraContentV2[C]] {
+    this: C =&gt;
+    def toOntologySchema(targetSchema: OntologySchema): C
+}
+</code></pre>
+
 <p>Since read wrappers are used only for output, they need to be able convert
 themselves only from the internal schema to an external schema. Each read wrapper class
 should extend <code>KnoraReadV2</code>, and thus have a method for doing this:</p>
-<p>@@snip <a href="$src$/org/knora/webapi/messages/v2/responder/KnoraResponseV2.scala">KnoraResponseV2.scala</a> { #KnoraReadV2 }</p>
+<pre><code>/**
+  * A trait for read wrappers that can convert themselves to external schemas.
+  *
+  * @tparam C the type of the read wrapper that extends this trait.
+  */
+trait KnoraReadV2[C &lt;: KnoraReadV2[C]] {
+    this: C =&gt;
+    def toOntologySchema(targetSchema: ApiV2Schema): C
+}
+</code></pre>
                 
                   
                 
@@ -2198,9 +2229,9 @@ should extend <code>KnoraReadV2</code>, and thus have a method for doing this:</
       
     </div>
     
-      <script src="../../../../assets/javascripts/application.ac79c3b0.js"></script>
+      <script src="../../../../assets/javascripts/application.c648116f.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"../../../.."}})</script>
+      <script>app.initialize({version:"1.1.2",url:{base:"../../../.."}})</script>
       
     
   </body>

@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../assets/images/dasch-favicon.ico">
-      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-4.4.2">
     
     
       
@@ -1642,6 +1642,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../05-internals/development/bazel/" title="Bazel Notes" class="md-nav__link">
+      Bazel Notes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../05-internals/development/testing/" title="Testing" class="md-nav__link">
       Testing
     </a>
@@ -2231,7 +2243,7 @@ For example, we may want to convert a <code>standoff:StandoffItalicTag</code> in
 </ul>
 <p>The Gravsearch template is expected to be of type <code>knora-base:TextRepresentation</code> and to contain a placeholder <code>$resourceIri</code> that is to be replaced by the actual resource Iri.
 The Gravsearch template is expected to contain a query involving the text property (URL parameter <code>textProperty</code>) and more properties that are going to be mapped to the TEI header. The Gravsearch template is a simple text file with the files extension <code>.txt</code>.</p>
-<p>A Gravsearch template may look like this (see <code>webapi/_test_data/test_route/texts/beol/gravsearch.txt</code>):</p>
+<p>A Gravsearch template may look like this (see <code>test_data/test_route/texts/beol/gravsearch.txt</code>):</p>
 <pre><code>PREFIX beol: &lt;http://0.0.0.0:3333/ontology/0801/beol/simple/v2#&gt;
 PREFIX knora-api: &lt;http://api.knora.org/ontology/knora-api/simple/v2#&gt;
 PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
@@ -2388,7 +2400,7 @@ The query asks for information about the letter's text <code>beol:hasText</code>
 &lt;/rdf:RDF&gt;
 </code></pre>
 
-<p>In order to convert the metadata (not the actual standoff markup), a <code>knora-base:knora-base:XSLTransformation</code> has to be provided. For our example, it looks like this (see <code>webapi/_test_data/test_route/texts/beol/header.xsl</code>):</p>
+<p>In order to convert the metadata (not the actual standoff markup), a <code>knora-base:knora-base:XSLTransformation</code> has to be provided. For our example, it looks like this (see <code>test_data/test_route/texts/beol/header.xsl</code>):</p>
 <pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;xsl:transform xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;
                xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot;
@@ -2619,9 +2631,9 @@ Problems and bugs caused by XSL transformations are out of scope of the responsi
       
     </div>
     
-      <script src="../../../assets/javascripts/application.ac79c3b0.js"></script>
+      <script src="../../../assets/javascripts/application.c648116f.js"></script>
       
-      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      <script>app.initialize({version:"1.1.2",url:{base:"../../.."}})</script>
       
     
   </body>
