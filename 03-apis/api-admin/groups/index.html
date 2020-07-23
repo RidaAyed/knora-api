@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../assets/images/dasch-favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
     
     
       
@@ -2286,29 +2286,29 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <li>Returns information about the newly created group</li>
 <li>TypeScript Docs: groupFormats - CreateGroupApiRequestV1</li>
 <li>POST: <code>/admin/groups</code></li>
-<li>
-<p>BODY:</p>
-<p><code>JSON
-{
-  "name": "NewGroup",
-  "description": "NewGroupDescription",
-  "project": "http://rdfh.ch/projects/00FF",
-  "status": true,
-  "selfjoin": false
-}</code>
-Additionally, each group can have an optional custom IRI (of @ref:<a href="../../api-v2/knora-iris/#iris-for-data">Knora IRI</a> form)
-specified by the <code>id</code> in the request body as below:
-<code>JSON
-{ 
-  "id": "http://rdfh.ch/groups/00FF/group-with-custom-Iri",  
-  "name": "GroupWithCustomIRI",
-  "description": "A new group with a custom IRI",
-  "project": "http://rdfh.ch/projects/00FF",
-  "status": true,
-  "selfjoin": false
-}</code></p>
-</li>
+<li>BODY:</li>
 </ul>
+<pre><code class="json">    {
+      &quot;name&quot;: &quot;NewGroup&quot;,
+      &quot;description&quot;: &quot;NewGroupDescription&quot;,
+      &quot;project&quot;: &quot;http://rdfh.ch/projects/00FF&quot;,
+      &quot;status&quot;: true,
+      &quot;selfjoin&quot;: false
+    }
+</code></pre>
+
+<p>Additionally, each group can have an optional custom IRI (of @ref:<a href="../../api-v2/knora-iris/#iris-for-data">Knora IRI</a> form) 
+specified by the <code>id</code> in the request body as below:</p>
+<pre><code class="json">    { 
+      &quot;id&quot;: &quot;http://rdfh.ch/groups/00FF/group-with-custom-Iri&quot;,  
+      &quot;name&quot;: &quot;GroupWithCustomIRI&quot;,
+      &quot;description&quot;: &quot;A new group with a custom IRI&quot;,
+      &quot;project&quot;: &quot;http://rdfh.ch/projects/00FF&quot;,
+      &quot;status&quot;: true,
+      &quot;selfjoin&quot;: false
+    }
+</code></pre>
+
 <h3 id="update-group-information">Update group information</h3>
 <ul>
 <li>Required permission: SystemAdmin / hasProjectAllAdminPermission
@@ -2319,9 +2319,9 @@ hasProjectRestrictedGroupAdminPermission (for this group)</li>
 <li>PUT: <code>/admin/groups/&lt;groupIri&gt;</code></li>
 <li>BODY:</li>
 </ul>
-<pre><code>{
+<pre><code class="json">{
   &quot;name&quot;: &quot;UpdatedGroupName&quot;,
-  &quot;description&quot;: &quot;UpdatedGroupDescription&quot;.
+  &quot;description&quot;: &quot;UpdatedGroupDescription&quot;,
   &quot;selfjoin&quot;: false
 }
 </code></pre>
@@ -2434,7 +2434,7 @@ hasProjectRestrictedGroupAdminPermission (for this group)</li>
     
       <script src="../../../assets/javascripts/application.ac79c3b0.js"></script>
       
-      <script>app.initialize({version:"1.1.2",url:{base:"../../.."}})</script>
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
       
     
   </body>

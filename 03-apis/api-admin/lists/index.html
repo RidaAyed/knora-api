@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../assets/images/dasch-favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
     
     
       
@@ -2324,22 +2324,24 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <ul>
 <li>Required permission: SystemAdmin / ProjectAdmin</li>
 <li>POST: <code>/admin/lists</code></li>
-<li>BODY:
-    <code>JSON
-    {
-        "projectIri": "someprojectiri",
-        "labels": [{ "value": "Neue Liste", "language": "de"}],
-        "comments": []
-    }</code>
-    Additionally, each list can have an optional custom IRI (of <a href="../../api-v2/knora-iris/#iris-for-data">Knora IRI</a> form) specified by the <code>id</code> in the request body as below:
-    <code>JSON
-    {
-        "id": "http://rdfh.ch/lists/0001/a-list-with-IRI",
-        "projectIri": "http://rdfh.ch/projects/0001",
-        "labels": [{ "value": "Neue Liste mit IRI", "language": "de"}],
-        "comments": []
-    }</code></li>
+<li>BODY:</li>
 </ul>
+<pre><code class="json">    {
+        &quot;projectIri&quot;: &quot;someprojectiri&quot;,
+        &quot;labels&quot;: [{ &quot;value&quot;: &quot;Neue Liste&quot;, &quot;language&quot;: &quot;de&quot;}],
+        &quot;comments&quot;: []
+    } 
+</code></pre>
+
+<p>Additionally, each list can have an optional custom IRI (of <a href="../../api-v2/knora-iris/#iris-for-data">Knora IRI</a> form) specified by the <code>id</code> in the request body as below:</p>
+<pre><code class="json">    {
+        &quot;id&quot;: &quot;http://rdfh.ch/lists/0001/a-list-with-IRI&quot;,
+        &quot;projectIri&quot;: &quot;http://rdfh.ch/projects/0001&quot;,
+        &quot;labels&quot;: [{ &quot;value&quot;: &quot;Neue Liste mit IRI&quot;, &quot;language&quot;: &quot;de&quot;}],
+        &quot;comments&quot;: []
+    }
+</code></pre>
+
 <h3 id="create-new-child-node">Create new child node</h3>
 <ul>
 <li>Required permission: SystemAdmin / ProjectAdmin</li>
@@ -2347,15 +2349,17 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     is the listIri, then a new child node is appended to the top level. Children
     are currently only appended.</li>
 <li>POST: <code>/admin/lists/&lt;nodeIri&gt;</code></li>
-<li>BODY:
-    <code>{
-        "parentNodeIri": "nodeIri",
-        "projectIri": "someprojectiri",
-        "name": "first",
-        "labels": [{ "value": "New First Child List Node Value", "language": "en"}],
-        "comments": [{ "value": "New First Child List Node Comment", "language": "en"}]
-    }</code></li>
+<li>BODY:</li>
 </ul>
+<pre><code class="json">    {
+        &quot;parentNodeIri&quot;: &quot;nodeIri&quot;,
+        &quot;projectIri&quot;: &quot;someprojectiri&quot;,
+        &quot;name&quot;: &quot;first&quot;,
+        &quot;labels&quot;: [{ &quot;value&quot;: &quot;New First Child List Node Value&quot;, &quot;language&quot;: &quot;en&quot;}],
+        &quot;comments&quot;: [{ &quot;value&quot;: &quot;New First Child List Node Comment&quot;, &quot;language&quot;: &quot;en&quot;}]
+    }
+</code></pre>
+
 <h3 id="get-lists-information">Get list's information</h3>
 <ul>
 <li>Required permission: none</li>
@@ -2367,14 +2371,16 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <li>Required permission: none</li>
 <li>Update list information</li>
 <li>PUT: <code>/admin/lists/infos/&lt;listIri&gt;</code></li>
-<li>BODY:
-   <code>{
-       "listIri": "listIri",
-       "projectIri": "someprojectiri",
-       "labels": [{ "value": "Neue geönderte Liste", "language": "de"}, { "value": "Changed list", "language": "en"}],
-       "comments": [{ "value": "Neuer Kommentar", "language": "de"}, { "value": "New comment", "language": "en"}]
-   }</code></li>
+<li>BODY:</li>
 </ul>
+<pre><code class="json">   {
+       &quot;listIri&quot;: &quot;listIri&quot;,
+       &quot;projectIri&quot;: &quot;someprojectiri&quot;,
+       &quot;labels&quot;: [{ &quot;value&quot;: &quot;Neue geönderte Liste&quot;, &quot;language&quot;: &quot;de&quot;}, { &quot;value&quot;: &quot;Changed list&quot;, &quot;language&quot;: &quot;en&quot;}],
+       &quot;comments&quot;: [{ &quot;value&quot;: &quot;Neuer Kommentar&quot;, &quot;language&quot;: &quot;de&quot;}, { &quot;value&quot;: &quot;New comment&quot;, &quot;language&quot;: &quot;en&quot;}]
+   }
+</code></pre>
+
 <h2 id="list-node-operations">List Node Operations</h2>
 <h3 id="get-list-node-information">Get List Node Information</h3>
 <ul>
@@ -2453,7 +2459,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
     
       <script src="../../../assets/javascripts/application.ac79c3b0.js"></script>
       
-      <script>app.initialize({version:"1.1.2",url:{base:"../../.."}})</script>
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
       
     
   </body>

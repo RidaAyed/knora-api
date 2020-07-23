@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../assets/images/dasch-favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
     
     
       
@@ -2482,7 +2482,7 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <ul>
 <li>Required permission: none, self-registration is allowed</li>
 <li>Required information: email (unique), given name, family name,
-    password, password, status, systemAdmin</li>
+    password, status, systemAdmin</li>
 <li>Username restrictions:<ul>
 <li>4 - 50 characters long</li>
 <li>Only contains alphanumeric characters, underscore and dot.</li>
@@ -2493,35 +2493,35 @@ License along with Knora.  If not, see <http://www.gnu.org/licenses/>.
 <li>Returns information about the newly created user</li>
 <li>TypeScript Docs: userFormats - <code>CreateUserApiRequestV1</code></li>
 <li>POST: <code>/admin/users</code></li>
-<li>
-<p>BODY:
-    <code>JSON
-    {
-      "email": "donald.duck@example.org",
-      "givenName": "Donald",
-      "familyName": "Duck",
-      "username": "donald.duck",
-      "password": "test",
-      "status": true,
-      "lang": "en",
-      "systemAdmin": false
-    }</code></p>
-<p>Additionally, each user can have an optional custom IRI (of <a href="../../api-v2/knora-iris/#iris-for-data">Knora IRI</a> form)
-specified by the <code>id</code> in the request body as below:
-<code>JSON
-{ 
-  "id" : "http://rdfh.ch/users/donaldDuck",
-  "email": "donald.duck@example.org",
-  "givenName": "Donald",
-  "familyName": "Duck",
-  "username": "donald.duck",
-  "password": "test",
-  "status": true,
-  "lang": "en",
-  "systemAdmin": false
-}</code></p>
-</li>
+<li>BODY:</li>
 </ul>
+<pre><code class="json">    {
+      &quot;email&quot;: &quot;donald.duck@example.org&quot;,
+      &quot;givenName&quot;: &quot;Donald&quot;,
+      &quot;familyName&quot;: &quot;Duck&quot;,
+      &quot;username&quot;: &quot;donald.duck&quot;,
+      &quot;password&quot;: &quot;test&quot;,
+      &quot;status&quot;: true,
+      &quot;lang&quot;: &quot;en&quot;,
+      &quot;systemAdmin&quot;: false
+    }
+</code></pre>
+
+<p>Additionally, each user can have an optional custom IRI (of <a href="../../api-v2/knora-iris/#iris-for-data">Knora IRI</a> form) 
+specified by the <code>id</code> in the request body as below:</p>
+<pre><code class="json">    { 
+      &quot;id&quot; : &quot;http://rdfh.ch/users/donaldDuck&quot;,
+      &quot;email&quot;: &quot;donald.duck@example.org&quot;,
+      &quot;givenName&quot;: &quot;Donald&quot;,
+      &quot;familyName&quot;: &quot;Duck&quot;,
+      &quot;username&quot;: &quot;donald.duck&quot;,
+      &quot;password&quot;: &quot;test&quot;,
+      &quot;status&quot;: true,
+      &quot;lang&quot;: &quot;en&quot;,
+      &quot;systemAdmin&quot;: false
+    }
+</code></pre>
+
 <h3 id="update-basic-user-information">Update basic user information**</h3>
 <ul>
 <li>Required permission: SystemAdmin / self</li>
@@ -2529,37 +2529,43 @@ specified by the <code>id</code> in the request body as below:
     password, status, SystemAdmin membership </li>
 <li>TypeScript Docs: userFormats - ChangeUserApiRequestADM</li>
 <li>PUT: <code>/admin/users/iri/&lt;userIri&gt;/BasicUserInformation</code></li>
-<li>BODY:
-    <code>{
-      "username": "donald.big.duck",
-      "email": "donald.big.duck@example.org",
-      "givenName": "Big Donald",
-      "familyName": "Duckmann",
-      "lang": "de"
-    }</code></li>
+<li>BODY:</li>
 </ul>
+<pre><code class="json">    {
+      &quot;username&quot;: &quot;donald.big.duck&quot;,
+      &quot;email&quot;: &quot;donald.big.duck@example.org&quot;,
+      &quot;givenName&quot;: &quot;Big Donald&quot;,
+      &quot;familyName&quot;: &quot;Duckmann&quot;,
+      &quot;lang&quot;: &quot;de&quot;
+    }
+</code></pre>
+
 <h3 id="update-users-password">Update user's password</h3>
 <ul>
 <li>Required permission: SystemAdmin / self</li>
 <li>Changeable information: password</li>
 <li>PUT: <code>/admin/users/iri/&lt;userIri&gt;/Password</code></li>
-<li>BODY:
-    <code>{
-      "requesterPassword": "test",
-      "newPassword": "test1234"
-    }</code></li>
+<li>BODY:</li>
 </ul>
+<pre><code class="json">    {
+      &quot;requesterPassword&quot;: &quot;test&quot;,
+      &quot;newPassword&quot;: &quot;test1234&quot;
+    }
+</code></pre>
+
 <h3 id="delete-user">Delete user</h3>
 <ul>
 <li>Required permission: SystemAdmin / self</li>
 <li>Remark: The same as updating a user and changing <code>status</code> to
     <code>false</code>. To un-delete, set <code>status</code> to <code>true</code>.</li>
 <li>PUT: <code>/admin/users/iri/&lt;userIri&gt;/Status</code></li>
-<li>BODY:
-    <code>{
-      "status": false // true or false
-    }</code></li>
+<li>BODY:</li>
 </ul>
+<pre><code>    {
+      &quot;status&quot;: false // true or false
+    }
+</code></pre>
+
 <h3 id="delete-user-update-user">Delete user (-\update user)**</h3>
 <ul>
 <li>Required permission: SystemAdmin / self</li>
@@ -2616,12 +2622,13 @@ specified by the <code>id</code> in the request body as below:
 <li>Effects property: <code>knora-base:isInSystemAdminGroup</code> with value
     <code>true</code> or <code>false</code></li>
 <li>PUT: <code>/admin/users/iri/&lt;userIri&gt;/SystemAdmin</code></li>
-<li>BODY:
-    <code>JSON
-    {
-      "systemAdmin": false
-    }</code></li>
+<li>BODY:</li>
 </ul>
+<pre><code>    {
+      &quot;systemAdmin&quot;: false
+    }
+</code></pre>
+
 <h2 id="example-data">Example Data</h2>
 <p>The following is an example for user information stored in the <code>admin</code> named graph:</p>
 <pre><code>&lt;http://rdfh.ch/users/c266a56709&gt;
@@ -2708,7 +2715,7 @@ specified by the <code>id</code> in the request body as below:
     
       <script src="../../../assets/javascripts/application.ac79c3b0.js"></script>
       
-      <script>app.initialize({version:"1.1.2",url:{base:"../../.."}})</script>
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
       
     
   </body>

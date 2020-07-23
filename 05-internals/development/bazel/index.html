@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../../../assets/images/dasch-favicon.ico">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-4.4.3">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.4.3">
     
     
       
@@ -2166,17 +2166,21 @@
 <p>The following section discusses on how to build and run tests for Knora-API
 with <a href="https://bazel.build">Bazel</a>.</p>
 <h2 id="prerequisites">Prerequisites</h2>
-<p>To install Bazel on macOS, run <code>brew install bazel</code>.</p>
+<p>To install the Bazel build tool, follow these steps:</p>
+<pre><code>$ npm install -g @bazel/bazelisk
+</code></pre>
+
+<p>This will install <a href="https://github.com/bazelbuild/bazelisk">bazelisk</a> which is
+a wrapper to the <code>bazel</code> binary. It will, when the <code>bazel</code> command ir run,
+automatically install the supported Bazel version, defined in the <code>.bazelversion</code>
+file in the root of the <code>knora-api</code> repository.</p>
 <h2 id="commands">Commands</h2>
 <p>Build <code>webapi</code>:</p>
 <pre><code># build webapi
-$ bazel build //webapi
+$ bazel build //webapi/...
 
-# run api (webapi)
-$ bazel run //:api
-
-# run all tests
-$ bazel test //...
+# run all webapi tests
+$ bazel test //webapi//...
 </code></pre>
 
 <h2 id="build-structure">Build Structure</h2>
@@ -2318,7 +2322,7 @@ $</code></p>
     
       <script src="../../../assets/javascripts/application.ac79c3b0.js"></script>
       
-      <script>app.initialize({version:"1.1.2",url:{base:"../../.."}})</script>
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
       
     
   </body>
